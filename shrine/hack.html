@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hack · Shrine</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>Hack</h1>
+  <p class="epi">Rogue with a dog and a shopkeeper · the game NetHack grew from</p>
+  <a class="play" href="../hack/">&gt; Enter the dungeon</a>
+</header>
+<div class="facts">
+  <div><b>Date of birth</b><span>1982</span> (Fenlason) · 1.0.3 in July 1985</div>
+  <div><b>Creators</b><span>Fenlason · Brouwer</span> with Woodland, Thome, Payne</div>
+  <div><b>Language</b><span>C</span> ~19,200 lines (1.0.3)</div>
+  <div><b>Platform</b><span>Unix + termcap</span> BSD and System V, VT100 terminals</div>
+</div>
+<nav class="toc"><a href="#lineage">Lineage</a><a href="#credits">Credits</a><a href="#shots">Screenshots</a><a href="#trivia">Trivia</a><a href="#usp">What's unique</a><a href="#code">Code dive</a><a href="#stats">Stats</a><a href="#manual">Manual</a><a href="#start">Getting started</a><a href="#help">Help</a><a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p>Hack is new code inspired by <strong>Rogue</strong>. Jay Fenlason wrote it in 1982 at Lincoln-Sudbury Regional High School with Kenny Woodland, Mike Thome and Jonathan Payne; his READ_ME calls it “an implementation of Rogue” with 52+ instead of 26 monster types. He learned Rogue at the SFSU Logo Workshop.</p>
+<p>Andries Brouwer took it over at the Mathematisch Centrum in Amsterdam and rewrote almost all of it; by his own note the result was “more than thrice as large”, with the dog, the long worms and the shops. His versions went out on Usenet from 1984; <strong>1.0.3</strong> (July 1985) was the last, and the one BSD Unix shipped. Don Kneller ported it to MS-DOS (PC Hack), and <strong>NetHack</strong> (1987) grew out of Hack. This page's game is restoHack, a restoration of 1.0.3 for modern compilers. See the <a href="../#tree">family tree</a>.</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table>
+<tr><td>Jay Fenlason</td><td>Original author (1982)</td></tr>
+<tr><td>Kenny Woodland, Mike Thome, Jon Payne</td><td>Helped Fenlason: the original <code>buzz()</code>, the chameleon, the lock file and the screen code</td></tr>
+<tr><td>Andries Brouwer</td><td>Rewrote and extended it into Hack 1.0–1.0.3 (1984–85), Stichting Mathematisch Centrum</td></tr>
+<tr><td>Don Kneller</td><td>MS-DOS port (PC Hack), a sibling of this version</td></tr>
+<tr><td>Critlist</td><td>restoHack, the restoration this port is built from (<a href="https://github.com/Critlist/restoHack">Critlist/restoHack</a> @ 0bd798b)</td></tr>
+<tr><td>DragonDePlatino, DawnBringer</td><td>DawnLike tiles (CC-BY 4.0); the NetHack 3.6 tiles are the alternative</td></tr>
+</table>
+</section>
+
+<section id="shots"><h2>Screenshots</h2>
+<div class="shots">
+<figure><img src="hack/title.png" alt="Character creation: Who are you? Are you an experienced player? What kind of character are you?"><figcaption>Hack has no title screen. It starts by asking who you are, then which kind of adventurer.</figcaption></figure>
+<figure><img src="hack/steps.png" alt="Two rooms joined by a winding corridor"><figcaption>First steps: two rooms and the corridors between them, found by auto-explore.</figcaption></figure>
+<figure><img src="hack/fight.png" alt="The message line reads: You miss the hobgoblin. The hobgoblin misses. The giant rat misses."><figcaption>A fight on level 1: a hobgoblin and a giant rat at once.</figcaption></figure>
+<figure><img src="hack/inv.png" alt="A wizard's inventory: elven cloak, wands, rings, potions, scrolls"><figcaption>Inventory: a Wizard starts with unknown wands, rings, potions and scrolls, each with its own random label.</figcaption></figure>
+</div>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>Fenlason wrote it with three friends while they were students at Lincoln-Sudbury Regional High School. <span class="src">(<a href="https://en.wikipedia.org/wiki/Hack_(video_game)">Wikipedia</a>)</span></li>
+<li>His READ_ME calls it “my first semester programming project” and gives his home phone number, adding that he has a modem and a teen-age sister. <span class="src">(<a href="https://github.com/Critlist/restoHack/blob/0bd798b120145f9d7b96820e92e2fd5acd44e12b/docs/historical/Original_READ_ME">Original_READ_ME</a>)</span></li>
+<li>Brouwer's READ_ME points players who want “a real cave instead of dull rectangles” to his other game, Quest. <span class="src">(<a href="https://github.com/Critlist/restoHack/blob/0bd798b120145f9d7b96820e92e2fd5acd44e12b/docs/historical/READ_ME">READ_ME</a>)</span></li>
+<li>1.0.3 went out on 23 July 1985 as a patch against 1.0.2, and it is the first version with a wizard (debug) mode. <span class="src">(<a href="https://nethackwiki.com/wiki/Hack_1.0.3">NetHackWiki</a>)</span></li>
+<li>It has exactly one artifact: <em>Orcrist</em>, a two-handed sword that does extra damage to orcs. <span class="src">(<a href="https://nethackwiki.com/wiki/Hack_1.0.3">NetHackWiki</a>)</span></li>
+<li>Hack still ships with many Unix systems (Debian, Ubuntu, the BSDs, Fedora), and there is even a Game Boy Advance port. <span class="src">(<a href="https://en.wikipedia.org/wiki/Hack_(video_game)">Wikipedia</a>)</span></li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>A pet.</strong> You start with a little dog that fights for you, can be fed and trained, and won't step on cursed items.</li>
+<li><strong>Shops and shopkeepers.</strong> Pick up an item, pay for it, or be chased down for stealing it.</li>
+<li><strong>Things react to each other.</strong> Cockatrices stone you slowly, a dead lizard cures it; nymphs steal and teleport away; rust monsters rust your armour; floating eyes freeze you if you hit them.</li>
+<li><strong>Levels are kept.</strong> Unlike Rogue, a level you leave is stored in a file and is waiting for you when you come back, with what you dropped. Bones files let you find the ghost of an earlier player.</li>
+<li><strong>Six kinds of hero</strong> instead of Rogue's one: Tourist, Speleologist, Fighter, Knight, Cave-man (or Cave-woman), Wizard.</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li><strong>Language:</strong> K&amp;R C, about 19,200 lines in 77 files in the 1.0.3 source (restoHack: about 23,300 lines in 79 files after the modernisation). Files are named by topic: <code>hack.shk.c</code> is the shopkeeper, <code>hack.dog.c</code> the pet, <code>hack.worm.c</code> the long worm.</li>
+<li><strong>Environment:</strong> 4.xBSD and System V Unix, played on terminals through <code>termcap</code> escape codes, not curses. The data tables: <code>def.objects.h</code> lists every item, <code>hack.monst.c</code> every monster.</li>
+<li><strong>Saving:</strong> the game writes the current level and every visited level to files, then exits. restoHack added a versioned save header so pointers are not written raw.</li>
+<li><strong>This port:</strong> the game is not changed for the screen. Its escape codes run through a small VT100 emulator that fills an 80×24 buffer, and the map part of that buffer is drawn as tiles, in X11 and in the browser (WebAssembly via Emscripten). We fixed two bugs on the way: item labels changed after a restore, and item names showed as “&lt;corrupted&gt;” in WebAssembly. Source: <a href="https://github.com/memmaker/hack">memmaker/hack</a>.</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<table>
+<tr><th>Thing</th><th>Count</th><th>Notable ones</th></tr>
+<tr><td>Classes</td><td>6</td><td>The <em>Tourist</em> carries an expensive camera; the <em>Speleologist</em> starts with a pick-axe and digs.</td></tr>
+<tr><td>Monsters</td><td>57</td><td>The <em>cockatrice</em>, the <em>leprechaun</em>, the <em>nymph</em>, the <em>long worm</em> (grows a tail), the <em>xan</em>, the <em>zruty</em>, the <em>nurse</em>, the <em>shopkeeper</em> and the <em>wizard of Yendor</em> guarding the Amulet.</td></tr>
+<tr><td>Potions</td><td>16</td><td>Booze, fruit juice, sickness, gain level, levitation.</td></tr>
+<tr><td>Scrolls</td><td>21</td><td>Genocide, punishment (a ball and chain), amnesia, and a <em>mail</em> scroll.</td></tr>
+<tr><td>Rings</td><td>19</td><td>Teleport control, conflict, protection from shape changers, hunger, aggravate monster.</td></tr>
+<tr><td>Wands</td><td>18</td><td>Wishing, digging, polymorph, undead turning, death.</td></tr>
+<tr><td>Weapons</td><td>18</td><td>Crysknife, worm tooth, boomerang; a two-handed sword named Orcrist is the one artifact.</td></tr>
+<tr><td>Armour</td><td>12</td><td>From leather armour to plate mail, plus elven cloak, helmet, shield, pair of gloves.</td></tr>
+<tr><td>Traps</td><td>8</td><td>Bear trap, arrow, dart, trapdoor, teleport, pit, sleeping gas, piercer; plus mimics posing as items.</td></tr>
+<tr><td>Levels</td><td>40</td><td>Mazes from about level 26; the Amulet of Yendor is in a maze on level 30 or deeper.</td></tr>
+<tr><td>Spells</td><td>0</td><td>Magic lives only in items.</td></tr>
+</table>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>The manual page shipped with the source, <a href="hack/hack.6.txt">hack(6) (text)</a>, and the in-game introduction, <a href="hack/help.txt">help (text)</a>. Both © Stichting Mathematisch Centrum, 1985, under its BSD-style licence.</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol>
+<li><a href="../hack/">Open the game</a>, type a name and answer <kbd>y</kbd> to “experienced player?” to pick a class (Knight or Cave-man is easiest), or <kbd>n</kbd> to get a random one.</li>
+<li>Move with <kbd>h</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd><kbd>y</kbd><kbd>u</kbd><kbd>b</kbd><kbd>n</kbd> or the arrow keys; walk into a monster to attack. <kbd>x</kbd> explores on its own.</li>
+<li>Press <kbd>Enter</kbd> for a menu of every command, <kbd>i</kbd> for the inventory.</li>
+<li>Stuck in a dead end? Search with <kbd>s</kbd> (or <kbd>20s</kbd>). Press <kbd>&gt;</kbd> to walk to the down stairs and take them.</li>
+<li>Eat when you are “Hungry”. The full key list is in the <a href="../hack/help.html">in-game guide</a>.</li>
+</ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>We found no walkthrough: every dungeon is different. Rules of thumb:</p>
+<ul>
+<li>Never hit a floating eye in melee. Never eat a cockatrice corpse; keep a dead lizard.</li>
+<li>Keep the dog close on the first levels, and let it walk over shop goods and items: it won't step on cursed ones.</li>
+<li>Fight in corridors, rest back to full hit points before going down.</li>
+<li>Read unknown scrolls when nothing is near; one of them may be enchant armour.</li>
+<li>More: <a href="https://nethackwiki.com/wiki/Hack_1.0.3">NetHackWiki on Hack 1.0.3</a> and <a href="https://www.roguebasin.com/index.php/Hack">RogueBasin</a>.</li>
+</ul>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<ul>
+<li><strong>Wizard mode</strong> (<code>hack -D</code>, for the user named in <code>config.h</code>) exists in the source but can't be reached in the browser: the page doesn't pass <code>-D</code>.</li>
+<li><strong>Save scumming</strong> works in the browser: <em>Export save</em> before something risky, <em>Import save</em> if it goes wrong.</li>
+</ul>
+</section>
+</div></body>
+</html>

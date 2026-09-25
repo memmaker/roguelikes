@@ -1,0 +1,93 @@
+HACK(6) 			 Games Manual			       HACK(6)
+
+NAME
+       hack - exploring The Dungeons of Doom
+
+SYNOPSIS
+       /usr/games/hack [ -d directory ] [ -n ] [ -u playername ]
+       /usr/games/hack [ -d directory ] -s [ -X ] [ playernames ]
+
+DESCRIPTION
+       Hack is a display oriented dungeons & dragons - like game.  Both
+       display and command structure resemble rogue.  (For a game with the
+       same structure but entirely different display - a real cave instead of
+       dull rectangles - try Quest.)
+
+       To get started you really only need to know two commands.  The command
+       ?  will give you a list of the available commands and the command /
+       will identify the things you see on the screen.
+
+       To win the game (as opposed to merely playing to beat other people high
+       scores) you must locate the Amulet of Yendor which is somewhere below
+       the 20th level of the dungeon and get it out.  Nobody has achieved this
+       yet and if somebody does, he will probably go down in history as a hero
+       among heroes.
+
+       When the game ends, either by your death, when you quit, or if you
+       escape from the caves, hack will give you (a fragment of) the list of
+       top scorers.  The scoring is based on many aspects of your behavior but
+       a rough estimate is obtained by taking the amount of gold you've found
+       in the cave plus four times your (real) experience. Precious stones may
+       be worth a lot of gold when brought to the exit.  There is a 10%
+       penalty for getting yourself killed.
+
+       The administration of the game is kept in the directory specified with
+       the -d option, or, if no such option is given, in the directory
+       specified by the environment variable HACKDIR, or, if no such variable
+       exists, in the current directory. This same directory contains several
+       auxiliary files such as lockfiles and the list of top scorers and a
+       subdirectory save where games are saved.  The game administrator may
+       however choose to install hack with a fixed playing ground, usually
+       /usr/games/lib/hackdir.
+
+       The -n option suppresses printing of the news.
+
+       The -u playername option supplies the answer to the question "Who are
+       you?".  When playername has as suffix one of -T -S -K -F -C -W then
+       this supplies the answer to the question "What kind of character ...
+       ?".
+
+       The -s option will print out the list of your scores. It may be
+       followed by arguments -X where X is one of the letters C, F, K, S, T, W
+       to print the scores of Cavemen, Fighters, Knights, Speleologists,
+       Tourists or Wizards.  It may also be followed by one or more player
+       names to print the scores of the players mentioned.
+
+AUTHORS
+       Jay Fenlason (+ Kenny Woodland, Mike Thome and Jon Payne) wrote the
+       original hack, very much like rogue (but full of bugs).
+       Andries Brouwer continuously deformed their sources into the current
+       version - in fact an entirely different game.
+
+FILES
+       hack	      The hack program.
+       data, rumors   Data files used by hack.
+       help, hh       Help data files.
+       record	      The list of top scorers.
+       save	      A subdirectory containing the saved
+		      games.
+       bones_dd       Descriptions of the ghost and
+		      belongings of a deceased adventurer.
+       xlock.dd       Description of a dungeon level.
+       safelock       Lock file for xlock.
+       record_lock    Lock file for record.
+
+ENVIRONMENT
+       USER or LOGNAME	  Your login name.
+       HOME		  Your home directory.
+       SHELL		  Your shell.
+       TERM		  The type of your terminal.
+       HACKPAGER, PAGER   Pager used instead of default pager.
+       MAIL		  Mailbox file.
+       MAILREADER	  Reader used instead of default.
+       HACKDIR		  Playground.
+       HACKOPTIONS	  String predefining several hack options
+			  (see help file).
+
+       Several other environment variables are used in debugging (wizard)
+       mode, like GENOCIDED, INVENT, MAGIC and SHOPTYPE.
+
+BUGS
+       Probably infinite.  Mail complaints to mcvax!aeb .
+
+4th Berkeley Distribution	 31 March 1985			       HACK(6)
