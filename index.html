@@ -79,6 +79,11 @@ body.tree main { display:none; } body:not(.tree) #tree { display:none; }
 </header>
 <main>
 <!-- One card per published game (rule: ~/Games/rogue2wasm.md) -->
+  <a class="card" href="rogue54/">
+    <img src="rogue54.png" alt="Monster sprites from the NetHack 16×16 tileset used by Rogue 5.4">
+    <div class="body"><h2>Rogue 5.4</h2><div class="tag">The original Rogue · 1980</div><div class="ver">Based on Rogue 5.4.5 (rogueforge) · RoguelikeRestorationProject/rogue5.4 @ 9d0dccc</div>
+      <p>The Berkeley Unix Rogue that named a genre: 26 levels, one monster for every letter, items you learn by using them, and the Amulet of Yendor at the bottom.</p>
+      <span class="play">&gt; Enter the dungeon</span></div></a>
   <a class="card" href="umoria/">
     <img src="umoria.png" alt="Umoria monsters">
     <div class="body"><h2>Umoria</h2><div class="tag">The original Moria · 1983</div><div class="ver">Based on Umoria 5.7.15 · dungeons-of-moria/umoria @ 3bf8abc</div>
@@ -153,12 +158,15 @@ body.tree main { display:none; } body:not(.tree) #tree { display:none; }
 <section id="tree" aria-label="Family tree">
 <p class="legend">Who built on whom. Solid line: code is descended from the parent. <span class="dash">Dashed line</span>: new code, inspired by the parent. Games you can play here are gold.</p>
 <ul><li><span class="n">Rogue</span> <span class="y">1980 · Toy, Wichman, Arnold</span><ul>
-  <li><a class="n" href="roguepc/">Rogue PC</a> <span class="y">1985 · Epyx IBM PC edition (Toy, Lane, Wichman)</span></li>
-  <li><span class="n">Advanced Rogue</span> <span class="y">1984 · Morgan, Dalka</span><ul>
-    <li><a class="n" href="urogue/">UltraRogue</a> <span class="y">1985 · Herb Chong</span></li>
-    <li><a class="n" href="arogue58/">Advanced Rogue 5.8</a> <span class="y">1985</span><ul>
-      <li><a class="n" href="arogue77/">Advanced Rogue 7.7</a> <span class="y">1986 · last Advanced Rogue</span><ul>
-        <li><a class="n" href="xrogue/">XRogue</a> <span class="y">1991 · Pietkivitch</span></li></ul></li></ul></li></ul></li>
+  <li><span class="n">Rogue 3.6</span> <span class="y">1981 · first widely released version</span><ul>
+    <li><span class="n">Rogue 5.2 / 5.3</span> <span class="y">1982–83</span><ul>
+      <li><a class="n" href="roguepc/">Rogue PC</a> <span class="y">1985 · Epyx IBM PC edition (Toy, Lane, Wichman)</span></li>
+      <li><a class="n" href="rogue54/">Rogue 5.4</a> <span class="y">1985 · Berkeley (BSD) Rogue</span></li></ul></li>
+    <li><span class="n">Advanced Rogue</span> <span class="y">1984 · Morgan, Dalka · from 3.6 and Super-Rogue</span><ul>
+      <li><a class="n" href="urogue/">UltraRogue</a> <span class="y">1985 · Herb Chong</span></li>
+      <li><a class="n" href="arogue58/">Advanced Rogue 5.8</a> <span class="y">1985</span><ul>
+        <li><a class="n" href="arogue77/">Advanced Rogue 7.7</a> <span class="y">1986 · last Advanced Rogue</span><ul>
+          <li><a class="n" href="xrogue/">XRogue</a> <span class="y">1991 · Pietkivitch</span></li></ul></li></ul></li></ul></li></ul></li>
   <li class="insp"><span class="n">Hack</span> <span class="y">1982 · Fenlason</span><ul>
     <li><span class="n">NetHack</span> <span class="y">1987</span><ul>
       <li class="insp"><a class="n" href="zapm/">ZAPM</a> <span class="y">2000s · Cyrus Dolph</span><span class="why">sci-fi parody of NetHack, own C++ code</span></li></ul></li></ul></li>
