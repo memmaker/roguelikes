@@ -1,0 +1,632 @@
+OMEGA OVERVIEW
+==============
+omega is a complex rogue-style game of dungeon exploration.  Unlike
+other such games, there are a number of ways to "win", depending on
+various actions taken during play. The ways you can get your name on
+the hiscore board include becoming the highest ranked head of a guild,
+sect, college, etc., as well as gaining the most points figured from
+possessions and experience. The game (via the oracle) may impose some
+structure on your exploration, but you need not follow all of the
+oracle's advice. There *is* a "total winner" status, by the way.
+
+omega offers a richness of playing detail that goes beyond a simple
+game like rogue. However, the majority of gameplay is very similar to
+rogue, hack, ultrarogue, larn, and other such games. The player is
+represented by the highlighted "@" symbol, objects and terrain
+features are represented by non-alphabetic symbols, monsters are
+represented by the various upper and lower case letters, and other
+humans are represented by a non-highlighted "@". It is recommended
+that the novice read the man pages for rogue or some other such game
+and perhaps play a few games before playing omega. 
+
+omega currently consists of a countryside in which are sited a city,
+various villages, several dungeons, and some "special" sites, such as
+the temple HQ's of the various priesthoods. The game starts in the
+city of Rampart, where all the guilds have headquarters. As a dungeon
+is explored, all generated levels are saved in memory. However, only
+one dungeon is "remembered" at a time, so if you enter two dungeons,
+the first will be forgotten (it will be regenerated should you wish to
+enter it again). However, if a dungeon is "completed", this fact will
+be remembered, basically meaning that the unique monster at the bottom
+will not be regenerated if you've killed him already.
+
+You will first want to explore the city of Rampart. Although the
+architecture and important sites remain the same from game to game,
+details such as the precise position of certain shops, etc. will
+change. Rampart is relatively safe if you don't wander into places
+that are obviously dangerous or do things like breaking and entering.
+If you are reckless, it is quite possible to get killed before ever
+finding the dungeons. The 'M' command now allows you to return
+immediately to any establishment you have already visited that game,
+and is preset to "know" the permanent locations of Rampart.
+
+Many Rampart establishments are only open in the daytime, but some are
+only active at night. Due to the stringent anti-crime measures taken
+by the Duke, it is usually safe to sleep in the streets. You will find
+it far more rewarding, however, to rent or purchase your own lodgings,
+if you can afford them.
+
+The point of omega, though, is dungeon exploration. There are a number
+of dungeons hidden about the countryside. These dungeons are at
+different levels of difficulty and have various idiosyncratic
+differences. The easiest are the Caves of the Goblin King, which is
+due south of Rampart, in the nearby mountains. The caves must be
+searched for with 's' command unless you are lucky enough to move
+directly onto them.
+
+CHARACTER CREATION AND DEVELOPMENT
+==================================
+You will have the opportunity to create a new character each time you
+start up omega. A random selection of statistics will be generated.
+To discourage sitting around trying to get an "optimal" character,
+you can only "reroll" 9 times before having to reload the game. Since
+your statistics tend to go up as you play, it isn't fatal to
+have low statistics when you start out. On the other hand, high stats
+don't hurt, either....
+
+Each statistic is very important, but depending what sort of character
+you wish to play, different statistics will stand out. Combat is
+helped by Strength and Dexterity, Magic-use is aided by Intelligence
+and Power. Agility helps you avoid getting hit and avoid traps, while
+Constitution determines how many hits you can take before dying.
+
+A new option for omega is to "play yourself". By answering a sequence
+of personal questions, omega arrives at what your personal statistics
+should be. It is in seriously bad taste to lie.... Only the character
+you create in this mode can be saved to the omegarc. The questions are
+set up so that a "renaissance man" type of person will probably have
+stats generally around 14-15. The rest of us will stay around 9-12 on
+average. If you are really impressively good at something you can
+start out with a stat of up to 18, but this is pretty unlikely for
+most of us.
+
+As you continue to play, you will hopefully accumulate experience and
+treasure. You can gain skills and abilities through various means,
+the most important being training in one of the Rampart establishments
+devoted to self-improvement. Thus, you can choose to work out at the
+gym, study at the Collegium Magii, meditate at a Temple, and
+so on. Certain skills and abilities may only be gained through
+adventuring, and others are mutually exclusive. For example, you can
+only be a priest of one particular deity. One of the appeals of
+omega is the variety of different types of characters you can play,
+each with its own set of goals and benefits.
+
+Another aspect of your character is alignment. Characters are aligned
+towards the primal forces of Chaos and Law, or they can be neutral.
+Various actions affect this factor; killing peaceful monsters, or
+committing burgalry, for example, are chaotic acts.  Alignment
+determines which guilds will let you in, the behavior of some
+artifacts and monsters, as well as much else.
+
+Your character will gain various statuses, abilities, immunities,
+etc., both harmful and beneficial. Most of the time these are kept
+hidden from you, but there are various ways of discovering the truth
+-- self-knowledge is very useful in omega. Remember, the oracle
+knows all, sees all....
+
+Experience is accrued for skillful actions in the game. As in rogue,
+one of the main methods of acquiring experience is defeating monsters.
+You need not kill an opponent to defeat it (you can use the 'threaten'
+option of the 't' command, sometimes).  There are many other ways of
+gaining experience, though, including learning spells, deactivating
+traps, using artifacts correctly, etc. 
+
+Experience goes towards two kinds of character development. First,
+in the bizarre tradition of role-playing games like * & *, hit
+points and combat capabilities go up as experience is gained.
+
+Secondly, experience gained is shared out to each of the guilds,
+priesthoods, etc. that the character belongs to. The more guilds
+the character is a member of, the slower promotion will be
+(except in the City Nobility, and among the Gladiators, where
+promotion is not based on experience, but on quests and combats,
+respectively). Regardless of the number of guilds the character
+is a member of, the first type of experience (overall character
+level) will not be adversely affected.
+
+INVENTORY
+=========
+omega inventories are now much different from other rogue-like games.
+
+Unlike rogue, et al., you cannot directly employ every object you
+carry. Every object may either go into your "pack" or into some
+specific inventory slot such as "belt" or "ready hand" or "left
+shoulder" etc. Some slots are dedicated to certain types of items (eg,
+only armor can go in the armor slot), but other slots are general
+purpose, like your belt or your shoulder.
+
+It takes game time to transfer an object from your pack, (which can
+hold a fixed number of items) to specific slots from which the item may be
+useable. The pack is implemented as a mock-stack, so the deeper you burrow
+into your pack looking for some item, the more game time you are
+wasting. Therefore, carrying a whole lot of (semi)useless items may be
+a strategically bad move.  Of course, as always, you can't carry more
+weight (either in your pack or in your inventory slots) than is
+dictated by your current STRENGTH and AGILITY.
+
+INVENTORY CONTROL MODES
+=======================
+There are two type of inventory control: Display mode and Quick mode.
+Which mode you use by default can be toggled by the TOPLINE option
+settable with the 'O' command and in your .omegarc file.
+
+In Display mode, all the inventory slots are displayed in the menu
+window. In Quick mode, only the message lines above the main window
+are used, and therefore the slots are not all displayed, only
+one of them at a time. Additionally, the commands are slightly 
+different. One nuance to the display -- note the character following
+the index of the slot in the following two lines.
+
+-- b> weapon hand: mace
+-- c) left shoulder: short sword
+
+The '>' in the first line indicates the mace is "in use", while 
+the ') in the second lines means the short sword is not currently
+being used. If it is possible for an item to be "in use" in the
+current slot, it will be indicated by a '>'. Therefore, if you
+don't want to put some new unidentified weapon into use, don't
+try to carry it in the weapon hand; the same holds for shields
+in the shield slot, etc.
+
+The amount of time each action takes is indicated below. Dropping two
+items takes twice as long as dropping one item.
+
+DISPLAY MODE:
+^l,^r: Redisplay inventory (if screen is munged). Takes no time.
+d:  Drop the item currently in the 'up-in-the-air' slot, or in the
+    'selected' slot if there is nothing 'up-in-the-air'. Takes one second.
+p:  Put the 'up-in-the-air' item into your pack, or the 'selected'
+    item, if the 'up-in-the-air' item is vacant. Takes 5 seconds.
+l:  Looks at the item in the selected slot.  Takes no time.
+s:  Show the contents of your pack. Takes 5 seconds.
+t:  Take an item from your pack and put into the 'selected' slot, or
+    if that is full, tries to put into the 'up-in-the-air' slot.
+    Takes 5 seconds + 1 second/item examined in pack. I.e., rummaging
+    at three items before taking one takes 8 seconds.
+e:  Exchange the 'up-in-the-air' slot with the 'selected' slot. This
+    will merge two quantities of an item together if possible.
+    Either slot may be vacant, in which case it is a simple 'put'
+    or 'take' to a slot.
+    Takes 2 seconds.
+x:  Same as 'e' but quit inventory mode immediately if the
+    up-in-the-air slot is vacant after the action (ie, if it wasn't
+    an exchange, but was just a put). Helpful when picking up new items.
+    Takes 2 seconds.
+>:  Cause the next slot lower down to be the 'selected' one. Takes no time.
+<:  Cause the next slot higher up to be the 'selected' one. Takes no time.
+?:  Print this help. Takes no time.
+ESCAPE: return to game, dropping any object in the 'up-in-the-air' slot.
+        Takes no time.
+
+In Display Mode, the 'selected' slot is the one with a highlighted
+'->' before it.
+
+QUICK (TOPINV) MODE:
+d:  Drop an item. Takes one second.
+p:  Put some item into your pack. Takes 5 seconds.
+l:  Looks at an item.  Takes no time.
+s:  Show the contents of your pack. Takes 5 seconds.
+t:  Take an item from your pack and put into some inventory slot, or
+    into the 'up-in-the-air' slot if the one selected is full.
+    Takes 5 seconds + depth of item in pack.
+e:  Exchange the 'up-in-the-air' slot with some slot. This
+    will merge two quantities of an item together if possible.
+    Either slot may be vacant, in which case it is a simple 'put'
+    or 'take' to a slot.
+    Takes 2 seconds.
+x:  Same as 'e' but quit inventory mode immediately if the
+    up-in-the-air slot is vacant after the action (ie, if it wasn't
+    an exchange, but was just a put). Helpful when picking up new items.
+    Takes 2 seconds.
+~:  Enter Display Mode. Takes no time.
+?:  Print this help. Takes no time.
+ESCAPE: return to game, dropping any object in the 'up-in-the-air' slot.
+        Takes no time.
+
+In quick mode, there is no 'selected' slot, instead the letter
+identifying the slot must be entered following the command.
+
+The 'e' and 'x' commands in both modes are the ones you'll use most;
+it combines taking and putting from inventory slot to "up-in-air"
+where picked-up items will be, and where you will drop items from on
+leaving the inventory mode. Usually the pack is used for items which
+it is not important to be able to get at easily, while inventory
+slots are for useful items.
+
+MOVEMENT
+========
+The mechanics of movement are much like rogue. You can use either the
+vi keys (hjklbnyu) or the numeric keypad to move; the capitalized vi
+keys or a keypad direction preceded by a 5 "run" in that direction
+until either an object is run into, or an "interesting" location is
+hit. More locations are "interesting" if the "RUNSTOP" option is set.
+In most environments, a single move takes but a few seconds of game
+time, depending on the player's "Spd" score, but some places movement
+takes longer. In the countryside environment, the scale is much larger
+than usual (say 5KM/move), so a single move can take hours. (Riding a
+horse can reduce the amount of time taken in the country, depending on
+the terrain being travelled). In the city or village environments, the
+scale is such that a move takes about 30 seconds or so of gametime.
+
+COMBAT
+======
+As in most rogue-like games, you attack an adjacent monster by
+attempting to move onto it.
+
+At this time, your current real statistics on to-hit, damage, defense,
+and armor protection are always displayed. It is felt that the
+character would know (or quickly discover) how well any weapon, armor,
+etc. actually work. By comparing different weapons, armor, and shield
+combinations, you can decide what martial configuration is best for
+your character.  Keep in mind that cost of equipment does not
+necessarily indicate how good it is (though it is a good rule of
+thumb).
+
+The 'F' command allows you to select precisely which actions you will
+take in a combat round -- parry high, thrust low, etc.  You have
+several maneuver points for use in each combat round, depending on
+level, status as a gladiator, etc. At the beginning of the game, your
+combat options are already set for you, but as you progress, and
+possibly gain more maneuvers, the preset options will not be
+automatically updated, so remember to do it yourself periodically, as
+you may be losing the chance at more maneuvers if you do not.
+
+The following are your combat options:
+
+A) ATTACK: Punch, Cut, Strike, Shoot, or Thrust (depending on weapon) -- 1 pt.
+B) BLOCK: Prepare to block or parry enemy attack                      -- 1 pt.
+R) RIPOSTE: BLOCK/ATTACK (thrusting weapons only)                     -- 2 pts.
+L) LUNGE: More chance to hit than usual, does more damage             -- 2 pts.
+
+Keep on selecting maneuvers until you have no maneuver points left.
+It does absolutely no good to have points left over.
+
+Following the choice of the maneuver, you must select a line for the
+action: L (low), C (center), or H (high). Some monster will tend to
+attack in a given line (short/small monsters, for example, will
+tend to attack low), so this choice is meaningful. If you block or
+riposte low, when the attack is high, you will have wasted the effect
+of the block. On the other hand, if you block low twice, and the
+attack is low, you will defend doubly. If you don't block or riposte
+at all, it will be particularly easy for monsters to hit you.
+
+Keep on selecting maneuvers until you have no maneuver points left.
+Hitting the BACKSPACE or DELETE key will erase your current choices
+and let you start over. When you are satisfied, confirm your
+choice with the RETURN key. Once a choice is selected, it stays in
+effect until you change it; you need not reset it for each attack.
+Selecting combat maneuvers takes no time.
+
+If you are in VERBOSE mode (settable with the 'O' command) you'll see
+just what the monster is doing, whether the blocks are effective,
+and so on. Otherwise you'll just be told whether you hit or miss.
+
+If you select VERBOSE mode, you will be able to see just where your
+opponent attacks. Some monsters may show a particular sequence or
+location which they attack in; you can use this information to your
+advantage by setting your own attacks and blocks accordingly.
+
+You can try multiple identical maneuvers if you like. If you don't try
+any BLOCKS at all, it will be easier than usual for your opponent to
+hit.  Even if you don't get the location correct, a BLOCK still does
+some good. A RIPOSTE attacks in the same line as its block, if you got
+the line right. I.e., if you are attacked high, a high riposte will
+get a free attack back. If you are attacked high three times, a high
+riposte will get three free attacks back. Each block or riposte is
+good for your entire move; no matter how many monsters attack you you
+will be able to block or riposte each one. Naturally, each attack can
+only be used against one monster.
+
+Heavy edged weapons and smashing weapons do CUTTING or STRIKING
+damage. Your strength affects this, so if it is high you will do
+much more damage, and if low, much less.
+
+Light edged weapons, missile weapons, and pointed weapons do THRUSTING
+or SHOOTING attacks, whose chance to hit is greatly affected by your
+dexterity. Note that you can't use a missile weapon very well in
+ordinary combat (i.e. when you move adjacent to a monster) -- you
+would be using a crossbow as a club, for instance. Instead,
+use the 'f' command to fire missiles when at long range, and change
+to a melee weapon for close combat.
+
+A note on weapons use: A weapon is not prepared for combat unless
+it is in the "weapon hand" slot in your inventory. Anywhere else
+means you are just carrying it around.... Two-handed weapons will
+automatically take both hand slots, so remember to have both
+hands free if you want to wield such a weapon.
+
+Shields, of course, will only have effect in the "shield" slot,
+while armor is only considered to be worn if it is in the "armor"
+slot.
+
+BUGS AND FEATURES
+=================
+"It's not a bug, it's an undocumented feature." 
+
+omega is not just a large program, it is a large, complicated, and not
+particularly well written program. There are so many features that not
+all can be well tested, particularly in combination with one another.
+Therefore, it is likely that your version, whatever it is, has some
+bugs. The author no longer strives to correct bugs and remedy
+misfeatures, so you probably shouldn't send mail to
+brothers@paul.rutgers.edu.  However, if you send such mail to
+omega@alcyone.darkside.com (Erik Max Francis), there may be attempts
+to remedy the problem - don't hold your breath, though.
+
+MAGIC
+=====
+Your character may be taught spells by his or her guild or priesthood,
+at the collegium magii, by the sorceror's guild, or pick them up from
+a scroll of spells. Every spell costs some amount of mana to cast.
+Mana is not normally regenerated except when the player goes up an
+experience level, but various magic items augment mana, and the
+sorceror's guild will recharge you for a fee. If you learn the same
+spell multiple times, the effective power drain to cast the spell is
+lowered. Some spells have a constant effect, while others vary
+according to your level.  The spell of ritual magic has a variety of
+different effects depending on the circumstances under which it is
+cast. The spell of high magic is the most powerful, by the way.
+
+
+THE COUNTRYSIDE
+===============
+Rampart is set in a strange landscape of different terrain types. The
+land is surrounded in part by a mystic sea of chaos which it is
+probably a good idea to avoid. Screen characters have a different
+meaning in the countryside than they do elsewhere, by the way, and
+there is a different command set (accessible by '?' when out of the
+city). Time passes much more quickly in countryside movement; you will
+have to bring a lot of food with you, though you may wish to
+hunt ('H' command) to supplement your food reserves; many of the
+animals that you may encounter, for example, are edible.
+
+Since each countryside site is quite a large area, you may have
+to search ('s' command) to learn of interesting sites nearby.
+
+Countryside Map Example:
+
+++----.--- The @ as usual is the player; the +'s are an arm of the Sea of
++++++O--^^ Chaos; the O is the city of Rampart; the ^'s are mountains;
+----@----^ the .'s are a road; the -'s are plains and meadows;
+---.-^^^^^ and the * is a dungeon entrance.
+...-^*^^^^
+
+The countryside can be rather dangerous for low level characters to
+explore at random. However, maps of the surrounding areas can be
+purchased at the villages which can be found mostly at the ends
+of the roads. Each village has a "special" magical site somewhere
+inside its borders. These sites may be beneficial or harmful
+depending how they are approached and the circumstances of their
+activation.
+
+There are a number of "special" locations in the countryside; these
+are basically one-level screens of various sorts, or they may be
+multi-level dungeons. If you follow the advice of the oracle
+who may be found somewhere in Rampart, you will wind up visiting most
+of these sites.
+
+A special site or dungeon may be entered from the Countryside
+environment by means of the '>' command. Depending whether or not it
+is a multilevel or single level site, it may be exited simply by
+moving off the edge of the screen, or by ascending or descending a
+stairway from the first level of the dungeon.
+
+
+WHAT YOU SEE ON THE SCREEN 
+==========================
+
+Map: The large central area represents a map of the current
+environment.  On it, the highlighted @ always represents the player,
+letters represent monsters, non-highlighted @'s represent other
+humans, and other characters represent either objects or terrain
+features.  The map will take up as much of the screen as is possible,
+so if you are running in a windowing system make the omega window as
+large as it can be.
+
+Since the same character can represent different things or entities
+(even in the same environment), a good command to remember is 'x'
+(examine), which will tell you precisely what you are dealing with in
+any situation. This is especially helpful before you have terrain
+types like deep pools and lava pits (!) memorized.... You can use the
+CONFIRM option to avoid walking absent-mindedly into a trap, pool,
+etc.  The '/' command will give you more general help, for example
+telling you that the ')' character represents a weapon. The '?'
+command can give you either a command list or this file. The command
+lists will differ depending whether you are in the countryside, or a
+dungeon or city.
+
+Messages: Directly above the map window is a three line area that
+shows current messages from the game describing what is going on.
+The ^p command, or ^o for IBM users, shows old messages.
+
+Location: Directly beneath the map window is a one line description
+of your current location or environment.
+
+Statistics: Beneath the Location line are two lines that show
+the current state of the player's statistics such as strength,
+dexterity, constitution, agility, intelligence, power, mana,
+gold pieces, carrying capacity, etc. When the value given looks
+like  number1 / number2, number1 represents the current value,
+and number2 represents a maximum value.
+
+Flags: In the upper right corner of the omega display, below the date
+and time, and phase of the moon, you will see four flags: The top
+describes your food status, the second describes your status with
+respect to poison, the third your health (diseased or healthy), and
+the fourth, your mode of transportation.  While you are diseased you
+will not regain hit points naturally. While you are poisoned you will
+take damage periodically until cured or killed (or the poison's effect
+can naturally fade).  When your food runs out, and you start starving,
+you will take more and more damage as time passes until finally you
+die of starvation. It's always a good idea to stock up at the
+Commandant's.... If you manage to acquire a horse, your SPEED will
+probably improve (unless you were very fast already). Regardless of
+SPEED, having a horse will save some time in countryside movement, and
+may also help out your combat strength. However, horses tend not to
+enjoy going into dungeons....
+
+Combat Abilities: In the lower right of the display, your current
+combat abilities are displayed. These are:
+
+Hit: is your current chance to hit with the weapon currently wielded,
+     the higher the better. This factor varies with your DEXTERITY,
+     experience level, and the weapon wielded.
+Dmg: is the maximum amount of damage you can do with a hit. This factor
+     varies with your STRENGTH and the weapon wielded.
+Def: is your defensive rating, how hard it is for monsters to hit you. This
+     factor varies with your AGILITY and experience level, and with
+     the shield being used.
+Arm: is your armor rating, how much damage is absorbed when a monster
+     hits you before you take damage. Armor only absorbs normal damage;
+     various effects and forms of magic may penetrate armor. This factor
+     varies with the armor worn.
+Spd: is a speed factor, how quickly or how slowly you move. This factor is
+     calculated about a base of 1.00; 2.00 means you move twice as fast;
+     0.50 means you move twice as slowly as normal. This factor varies
+     with your AGILITY and the amount of weight you are carrying.
+     Every monster has its own speed factor. The maximum speed is 5.0;
+     the minimum is infinitesimal.
+
+Magic spells, special items, and monster effects can affect all these factors,
+positively and negatively.
+
+SAVING AND RESTORING
+==================== 
+Since omega's dungeon is quite large, only the current dungeon and
+the city level will be saved; other dungeons you may have entered
+previously will be regenerated as you re-enter them. If you know the
+spell of Return, however, (learnable at the Explorers' Club) you will
+be able to warp to your deepest excursion in any dungeon without
+having to retraverse the old levels in between. Some other shortcuts
+exist for "warping" from one locale or level to another.
+
+Games can be restored by giving the save file as a command line argument
+as in:
+
+% omega quasar.sav
+
+To at least simulate the continuity of character in the game, saved
+files will be unlinked on restoration. Of course, you *can* copy them.
+
+Save files are automatically compressed unless the flag
+COMPRESS_SAVE_FILES is undefined in odefs.h. This doubles the amount
+of time taken to save, but reduces the typical save file by a factor
+of more than 10.  If you feel that the wait is too long, and have space
+to burn, you can turn off save-file compression in the Options menu.
+
+OPTION SETTINGS
+===============
+Options may be set with the 'O' command. The options are:
+
+(F) BELLICOSE: Attack friendly monsters without confirmation.
+(F) JUMPMOVE: Don't display things until the end of a run.
+(T) RUNSTOP: Stop a run when something like a door is passed.
+(F) PICKUP: Automatically pick things up when you move over them.
+(T) CONFIRM: Ask confirmation before you do some dangerous things.
+(F) TOPINV: Display inventory to message line, not to full screen.
+(F) PACKADD: Add new items to pack, instead of going into inventory mode.
+(T) COMPRESS: Determines if saved games are compressed (recommended).
+(T) COLOUR: On IBMs, this toggles whether the display in in colour.
+(V) VERBOSITY: TERSE, MEDIUM, or VERBOSE, the level of detail in combat.
+(1) SEARCHNUM: the number of turns spent searching when you hit the 's' key.
+
+The default values are parenthesized. These options will be recovered from
+your .omegarc if you use one.
+
+DUNGEON/CITY COMMAND LIST:
+______________________________________________________________________________
+key  : description                                                : # seconds
+______________________________________________________________________________
+^f   : abort the spell of shadow form                             :     0
+^g   : enter wizard mode (WIZARD only)                            :     0
+^i   : list items in pack                                         :     5
+^l   : redraw screen (redraw each window)                         :     0
+^p   : print previous message (more or less)                      :     0
+^o   : print previous message (IBM version)                       :     0
+^r   : redraw screen (redraw curscr)                              :     0
+^x   : make a wish (wizard mode and Adepts only)                  :     0
+^w   : magic-map screen (wizard mode only)                        :     0
+a    : activate a wand, staff, or rod                             :     10*
+c    : close door                                                 :     2*
+d    : drop object at current location                            :     5*
+e    : eat something                                              :     30
+f    : fire/throw something                                       :     5*
+g    : pick up object at current location                         :     10*
+i    : primary inventory mode (as per TOPINV option)              :  variable
+m    : cast a magic spell                                         :     20
+o    : open door                                                  :     5*
+p    : pick the pocket of an adjacent monster                     :     20*
+q    : quaff a potion                                             :     10
+r    : read a scroll                                              :     30*
+s    : search all around you, # of times = SEARCHNUM              :     20
+t    : talk to an adjacent monster                                :     10
+v    : vault over a few intervening spaces                        :     10*
+x    : examine a location                                         :     1
+z    : bash something (adjacent location)                         :     10
+A    : activate an item or artifact                               :     10
+C    : call an item something                                     :     0
+D    : disarm an adjacent trap                                    :     30
+E    : dismount (exit?) from your horse                           :     10*
+F    : set combat action sequence                                 :     0
+G    : give something to an adjacent monster                      :     15
+I    : secondary inventory mode (as per TOPINV option)            :  variable
+M    : move quickly to some discovered site (city only)           :  variable
+O    : set options                                                :     0
+P    : public license information                                 :     0
+Q    : quit                                                       :     0
+R    : rename character                                           :     0
+S    : save game and quit                                         :     0
+T    : dig a tunnel through a wall                                :     30*
+V    : version information                                        :     0
+Z    : bash something (item carried)                              :     10*
+.    : rest a turn                                                :     10
+,    : sleep some number of minutes                               :  60..6000
+@    : stay in current location, activating any local effect here :     5
+>    : go down a level (walks to known stairs first)              :    0~
+<    : go up a level (walks to known stairs first)                :    0~
+X    : explore automatically (stops for monsters, messages)       :   5*+
+/    : identify the onscreen usage of some character              :     0
+
+vi keys (hjklbnyu) & keypad number: 
+       walk one space or fight adjacent monster (Regular Combat
+       Mode), pick up things if PICKUP option set                 :     5*+
+
+capitalized vi keys (HJKLBNYU) or 5 followed by keypad number:
+       run in that direction, fight adjacent monster if
+       BELLIGERENT option set,don't display slowly if JUMPMOVE 
+       option set, stop for doorways, etc. if RUNSTOP option 
+       set.                                                       :     4*+
+
+Enter: this command menu (arrows/8/2 move, Enter/5 choose)       :     0
+?    : display or copy help files                                 :     0
+
+* Actual time taken varies according to SPEED factor.
++ Takes longer in City or Village (different scale for movement)
+~ Reduced to 0 time by popular demand
+
+COUNTRYSIDE COMMAND LIST:
+______________________________________________________________________________
+key  : description                                                : time taken
+______________________________________________________________________________
+^p   : print previous message                                     : ---
+^o   : print previous message (IBM version)                       : ---
+^r   : redraw screen                                              : ---
+d    : drop object (will be lost forever)                         : ---
+e    : eat something                                              : ---
+i    : inventory of things in pack (selected inventory mode)      : ---
+s    : search all around you for hidden traces                    : 1 hour
+H    : hunt for food                                              : 3 hours
+I    : inventory of things in pack (alternate inventory mode)     : ---
+O    : set options                                                : ---
+P    : public license information                                 : ---
+Q    : quit                                                       : ---
+R    : rename character                                           : ---
+S    : save game and quit                                         : ---
+V    : version information                                        : ---
+>    : enter a village, city, dungeon, et al.                     : ---
+/    : identify the onscreen usage of some character              : ---
+?    : display or copy help files                                 : ---
+
+vi keys & keypad numbers:                                         : variable w.
+       walk one space (about 20 kilometers)                         terrain
+

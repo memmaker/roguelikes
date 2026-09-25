@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Omega · Shrine</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>Omega</h1>
+  <p class="epi">a hack-style game with quests</p>
+  <a class="play" href="../omega/">&gt; Enter the dungeon</a>
+</header>
+<div class="facts"><div><b>Date of birth</b><span>1987</span> copyright 1987–1989; this is 0.80.2</div><div><b>Creator</b><span>Laurence R. Brothers</span> maintained later by Erik Max Francis</div><div><b>Language</b><span>C</span> ~38,000 lines</div><div><b>Platform</b><span>Unix curses</span> also DOS, Amiga</div></div>
+<nav class="toc"><a href="#lineage">Lineage</a><a href="#credits">Credits</a><a href="#shots">Screenshots</a><a href="#trivia">Trivia</a><a href="#usp">What's unique</a><a href="#code">Code dive</a><a href="#stats">Stats</a><a href="#manual">Manual</a><a href="#start">Getting started</a><a href="#help">Help</a><a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p>Omega calls itself “a hack-style game”: its screen, keys and dungeons follow <a href="rogue54.html">Rogue</a> and Hack. It shares no code with them. What it added was a whole world around the dungeon: the city of Rampart, a countryside map with towns, temples and castles, guilds and gods. That world-map idea shows up again later in ADOM. See the <a href="../#tree">family tree</a>.</p>
+<p>Played here: Omega 0.80.2, the last maintained release, in a new curses frontend.</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table><tr><td>Laurence Raphael Brothers</td><td>Design and code (1987–1989)</td></tr><tr><td>Erik Max Francis</td><td>Maintainer of 0.80.x</td></tr><tr><td>The University of California, Berkeley</td><td>Some code, credited on the title screen</td></tr></table>
+</section>
+
+<section id="shots"><h2>Screenshots</h2>
+<div class="shots"><figure><img src="omega/title.png" alt="Title"><figcaption>Start: version 0.80.2, Laurence R. Brothers and Erik Max Francis.</figcaption></figure><figure><img src="omega/steps.png" alt="The City of Rampart"><figcaption>First steps: “You pass through the massive gates of Rampart, the city.”</figcaption></figure><figure><img src="omega/fight.png" alt="Picking a fight"><figcaption>A fight: attacking a city guard. “The guardsman hits you.” HP 2/10; the next hit killed.</figcaption></figure><figure><img src="omega/inv.png" alt="Equipment slots"><figcaption>Inventory: Omega’s body slots: “up in air”, ready hand, weapon hand, shoulders, belts, shield, armor, boots, cloak, four fingers.</figcaption></figure></div>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>At start you can “play yourself”: the game asks how much you bench-press, whether you do a martial art or a field sport, and builds a character from your answers. <span class="src">(<code>char.c</code>)</span></li>
+<li>Walk into the Sea of Chaos and you gain levels, then die: “Killed by immersion in raw Chaos.” (Seen while taking these screenshots.)</li>
+<li>Wizard mode is only for the user named in the source (“max”). Anyone else gets “the Wizard of Omega” and “Do not meddle in the affairs of Wizards — it makes them soggy and hard to light.” <span class="src">(<code>command3.c</code>)</span></li>
+<li>The high-score list names who holds each title: Duke of Rampart, Archmage, Prime Sorceror, the six High Priests, the Lords of Chaos and Law. <span class="src">(title screen)</span></li>
+<li>Brothers wrote that in the end the player “winds up doing basically all the same things each game, no matter which guild”. <span class="src">(<code>docs/readme3</code>)</span></li>
+<li>Background: <a href="https://en.wikipedia.org/wiki/Omega_(video_game)">Wikipedia</a>.</li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>A world, not just a dungeon:</strong> a city, a countryside map, villages, temples, a castle, several dungeons.</li>
+<li><strong>Guilds and ranks:</strong> Legion, Arena, Collegium Magii, Thieves’ Guild, Order of Paladins, Circle of Sorcerors, the Nobility and six priesthoods (Odin, Set, Athena, Hecate, the Druids, the Lords of Destiny).</li>
+<li><strong>Many ways to win:</strong> become head of a guild or sect, or reach “Adept”.</li>
+<li><strong>Law and Chaos</strong> alignment, moon phases and a calendar that matter.</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li>C, about 38,000 lines in 50 files. Maps (city, countryside, arena, temples) are packed data files in <code>omegalib/</code>.</li>
+<li>Written for Unix curses; ports to MS-DOS and the Amiga ship in the source.</li>
+<li><strong>This port:</strong> a small curses shim, drawn to a canvas in WebAssembly, plus explore (<kbd>X</kbd>), walk-to-stairs and an item menu. Source: <a href="https://github.com/memmaker/omega">memmaker/omega</a>.</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<table><tr><th>Thing</th><th>Count</th><th>Notable ones</th></tr><tr><td>Monsters</td><td>150</td><td>On 11 levels: the bandersnatch, borogrove, catoblepas, coma beast, astral vampire, aggravator fungus, zombie overlord.</td></tr><tr><td>Items</td><td>~215</td><td>41 weapons, 17 armours, 24 scrolls, 18 potions, 17 wands and staves, 10 rings, 24 artifacts including the Orbs of Fire, Water, Earth, Air and Mastery.</td></tr><tr><td>Spells</td><td>41</td><td>From magic missile to Wish.</td></tr><tr><td>Guilds and sects</td><td>8</td><td>Legion, Arena, Collegium Magii, Thieves’ Guild, Paladins, Sorcerors, Nobility, Priesthood.</td></tr><tr><td>City sites</td><td>27</td><td>Bank, arena, jail, temples, the Collegium, the thieves’ guild …</td></tr><tr><td>Traps</td><td>13</td><td></td></tr></table>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>The in-game help files 1–13, joined: <a href="omega/manual.txt">read it here (text)</a>. In the game, <kbd>?</kbd> shows the same pages.</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol><li><a href="../omega/">Open the game</a>. Pick <kbd>c</kbd> to roll a character (or <kbd>p</kbd> to play yourself), name them.</li>
+<li>You start at the gate of Rampart. Explore the city: shops, the bank, guilds. Don’t attack the guards.</li>
+<li>Join a guild early; it gives training, spells or a place to sleep.</li>
+<li>Leave by the gate for the countryside; enter sites with <kbd>&gt;</kbd>.</li></ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>No walkthrough exists. The help files explain guilds and quests. Tips:</p><ul>
+<li>Moving into hedges, water or lava asks for confirmation — say no to water and lava.</li>
+<li>Buy food early; you get weak fast in the countryside.</li>
+<li>Never enter the Sea of Chaos.</li>
+<li>Rest (<kbd>.</kbd>) to heal before leaving town.</li></ul>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<p>Two wizard modes exist; both mark the game as cheated:</p><ul>
+<li><kbd>Ctrl</kbd>+<kbd>G</kbd> works only for the user “max”, so not here.</li>
+<li>The <strong>back door</strong>: in the city, bash (<kbd>z</kbd>) toward the top-left corner square (0,0) and answer <kbd>y</kbd>. Then <kbd>Ctrl</kbd>+<kbd>X</kbd> grants wishes (“Stats”, “Wealth”, “Acquisition”, “Summoning” …). <span class="src">(<code>command2.c</code>, <code>effect1.c</code>; not tried here)</span></li></ul>
+</section>
+</div></body>
+</html>
