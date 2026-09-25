@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Linley's Dungeon Crawl · Shrine</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>Linley's Dungeon Crawl</h1>
+  <p class="epi">fetch the Orb of Zot · the game Stone Soup grew from</p>
+  <a class="play" href="../crawl-linley/">&gt; Enter the dungeon</a>
+</header>
+<div class="facts"><div><b>Date of birth</b><span>2 Oct 1997</span> begun 1995 · 4.0b26: 2003</div><div><b>Creator</b><span>Linley Henzell</span> then the Crawl DevTeam</div><div><b>Language</b><span>C++</span> ~200,000 lines incl. tile code</div><div><b>Platform</b><span>DOS · Unix curses</span> Windows, Mac; tiles 2005</div></div>
+<nav class="toc"><a href="#lineage">Lineage</a><a href="#credits">Credits</a><a href="#shots">Screenshots</a><a href="#trivia">Trivia</a><a href="#usp">What's unique</a><a href="#code">Code dive</a><a href="#stats">Stats</a><a href="#manual">Manual</a><a href="#start">Getting started</a><a href="#help">Help</a><a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p>Linley Henzell, then at the University of Adelaide, started Crawl in 1995 as new code, not a fork; its quick-start guide calls it “one of the descendants of Rogue”. The goal, the Orb of Zot, comes from <em>Wizard's Castle</em>, a BASIC game. From version 3.40 (2000) the Crawl DevTeam carried on; 4.0 beta 26 (2003) was their last release. In 2006 Darshan Shaligram and Erik Piper restarted development as <strong>Dungeon Crawl Stone Soup</strong>, still developed today. See the <a href="../#tree">family tree</a>.</p>
+<p>Played here: 4.00b26 with Mitsuhiro Itakura's tile version e070 (2005), RLTiles graphics, compiled to WebAssembly.</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table><tr><td>Linley Henzell</td><td>Creator (1995–1999)</td></tr><tr><td>Crawl DevTeam</td><td>3.40–4.0b26 (2000–2003)</td></tr><tr><td>Mitsuhiro Itakura</td><td>Tile version (2003–2005)</td></tr><tr><td>Denzi, Alex Korol, Nullpodoh</td><td>Tiles and title art</td></tr><tr><td>Darshan Shaligram</td><td>Patches; later co-founded Stone Soup</td></tr></table>
+</section>
+
+<section id="shots"><h2>Screenshots</h2>
+<div class="shots"><figure><img src="crawl-linley/title.png" alt="Dungeon Crawl title"><figcaption>Title: Denzi’s artwork and the credits.</figcaption></figure><figure><img src="crawl-linley/steps.png" alt="A corridor on level 1"><figcaption>First steps: a Hill Dwarf Fighter walks a corridor full of loot.</figcaption></figure><figure><img src="crawl-linley/fight.png" alt="A kobold throws darts"><figcaption>A fight: “You hear a shout! The kobold throws a dart. The dart hits you!”</figcaption></figure><figure><img src="crawl-linley/inv.png" alt="Inventory"><figcaption>Inventory: dwarven hand axe, scale mail and shield, a bread ration; weight in aum.</figcaption></figure></div>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>The Orb of Zot was taken from Wizard's Castle, a BASIC text adventure. <span class="src">(<a href="crawl-linley/manual.txt">crawl.txt</a>)</span></li>
+<li>You cannot call your character “bones”: “That's a silly name!” Its save files would collide with the ghost (bones) files. <span class="src">(<code>newgame.cc</code>)</span></li>
+<li>Version 3.40 removed three “silly” monsters: the dorgi, the sword and the guardian robot. <span class="src">(<a href="https://github.com/memmaker/crawl-linley/blob/main/docs/versions.txt">versions.txt</a>)</span></li>
+<li>Henzell lost most of the source code of the early versions. <span class="src">(crawl.txt)</span></li>
+<li>The tile version comes from Japan and has the full game translated: the monster table carries Japanese names next to the English ones. <span class="src">(<code>mon-data.h</code>)</span></li>
+<li>Stone Soup, its successor, was voted Roguelike of the Year 2008 by ASCII Dreams readers. <span class="src">(<a href="https://en.wikipedia.org/wiki/Dungeon_Crawl_Stone_Soup">Wikipedia</a>)</span></li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>Skills instead of classes:</strong> you gain skills by using them; the class only sets the start.</li>
+<li><strong>Gods</strong> with their own conduct rules and gifts, e.g. Trog hates magic, Xom is random.</li>
+<li><strong>Branches:</strong> Orc Mines, Elven Halls, Lair, Swamp, Hive, Vaults, Hells, the Abyss and Pandemonium; runes open the Realm of Zot.</li>
+<li>Many unusual species: Nagas, Centaurs, Mummies, Ghouls, Kenku, Demigods, nine colours of Draconian.</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li>C++, written first for DOS (DJGPP), then Unix curses and Windows.</li>
+<li>Monster and spell data are big C tables (<code>mon-data.h</code>, <code>mon-spll.h</code>); a <code>WIZARD</code> build flag adds debug commands.</li>
+<li>Itakura's tile version adds an X11/Windows window layer (<code>winclass.cc</code>, <code>libtile.cc</code>) and paper-doll player graphics.</li>
+<li><strong>This port:</strong> Emscripten, the window layer redirected to the page. Source: <a href="https://github.com/memmaker/crawl-linley">memmaker/crawl-linley</a>.</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<table><tr><th>Thing</th><th>Count</th><th>Notable ones</th></tr><tr><td>Species</td><td>34</td><td>26 in the menu; the Draconian becomes one of nine colours.</td></tr><tr><td>Classes</td><td>29</td><td>Fighter, Wizard, Priest, Thief, Gladiator, Necromancer, Paladin, Assassin, Berserker, Hunter, Conjurer, Enchanter, four Elementalists, Summoner, Crusader, Death Knight, Venom Mage, Chaos Knight, Transmuter, Healer, Reaver, Stalker, Monk, Warper, Wanderer…</td></tr><tr><td>Gods</td><td>12</td><td>Zin, the Shining One, Kikubaaqudgha, Yredelemnul, Xom, Vehumet, Okawaru, Makhleb, Sif Muna, Trog, Nemelex Xobeh, Elyvilon.</td></tr><tr><td>Monsters</td><td>~330</td><td>Uniques like Sigmund, Blork the Orc, Psyche, Norbert; Pandemonium lords Mnoleg, Lom Lobon, Cerebov, Gloorx Vloq; hell lords Geryon, Dispater, Asmodeus, Antaeus, Ereshkigal; the Serpent of Hell.</td></tr><tr><td>Spells</td><td>~190</td><td></td></tr><tr><td>Runes needed</td><td>3</td><td>To enter the Realm of Zot, since 3.40.</td></tr></table>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>The full manual, <a href="crawl-linley/manual.txt">crawl.txt</a>, and Linley’s <a href="crawl-linley/quickstart.txt">quick-start guide</a>.</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol><li><a href="../crawl-linley/">Open the game</a>, type a name, pick a species and class. The guide recommends a dwarf, orc, ogre or troll Fighter.</li>
+<li>Move with the arrows or <kbd>hjklyubn</kbd>; walk into monsters to attack.</li>
+<li><kbd>Ctrl</kbd>+<kbd>O</kbd> explores; <kbd>&gt;</kbd> walks to the stairs down.</li>
+<li><kbd>Enter</kbd> opens all commands; <kbd>?</kbd> is help.</li></ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>No walkthrough for this version. The quick-start guide covers the first games. Tips:</p><ul>
+<li>Pray (<kbd>p</kbd>) at an altar to join a god early; Trog and Okawaru suit fighters.</li>
+<li>Train few skills, not all of them.</li>
+<li>Rest to full HP before exploring further.</li>
+<li>Much advice for Stone Soup still applies: <a href="https://crawl.chaosforge.org/">CrawlWiki</a>.</li></ul>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<p>Crawl has a wizard mode (<kbd>&amp;</kbd>), but only in builds compiled with <code>WIZARD</code>; this browser build is not. <em>Export save</em> / <em>Import save</em> keeps backups.</p>
+</section>
+</div></body>
+</html>
