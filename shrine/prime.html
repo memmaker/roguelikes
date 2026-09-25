@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PRIME · Shrine</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>PRIME</h1>
+  <p class="epi">ZAPM, continued · still hunting the Orgasmatron</p>
+  <a class="play" href="../prime/">&gt; Enter the dungeon</a>
+</header>
+<div class="facts"><div><b>Date of birth</b><span>March 2011</span> last release 2.5, 2014</div><div><b>Creators</b><span>Psiweapon · Michał Bieliński</span></div><div><b>Language</b><span>C++</span> ~55,600 lines</div><div><b>Platform</b><span>curses · NotEye</span> Linux, Windows</div></div>
+<nav class="toc"><a href="#lineage">Lineage</a><a href="#credits">Credits</a><a href="#shots">Screenshots</a><a href="#trivia">Trivia</a><a href="#usp">What's unique</a><a href="#code">Code dive</a><a href="#stats">Stats</a><a href="#manual">Manual</a><a href="#start">Getting started</a><a href="#help">Help</a><a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p>PRIME grew out of <a href="zapm.html">ZAPM</a> after Cyrus Dolph stopped work on it in 2010. Psiweapon started it in March 2011; Michał Bieliński (who also ported <a href="boss.html">BOSS</a> to the PC) joined in October 2011, and they worked on it until the end of 2014. It kept ZAPM’s goal and jokes and added races, many more professions and monsters, and a graphical NotEye frontend with tiles. See the <a href="../#tree">family tree</a>.</p>
+<p>Played here: PRIME 2.5a from <a href="https://github.com/Larzid/PRIME">Larzid/PRIME</a>, with the NotEye tile sheet.</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table><tr><td>Psiweapon</td><td>Creator (2011–2014)</td></tr><tr><td>Michał Bieliński</td><td>Co-developer (2011–2014)</td></tr><tr><td>Cyrus Dolph</td><td>ZAPM, the base</td></tr><tr><td>Larzid</td><td>GitHub maintainer</td></tr></table>
+</section>
+
+<section id="shots"><h2>Screenshots</h2>
+<div class="shots"><figure><img src="prime/title.png" alt="Profession choice"><figcaption>Start: 14 professions in five groups, from Human Space Marine to the Xel’Naga.</figcaption></figure><figure><img src="prime/steps.png" alt="Space Base 1"><figcaption>First steps: a Space Marine on Space Base 1, meeting a pack of grid bugs.</figcaption></figure><figure><img src="prime/fight.png" alt="Fighting grid bugs"><figcaption>A fight: “You derez the grid bug! (6 dam)”.</figcaption></figure><figure><img src="prime/inv.png" alt="Inventory"><figcaption>Inventory: energy cells, buckazoids, flares, a pistol, a pulse rifle, bullets, a flak jacket, a motion tracker.</figcaption></figure></div>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>The Space Marine starts with a profane letter home about the “krab patties” that killed Johnny, and signs off “So long, bastards.” Every profession has its own introduction. <span class="src">(<code>data/intro</code>)</span></li>
+<li>Daleks can levitate and follow you up and down stairs. <span class="src">(<a href="prime/changelog.txt">changelog</a>, 2.5)</span></li>
+<li>“Guardbot has something against ninjas.” <span class="src">(<a href="prime/changelog.txt">changelog</a>, 2.5)</span></li>
+<li>The monster list mixes in StarCraft (zergling, hydralisk, zealot, high templar), Star Control (Orz, Melnorme, Ur-Quan Kohr-Ah), Fallout (Brotherhood paladin, securitron), Dune (reverend mother) and System Shock (Shodan). <span class="src">(<code>Monsters.txt</code>)</span></li>
+<li>You pick a key map at first start: ADOM, Angband, Dungeon Crawl, DoomRL, NetHack or PRIME’s own.</li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>Races and professions:</strong> humans, space orcs, space elves, Reticulans, a Yautja hunter and the Xel’Naga.</li>
+<li><strong>Psionics:</strong> four psyker professions with their own mutant powers.</li>
+<li><strong>Tiles:</strong> a graphical NotEye mode, with the ASCII game still underneath.</li>
+<li>Everything ZAPM had: technology instead of magic, buggy/debugged/optimized items, implants, skills, the Orgasmatron.</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li>C++, about 55,600 lines. Monsters and items live in text tables (<code>Monsters.txt</code>, <code>Items.txt</code>) turned into C++ by m4 and a table compiler (<code>tablemk</code>, bison/flex).</li>
+<li>Two frontends: NCurses and NotEye (Zeno Rogue’s graphics library).</li>
+<li>A crash handler (libsigsegv) tries to save the game on a segfault and logs “Saving throw succeeded!”</li>
+<li><strong>This port:</strong> a new frontend in place of NotEye with the same tiles, WebAssembly, separate windows. Source: <a href="https://github.com/memmaker/prime">memmaker/prime</a>.</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<table><tr><th>Thing</th><th>Count</th><th>Notable ones</th></tr><tr><td>Professions</td><td>14</td><td>Space Marine, Stormboy, Yautja Hunter, Psion, Empath, Mastermind, Weirdboy Warphead, Ninja, Dissident, Software Engineer, Astronaut, Quarterback, Janitor, Xel’Naga.</td></tr><tr><td>Monsters</td><td>~110</td><td>Tribbles, flying toasters, naked Orz, kamikaze goblins, liquid metal slime, usenet troll, crazy chaos marine, Bastard Operator From Hell, the daemons, Shodan.</td></tr><tr><td>Items</td><td>~280</td><td>Guns, grenades, floppy disks, canisters, implants, ray guns, armour, tools.</td></tr><tr><td>Keymaps</td><td>9</td><td>ADOM, Angband ×2, Crawl, DoomRL, NetHack ×2, PRIME, PRIME for laptops.</td></tr></table>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>The PRIME guide, updated from the ZAPM guide: <a href="prime/manual.txt">read it here (text)</a>. The full <a href="prime/changelog.txt">changelog</a> lists every version.</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol><li><a href="../prime/">Open the game</a>, choose a profession (<kbd>Tab</kbd> shows descriptions), read your letter, pick a key map.</li>
+<li>Move with the arrow keys; walk into monsters to hit them; shooting is in the <kbd>Enter</kbd> menu.</li>
+<li><kbd>X</kbd> explores; <kbd>&gt;</kbd> walks to the stairs.</li>
+<li><kbd>Enter</kbd> opens a command menu; <kbd>?</kbd> is help.</li></ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>No walkthrough exists. The guide covers items and skills; ZAPM advice applies. Tips:</p><ul>
+<li>Your motion tracker shows monsters behind walls; use it.</li>
+<li>Melnorme traders sell services; translation helps.</li>
+<li>Buggy items hurt, so identify before using.</li></ul>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<p>PRIME has a debug command for the “Bastard Operator From Hell” (create items and monsters, control monsters), but only with four command-line options; this port does not enable it. <em>Export save</em> / <em>Import save</em> keeps backups.</p>
+</section>
+</div></body>
+</html>
