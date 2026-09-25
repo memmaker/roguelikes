@@ -1,0 +1,34 @@
+/* Shared look of every shrine page (RVIP step 11). Colours = the selection page. */
+:root { --bg:#0b0a0d; --stone:#17151a; --line:#2e2a33; --text:#d9d4c7; --dim:#8d8676; --gold:#e0b24f; --ember:#ff7a2a; }
+* { box-sizing:border-box; }
+body { margin:0; color:var(--text); font:15px/1.6 "IBM Plex Mono",monospace;
+  background:radial-gradient(ellipse at 50% -10%, rgba(255,140,50,.16), transparent 55%), var(--bg); }
+.wrap { max-width:860px; margin:0 auto; padding:24px 16px 64px; }
+nav { font-size:13px; } nav a { color:var(--dim); text-decoration:none; } nav a:hover { color:var(--gold); }
+header { text-align:center; padding:28px 0 8px; }
+h1 { font:800 clamp(30px,6vw,52px)/1.1 Cinzel,serif; margin:0; letter-spacing:.06em; color:var(--gold);
+  text-shadow:0 0 18px rgba(255,150,40,.45), 0 2px 0 #000; }
+.epi { color:var(--dim); margin:8px 0 0; }
+.play { display:inline-block; margin-top:18px; padding:8px 18px; border:1px solid var(--gold); border-radius:4px;
+  color:var(--gold); font-weight:600; text-decoration:none; } .play:hover { background:var(--gold); color:#1a1408; }
+.toc { display:flex; flex-wrap:wrap; justify-content:center; gap:4px 14px; font-size:12px; margin:22px 0 8px; }
+.toc a { color:var(--dim); text-decoration:none; } .toc a:hover { color:var(--gold); }
+section { margin:34px 0 0; }
+h2 { font:600 22px Cinzel,serif; color:var(--gold); margin:0 0 10px; padding-bottom:6px; border-bottom:1px solid var(--line); }
+h2::before { content:"✦ "; color:var(--ember); font-size:14px; }
+a { color:var(--gold); }
+.facts { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px; margin:26px 0 0; }
+.facts div { background:var(--stone); border:1px solid var(--line); border-radius:6px; padding:12px 14px; }
+.facts b { display:block; color:var(--dim); font-size:11px; font-weight:400; text-transform:uppercase; letter-spacing:.1em; }
+.facts span { font:600 18px Cinzel,serif; color:var(--text); }
+.shots { display:grid; grid-template-columns:repeat(auto-fit,minmax(360px,1fr)); gap:14px; }
+@media (max-width:420px) { .shots { grid-template-columns:1fr; } }
+figure { margin:0; background:#000; border:1px solid var(--line); border-radius:6px; overflow:hidden; }
+figure img { display:block; width:100%; image-rendering:pixelated; }
+figcaption { font-size:12px; color:var(--dim); padding:6px 10px; background:var(--stone); }
+table { width:100%; border-collapse:collapse; font-size:14px; }
+td, th { text-align:left; padding:5px 8px; border-bottom:1px solid var(--line); vertical-align:top; }
+th { color:var(--dim); font-weight:400; }
+td:first-child { color:var(--gold); white-space:nowrap; }
+kbd { border:1px solid var(--line); border-bottom-width:2px; border-radius:3px; padding:0 4px; background:var(--stone); font:inherit; font-size:13px; }
+.src { font-size:12px; color:var(--dim); }

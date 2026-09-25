@@ -32,7 +32,10 @@ main { max-width:1100px; margin:0 auto; padding:16px 16px 64px; display:grid; ga
 .card { display:flex; flex-direction:column; background:linear-gradient(#1c1a20,#121015); border:1px solid var(--line);
   border-radius:10px 10px 4px 4px; overflow:hidden; text-decoration:none; color:inherit;
   box-shadow:0 10px 30px rgba(0,0,0,.6); transition:transform .15s, box-shadow .15s, border-color .15s; }
-.card:hover, .card:focus-visible { transform:translateY(-4px); border-color:var(--gold);
+.card { position:relative; }
+.card .play::after { content:""; position:absolute; inset:0; } /* whole card clicks Play */
+.btns { display:flex; gap:8px; } .info { position:relative; z-index:1; }
+.card:hover, .card:focus-within { transform:translateY(-4px); border-color:var(--gold);
   box-shadow:0 14px 40px rgba(0,0,0,.7), 0 0 24px rgba(224,178,79,.25); outline:none; }
 .card img { width:100%; aspect-ratio:12/5; object-fit:cover; image-rendering:pixelated; background:#0c0a0e;
   border-bottom:1px solid var(--line); }
@@ -42,7 +45,8 @@ h2 { font:600 22px Cinzel,serif; margin:0 0 4px; color:var(--gold); }
 .ver { color:var(--dim); font:11px ui-monospace, Menlo, monospace; margin:-6px 0 10px; }
 .body p { margin:0 0 16px; flex:1; }
 .play { align-self:flex-start; padding:7px 16px; border:1px solid var(--gold); border-radius:4px; color:var(--gold); font-weight:600; }
-.card:hover .play { background:var(--gold); color:#1a1408; }
+.play { text-decoration:none; } .card:hover .play:not(.info) { background:var(--gold); color:#1a1408; }
+.card .info:hover { background:var(--ember); border-color:var(--ember); color:#1a1408; }
 footer { text-align:center; color:var(--dim); font-size:12px; padding:0 16px 32px; }
 /* view toggle + heritage tree */
 .views { display:flex; justify-content:center; margin:22px 0 0; }
@@ -61,6 +65,8 @@ body.tree main { display:none; } body:not(.tree) #tree { display:none; }
 #tree > ul > li::before { display:none; }
 #tree li.insp::before { border-top-style:dashed; border-color:var(--ember); }
 #tree .n { color:var(--text); } #tree .y { color:var(--dim); font-size:12px; }
+#tree a.shrine { color:var(--ember); text-decoration:none; margin-left:6px; text-shadow:0 0 8px rgba(255,122,42,.7); }
+#tree a.shrine:hover { color:var(--gold); }
 #tree .why { display:block; color:var(--dim); font-size:12px; }
 #tree a.n { color:var(--gold); font-weight:600; text-decoration:none; border-bottom:1px solid transparent; }
 #tree a.n::before { content:"▶ "; font-size:10px; } #tree a.n:hover { border-color:var(--gold); }
@@ -79,119 +85,119 @@ body.tree main { display:none; } body:not(.tree) #tree { display:none; }
 </header>
 <main>
 <!-- One card per published game (rule: ~/Games/rogue2wasm.md) -->
-  <a class="card" href="rogue36/">
+  <div class="card">
     <img src="rogue36.png" alt="Monster sprites from the NetHack 16×16 tileset used by Rogue 3.6">
     <div class="body"><h2>Rogue 3.6</h2><div class="tag">The original Rogue · 1980</div><div class="ver">Based on Rogue 3.6.4 · RoguelikeRestorationProject/rogue3.6 @ f36912c</div>
       <p>Rogue as it first spread across the world's Unix machines in 1981, with its original monsters from the giant ant to the zombie: the version Advanced Rogue and Super-Rogue grew from.</p>
-      <span class="play">&gt; Enter the dungeon</span></div></a>
-  <a class="card" href="rogue54/">
+      <span class="btns"><a class="play" href="rogue36/">&gt; Enter the dungeon</a></span></div></div>
+  <div class="card">
     <img src="rogue54.png" alt="Monster sprites from the NetHack 16×16 tileset used by Rogue 5.4">
     <div class="body"><h2>Rogue 5.4</h2><div class="tag">The original Rogue · 1980</div><div class="ver">Based on Rogue 5.4.5 (rogueforge) · RoguelikeRestorationProject/rogue5.4 @ 9d0dccc</div>
       <p>The Berkeley Unix Rogue that named a genre: 26 levels, one monster for every letter, items you learn by using them, and the Amulet of Yendor at the bottom.</p>
-      <span class="play">&gt; Enter the dungeon</span></div></a>
-  <a class="card" href="umoria/">
+      <span class="btns"><a class="play" href="rogue54/">&gt; Enter the dungeon</a><a class="play info" href="shrine/rogue54.html">Info</a></span></div></div>
+  <div class="card">
     <img src="umoria.png" alt="Umoria monsters">
     <div class="body"><h2>Umoria</h2><div class="tag">The original Moria · 1983</div><div class="ver">Based on Umoria 5.7.15 · dungeons-of-moria/umoria @ 3bf8abc</div>
       <p>The ancestor of Angband: one town, fifty levels of dungeon and the Balrog waiting at the bottom. Simple, harsh and still fair after forty years.</p>
-      <span class="play">&gt; Enter the dungeon</span></div></a>
-  <a class="card" href="boss/">
+      <span class="btns"><a class="play" href="umoria/">&gt; Enter the dungeon</a></span></div></div>
+  <div class="card">
     <img src="boss.png" alt="The town of Seattle in BOSS, drawn in text">
     <div class="body"><h2>BOSS: Beyond Moria</h2><div class="tag">VMS Moria variant · 1991</div><div class="ver">Based on BOSS 2.4b · dungeons-of-moria/boss-beyond-moria @ bc2f3e5</div>
       <p>Moria moved to a modern city: start in Seattle as a wrestler, ninja or scientist, carry baseballs, floppy disks and ray guns, and stay on the right side of the cops.</p>
-      <span class="play">&gt; Enter the dungeon</span></div></a>
-  <a class="card" href="srogue/">
+      <span class="btns"><a class="play" href="boss/">&gt; Enter the dungeon</a></span></div></div>
+  <div class="card">
     <img src="srogue.png" alt="Monster sprites from the NetHack 16×16 tileset used by Super-Rogue">
     <div class="body"><h2>Super-Rogue</h2><div class="tag">Rogue variant · 1984</div><div class="ver">Based on Super-Rogue 9.0 · RoguelikeRestorationProject/srogue @ c693810</div>
       <p>Robert Kindelberger's bigger Rogue 3.6: four stats, a weight limit, trading posts, maze levels and magic pools, with the Amulet of Yendor waiting at level 35 or deeper.</p>
-      <span class="play">&gt; Enter the dungeon</span></div></a>
-  <a class="card" href="arogue58/">
+      <span class="btns"><a class="play" href="srogue/">&gt; Enter the dungeon</a></span></div></div>
+  <div class="card">
     <img src="arogue58.png" alt="Monster sprites from the NetHack 16×16 tileset used by Advanced Rogue">
     <div class="body"><h2>Advanced Rogue 5.8</h2><div class="tag">Rogue variant · 1984</div><div class="ver">Based on Advanced Rogue 5.8.2 · RoguelikeRestorationProject/arogue5.8 @ 49b1289</div>
       <p>The early Advanced Rogue: four classes with spells and prayers, around 120 monsters, trading posts, and a quest artifact to bring back up.</p>
-      <span class="play">&gt; Enter the dungeon</span></div></a>
-  <a class="card" href="arogue77/">
+      <span class="btns"><a class="play" href="arogue58/">&gt; Enter the dungeon</a></span></div></div>
+  <div class="card">
     <img src="arogue77.png" alt="Monster sprites from the NetHack 16×16 tileset used by Advanced Rogue">
     <div class="body"><h2>Advanced Rogue 7.7</h2><div class="tag">Rogue variant · 1984</div><div class="ver">Based on Advanced Rogue 7.7.1 · RoguelikeRestorationProject/arogue7.7 @ 976b5bb</div>
       <p>Rogue grown into a full RPG: nine classes with spells, prayers and chants, over a hundred monsters, trading posts, and a quest artifact to carry back to the surface.</p>
-      <span class="play">&gt; Enter the dungeon</span></div></a>
-  <a class="card" href="urogue/">
+      <span class="btns"><a class="play" href="arogue77/">&gt; Enter the dungeon</a></span></div></div>
+  <div class="card">
     <img src="urogue.png" alt="Monster sprites from the NetHack 16×16 tileset used by UltraRogue">
     <div class="body"><h2>UltraRogue</h2><div class="tag">Advanced Rogue variant · 1985</div><div class="ver">Based on UltraRogue 1.0.7 · RoguelikeRestorationProject/urogue @ 8dec2be</div>
       <p>The biggest game of the Rogue family: ten classes, about four hundred monsters from dinosaurs to the gods of Greyhawk, and an artifact you must bring up from the depths before the stairs will take you home.</p>
-      <span class="play">&gt; Enter the dungeon</span></div></a>
-  <a class="card" href="roguepc/">
+      <span class="btns"><a class="play" href="urogue/">&gt; Enter the dungeon</a></span></div></div>
+  <div class="card">
     <img src="roguepc.png" alt="A room in the original IBM PC text mode of Rogue">
     <div class="body"><h2>Rogue PC</h2><div class="tag">The original Rogue · 1985</div><div class="ver">Based on Rogue PC 1.48 (rogue-pc-modern-C)</div>
       <p>The Epyx IBM PC edition of Rogue, in its original colours and CP437 symbols or with tiles: 26 levels down to the Amulet of Yendor, and back up again.</p>
-      <span class="play">&gt; Enter the dungeon</span></div></a>
-  <a class="card" href="larn/">
+      <span class="btns"><a class="play" href="roguepc/">&gt; Enter the dungeon</a></span></div></div>
+  <div class="card">
     <img src="larn.png" alt="Monster sprites from the Amiga Larn tileset">
     <div class="body"><h2>Larn</h2><div class="tag">Classic roguelike · 1986</div><div class="ver">Based on RL_M 26.4.0 · atsb/RL_M @ 12cefcd</div>
       <p>Your daughter is dying and the cure lies at the bottom of the caverns of Larn. A small, fixed dungeon, a town that turns gold into power, and a deadline that counts every step.</p>
-      <span class="play">&gt; Enter the dungeon</span></div></a>
-  <a class="card" href="xrogue/">
+      <span class="btns"><a class="play" href="larn/">&gt; Enter the dungeon</a></span></div></div>
+  <div class="card">
     <img src="xrogue.png" alt="Monster sprites from the NetHack 16×16 tileset used by XRogue">
     <div class="body"><h2>XRogue</h2><div class="tag">Advanced Rogue variant · 1990s</div><div class="ver">Based on XRogue 8.0.3</div>
       <p>The last of the Advanced Rogue line: nine classes with their own magic, trading posts and wilderness, and a quest relic deep in the dungeon that you must carry back to the surface.</p>
-      <span class="play">&gt; Enter the dungeon</span></div></a>
-  <a class="card" href="zapm/">
+      <span class="btns"><a class="play" href="xrogue/">&gt; Enter the dungeon</a></span></div></div>
+  <div class="card">
     <img src="zapm.png" alt="The ZAPM title in yellow block letters over a small map">
     <div class="body"><h2>ZAPM</h2><div class="tag">Science-fiction NetHack parody · 2002</div><div class="ver">Based on ZAPM 0.8.3 · winny-/ZAPM-winny @ 0fd7af8</div>
       <p>A janitor, a space marine or a psion on a space base full of aliens, droids, klingons and bad jokes. Canisters for potions, floppy disks for scrolls, ray guns for wands. Text only.</p>
-      <span class="play">&gt; Enter the dungeon</span></div></a>
-  <a class="card" href="prime/">
+      <span class="btns"><a class="play" href="zapm/">&gt; Enter the dungeon</a></span></div></div>
+  <div class="card">
     <img src="prime.png" alt="Monster sprites from the PRIME NotEye tileset">
     <div class="body"><h2>PRIME</h2><div class="tag">ZAPM variant · 2010s</div><div class="ver">Based on PRIME 2.5a · Larzid/PRIME @ 4404414</div>
       <p>ZAPM grown up: new professions, mutant powers and implants, and the space base with its Sewer Plant, Gamma Caves, Robot Town and Mainframe. Shown with its NotEye tileset.</p>
-      <span class="play">&gt; Enter the dungeon</span></div></a>
-  <a class="card" href="tome2/">
+      <span class="btns"><a class="play" href="prime/">&gt; Enter the dungeon</a></span></div></div>
+  <div class="card">
     <img src="tome2.png" alt="Monster sprites from ToME 2's 16×16 tileset">
     <div class="body"><h2>ToME 2</h2><div class="tag">Angband variant · 2000s</div><div class="ver">Based on ToME 2.3.11 · tome2/tome2 @ dac2d95</div>
       <p>The Tales of Middle-earth: a whole map of Middle-earth to roam, dozens of themed dungeons, gods to follow and a skill system that lets any class grow its own way. Also includes the Theme module.</p>
-      <span class="play">&gt; Enter the dungeon</span></div></a>
-  <a class="card" href="tinyangband/">
+      <span class="btns"><a class="play" href="tome2/">&gt; Enter the dungeon</a></span></div></div>
+  <div class="card">
     <img src="tinyangband.png" alt="Monster sprites from TinyAngband's 16×16 tileset">
     <div class="body"><h2>TinyAngband</h2><div class="tag">Japanese Zangband variant · 2000s</div><div class="ver">Based on TinyAngband 1.0.1 · iks3/tinyangband @ d221733</div>
       <p>Made by the XAngband team as a compact alternative to the sprawling Zangband family: a world map with several towns and dungeons, and a quest count you choose at birth.</p>
-      <span class="play">&gt; Enter the dungeon</span></div></a>
-  <a class="card" href="quickband/">
+      <span class="btns"><a class="play" href="tinyangband/">&gt; Enter the dungeon</a></span></div></div>
+  <div class="card">
     <img src="quickband.png" alt="Monster sprites from Quickband's 32×32 tileset">
     <div class="body"><h2>Quickband</h2><div class="tag">NPPAngband variant · 2010s</div><div class="ver">Based on Quickband 2.0.6 (AngbandPlus)</div>
       <p>Angband cut down to a quick game: fewer, denser levels, better loot and faster levelling. Built so a full run from town to the final boss fits into days instead of months.</p>
-      <span class="play">&gt; Enter the dungeon</span></div></a>
-  <a class="card" href="sil-q/">
+      <span class="btns"><a class="play" href="quickband/">&gt; Enter the dungeon</a></span></div></div>
+  <div class="card">
     <img src="sil-q.png" alt="Monster sprites from Sil-Q's MicroChasm 16×16 tileset">
     <div class="body"><h2>Sil-Q</h2><div class="tag">Sil continuation (Angband lineage) · 2010s</div><div class="ver">Based on Sil-Q 1.5.0 · sil-quirk/sil-q @ 09a53ab</div>
       <p>Steal a Silmaril from Morgoth's crown and escape Angband alive. No classes, no levels and almost no magic: stealth, careful positioning and a few hard-won skills keep you going.</p>
-      <span class="play">&gt; Enter the dungeon</span></div></a>
-  <a class="card" href="tactical-angband/">
+      <span class="btns"><a class="play" href="sil-q/">&gt; Enter the dungeon</a></span></div></div>
+  <div class="card">
     <img src="tactical-angband.png" alt="Monster sprites from the Shockbolt tileset">
     <div class="body"><h2>Tactical Angband</h2><div class="tag">Angband 4.2 variant · 2020s</div><div class="ver">Based on Tactical Angband 0.9beta2 · tomm/tactical-angband @ 06a3ea6</div>
       <p>Angband without the grind: 50 small levels, short sight lines, one mighty blow instead of many small ones, and almost no long-range teleporting, so every fight is decided by positioning.</p>
-      <span class="play">&gt; Enter the dungeon</span></div></a>
-  <a class="card" href="of-heaven-and-hell/">
+      <span class="btns"><a class="play" href="tactical-angband/">&gt; Enter the dungeon</a></span></div></div>
+  <div class="card">
     <img src="of-heaven-and-hell.png" alt="Of Heaven and Hell title art">
     <div class="body"><h2>Of Heaven and Hell</h2><div class="tag">Original roguelike · since January 2024</div>
       <p>Diablo, rebuilt as a turn-based roguelike: a Go reimplementation that follows the original game's rules and data as closely as possible.</p>
-      <span class="play">&gt; Enter the dungeon</span></div></a>
-  <a class="card" href="crawl-linley/">
+      <span class="btns"><a class="play" href="of-heaven-and-hell/">&gt; Enter the dungeon</a></span></div></div>
+  <div class="card">
     <img src="crawl-linley.png" alt="Monster tiles from the 2005 Dungeon Crawl tile version">
     <div class="body"><h2>Linley's Dungeon Crawl</h2><div class="tag">The original Crawl · 1995</div><div class="ver">Based on Linley's Dungeon Crawl 4.00b26 + Itakura tile version e070 · memmaker/crawl-linley @ fd103ab</div>
       <p>The game Stone Soup grew from: twenty-six species, gods with their own rules, a dungeon of branches from the Orc Mines to Hell and Pandemonium, and the Orb of Zot at the bottom. Shown with its 2005 tile version.</p>
-      <span class="play">&gt; Enter the dungeon</span></div></a>
-  <a class="card" href="decker/">
+      <span class="btns"><a class="play" href="crawl-linley/">&gt; Enter the dungeon</a></span></div></div>
+  <div class="card">
     <img src="decker.png" alt="ICE sprites from Decker">
     <div class="body"><h2>Decker</h2><div class="tag">Cyberpunk hacking roguelike · 2001</div><div class="ver">Based on Decker 1.12 · memmaker/decker @ 29a82b6</div>
       <p>A hacker's career in the spirit of Shadowrun: take contracts, upgrade your cyberdeck and write your own programs, then crawl turn by turn through generated corporate systems where ICE programs are the monsters.</p>
-      <span class="play">&gt; Jack in</span></div></a>
+      <span class="btns"><a class="play" href="decker/">&gt; Jack in</a></span></div></div>
 </main>
 <section id="tree" aria-label="Family tree">
-<p class="legend">Who built on whom. Solid line: code is descended from the parent. <span class="dash">Dashed line</span>: new code, inspired by the parent. Games you can play here are gold.</p>
+<p class="legend">Who built on whom. Solid line: code is descended from the parent. <span class="dash">Dashed line</span>: new code, inspired by the parent. Games you can play here are gold; <span class="dash">✦</span> opens a game's shrine.</p>
 <ul><li><span class="n">Rogue</span> <span class="y">1980 · Toy, Wichman, Arnold</span><ul>
   <li><a class="n" href="rogue36/">Rogue 3.6</a> <span class="y">1981 · first widely released version</span><ul>
     <li><span class="n">Rogue 5.2 / 5.3</span> <span class="y">1982–83</span><ul>
       <li><a class="n" href="roguepc/">Rogue PC</a> <span class="y">1985 · Epyx IBM PC edition (Toy, Lane, Wichman)</span></li>
-      <li><a class="n" href="rogue54/">Rogue 5.4</a> <span class="y">1985 · Berkeley (BSD) Rogue</span></li></ul></li>
+      <li><a class="n" href="rogue54/">Rogue 5.4</a><a class="shrine" href="shrine/rogue54.html" title="Rogue 5.4 shrine: history, stats, manual">✦</a> <span class="y">1985 · Berkeley (BSD) Rogue</span></li></ul></li>
     <li><a class="n" href="srogue/">Super-Rogue</a> <span class="y">1984 · Robert Kindelberger</span></li>
     <li><span class="n">Advanced Rogue</span> <span class="y">1984 · Morgan, Dalka · from 3.6 and Super-Rogue</span><ul>
       <li><a class="n" href="urogue/">UltraRogue</a> <span class="y">1985 · Herb Chong</span></li>
