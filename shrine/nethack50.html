@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NetHack 5.0 · Shrine</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>NetHack 5.0</h1>
+  <p class="epi">Forty years of the DevTeam thinking of everything · the current NetHack</p>
+  <a class="play" href="../nethack50/">&gt; Enter the dungeon</a>
+</header>
+<div class="facts">
+  <div><b>Date of birth</b><span>28 July 1987</span> 1.3d; this version: 2 May 2026</div>
+  <div><b>Creators</b><span>The NetHack DevTeam</span> founded by Mike Stephenson, Izchak Miller, Janet Walz</div>
+  <div><b>Language</b><span>C99 + Lua</span> ~293,000 lines in 223 <code>.c</code>/<code>.h</code> files</div>
+  <div><b>Platform</b><span>Unix, Windows, macOS…</span> tty, curses, X11, Qt; here: SDL2 and the browser</div>
+</div>
+<nav class="toc"><a href="#lineage">Lineage</a><a href="#credits">Credits</a><a href="#trivia">Trivia</a><a href="#usp">What's unique</a><a href="#code">Code dive</a><a href="#stats">Stats</a><a href="#manual">Manual</a><a href="#start">Getting started</a><a href="#help">Help</a><a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p>NetHack descends from <a href="hack.html">Hack</a> (1985), which descends from Rogue. Mike Stephenson's 1987 fork became <a href="nethack13d.html">NetHack 1.3d</a>; the DevTeam has carried the same code base forward ever since, through 2.x, 3.0 (1989), 3.4.3 (2003) and 3.6 (2015). The README of 5.0 calls it “a direct descendent of NetHack 3.6”: the long-running 3.7 development branch was released under a new major number.</p>
+<p>Its many variants (SLASH'EM, UnNetHack and others) branch off older 3.x versions; see the <a href="../#tree">family tree</a>.</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table>
+<tr><td>The NetHack DevTeam</td><td>Every version since 1987; 5.0.0 released 2 May 2026 with a list of over 3,100 fixes and changes (<a href="https://github.com/NetHack/NetHack/tree/dd8acee">NetHack/NetHack @ dd8acee</a>, branch <code>NetHack-5.0</code>)</td></tr>
+<tr><td>Mike Stephenson, Izchak Miller, Janet Walz</td><td>The original DevTeam that forked Hack and named it NetHack</td></tr>
+<tr><td>Jay Fenlason, Andries Brouwer</td><td>Hack, the code underneath</td></tr>
+<tr><td>The DevTeam and contributors</td><td>The 16×16 tile set shipped with NetHack (<code>win/share/monsters.txt</code>, <code>objects.txt</code>, <code>other.txt</code>), used here</td></tr>
+<tr><td>This port</td><td>SDL2 multi-window port and browser build (<a href="https://github.com/memmaker/nethack50">memmaker/nethack50</a>)</td></tr>
+</table>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>The “Net” is not for networked play: the DevTeam named the game NetHack because “their collaboration work was done over the Internet”. <span class="src">(<a href="https://en.wikipedia.org/wiki/NetHack">Wikipedia</a>)</span></li>
+<li>5.0.0 was released on 2 May 2026, with more than 3,000 patch notes; 3.6.0 (December 2015) had been “the first major release in over a decade”. <span class="src">(<a href="https://en.wikipedia.org/wiki/NetHack">Wikipedia</a>, <a href="https://github.com/NetHack/NetHack/releases/tag/NetHack-5.0.0_Released">release notes</a>)</span></li>
+<li>“The DevTeam Thinks of Everything” (TDTTOE) is the players' name for the feeling that every odd interaction was already programmed in. <span class="src">(<a href="https://en.wikipedia.org/wiki/NetHack">Wikipedia</a>)</span></li>
+<li>Picking up the Amulet of Yendor now grants a wish. <span class="src">(<a href="https://nethackwiki.com/wiki/NetHack_5.0.0">NetHackWiki</a>)</span></li>
+<li>New in 5.0: the displacer beast, the genetic engineer, the gold dragon, the amulets of flying and guarding, and the spellbook of chain lightning. <span class="src">(<a href="https://nethackwiki.com/wiki/NetHack_5.0.0">NetHackWiki</a>)</span></li>
+<li>Level and dungeon descriptions are no longer compiled at build time: they are Lua scripts loaded while you play. <span class="src">(<a href="https://github.com/NetHack/NetHack/releases/tag/NetHack-5.0.0_Released">release notes</a>)</span></li>
+<li>Randomly generated spellbooks have a tiny chance of being Discworld novels. <span class="src">(<a href="https://github.com/NetHack/NetHack/blob/NetHack-5.0/doc/fixes5-0-0.txt">fixes5-0-0.txt</a>)</span></li>
+<li>The game is released under the NetHack General Public License, a copyleft licence certified by the Open Source Initiative. <span class="src">(<a href="https://en.wikipedia.org/wiki/NetHack">Wikipedia</a>)</span></li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>Depth of interaction.</strong> Dip, rub, engrave, polymorph, wield a cockatrice corpse: nearly every object and monster reacts to nearly every action, which is where TDTTOE comes from.</li>
+<li><strong>A branching dungeon.</strong> The Gnomish Mines, Sokoban, the Quest, Fort Ludios, Vlad's Tower, Gehennom and the Elemental Planes hang off the Dungeons of Doom; 5.0 adds themed rooms and more varied Gehennom levels.</li>
+<li><strong>Thirteen roles × five races</strong>, each role with its own Quest, quest artifact and starting pet.</li>
+<li><strong>Conducts and achievements</strong> track how you won: vegan, atheist, pacifist, illiterate, wishless, and new in 5.0, no rule breaking in Sokoban.</li>
+<li><strong>Still the same game.</strong> Saves from 3.6 no longer load, but the map, the keys and the monsters are those of 1987, grown for four decades.</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li><strong>Language:</strong> C99 (a stated goal of 5.0) plus Lua: about 293,000 lines in 223 files under <code>src/</code> and <code>include/</code>, and 131 Lua files under <code>dat/</code> for levels, dungeon layout, quest texts and themed rooms.</li>
+<li><strong>Data tables:</strong> monsters in <code>include/monsters.h</code>, objects in <code>include/objects.h</code>, artifacts in <code>include/artilist.h</code>, roles and races in <code>src/role.c</code>. The save file was reworked to write individual fields, little-endian, instead of raw structs, so saves can cross machines.</li>
+<li><strong>Window ports:</strong> the core talks to the display through a <code>window_procs</code> table; tty, curses, X11, Qt and Windows GUI ship upstream. Our port adds <code>win/sdl2/winsdl.c</code> (SDL2, one window per NetHack window) and reuses it for the browser, where the WebAssembly side decides everything and JavaScript only blits and plays sounds.</li>
+<li><strong>Cross-compiling</strong> is an explicit 5.0 goal: the parts of <code>makedefs</code> that ran on the build machine were split off, which is what made the Emscripten build straightforward.</li>
+<li><strong>Source:</strong> <a href="https://github.com/memmaker/nethack50">memmaker/nethack50</a>; upstream <a href="https://github.com/NetHack/NetHack/tree/dd8acee">NetHack/NetHack @ dd8acee</a>; <a href="https://github.com/memmaker/nethack50/compare/dd8acee...NetHack-5.0">our changes</a>.</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<table>
+<tr><th>Thing</th><th>Count</th><th>Notable ones</th></tr>
+<tr><td>Roles</td><td>13</td><td>Archeologist, Barbarian, Caveman, Healer, Knight, Monk, Priest, Rogue, Ranger, Samurai, Tourist, Valkyrie, Wizard. The <em>Valkyrie</em> is always female; the <em>Tourist</em> starts with a Hawaiian shirt and an expensive camera.</td></tr>
+<tr><td>Races</td><td>5</td><td>Human, elf, dwarf, gnome, orc.</td></tr>
+<tr><td>Monsters</td><td>394</td><td>The <em>displacer beast</em>, <em>genetic engineer</em> and <em>gold dragon</em> (new), <em>Medusa</em>, <em>Croesus</em>, <em>Vlad the Impaler</em>, the <em>Wizard of Yendor</em>, and the Riders <em>Death</em>, <em>Pestilence</em> and <em>Famine</em>.</td></tr>
+<tr><td>Artifacts</td><td>35</td><td>Excalibur, Mjollnir, Stormbringer, Grayswandir, Vorpal Blade, the Platinum Yendorian Express Card, the Eyes of the Overworld.</td></tr>
+<tr><td>Weapons</td><td>71</td><td>Including 6 launchers and 6 projectiles; katana, tsurugi, aklys, crysknife, rubber hose.</td></tr>
+<tr><td>Armour</td><td>70</td><td>Dragon scale mail in nine colours (gold is new), crystal plate mail, the Hawaiian shirt.</td></tr>
+<tr><td>Rings / Amulets</td><td>28 / 11</td><td>Ring of conflict, of polymorph control; amulet of life saving, and the new amulets of flying and of guarding.</td></tr>
+<tr><td>Tools</td><td>45</td><td>Magic marker, magic lamp, drum of earthquake, expensive camera, 7 containers (bag of holding, ice box).</td></tr>
+<tr><td>Potions / Scrolls</td><td>26 / 23</td><td>Potion of gain level, of full healing; scroll of genocide, of charging, of stinking cloud.</td></tr>
+<tr><td>Spellbooks</td><td>44</td><td>Finger of death, chain lightning (new), magic mapping, identify.</td></tr>
+<tr><td>Wands</td><td>28</td><td>Wishing, death, polymorph, digging.</td></tr>
+<tr><td>Food</td><td>32</td><td>Lembas wafer, cram ration, tin, egg, lump of royal jelly (which now turns a killer bee into a queen).</td></tr>
+<tr><td>Themed rooms</td><td>23</td><td>Ice room, spider nest, garden, massacre, buried treasure, temple of the gods, a room inside a room.</td></tr>
+<tr><td>Quests</td><td>13</td><td>One per role, each with its own leader, nemesis and artifact.</td></tr>
+<tr><td>Dungeon</td><td>~50 levels</td><td>Dungeons of Doom 25–29 levels, Gehennom 20–24, Gnomish Mines 8–13, Sokoban 4, the Quest 5–7, Vlad's Tower 3, Fort Ludios 1, then the four Elemental Planes and the Astral Plane. Max experience level: 30.</td></tr>
+</table>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>The official <a href="nethack50/Guidebook.txt">Guidebook (“A Guide to the Mazes of Menace”, text, 7,800 lines)</a> shipped with the source, under the <a href="nethack50/license.txt">NetHack General Public License</a>. The in-game <kbd>?</kbd> help and the <a href="../nethack50/help.html">port's help page</a> cover the keys.</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol>
+<li><a href="../nethack50/">Open the game</a>, type a name and answer <kbd>n</kbd> to pick a role (Valkyrie is the classic first choice), or <kbd>y</kbd> for a random one. Say <kbd>y</kbd> to the tutorial if you have never played.</li>
+<li>Move with the arrow keys or <kbd>h</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd><kbd>y</kbd><kbd>u</kbd><kbd>b</kbd><kbd>n</kbd>; walk into a monster to attack. <kbd>~</kbd> explores on its own, <kbd>&gt;</kbd> walks to the stairs you have seen.</li>
+<li>Press <kbd>Enter</kbd> for a menu of every command, <kbd>i</kbd> for the inventory (also shown in its own window).</li>
+<li>Read everything you can (<kbd>r</kbd>), pray (<kbd>#pray</kbd>) when hit points are low and you have not prayed in a long time. Search (<kbd>s</kbd>) in dead ends.</li>
+<li>Eat when “Hungry”, keep your pet close, and expect to die: the full key list is in the <a href="../nethack50/help.html">in-game guide</a>.</li>
+</ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>The NetHackWiki is the walkthrough: start with <a href="https://nethackwiki.com/wiki/Standard_strategy">Standard strategy</a>, then look up anything that kills you (<a href="https://nethackwiki.com/wiki/NetHack_5.0.0">what changed in 5.0.0</a>). Rules of thumb:</p>
+<ul>
+<li>Never melee a floating eye. Never eat a cockatrice corpse without gloves. Don't fight while “Weak”.</li>
+<li>Engrave <em>Elbereth</em> in the dust (<kbd>E</kbd>, <kbd>-</kbd>) when cornered; most monsters will not step onto it.</li>
+<li>Price-identify in shops; drop items on an altar to learn if they are cursed.</li>
+<li>Do Sokoban early for the prize and the experience; leave the Quest until level 14.</li>
+<li>More: <a href="https://nethackwiki.com/wiki/Main_Page">NetHackWiki</a>, <a href="https://www.roguebasin.com/index.php/NetHack">RogueBasin</a>.</li>
+</ul>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<ul>
+<li><strong>Wizard mode</strong> (<code>nethack -D</code>, <kbd>Ctrl</kbd>+<kbd>W</kbd> to wish, <kbd>Ctrl</kbd>+<kbd>V</kbd> to level-teleport) is compiled in, but the browser page never passes <code>-D</code> and the built-in <code>sysconf</code> only allows the users <code>root</code> and <code>games</code>, so it can't be reached here. <span class="src">(<a href="https://nethackwiki.com/wiki/Wizard_mode">NetHackWiki</a>)</span></li>
+<li><strong>Explore mode</strong> works: the <code>#exploremode</code> command (<kbd>Alt</kbd>+<kbd>X</kbd>) turns the game into a non-scoring discovery game where death is optional.</li>
+<li><strong>Excalibur</strong>: a lawful character of level 5 or more dips a long sword into a fountain.</li>
+<li><strong>Save scumming</strong> works in the browser: <em>Export save</em> before something risky, <em>Import save</em> if it goes wrong.</li>
+</ul>
+</section>
+</div></body>
+</html>
