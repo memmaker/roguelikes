@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rogue PC · Shrine</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>Rogue PC</h1>
+  <p class="epi">The Epyx IBM PC edition of Rogue, 1985</p>
+  <a class="play" href="../roguepc/">&gt; Enter the dungeon</a>
+</header>
+<div class="facts"><div><b>Date of birth</b><span>1985</span> v1.48; Rogue itself 1980</div><div><b>Creators</b><span>Toy · Wichman · Lane</span> A.I. Design for Epyx</div><div><b>Language</b><span>C + 8086 asm</span> ~18,300 lines</div><div><b>Platform</b><span>IBM PC, DOS</span> CGA text mode</div></div>
+<nav class="toc"><a href="#lineage">Lineage</a><a href="#credits">Credits</a><a href="#shots">Screenshots</a><a href="#trivia">Trivia</a><a href="#usp">What's unique</a><a href="#code">Code dive</a><a href="#stats">Stats</a><a href="#manual">Manual</a><a href="#start">Getting started</a><a href="#help">Help</a><a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p>Rogue PC is the IBM PC port of Berkeley Rogue <strong>5.2/5.3</strong>, done by A.I. Design (Michael Toy and Jon Lane) and published by Epyx in 1985. It is a sibling of <a href="../rogue54/">Rogue 5.4</a>, with colours, CP437 line graphics and a title picture. Our build is the modern C port of the 1.48 source. See the <a href="../#tree">family tree</a>.</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table><tr><td>Michael Toy, Glenn Wichman</td><td>Designed Rogue</td></tr><tr><td>Ken Arnold, Jon Lane, Michael Toy</td><td>“Various implementations” (title screen)</td></tr><tr><td>A.I. Design</td><td>IBM PC adaptation</td></tr><tr><td>Epyx</td><td>Publisher (copyright 1985)</td></tr><tr><td>rogue-pc-modern-C</td><td>Modern C port of the 1.48 source (<a href="https://github.com/MestreLion/roguepc">MestreLion/roguepc</a>)</td></tr></table>
+</section>
+
+<section id="shots"><h2>Screenshots</h2>
+<div class="shots"><figure><img src="roguepc/title.png" alt="The credits title screen"><figcaption>The title screen, with the original credits and “Rogue’s Name?”.</figcaption></figure><figure><img src="roguepc/steps.png" alt="A lit room with gold"><figcaption>First steps: “Hello Shrine. Welcome to the Dungeons of Doom.”</figcaption></figure><figure><img src="roguepc/fight.png" alt="Fighting a hobgoblin"><figcaption>A fight: “You swing and hit the hobgoblin.”</figcaption></figure><figure><img src="roguepc/inv.png" alt="Inventory with a cursor"><figcaption>Inventory: food, ring mail, a mace, a bow and arrows.</figcaption></figure></div>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>Epyx found its own staff playing Rogue and paid for the PC and other home computer versions. <span class="src">(<a href="https://en.wikipedia.org/wiki/Rogue_(video_game)">Wikipedia</a>)</span></li>
+<li>The 1.48 source turned up in 2016; it compiled with a 1985 Aztec C compiler, but copy protection made it unplayable until that was patched out. <span class="src">(<a href="https://virtuallyfun.com/wordpress/2016/08/02/epyx-rogue-1-48/">Virtually Fun</a>)</span></li>
+<li>The function that shows the Epyx title picture is called <code>epyx_yuck()</code>. <span class="src">(source: <code>load.c</code>)</span></li>
+<li>The copy protection read the floppy directly and even set a timer to halt the PC if you stepped through it in a debugger. <span class="src">(source: <code>protect.c</code>)</span></li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>Colour and CP437 graphics</strong> instead of plain letters: walls drawn with line characters, a smiley for the hero.</li>
+
+<li>Same rules as Berkeley Rogue: 26 levels to the Amulet of Yendor, and back up.</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li><strong>Language:</strong> C with 8086 assembly (<code>begin.asm</code>, <code>dos.asm</code>, <code>zoom.asm</code>), about 18,300 lines. Source files carry “A.I. Design” version stamps from 1983–85.</li>
+<li><strong>Environment:</strong> PC-DOS on IBM PC and compatibles, CGA/EGA; its own built-in curses writes to video memory.</li>
+<li><strong>This port:</strong> the modern C port (over 85% of the code intact) with our SDL2 frontend, tiles and a WebAssembly build. Source: <a href="https://github.com/memmaker/roguepc">memmaker/roguepc</a>.</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<table><tr><th>Thing</th><th>Count</th><th>Notable ones</th></tr><tr><td>Classes</td><td>1</td><td></td></tr><tr><td>Monsters</td><td>26</td><td>One per letter, as in Rogue 5.x.</td></tr><tr><td>Potions</td><td>14</td><td></td></tr><tr><td>Scrolls</td><td>15</td><td></td></tr><tr><td>Rings</td><td>14</td><td></td></tr><tr><td>Wands &amp; staffs</td><td>14</td><td></td></tr><tr><td>Weapons</td><td>10</td><td></td></tr><tr><td>Armour</td><td>8</td><td></td></tr><tr><td>Traps</td><td>6</td><td></td></tr><tr><td>Levels</td><td>26+</td><td>Amulet on level 26.</td></tr></table>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>The Epyx “Rogue” instruction manual (1985) is not ours to host; read it at <a href="https://britzl.github.io/roguearchive/files/misc/EpyxRogueDOSManual/manual.htm">The Rogue Archive (HTML)</a>.</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol><li><a href="../roguepc/">Open the game</a>, type a name at “Rogue’s Name?” and press <kbd>Enter</kbd>.</li>
+<li>Move with the arrow keys, numpad or <kbd>h</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd>; walk into monsters to fight; <kbd>x</kbd> explores.</li>
+<li><kbd>Enter</kbd> lists every command; <kbd>i</kbd> the inventory. <em>Tiles</em> / <em>Text</em> switch the look.</li>
+<li><kbd>&gt;</kbd> goes down the stairs.</li>
+<li>All keys: the <a href="../roguepc/help.html">in-game guide</a>.</li></ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>No walkthrough exists. Tips:</p><ul>
+<li>Same strategy as all Rogues: corridors, rest, test items when safe.</li>
+<li>More: <a href="https://www.roguebasin.com/index.php/Rogue">RogueBasin</a>.</li></ul>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<ul><li>The source has a <code>WIZARD</code> (“God mode”) compile option; it is not built in here.</li>
+<li><strong>Save scumming:</strong> <em>Export save</em> / <em>Import save</em>.</li></ul>
+</section>
+</div></body>
+</html>

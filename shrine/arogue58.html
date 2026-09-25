@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Advanced Rogue 5.8 · Shrine</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>Advanced Rogue 5.8</h1>
+  <p class="epi">Rogue with classes, spells and a quest, from Bell Labs</p>
+  <a class="play" href="../arogue58/">&gt; Enter the dungeon</a>
+</header>
+<div class="facts"><div><b>Date of birth</b><span>1984</span> 5.8 in 1985</div><div><b>Creators</b><span>Michael Morgan · Ken Dalka</span> AT&amp;T Bell Labs</div><div><b>Language</b><span>C</span> ~27,700 lines</div><div><b>Platform</b><span>Unix + curses</span> sold via AT&amp;T Toolchest</div></div>
+<nav class="toc"><a href="#lineage">Lineage</a><a href="#credits">Credits</a><a href="#shots">Screenshots</a><a href="#trivia">Trivia</a><a href="#usp">What's unique</a><a href="#code">Code dive</a><a href="#stats">Stats</a><a href="#manual">Manual</a><a href="#start">Getting started</a><a href="#help">Help</a><a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p>Advanced Rogue is built on the <strong>Rogue 3.6</strong> source “with some additions from Super-Rogue”. A group of AT&amp;T Bell Labs employees led by Michael Morgan and Ken Dalka developed it between 1984 and 1986; AT&amp;T distributed it through its <em>Toolchest</em> software service.</p>
+<p>5.8 is the early version. It grew into <a href="../arogue77/">Advanced Rogue 7.7</a> and later <a href="../xrogue/">XRogue</a>; <a href="../urogue/">UltraRogue</a> branched off it too. See the <a href="../#tree">family tree</a>.</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table><tr><td>Michael Morgan</td><td>Lead developer</td></tr><tr><td>Ken Dalka</td><td>Lead developer</td></tr><tr><td>AT&amp;T Bell Labs group</td><td>Development, 1984–86</td></tr><tr><td>Roguelike Restoration Project</td><td>Restored 5.8.2 (arogue5.8 @ 49b1289)</td></tr></table>
+</section>
+
+<section id="shots"><h2>Screenshots</h2>
+<div class="shots"><figure><img src="arogue58/title.png" alt="Choosing a class"><figcaption>The start: choose fighter, magician, cleric or thief.</figcaption></figure><figure><img src="arogue58/steps.png" alt="The first room and the quest message"><figcaption>First steps: “You have been quested to retrieve the Daggers of Musty Doit…”</figcaption></figure><figure><img src="arogue58/fight.png" alt="Fighting a giant rat"><figcaption>A fight: “You swing and hit the giant rat.”</figcaption></figure><figure><img src="arogue58/inv.png" alt="Inventory with a cursor"><figcaption>Inventory: a fighter’s food, chain mail and two-handed sword.</figcaption></figure></div>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>Advanced Rogue was sold by AT&amp;T through its Toolchest software service. <span class="src">(<a href="https://www.roguebasin.com/index.php/Advanced_Rogue">RogueBasin</a>)</span></li>
+<li>There was also a 5.8s version (maybe 1989) with special rooms like an orc den, ant hill, throne room and zoo; none of it made it into later releases. <span class="src">(<a href="https://www.roguebasin.com/index.php/Advanced_Rogue">RogueBasin</a>)</span></li>
+<li>Your quest is picked at random from eleven relics, and the Amulet of Yendor is only one of them. You might have to fetch the Mandolin of Brian or the Morning Star of Hruggek instead. <span class="src">(source: <code>main.c</code>, <code>rogue.c</code>)</span></li>
+<li>Like Rogue 3.6, it refuses to start when the machine is too loaded, unless you are the wizard or the author. <span class="src">(source: <code>main.c</code>)</span></li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>Classes:</strong> fighter, magician (spells), cleric (prayers) and thief (stealing, traps), each levelling differently.</li>
+<li><strong>A random quest</strong> instead of always the Amulet, and you must carry it back up.</li>
+<li><strong>Miscellaneous magic</strong> in the style of D&amp;D: boots of elvenkind, gauntlets of ogre power, the <em>alchemy jug</em>.</li>
+<li><strong>Trading posts</strong>, mazes and outdoor levels, and about 120 monsters.</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li><strong>Language:</strong> K&amp;R C, about 27,700 lines. Items, relics and spells are tables in <code>rogue.c</code>; monsters in their own table (<code>NUMMONST</code> = 120).</li>
+<li><strong>Environment:</strong> AT&amp;T Unix System V and BSD, curses terminals.</li>
+<li><strong>This port:</strong> curses shim to X11 and WebAssembly, NetHack tiles. Source: <a href="https://github.com/memmaker/arogue5.8">memmaker/arogue5.8</a>.</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<table><tr><th>Thing</th><th>Count</th><th>Notable ones</th></tr><tr><td>Classes</td><td>4</td><td>Fighter, magician, cleric, thief.</td></tr><tr><td>Monsters</td><td>120</td><td></td></tr><tr><td>Spells</td><td>20</td><td>Magician spells.</td></tr><tr><td>Prayers</td><td>15</td><td>Cleric prayers.</td></tr><tr><td>Relics</td><td>11</td><td>Daggers of Musty Doit, Cloak of Emori, Ankh of Heil, Staff of Ming, Wand of Orcus, Rod of Asmodeus, Mandolin of Brian, Horn of Geryon, Flail of Yeenoghu, …</td></tr><tr><td>Misc. magic</td><td>22</td><td>Alchemy jug, beaker of potions, dust of choking, necklace of strangulation, boots of dancing, Keoghtom’s ointment.</td></tr><tr><td>Potions</td><td>12</td><td></td></tr><tr><td>Scrolls</td><td>17</td><td></td></tr><tr><td>Rings</td><td>24</td><td></td></tr><tr><td>Wands &amp; staffs</td><td>20</td><td></td></tr><tr><td>Weapons</td><td>19</td><td></td></tr><tr><td>Armour</td><td>10</td><td></td></tr></table>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>“The Dungeons of Doom” (AT&amp;T Bell Laboratories), the guide shipped with the source: <a href="arogue58/manual.txt">read it here (text)</a>.</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol><li><a href="../arogue58/">Open the game</a> and pick a class (the fighter is the easiest start); accept or re-roll the stats.</li>
+<li>Read the quest message: that item must come back to the surface.</li>
+<li>Move with <kbd>h</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd><kbd>y</kbd><kbd>u</kbd><kbd>b</kbd><kbd>n</kbd> or the arrows; <kbd>x</kbd> explores; <kbd>Enter</kbd> lists every command.</li>
+<li>Magicians cast with <kbd>C</kbd>, clerics pray with <kbd>p</kbd>.</li>
+<li>All keys: the <a href="../arogue58/help.html">in-game guide</a>.</li></ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>No walkthrough exists. Tips:</p><ul>
+<li>A fighter with a two-handed sword is the safest first character.</li>
+<li>Spend gold at trading posts on armour; sell unknown items you don't want to test.</li>
+<li>Your quest relic tends to be deep: grow first, then dive.</li>
+<li>More: <a href="https://www.roguebasin.com/index.php/Advanced_Rogue">RogueBasin</a> and the <a href="arogue58/manual.txt">manual</a>.</li></ul>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<ul><li><strong>Wizard mode</strong> needs a password on the command line: not reachable in this build.</li>
+<li>You may <strong>re-roll</strong> your stats at the start as often as you like.</li>
+<li><strong>Save scumming:</strong> <em>Export save</em> / <em>Import save</em>.</li></ul>
+</section>
+</div></body>
+</html>

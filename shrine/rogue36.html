@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rogue 3.6 · Shrine</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>Rogue 3.6</h1>
+  <p class="epi">The Rogue that spread across the world's Unix machines</p>
+  <a class="play" href="../rogue36/">&gt; Enter the dungeon</a>
+</header>
+<div class="facts"><div><b>Date of birth</b><span>1980</span> (Rogue) · 3.6 in 1981</div><div><b>Creators</b><span>Toy · Wichman</span> then Arnold</div><div><b>Language</b><span>C</span> ~14,000 lines</div><div><b>Platform</b><span>Unix + curses</span> VAX, terminals</div></div>
+<nav class="toc"><a href="#lineage">Lineage</a><a href="#credits">Credits</a><a href="#shots">Screenshots</a><a href="#trivia">Trivia</a><a href="#usp">What's unique</a><a href="#code">Code dive</a><a href="#stats">Stats</a><a href="#manual">Manual</a><a href="#start">Getting started</a><a href="#help">Help</a><a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p>Rogue has no parent game. Michael Toy and Glenn Wichman wrote it at UC Santa Cruz around 1980, after <em>Colossal Cave Adventure</em>, the mainframe <em>Star Trek</em> game and Dungeons &amp; Dragons, on top of Ken Arnold's <em>curses</em> screen library.</p>
+<p><strong>3.6</strong> is the version that first spread widely (1981). It is the common root of the family: Super-Rogue and Advanced Rogue were built from its code, while the 5.x line (Rogue 5.4, Rogue PC) continued at Berkeley. See the <a href="../#tree">family tree</a>.</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table><tr><td>Michael C. Toy</td><td>Co-creator, main programmer</td></tr><tr><td>Glenn R. Wichman</td><td>Co-creator, game design, named the game</td></tr><tr><td>Kenneth C. R. C. Arnold</td><td>Author of curses, later co-developer</td></tr><tr><td>Roguelike Restoration Project</td><td>Preserved this source (rogue3.6 @ f36912c)</td></tr></table>
+</section>
+
+<section id="shots"><h2>Screenshots</h2>
+<div class="shots"><figure><img src="rogue36/title.png" alt="The full game screen"><figcaption>Rogue 3.6 has no title screen: it drops you straight into a room. This is the whole screen at the start.</figcaption></figure><figure><img src="rogue36/steps.png" alt="A room and a corridor"><figcaption>First steps: a lit room, and a corridor of <code>#</code> (drawn as rings) leading away.</figcaption></figure><figure><img src="rogue36/fight.png" alt="Fighting a jackal"><figcaption>A fight: “You swing and hit the jackal.”</figcaption></figure><figure><img src="rogue36/inv.png" alt="Inventory with a cursor"><figcaption>Inventory: food, ring mail, a mace, a bow and arrows.</figcaption></figure></div>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>Dennis Ritchie joked that Rogue was the biggest waste of CPU cycles in history. <span class="src">(<a href="https://en.wikipedia.org/wiki/Rogue_(video_game)">Wikipedia</a>)</span></li>
+<li>“The name ‘Rogue’ was my idea,” writes Glenn Wichman in his history of the game. <span class="src">(<a href="https://www.wichman.org/roguehistory.html">wichman.org</a>)</span></li>
+<li>Rogue went out with BSD Unix and spread over ARPANET to universities everywhere. <span class="src">(<a href="https://en.wikipedia.org/wiki/Rogue_(video_game)">Wikipedia</a>)</span></li>
+<li>The source of 3.6 checks the machine's load: <code>too_much()</code> can refuse to start the game when the shared computer is busy, unless you are the wizard or the author: “Sorry, … but the system is too loaded now. Try again later. Meanwhile, why not enjoy a slime-mold?” <span class="src">(source: <code>main.c</code>)</span></li>
+<li>3.6 still uses Dungeons &amp; Dragons monsters — floating eye, rust monster, umber hulk, xorn, quasit — that the later 5.x versions replaced with new ones like the aquator and xeroc. <span class="src">(source: <code>init.c</code>, compared with Rogue 5.4)</span></li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>The template for a genre:</strong> random levels, permanent death, items identified by use, a letter for every monster.</li>
+<li><strong>The D&amp;D bestiary:</strong> unlike later versions, the monsters are straight from the Monster Manual.</li>
+<li><strong>Small and pure:</strong> one fighter, one goal (the Amulet of Yendor on level 26), no shops, no classes, no spells.</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li><strong>Language:</strong> K&amp;R C, about 14,000 lines. Monster and item tables are plain arrays in <code>init.c</code>.</li>
+<li><strong>Environment:</strong> BSD Unix on DEC VAX computers, played on video terminals through curses.</li>
+<li>Wizard mode is started with an <em>empty</em> first argument and a password compared against a <code>crypt()</code> hash.</li>
+<li><strong>This port:</strong> the same C through a curses shim, to X11 and to WebAssembly. Source: <a href="https://github.com/memmaker/rogue3.6">memmaker/rogue3.6</a>.</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<table><tr><th>Thing</th><th>Count</th><th>Notable ones</th></tr><tr><td>Classes</td><td>1</td><td>A fighter fresh from the guild.</td></tr><tr><td>Monsters</td><td>26</td><td>Giant ant, floating eye, violet fungi, invisible stalker, mimic, purple worm, rust monster, umber hulk, xorn, yeti — one per letter.</td></tr><tr><td>Potions</td><td>14</td><td></td></tr><tr><td>Scrolls</td><td>16</td><td></td></tr><tr><td>Rings</td><td>13</td><td></td></tr><tr><td>Wands &amp; staffs</td><td>14</td><td></td></tr><tr><td>Weapons</td><td>12</td><td></td></tr><tr><td>Armour</td><td>8</td><td></td></tr><tr><td>Levels</td><td>26+</td><td>The Amulet is on level 26.</td></tr><tr><td>Spells, skills</td><td>0</td><td>Magic lives in items only.</td></tr></table>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>“A Guide to the Dungeons of Doom” by Michael C. Toy, shipped with the source: <a href="rogue36/manual.txt">read it here (text)</a>.</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol><li><a href="../rogue36/">Open the game</a>: you start in a room with food, ring mail, a mace, a bow and arrows.</li>
+<li>Move with <kbd>h</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd><kbd>y</kbd><kbd>u</kbd><kbd>b</kbd><kbd>n</kbd> or the arrows; walk into monsters to fight. <kbd>x</kbd> explores.</li>
+<li><kbd>Enter</kbd> lists every command; <kbd>i</kbd> is the inventory.</li>
+<li><kbd>&gt;</kbd> takes (or walks to) the stairs down.</li>
+<li>All keys: the <a href="../rogue36/help.html">in-game guide</a>.</li></ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>No walkthrough exists: the dungeon is new every game. Tips:</p><ul>
+<li>Fight in corridors and doorways; rest to full hit points between fights.</li>
+<li>Keep the armour off near a rust monster. Don't melee a floating eye: its gaze freezes you.</li>
+<li>Test unknown potions and scrolls when you are healthy and alone.</li>
+<li>More: <a href="https://www.roguebasin.com/index.php/Rogue">RogueBasin</a> and the <a href="rogue36/manual.txt">manual</a>.</li></ul>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<ul><li><strong>Wizard mode</strong> (<kbd>^D</kbd>/<kbd>^U</kbd> change level, <kbd>^T</kbd> teleport, <kbd>^F</kbd> show the map) needs a password and a special command line: not reachable in this build.</li>
+<li><strong>Save scumming:</strong> <em>Export save</em> before a risk, <em>Import save</em> after a death.</li></ul>
+</section>
+</div></body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UltraRogue · Shrine</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>UltraRogue</h1>
+  <p class="epi">The Ultimate Adventure in the Dungeons of Doom</p>
+  <a class="play" href="../urogue/">&gt; Enter the dungeon</a>
+</header>
+<div class="facts"><div><b>Date of birth</b><span>1985</span> first log entries Dec 1984</div><div><b>Creator</b><span>Herb Chong</span></div><div><b>Language</b><span>C</span> ~40,000 lines</div><div><b>Platform</b><span>Unix + curses</span> later DOS, Windows, Linux</div></div>
+<nav class="toc"><a href="#lineage">Lineage</a><a href="#credits">Credits</a><a href="#shots">Screenshots</a><a href="#trivia">Trivia</a><a href="#usp">What's unique</a><a href="#code">Code dive</a><a href="#stats">Stats</a><a href="#manual">Manual</a><a href="#start">Getting started</a><a href="#help">Help</a><a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p>UltraRogue is based on <strong>Rogue 3.6</strong> and <strong><a href="../arogue58/">Advanced Rogue</a></strong>. Herb Chong developed it between 1985 and 1986; the change log in the source starts in December 1984. Versions 1.0.3 and 1.0.7 came out between 1992 and 2005 with help from the Roguelike Restoration Project. See the <a href="../#tree">family tree</a>.</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table><tr><td>Herb Chong</td><td>Author (copyright 1985–1995)</td></tr><tr><td>Michael Morgan, Ken Dalka</td><td>Advanced Rogue, the base</td></tr><tr><td>Roguelike Restoration Project</td><td>Maintenance; 1.0.7 (urogue @ 8dec2be)</td></tr></table>
+</section>
+
+<section id="shots"><h2>Screenshots</h2>
+<div class="shots"><figure><img src="urogue/title.png" alt="Choosing one of ten classes"><figcaption>The start: ten classes and up to ten saved characters.</figcaption></figure><figure><img src="urogue/steps.png" alt="The flea market armour list"><figcaption>First steps: every hero starts in Friendly Fiend’s Flea Market. Mithril costs 30,000.</figcaption></figure><figure><img src="urogue/fight.png" alt="Fighting a vilstrak"><figcaption>A fight: “You barely miss the vilstrak.”</figcaption></figure><figure><img src="urogue/inv.png" alt="Inventory with a cursor"><figcaption>Inventory: crams, scale mail, the chain mail we bought, a broad sword.</figcaption></figure></div>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>UltraRogue grew out of Rogue 3.6 and Advanced Rogue; Herb Chong wrote it between 1985 and 1986. <span class="src">(<a href="https://www.roguebasin.com/index.php/UltraRogue">RogueBasin</a>)</span></li>
+<li>The change log shows work on Christmas Eve and Christmas Day 1984: mithril armour and lightning-proof crystalline armour were added that week. <span class="src">(source: <code>history.txt</code>)</span></li>
+<li>The deepest monsters are gods: Greyhawk deities (St Cuthbert of the Cudgel, Boccob the Uncaring), Tolkien's Valar (Manwë, Varda, Melkor), Nyarlathotep, Odin, and at the very end “Lord of All Darkness (Lucifer)”. <span class="src">(source: <code>monsdata.c</code>)</span></li>
+<li>In the shop you can choose the cursed, blessed or normal version of what you buy. <span class="src">(played in this port)</span></li>
+<li>Eight unique treasures, from the Phial of Galadriel to the Crown of Might; to be a “total winner” you must bring all eight back up. <span class="src">(source: <code>README</code>, <code>artifact.c</code>)</span></li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>Huge bestiary:</strong> about 400 monsters, from giant ants and dinosaurs up to demon princes and gods.</li>
+<li><strong>Ten classes,</strong> including illusionist and ninja, with power points for magic.</li>
+<li><strong>Eight artifacts</strong> with their own powers, spread from level 25 to the very bottom.</li>
+<li>Characters can be saved and reused; the shop sells exactly what you ask for.</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li><strong>Language:</strong> C, about 40,000 lines; the monster table alone (<code>monsdata.c</code>) is over 3,000 lines.</li>
+<li><strong>Environment:</strong> Unix with curses in the 1980s; later ports to DOS and Windows. Early versions read the machine's load average and had “holiday” rules for when you were allowed to play.</li>
+<li><strong>This port:</strong> fixed an upstream bug that made every save unloadable (<code>ur_read_room</code> read an int as a short). Source: <a href="https://github.com/memmaker/urogue">memmaker/urogue</a>.</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<table><tr><th>Thing</th><th>Count</th><th>Notable ones</th></tr><tr><td>Classes</td><td>10</td><td>Fighter, paladin, ranger, cleric, druid, magician, illusionist, thief, assassin, ninja.</td></tr><tr><td>Monsters</td><td>~400</td><td>Vilstrak, Demogorgon, Tulkas the Valiant, Nerull the Grim Reaper, Lucifer.</td></tr><tr><td>Artifacts</td><td>8</td><td>Phial of Galadriel, Palantir of Might, Silamril of Ea (sic), Amulet of Yendor, Magic Purse of Yendor, Sceptre of Might, Wand of Yendor, Crown of Might.</td></tr><tr><td>Potions</td><td>22</td><td></td></tr><tr><td>Scrolls</td><td>28</td><td></td></tr><tr><td>Rings</td><td>32</td><td></td></tr><tr><td>Wands &amp; staffs</td><td>23</td><td></td></tr><tr><td>Armour</td><td>16</td><td>Soft leather to mithril and crystalline armour.</td></tr><tr><td>Weapons</td><td>60+</td><td></td></tr></table>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>No separate manual exists. The <code>README</code> that came with the game (treasures, options, classes) is here: <a href="urogue/manual.txt">read it (text)</a>. The in-game help (<kbd>?</kbd>) lists the commands.</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol><li><a href="../urogue/">Open the game</a> and pick a class (fighter or paladin to start). Don't save the character unless you want to reuse it.</li>
+<li>You begin in the flea market: <kbd>b</kbd> buys, pick a type (<kbd>]</kbd> armour), <kbd>*</kbd> lists what's on offer. <kbd>l</kbd> leaves.</li>
+<li>Move with <kbd>h</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd><kbd>y</kbd><kbd>u</kbd><kbd>b</kbd><kbd>n</kbd>, <kbd>x</kbd> explores, <kbd>Enter</kbd> lists every command.</li>
+<li>Wear the better armour: <kbd>i</kbd>, then its letter.</li>
+<li>All keys: the <a href="../urogue/help.html">in-game guide</a>.</li></ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>No walkthrough exists. Tips:</p><ul>
+<li>Spend your starting gold on armour, and buy the <em>normal</em>, never the cursed version.</li>
+<li>The first artifact waits around level 25; you may go up again once you carry any artifact.</li>
+<li>Deep down there are gods. Leave them alone.</li>
+<li>More: <a href="https://www.roguebasin.com/index.php/UltraRogue">RogueBasin</a>.</li></ul>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<ul><li><strong>Wizard mode</strong> exists (the change log mentions wizard teleport with <kbd>^X</kbd>) but needs a password: not reachable in this build.</li>
+<li>The shop sells <em>blessed</em> items if you ask.</li>
+<li><strong>Save scumming:</strong> <em>Export save</em> / <em>Import save</em>.</li></ul>
+</section>
+</div></body>
+</html>

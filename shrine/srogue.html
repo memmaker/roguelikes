@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Super-Rogue · Shrine</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>Super-Rogue</h1>
+  <p class="epi">A bigger Rogue 3.6, grown at AT&amp;T Bell Labs</p>
+  <a class="play" href="../srogue/">&gt; Enter the dungeon</a>
+</header>
+<div class="facts"><div><b>Date of birth</b><span>1983</span> 9.0 in 1984</div><div><b>Creator</b><span>Robert D. Kindelberger</span> and Bell Labs colleagues</div><div><b>Language</b><span>C</span> ~17,200 lines</div><div><b>Platform</b><span>Unix + curses</span> AT&amp;T / BSD</div></div>
+<nav class="toc"><a href="#lineage">Lineage</a><a href="#credits">Credits</a><a href="#shots">Screenshots</a><a href="#trivia">Trivia</a><a href="#usp">What's unique</a><a href="#code">Code dive</a><a href="#stats">Stats</a><a href="#manual">Manual</a><a href="#start">Getting started</a><a href="#help">Help</a><a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p>Super-Rogue is built directly on the <strong>Rogue 3.6</strong> source. A group at AT&amp;T Bell Labs grew it between 1982 and 1983, with Robert D. Kindelberger as its public face; versions 6.5 to 9.0 went round until July 1984. Kindelberger released the source in 2004.</p>
+<p>Its ideas (stats beyond strength, weight, trading posts) went on into <a href="../arogue58/">Advanced Rogue</a>, which drew on both Rogue 3.6 and Super-Rogue. See the <a href="../#tree">family tree</a>.</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table><tr><td>Robert D. Kindelberger</td><td>Author, released the source in 2004</td></tr><tr><td>Bell Labs colleagues</td><td>Co-developers (1982–84)</td></tr><tr><td>Michael Toy, Glenn Wichman, Ken Arnold</td><td>Original Rogue 3.6</td></tr><tr><td>Roguelike Restoration Project</td><td>Keeps release 9.0-1 (srogue @ c693810)</td></tr></table>
+</section>
+
+<section id="shots"><h2>Screenshots</h2>
+<div class="shots"><figure><img src="srogue/title.png" alt="The full game screen"><figcaption>No title screen: you start right in the dungeon. Note the four stats and the carry limit in the status line.</figcaption></figure><figure><img src="srogue/steps.png" alt="A long room with a jackal"><figcaption>First steps: a long room and the first jackal.</figcaption></figure><figure><img src="srogue/fight.png" alt="Fighting a jackal"><figcaption>A fight: “You miss.”</figcaption></figure><figure><img src="srogue/inv.png" alt="Inventory with a cursor"><figcaption>Inventory: a trident, a bow and elf-crafted leather armour.</figcaption></figure></div>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>Super-Rogue was written by a group at AT&amp;T Bell Labs, the home of Unix, between 1982 and 1983. <span class="src">(<a href="https://www.roguebasin.com/index.php/Super-Rogue">RogueBasin</a>)</span></li>
+<li>The source stayed private for twenty years; Kindelberger released it in 2004. <span class="src">(<a href="https://www.roguebasin.com/index.php/Super-Rogue">RogueBasin</a>)</span></li>
+<li>When no other monster fits the level, the game sends the arch-devil <em>Asmodeus</em>, and a scroll of genocide won't touch him: “You cannot genocide Asmodeus !!” <span class="src">(source: <code>monsters.c</code>)</span></li>
+<li>Magic pools let you dip items for good or bad effects, and you can drown in them: “Oh no!!! You drown in the pool!!!” <span class="src">(source: <code>move.c</code>)</span></li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>Four stats:</strong> strength, dexterity, wisdom and constitution, and a carry limit by weight.</li>
+<li><strong>Twice the bestiary:</strong> a second alphabet of monsters (anhkheg, cockatrice, bone devil, elasmosaurus, …) on top of Rogue's 26.</li>
+<li><strong>Trading posts</strong> to buy and sell, <strong>maze levels</strong>, and <strong>magic pools</strong> to dip items in.</li>
+<li><strong>A deeper goal:</strong> the Amulet of Yendor appears no earlier than level 35.</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li><strong>Language:</strong> K&amp;R C, about 17,200 lines. All monsters and items are tables in <code>global.c</code>.</li>
+<li><strong>Environment:</strong> AT&amp;T Unix at Bell Labs, VT-style terminals, curses.</li>
+<li>Wizard mode: <code>-w</code> and a password, or <code>-a</code> for the author's own account.</li>
+<li><strong>This port:</strong> fixes for undeclared functions and 4-byte vs 8-byte longs in the save file; X11 and WebAssembly frontends. Source: <a href="https://github.com/memmaker/srogue">memmaker/srogue</a>.</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<table><tr><th>Thing</th><th>Count</th><th>Notable ones</th></tr><tr><td>Classes</td><td>1</td><td>A fighter; stats vary per character.</td></tr><tr><td>Monsters</td><td>53</td><td>Rogue 3.6’s 26 plus 26 new ones (cockatrice, bone devil, elasmosaurus, killer frog, titanothere, vrock, wuccubi, demon prince Yeenoghu) and Asmodeus.</td></tr><tr><td>Potions</td><td>21</td><td></td></tr><tr><td>Scrolls</td><td>26</td><td></td></tr><tr><td>Rings</td><td>26</td><td>Ogre strength, delusion, lethargy, burden, enfeeblement.</td></tr><tr><td>Wands &amp; staffs</td><td>26</td><td></td></tr><tr><td>Weapons</td><td>18</td><td></td></tr><tr><td>Armour</td><td>10</td><td></td></tr><tr><td>Levels</td><td>35+</td><td>The Amulet appears from level 35 on.</td></tr><tr><td>Spells, skills</td><td>0</td><td>Magic only in items.</td></tr></table>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>The Super-Rogue guide (a reworked “Guide to the Dungeons of Doom”, from <code>rogue.nr</code>): <a href="srogue/manual.txt">read it here (text)</a>.</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol><li><a href="../srogue/">Open the game</a>. You start with food, a magic weapon, a bow, arrows and leather armour.</li>
+<li>Move with <kbd>h</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd><kbd>y</kbd><kbd>u</kbd><kbd>b</kbd><kbd>n</kbd> or the arrows; <kbd>x</kbd> explores.</li>
+<li><kbd>Enter</kbd> lists every command, <kbd>i</kbd> the inventory.</li>
+<li>Watch the <em>Carry</em> number: too much weight slows you.</li>
+<li>All keys: the <a href="../srogue/help.html">in-game guide</a>.</li></ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>No walkthrough exists. Tips:</p><ul>
+<li>Use trading posts to sell junk and buy armour.</li>
+<li>Dip only items you can spare into pools; don't walk into them blindly.</li>
+<li>Don't touch a cockatrice. Fight in corridors, rest often.</li>
+<li>The trip is long (35+ levels): don't dive before your stats and hit points grow.</li>
+<li>More: <a href="https://www.roguebasin.com/index.php/Super-Rogue">RogueBasin</a>.</li></ul>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<ul><li><strong>Wizard mode</strong> (<code>-w</code> with a password) is not reachable in this build.</li>
+<li><strong>Save scumming:</strong> <em>Export save</em> / <em>Import save</em>.</li></ul>
+</section>
+</div></body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Advanced Rogue 7.7 · Shrine</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>Advanced Rogue 7.7</h1>
+  <p class="epi">Rogue grown into a full role-playing game</p>
+  <a class="play" href="../arogue77/">&gt; Enter the dungeon</a>
+</header>
+<div class="facts"><div><b>Date of birth</b><span>1984</span> 7.7 in 1986</div><div><b>Creators</b><span>Michael Morgan · Ken Dalka</span> AT&amp;T Bell Labs</div><div><b>Language</b><span>C</span> ~34,200 lines</div><div><b>Platform</b><span>Unix + curses</span> AT&amp;T Toolchest</div></div>
+<nav class="toc"><a href="#lineage">Lineage</a><a href="#credits">Credits</a><a href="#shots">Screenshots</a><a href="#trivia">Trivia</a><a href="#usp">What's unique</a><a href="#code">Code dive</a><a href="#stats">Stats</a><a href="#manual">Manual</a><a href="#start">Getting started</a><a href="#help">Help</a><a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p>Advanced Rogue started from the <strong>Rogue 3.6</strong> source with additions from Super-Rogue. <a href="../arogue58/">Version 5.8</a> came first; <strong>7.7</strong> (1986) is the last Advanced Rogue, with more than twice as many classes. Its code went on into <a href="../xrogue/">XRogue</a> in the 1990s. See the <a href="../#tree">family tree</a>.</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table><tr><td>Michael Morgan</td><td>Lead developer</td></tr><tr><td>Ken Dalka</td><td>Lead developer</td></tr><tr><td>AT&amp;T Bell Labs group</td><td>Development, 1984–86</td></tr><tr><td>Roguelike Restoration Project</td><td>Restored 7.7.1 (arogue7.7 @ 976b5bb)</td></tr></table>
+</section>
+
+<section id="shots"><h2>Screenshots</h2>
+<div class="shots"><figure><img src="arogue77/title.png" alt="Choosing one of nine classes"><figcaption>The start: nine classes, then 72 points to spread over six abilities.</figcaption></figure><figure><img src="arogue77/steps.png" alt="The starting trading post"><figcaption>First steps: a new character begins in Friendly Fiend’s Equipage with gold to spend.</figcaption></figure><figure><img src="arogue77/fight.png" alt="A thief defeats a kobold"><figcaption>A fight: “You smacked the kobold. You have defeated the kobold.”</figcaption></figure><figure><img src="arogue77/inv.png" alt="Inventory with a cursor"><figcaption>Inventory: our thief spent nothing and found a scroll titled ‘bubit’.</figcaption></figure></div>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>AT&amp;T distributed Advanced Rogue through its Toolchest software service. <span class="src">(<a href="https://www.roguebasin.com/index.php/Advanced_Rogue">RogueBasin</a>)</span></li>
+<li>A new character is dropped into a shop first: “Welcome to Friendly Fiend’s Equipage”. Later shops greet you as “Friendly Fiend’s Flea Market”. <span class="src">(source: <code>trader.c</code>)</span></li>
+<li>The game has a slot for release news shown while you build your character. In 7.7 it says: “You no longer fall into trading posts. They are now entered like going down the stairs.” <span class="src">(source: <code>init.c</code>)</span></li>
+<li>The quest can be any of 16 relics, among them the Eye of Vecna, the Quill of Nagrom (Morgan backwards) and the Amulet of Stonebones. <span class="src">(source: <code>rogue.c</code>)</span></li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>Nine classes</strong> with their own magic: magicians cast spells, clerics pray, druids chant; rangers, paladins, assassins and monks get their own tricks.</li>
+<li><strong>Point-buy characters:</strong> 72 points over six abilities (Escape fills in the maximums).</li>
+<li><strong>A random quest relic</strong> to bring back to the surface, and a starting shop to kit out your hero.</li>
+<li>Outdoor levels, mazes, trading posts, 125 monsters and 22 kinds of miscellaneous magic.</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li><strong>Language:</strong> K&amp;R C, about 34,200 lines. Monsters, spells, prayers and chants are tables; a character class <code>C_MONSTER</code> lets monsters use the same code as players.</li>
+<li><strong>Environment:</strong> AT&amp;T Unix and BSD on terminals via curses.</li>
+<li><strong>This port:</strong> X11 and WebAssembly via a curses shim, NetHack tiles. Source: <a href="https://github.com/memmaker/arogue7.7">memmaker/arogue7.7</a>.</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<table><tr><th>Thing</th><th>Count</th><th>Notable ones</th></tr><tr><td>Classes</td><td>9</td><td>Fighter, ranger, paladin, magic user, cleric, thief, assassin, druid, monk.</td></tr><tr><td>Monsters</td><td>125</td><td></td></tr><tr><td>Spells</td><td>20</td><td>Magic user.</td></tr><tr><td>Prayers</td><td>18</td><td>Cleric.</td></tr><tr><td>Chants</td><td>16</td><td>Druid.</td></tr><tr><td>Relics</td><td>16</td><td>Eye of Vecna, Axe of Aklad, Quill of Nagrom, Amulet of Stonebones, Ring of Surtur, Horn of Geryon, …</td></tr><tr><td>Misc. magic</td><td>22</td><td></td></tr><tr><td>Potions</td><td>18</td><td></td></tr><tr><td>Scrolls</td><td>20</td><td></td></tr><tr><td>Rings</td><td>26</td><td></td></tr><tr><td>Wands &amp; staffs</td><td>20</td><td></td></tr><tr><td>Weapons</td><td>19</td><td></td></tr><tr><td>Armour</td><td>10</td><td></td></tr></table>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>“The Dungeons of Doom”, the Advanced Rogue guide shipped with the source (<code>aguide.mm</code>): <a href="arogue77/manual.txt">read it here (text)</a>.</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol><li><a href="../arogue77/">Open the game</a> and pick a class. At the point screen press <kbd>Escape</kbd> to fill in the maximums, then <kbd>y</kbd>.</li>
+<li>You start in a trading post: stand on an item, <kbd>$</kbd> shows its price, <kbd>#</kbd> buys it. Buy armour and a weapon first.</li>
+<li>Press <kbd>&gt;</kbd> to leave for the dungeon. <kbd>x</kbd> explores, <kbd>Enter</kbd> lists every command.</li>
+<li>Remember your quest relic from the first messages.</li>
+<li>All keys: the <a href="../arogue77/help.html">in-game guide</a>.</li></ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>No walkthrough exists. Tips:</p><ul>
+<li>Spend all your starting gold: armour matters more than anything else early on.</li>
+<li>Fighters and paladins are the easiest; magic users are fragile until they have more spells.</li>
+<li>Relics are deep; sell loot at later trading posts to keep upgrading.</li>
+<li>More: <a href="https://www.roguebasin.com/index.php/Advanced_Rogue">RogueBasin</a> and the <a href="arogue77/manual.txt">manual</a>.</li></ul>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<ul><li><strong>Wizard mode</strong> needs a password: not reachable in this build.</li>
+<li>At character creation <kbd>Escape</kbd> sets every remaining ability to its maximum (a feature, not a bug).</li>
+<li><strong>Save scumming:</strong> <em>Export save</em> / <em>Import save</em>.</li></ul>
+</section>
+</div></body>
+</html>

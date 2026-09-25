@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>XRogue · Shrine</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>XRogue</h1>
+  <p class="epi">Expeditions into the Dungeons of Doom · the last Advanced Rogue</p>
+  <a class="play" href="../xrogue/">&gt; Enter the dungeon</a>
+</header>
+<div class="facts"><div><b>Date of birth</b><span>1989–92</span> 8.0.3 in 1997–2005</div><div><b>Creator</b><span>Robert Pietkivitch</span></div><div><b>Language</b><span>C</span> ~36,500 lines</div><div><b>Platform</b><span>AT&amp;T UNIX PC</span> curses</div></div>
+<nav class="toc"><a href="#lineage">Lineage</a><a href="#credits">Credits</a><a href="#shots">Screenshots</a><a href="#trivia">Trivia</a><a href="#usp">What's unique</a><a href="#code">Code dive</a><a href="#stats">Stats</a><a href="#manual">Manual</a><a href="#start">Getting started</a><a href="#help">Help</a><a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p>XRogue is based on <strong><a href="../arogue77/">Advanced Rogue 7.7</a></strong> (and through it Super-Rogue and Rogue 3.6). Robert Pietkivitch wrote it between 1989 and 1992 for the AT&amp;T UNIX PC. His later enhancements from 2000 were lost after his death in 2002; the Roguelike Restoration Project kept 8.0.3, and a new maintainer released 8.0.5 in 2015. See the <a href="../#tree">family tree</a>.</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table><tr><td>Robert Pietkivitch</td><td>Author (copyright 1991)</td></tr><tr><td>Michael Morgan, Ken Dalka</td><td>Advanced Rogue</td></tr><tr><td>Michael Toy, Ken Arnold, Glenn Wichman</td><td>Rogue</td></tr><tr><td>Roguelike Restoration Project</td><td>Kept and maintained 8.0.3</td></tr></table>
+</section>
+
+<section id="shots"><h2>Screenshots</h2>
+<div class="shots"><figure><img src="xrogue/title.png" alt="Choosing one of nine classes"><figcaption>The start: nine classes, then points for six abilities.</figcaption></figure><figure><img src="xrogue/steps.png" alt="The starting trading post"><figcaption>First steps: Friendly Fiend’s Equipage, and the quest (here the Morning Star of Hruggek).</figcaption></figure><figure><img src="xrogue/fight.png" alt="Fighting flying bats"><figcaption>A fight: a flock of flying bats in the first room.</figcaption></figure><figure><img src="xrogue/inv.png" alt="An empty pack"><figcaption>Inventory: an XRogue hero starts with gold, not gear — “You aren’t carrying anything.” Shop first!</figcaption></figure></div>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>Pietkivitch wrote XRogue for the AT&amp;T UNIX PC between 1989 and 1992. <span class="src">(<a href="https://www.roguebasin.com/index.php/XRogue">RogueBasin</a>)</span></li>
+<li>His enhanced version from 2000 was lost after he died in 2002; version 8.0.5 came out in 2015 from a new maintainer. <span class="src">(<a href="https://www.roguebasin.com/index.php/XRogue">RogueBasin</a>)</span></li>
+<li>The README admits it: “I’m afraid there is little documentation for this version.” <span class="src">(source: <code>README.TXT</code>)</span></li>
+<li>While you are still in the first trading post you can press <kbd>A</kbd> and pick your own quest relic. After that: “You can no longer select a quest item.” <span class="src">(source: <code>wizard.c</code>, <code>command.c</code>)</span></li>
+<li>XRogue adds a 17th relic to Advanced Rogue's list: the Card of Alteran. <span class="src">(source)</span></li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>Nine classes</strong> with spells, prayers and chants (16 of each).</li>
+<li><strong>211 monsters</strong>, far more than Advanced Rogue 7.7.</li>
+<li><strong>Shop first:</strong> you start with gold and an empty pack, and choose your own gear.</li>
+<li><strong>A quest you can choose</strong> and must carry back to the surface.</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li><strong>Language:</strong> C, about 36,500 lines, grown from the Advanced Rogue 7.7 code.</li>
+<li><strong>Environment:</strong> the AT&amp;T UNIX PC (3B1) with curses; later DOS, Windows and Linux.</li>
+<li><strong>This port:</strong> <code>explore.c</code> adds auto-explore and stair-walking; X11 and WebAssembly frontends. Source: <a href="https://github.com/memmaker/xrogue">memmaker/xrogue</a>.</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<table><tr><th>Thing</th><th>Count</th><th>Notable ones</th></tr><tr><td>Classes</td><td>9</td><td>Fighter, ranger, paladin, magician, cleric, thief, assassin, druid, monk.</td></tr><tr><td>Monsters</td><td>211</td><td></td></tr><tr><td>Spells</td><td>16</td><td></td></tr><tr><td>Prayers</td><td>16</td><td></td></tr><tr><td>Chants</td><td>16</td><td></td></tr><tr><td>Relics</td><td>17</td><td>Everything from Advanced Rogue plus the Card of Alteran.</td></tr><tr><td>Potions</td><td>18</td><td></td></tr><tr><td>Scrolls</td><td>20</td><td></td></tr><tr><td>Rings</td><td>26</td><td></td></tr><tr><td>Wands &amp; staffs</td><td>20</td><td></td></tr><tr><td>Weapons</td><td>19</td><td></td></tr><tr><td>Armour</td><td>10</td><td></td></tr></table>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p><strong>No manual exists</strong> for XRogue; its README says so. The Advanced Rogue guide mostly applies: <a href="arogue77/manual.txt">Advanced Rogue 7.7 manual</a>. The in-game help (<kbd>?</kbd>) lists XRogue’s own commands.</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol><li><a href="../xrogue/">Open the game</a>, choose a class, press <kbd>Escape</kbd> at the ability points, then <kbd>y</kbd>.</li>
+<li>You are in a trading post with gold and nothing else. Stand on an item: <kbd>$</kbd> prices, <kbd>#</kbd> buys. Get armour and a weapon.</li>
+<li>Optional: <kbd>A</kbd> chooses your quest relic.</li>
+<li><kbd>&gt;</kbd> leaves for the dungeon; <kbd>x</kbd> explores; <kbd>Enter</kbd> lists every command.</li>
+<li>All keys: the <a href="../xrogue/help.html">in-game guide</a>.</li></ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>No walkthrough exists. Tips:</p><ul>
+<li>Never leave the first shop empty-handed: a naked fighter dies to bats.</li>
+<li>Pick a relic you like with <kbd>A</kbd> before leaving.</li>
+<li>More: <a href="https://www.roguebasin.com/index.php/XRogue">RogueBasin</a>.</li></ul>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<ul><li><kbd>A</kbd> in the starting shop picks the quest relic (normally a wizard-mode feature, left open for new characters).</li>
+<li><strong>Wizard mode</strong> itself needs a password: not reachable here.</li>
+<li><strong>Save scumming:</strong> <em>Export save</em> / <em>Import save</em>.</li></ul>
+</section>
+</div></body>
+</html>
