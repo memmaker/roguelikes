@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ToME 2 · Shrine</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>ToME 2</h1>
+  <p class="epi">Tales of Middle-earth: Angband with everything added</p>
+  <a class="play" href="../tome2/">&gt; Enter the dungeon</a>
+</header>
+<div class="facts"><div><b>Date of birth</b><span>1998</span> PernAngband 2.9.9a, 24 Oct 1998; renamed T.o.M.E. 1.0.0 on 5 May 2002</div><div><b>Creator</b><span>DarkGod (Nicolas Casalini)</span> now maintained by Bardur Arantsson</div><div><b>Language</b><span>C + Lua</span> ~214,000 lines of C</div><div><b>Platform</b><span>Unix, Windows, DOS, Mac</span> X11, GTK, SDL, curses</div></div>
+<nav class="toc"><a href="#lineage">Lineage</a><a href="#credits">Credits</a><a href="#shots">Screenshots</a><a href="#trivia">Trivia</a><a href="#usp">What's unique</a><a href="#code">Code dive</a><a href="#stats">Stats</a><a href="#manual">Manual</a><a href="#start">Getting started</a><a href="#help">Help</a><a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p><a href="https://en.wikipedia.org/wiki/Angband_(video_game)">Angband</a> → Zangband → <strong>PernAngband</strong> (1998, a Zangband with dragons of Pern) → <strong>T.o.M.E.</strong> (2002). DarkGod dropped the Pern material and moved the game to Tolkien’s Middle-earth. After 2.3.5 (2008) he left to write the unrelated ToME 4, <em>Tales of Maj’Eyal</em>. See the <a href="../#tree">family tree</a>.</p>
+<p>Played here: ToME 2.3.11-ah, the community branch by Bardur Arantsson on <a href="https://github.com/tome2/tome2">GitHub</a>, with the Theme module included.</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table><tr><td>DarkGod (Nicolas Casalini)</td><td>Author of PernAngband and ToME</td></tr><tr><td>Bardur Arantsson</td><td>Maintainer of the 2.3.x “ah” branch</td></tr><tr><td>Chris Weisiger</td><td>Vaults, a magic realm, special levels</td></tr><tr><td>Andreas Koch</td><td>The tiles and the graphics editor</td></tr><tr><td>Kusunose Toru, pelpel, Improv, Mef, Furiosity (Theme) …</td><td>Fixes, docs, modules (see <code>credits.txt</code>)</td></tr></table>
+</section>
+
+<section id="shots"><h2>Screenshots</h2>
+<div class="shots"><figure><img src="tome2/title.png" alt="Module choice"><figcaption>Start: pick the module, ToME or Theme.</figcaption></figure><figure><img src="tome2/steps.png" alt="Bree"><figcaption>First steps: a Human Warrior in Bree, the starting town.</figcaption></figure><figure><img src="tome2/fight.png" alt="Blue worm mass"><figcaption>A fight: a warrior missing a blue worm mass twice in the streets of Bree.</figcaption></figure><figure><img src="tome2/inv.png" alt="Inventory"><figcaption>Inventory: food, torches, chain mail, a broad sword, a ring of Fear Resistance and the Adventurer’s Guide.</figcaption></figure></div>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>The Pern roots: PernAngband 3.0 “changed some artifacts / unique monsters to be more pernish”. <span class="src">(<code>changes.old</code>, Nov 1998)</span></li>
+<li>From 2.0.0 the splash screen randomly says “Tales of Middle Earth” or “Troubles of Middle Earth”. <span class="src">(<code>changes.old</code>, Jul 2002)</span></li>
+<li>Releases had names: 1.0.0 was “Between the Darkness and the Light”, 2.0.0 “Point of No Return”, 2.1.0 “No Surrender, No Retreat”. <span class="src">(<code>changes.old</code>)</span></li>
+<li>2.1.0 added modules: whole games written on top of the engine. Theme, by Furiosity, is one, playable here. <span class="src">(<code>changes.txt</code>)</span></li>
+<li>The name lives on in the unrelated <a href="https://en.wikipedia.org/wiki/Tales_of_Maj%27Eyal">Tales of Maj’Eyal</a> (ToME 4).</li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>Skills instead of fixed classes:</strong> 58 skills; your class only sets starting points and multipliers.</li>
+<li><strong>Race, subrace and class:</strong> a Vampire Dunadan Necromancer is a valid character.</li>
+<li><strong>Gods:</strong> worship Eru, Manwë, Tulkas, Melkor or Yavanna, with piety and favours.</li>
+<li><strong>A wilderness map</strong> with towns (Bree, Gondolin, Minas Anor, Lothlórien, Khazad-dûm) and many dungeons.</li>
+<li>Possession, symbiosis with monsters, mimicry, runecraft, alchemy, sentient weapons that gain levels.</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li>C, about 214,000 lines in 125 source files, plus Lua (tolua bindings) for spells and quests. Built with CMake.</li>
+<li>Data in text files (<code>lib/edit/*_info.txt</code>), levels as <code>.map</code> files, a whole second game in <code>lib/mods/theme</code>.</li>
+<li><strong>This port:</strong> compiled to WebAssembly with a canvas frontend, tiles, sound and music, plus auto-explore (<kbd>X</kbd>), an Enter command menu and an inventory cursor.</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<table><tr><th>Thing</th><th>Count</th><th>Notable ones</th></tr><tr><td>Races</td><td>22</td><td>Beorning (turns into a bear), Ent, Maia, Thunderlord (rides an eagle), Death Mold (cannot move)</td></tr><tr><td>Subraces</td><td>8</td><td>Vampire, Skeleton, Zombie, Spectre, Lost Soul, Barbarian, Hermit</td></tr><tr><td>Classes</td><td>32</td><td>In 6 groups: Possessor, Symbiant, Mimic, Runecrafter, Unbeliever (hates magic), Geomancer, Bard</td></tr><tr><td>Skills</td><td>58</td><td>Weaponmastery, Necromancy, Possession, Symbiosis, Boulder-throwing, Bearform-combat</td></tr><tr><td>Abilities</td><td>11</td><td>Bought with ability points</td></tr><tr><td>Monsters</td><td>~1,077</td><td>Sauron, Morgoth, the Nazgûl, Glaurung</td></tr><tr><td>Object kinds</td><td>675</td><td>plus 188 ego types, 201 artifacts, 4 sets</td></tr><tr><td>Dungeons</td><td>28</td><td>Barrow-downs, Mirkwood, Moria, Dol Guldur, Angband, Mount Doom, the Void</td></tr></table>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>The full in-game help (races, classes, magic schools, gods, spoilers, FAQ) is on the site: <a href="../tome2/help.html">read the manual</a>. In the game, <kbd>?</kbd> opens it.</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol><li><a href="../tome2/">Open the game</a> and pick <kbd>a</kbd> (ToME).</li>
+<li>Make a character: a Human or Dunadan Warrior is simplest; Priest or Mage are harder.</li>
+<li>Wear your gear (<kbd>w</kbd>), read the Adventurer’s Guide, buy potions of Cure Light Wounds and a Scroll of Word of Recall in Bree.</li>
+<li>Your first quest is in Bree; your goal is Dol Guldur. <kbd>Ctrl</kbd>+<kbd>Q</kbd> shows the quest log.</li>
+<li>Leave town to the wilderness and enter the Barrow-downs or Mirkwood.</li></ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>No full walkthrough exists. The help has a spoiler-free FAQ, a dungeon list and a newbie guide (<kbd>?</kbd> → newbie). Tips:</p><ul>
+<li>Put skill points into your weapon mastery and Combat first.</li>
+<li>Use <kbd>Enter</kbd> for the command menu if you forget a key.</li>
+<li>Dungeons have a recommended level; the list is in the help under Dungeons.</li></ul>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<p>Debug mode is built in: press <kbd>Ctrl</kbd>+<kbd>A</kbd> and answer <kbd>y</kbd>. The game is then not scored. Useful keys: <kbd>W</kbd> wish, <kbd>x</kbd> XP boost, <kbd>c</kbd> create object, <kbd>j</kbd> jump to level, <kbd>s</kbd>/<kbd>n</kbd> summon monster, <kbd>m</kbd> map. All listed in the help (Debug). Used here for the fight screenshot.</p>
+</section>
+</div></body>
+</html>
