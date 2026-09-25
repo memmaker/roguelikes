@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AlphaMan · Shrine</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>AlphaMan</h1>
+  <p class="epi">The New Beginning · a mutant, a valley, and the Grinch</p>
+  <a class="play" href="../alphaman/">&gt; Enter the valley</a>
+</header>
+<div class="facts">
+  <div><b>Date of birth</b><span>February 1995</span> (1.0) · 1.1 in June 1995</div>
+  <div><b>Creator</b><span>Jeffrey R. Olson</span> Urbana, Illinois</div>
+  <div><b>Language</b><span>QuickBASIC 4.5</span> + C helpers, ~15,500 lines</div>
+  <div><b>Platform</b><span>MS-DOS</span> 640K, colour text mode</div>
+</div>
+<nav class="toc"><a href="#lineage">Lineage</a><a href="#credits">Credits</a><a href="#shots">Screenshots</a><a href="#trivia">Trivia</a><a href="#usp">What's unique</a><a href="#code">Code dive</a><a href="#stats">Stats</a><a href="#manual">Manual</a><a href="#start">Getting started</a><a href="#help">Help</a><a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p>AlphaMan shares no code with any other roguelike. Jeff Olson wrote it from scratch in QuickBASIC, and its readme names its inspiration: two TSR tabletop games by James Ward, <em>Metamorphosis Alpha</em> and <em>Gamma World</em>, whose “unwitting inspiration” the author acknowledges. The FAQ places the look “in the spirit of Rogue or NetHack”: coloured text-mode graphics, permanent death, unidentified items.</p>
+<p>It was shareware, spread over FTP (ftp.win.tue.nl) and Usenet's rec.games.roguelike.misc in 1995, and had no children. Its source was released under the MIT licence and preserved by superjamie; this port is built from it. See the <a href="../#tree">family tree</a>, where it sits among the games only inspired by Rogue.</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table>
+<tr><td>Jeffrey R. Olson</td><td>Design, code, writing (1995)</td></tr>
+<tr><td>Peter Jessop, Gregory Krol</td><td>“Assisted by”, on the title screen</td></tr>
+<tr><td>James Ward (TSR)</td><td>Gamma World and Metamorphosis Alpha, the setting's inspiration</td></tr>
+<tr><td>Tim Jordan, Matthias Kring, Tony Chang, Carl Waldbieser</td><td>Players whose ideas and bug reports shaped 1.02–1.1 (FIXES.TXT)</td></tr>
+<tr><td>superjamie</td><td>Published the source (alphaman-src @ dda5598) under the MIT licence, with the FAQ and the spoilers</td></tr>
+</table>
+</section>
+
+<section id="shots"><h2>Screenshots</h2>
+<div class="shots">
+<figure><img src="alphaman/title.png" alt="AlphaMan title screen: Welcome to AlphaMan, the New Beginning"><figcaption>The title screen. A shareware game, release 1.1, June 1995.</figcaption></figure>
+<figure><img src="alphaman/steps.png" alt="The main map of the valley"><figcaption>First steps: the main map of the valley, “in the post-holocaust ruins of Central New York”. Plains, woods, hills and water.</figcaption></figure>
+<figure><img src="alphaman/fight.png" alt="Fighting an owl in a local region"><figcaption>A fight in a local region: “The Owl bit you for 3 points of damage.”</figcaption></figure>
+<figure><img src="alphaman/inv.png" alt="The inventory: Spam, arrows, mace, fur armour, wooden shield"><figcaption>Possessions: two cans of Spam, 15 arrows, a mace, heavy fur armour and a large wooden shield.</figcaption></figure>
+</div>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>The villain is the Grinch, and you must not kill him: “with his dying gasp he'll trigger the release of the nerve toxin”. Throw a can of Roast Beast at him instead, and his heart grows three sizes. <span class="src">(<a href="alphaman/spoilers.txt">spoilers, section 6</a>)</span></li>
+<li>Five castles hold what you need: a map from the Munsters, Buzz Aldrin's space suit, Elvis' blue suede shoes, Donald Trump's presidential ID card and Gilligan's serum. <span class="src">(<a href="alphaman/faq.txt">FAQ</a>)</span></li>
+<li>Why Elvis and Gilligan? The cast was chosen “to poke fun at the more banal aspects of Americana”, writes Olson in the FAQ. <span class="src">(<a href="alphaman/faq.txt">FAQ</a>)</span></li>
+<li>The spoilers file went only to the 50 to 100 people who registered the $15 shareware; it was first published with the source in the 2020s. <span class="src">(<a href="https://github.com/superjamie/alphaman-src">superjamie/alphaman-src</a>)</span></li>
+<li>Naming your character “Jeffrey Olson” starts you with all stats at 18, a long sword, chainmail and good mutations, an inside joke that keeps the author on top of every high score list. <span class="src">(<a href="https://github.com/superjamie/alphaman-src">superjamie/alphaman-src</a>)</span></li>
+<li>The map generator was too slow on an 8088 without a maths co-processor, so Olson replaced the floating-point random numbers with integer bit-shifts, with help from a classmate who had written assembly books. <span class="src">(<a href="https://github.com/superjamie/alphaman-src">superjamie/alphaman-src</a>)</span></li>
+<li>RogueBasin lists it as one of the few roguelikes where the player needs to eat <em>and</em> sleep, and where the total time to finish the game is limited. <span class="src">(<a href="https://roguebasin.com/index.php/Alphaman">RogueBasin</a>)</span></li>
+<li>The FAQ from August 1995 announces a “SuperVGA game in the same genre” as the next project. It never appeared. <span class="src">(<a href="alphaman/faq.txt">FAQ</a>)</span></li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>Science fiction, not swords and sorcery.</strong> Berries replace potions, tech devices replace wands and scrolls: a Fusion Rifle, a Slinky, a Veg-O-Matic, a Kevorkian Machine. You must <kbd>f</kbd>igure a device out before you can use it.</li>
+<li><strong>Two random mutations</strong>, one physical (Quills, Tentacles, Laser Generation…) and one mental (Cryogenics, Hypnosis, Life Leech…), used with <kbd>p</kbd> and <kbd>m</kbd>, most on a cooldown of rounds.</li>
+<li><strong>An outdoor world.</strong> The main map is a valley; each square opens into a local region. Castles and lairs are the dungeons, and since 1.1 the game remembers their levels.</li>
+<li><strong>A clock.</strong> Game time runs in hours and days, you tire and must sleep (<kbd>Z</kbd>), and finishing fast earns an experience bonus at the end.</li>
+<li><strong>Six stats</strong> including Radiation Resistance and Mental Resistance, and radiation zones on the map.</li>
+<li><strong>Three difficulties</strong>: normal, somewhat easy, easy, with separate Halls of the Dead.</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li><strong>Language:</strong> Microsoft QuickBASIC 4.5, eight modules <code>A1.BAS</code>–<code>A8.BAS</code> (about 14,600 lines) linked with a C helper library <code>ALPCLIB.C</code> (about 900 lines, Microsoft QuickC 2.5) for the screen, the dice and the map generator. All integer maths: <code>DEFINT A-Z</code>.</li>
+<li><strong>Environment:</strong> MS-DOS, 640K, 80×25 colour text mode written straight into video memory at segment B800, with eight video pages for the map, the menus and the help. To fit on one 3.5" floppy, every message lives in binary string files (<code>alphaman.1</code>…<code>.6</code>) addressed by offset and length.</li>
+<li><strong>Data:</strong> creatures are records in a 50-byte file (<code>ALPHA.CRE</code>), castle layouts in <code>ALPHA.CAS</code>, item tables in <code>ALPHA.GDY</code>. Saves are <code>NAME.ALF</code> plus a <code>.sav</code> and the remembered castle levels.</li>
+<li><strong>This port:</strong> the same QuickBASIC, merged into one source and built natively with QB64-PE, and for the browser compiled by FreeBASIC (its QuickBASIC dialect) to C and then by Emscripten to WebAssembly, with a small DOS text-mode console written for it. Source: <a href="https://github.com/memmaker/alphaman">memmaker/alphaman</a>.</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<table>
+<tr><th>Thing</th><th>Count</th><th>Notable ones</th></tr>
+<tr><td>Classes, races</td><td>0</td><td>Everyone is a mutated human; the mutations are the class.</td></tr>
+<tr><td>Physical mutations</td><td>17</td><td>Tough Exoskeleton, Quills, Tentacles, Acidic Saliva, Foul Musk, Radiation Generation, Heightened Speed.</td></tr>
+<tr><td>Mental mutations</td><td>13</td><td>Cryogenics (damage doubles with every hit), Life Leech, Hypnosis, Psychokinesis, Military Genius, Scientific Genius.</td></tr>
+<tr><td>Creatures</td><td>158 + specials</td><td>66 found anywhere, plus 18 castle, 17 forest, 17 swamp, 17 plains and 23 water creatures; then the Gilligan's Island castaways, the Munsters, Elvis (and impersonators), Buzz Aldrin, Chicago Cubs, Donald, Ivana and Marla, the Grinch and Max. Also Gumby, Pokey, Mr. Potato Head (takes 1 hp from any attack), Godzilla and King Kong.</td></tr>
+<tr><td>Berries</td><td>35</td><td>Explode, Radiate, Rambify, Belch, Teleport, Make Invisible, Create force fields.</td></tr>
+<tr><td>Small tech devices</td><td>107</td><td>38 devices, 14 grenades, 37 weapons and 18 pieces of junk: Fusion Rifle, Light Sabre, Tip O'Neill Mask, Tickle Feather Gun, Chia Pet, Slinky.</td></tr>
+<tr><td>Large tech items</td><td>38</td><td>25 useful (Hovercraft, Jetpack, Transmogrifier, Cloaking Device) and 13 junk (Porta Potty, Sousaphone, Kevorkian Machine).</td></tr>
+<tr><td>Weapons</td><td>14 + 12 ranged</td><td>From pitchfork to duralloy sword; bows, slings and thrown things.</td></tr>
+<tr><td>Armour, shields</td><td>12, 9</td><td>Heavy Fur to Duralloy; Titanium Chainmail is what a Tough Exoskeleton equals.</td></tr>
+<tr><td>Castles</td><td>6</td><td>Five quest castles and the Grinch's hidden one, surrounded by radiation, a chasm and nerve gas.</td></tr>
+<tr><td>Difficulties</td><td>3</td><td>Normal, somewhat easy, easy.</td></tr>
+</table>
+<p class="src">Counts from <code>ALPHA.DEC</code> (<code>nphysmut</code>, <code>nmentmut</code>, <code>ncreat</code>…, <code>nberry</code>, <code>nssd</code>…) and <code>ITEMLIST</code>.</p>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>The game shipped with a readme rather than a manual: <a href="alphaman/manual.txt">README.TXT</a> (stats, mutations, items, keys, the shareware terms). Two more texts by the author, both published with the source: the <a href="alphaman/faq.txt">FAQ</a> (release history, all mutations, the quest) and the <a href="alphaman/spoilers.txt">Spoilers</a>, once reserved for registered users (every berry, device and creature, and the six castles). In the game, <kbd>?</kbd> opens the help.</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol>
+<li><a href="../alphaman/">Open the game</a>, type a name, pick a difficulty (<kbd>2</kbd> is the easy one). The first run asks you to name the “wimpy monster”; any name and letter will do.</li>
+<li>Read your two mutations on the right. Use them with <kbd>p</kbd> (physical) and <kbd>m</kbd> (mental).</li>
+<li>Move with the arrow keys or the numeric keypad (diagonals: Home, End, PgUp, PgDn). Walk onto items to pick them up, into creatures to attack. <kbd>x</kbd> explores on its own.</li>
+<li>Press <kbd>Enter</kbd> for the menu of all commands, <kbd>i</kbd> for your possessions, <kbd>e</kbd> to eat, <kbd>f</kbd> to figure out a device, <kbd>u</kbd> to use one.</li>
+<li>Find a castle or a lair entrance and press <kbd>&lt;</kbd> on it. Sleep (<kbd>Z</kbd>) when tired, <kbd>S</kbd> saves. The full key list is in the <a href="../alphaman/help.html">in-game guide</a>.</li>
+</ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>The author's <a href="alphaman/spoilers.txt">spoilers file</a> is the walkthrough: section 6 tells you castle by castle what to fetch and how. Rules of thumb from it and the FAQ:</p>
+<ul>
+<li>Visit the five castles in any order; the tape recorders' suggestions are not binding. A character with Heightened Vision can skip the Munsters.</li>
+<li>Drop your belongings before fighting Gilligan (he breaks things), and don't kill the Grinch: throw the Roast Beast.</li>
+<li>Wait until “very hungry” before eating. Throw the exploding and blinding berries; eat the rest when you are safe.</li>
+<li>Tech items don't work on the Grinch's level, so hoard berries on the way: invisibility, fright, speed, a Detox.</li>
+<li>More: <a href="https://roguebasin.com/index.php/Alphaman">RogueBasin on Alphaman</a>, and the 1995 threads on <a href="https://groups.google.com/g/rec.games.roguelike.misc/search?q=Alphaman">rec.games.roguelike.misc</a>.</li>
+</ul>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<ul>
+<li><strong>The author's name.</strong> Call your character <em>Jeffrey Olson</em> and start with 18 in every stat and good gear (see Trivia).</li>
+<li><strong>Save editors.</strong> The source repository ships <code>ITEMS.EXE</code> and <code>MUTAT.EXE</code>, DOS tools that add devices and berries or change the stats and mutations in a saved game. Not part of the web build.</li>
+<li><strong>No wizard mode</strong> in the game itself; the debug snippets in <code>ALPHA.DBG</code> are commented out.</li>
+<li><strong>Save scumming</strong> works in the browser: <em>Export save</em> before a castle, <em>Import save</em> if it goes wrong.</li>
+</ul>
+</section>
+</div></body>
+</html>
