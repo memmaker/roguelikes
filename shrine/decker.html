@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Decker · Shrine</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>Decker</h1>
+  <p class="epi">jack in, grab the file, get out before the red alert</p>
+  <a class="play" href="../decker/">&gt; Enter the dungeon</a>
+</header>
+<div class="facts"><div><b>Date of birth</b><span>2001</span> last release 1.12, 2004</div><div><b>Creator</b><span>Shawn Overcash</span></div><div><b>Language</b><span>C++ (MFC)</span> ~27,000 lines</div><div><b>Platform</b><span>Windows</span> GPL</div></div>
+<nav class="toc"><a href="#lineage">Lineage</a><a href="#credits">Credits</a><a href="#shots">Screenshots</a><a href="#trivia">Trivia</a><a href="#usp">What's unique</a><a href="#code">Code dive</a><a href="#stats">Stats</a><a href="#manual">Manual</a><a href="#start">Getting started</a><a href="#help">Help</a><a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p>Decker is not descended from Rogue. It borrows the <em>decker</em> of the Shadowrun tabletop game: a hacker who plugs a cyberdeck into the Matrix and fights ICE to steal data. The randomly built systems, permanent death (Ironman mode) and turn-based node crawling make it a roguelike cousin. See the <a href="../#tree">family tree</a>.</p>
+<p>Played here: Decker 1.12, ported to SDL2 and WebAssembly with a small MFC shim.</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table><tr><td>Shawn Overcash</td><td>Design, code, graphics (2001–2004)</td></tr><tr><td>Players</td><td>User-submitted graphics, shipped in the source</td></tr></table>
+</section>
+
+<section id="shots"><h2>Screenshots</h2>
+<div class="shots"><figure><img src="decker/title.png" alt="Title"><figcaption>Start: Version 1.12, New / Load / Exit, and “Press F1 at any time for help.”</figcaption></figure><figure><img src="decker/steps.png" alt="Available contracts"><figcaption>First steps: the only job on offer, activate an I/O node at Generic Genetics for 176cr.</figcaption></figure><figure><img src="decker/fight.png" alt="Red alert"><figcaption>A fight: “Barrier BB6A … signals a red alert!” and “Grunt D4B0 hits for 45% damage.”</figcaption></figure><figure><img src="decker/inv.png" alt="Cyberdeck"><figcaption>Inventory: the cyberdeck, its hardware and loaded programs.</figcaption></figure></div>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>Target corporations include Bubba’s Discount Bait &amp; Tackle, PETA’s Flaky Granolas, Black Mesa Research Facilities and Spacely’s Sprockets. <span class="src">(game data)</span></li>
+<li>Planned but never built: a Trojan Horse ICE that looks like a valuable file, a Time Bomb program, and a “Garbage” state for crashed programs. <span class="src">(<a href="decker/todo.txt">To-Do.txt</a>)</span></li>
+<li>The source ships with an <code>UserSubmittedGraphics</code> folder of player art. <span class="src">(<a href="https://sourceforge.net/projects/decker/">SourceForge</a>)</span></li>
+<li>The author: “I wrote it for myself, so it may be a little confusing.” <span class="src">(source ReadMe)</span></li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>Cyberpunk hacking</strong> instead of a dungeon: every level is a corporate computer system of nodes.</li>
+<li><strong>Contracts:</strong> jobs with deadlines and pay; money buys hardware and software between runs.</li>
+<li><strong>Alarms:</strong> ICE raises yellow and red alerts; stealth programs (Hide, Deceive, Smoke) matter as much as Zap.</li>
+<li><strong>Projects:</strong> write your own programs and chips over days of game time.</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li>C++ with Microsoft Foundation Classes (Visual C++ 6), about 27,000 lines in 97 files. Dialogs, bitmaps and help are Windows resources.</li>
+<li>Source released under the GPL on <a href="https://sourceforge.net/projects/decker/">SourceForge</a>.</li>
+<li><strong>This port:</strong> a small MFC shim plus an SDL2 frontend, built to WebAssembly. Source: <a href="https://github.com/memmaker/decker">memmaker/decker</a>.</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<table><tr><th>Thing</th><th>Count</th><th>Notable ones</th></tr><tr><td>Programs</td><td>26</td><td>Attack types, Slow, Weaken, Confuse, Virus, Medic, Armor, Hide, Deceive, Smoke, Relocate, Analyze, Scan, Evaluate, Decrypt, Reflect …</td></tr><tr><td>ICE types</td><td>6</td><td>Gateway, Probe, Guardian, Tapeworm, Attack and Trace ICE.</td></tr><tr><td>Node types</td><td>8</td><td>CPU, SPU, Coprocessor, Datastore, I/O controller, Junction, Portal in and out.</td></tr><tr><td>Hardware</td><td>9</td><td>Chip Burner, Surge Suppressor, Neural Damper, Trace Monitor, Bio Monitor, High-Bandwidth Bus, Mapper, Design Assistant, Proxy.</td></tr><tr><td>Skills</td><td>6</td><td>Attack, Defense, Stealth, Analysis, Programming, Chip Design.</td></tr><tr><td>Corporations</td><td>~100</td><td>Joke names, from bait shops to Black Mesa.</td></tr></table>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>The original Windows help file, converted: <a href="../decker/doc/index.html">read it here</a>. Press <kbd>F1</kbd> in the game for the same help.</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol><li><a href="../decker/">Open the game</a>, click <em>New</em>, name your decker, pick a starting bonus.</li>
+<li><em>View Contracts</em>, take an easy one, then <em>Enter the Matrix</em>.</li>
+<li>Move node to node with the arrows; run programs from the list on the left.</li>
+<li>Finish the goal, leave through the portal, collect your pay, upgrade.</li></ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>No walkthrough exists; systems are random. The help file explains every program and ICE. Tips:</p><ul>
+<li>Load Hide or Deceive before moving; fighting raises the alarm.</li>
+<li>Scan and Evaluate datastores; paydata sells.</li>
+<li>Leave at a red alert: trace ICE ends runs.</li>
+<li>Rest between runs to heal.</li></ul>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<p>No cheat or debug mode was found in the source.</p>
+</section>
+</div></body>
+</html>
