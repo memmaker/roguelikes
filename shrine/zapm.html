@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ZAPM · Shrine</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>ZAPM</h1>
+  <p class="epi">the sci-fi NetHack · find the Bizarro Orgasmatron on a derelict space hulk</p>
+  <a class="play" href="../zapm/">&gt; Enter the dungeon</a>
+</header>
+<div class="facts"><div><b>Date of birth</b><span>30 May 2003</span> v0.1.0 · last 0.8.2, 2010</div><div><b>Creator</b><span>Cyrus Dolph</span></div><div><b>Language</b><span>C++</span> ~29,000 lines</div><div><b>Platform</b><span>Unix curses</span> also Windows</div></div>
+<nav class="toc"><a href="#lineage">Lineage</a><a href="#credits">Credits</a><a href="#shots">Screenshots</a><a href="#trivia">Trivia</a><a href="#usp">What's unique</a><a href="#code">Code dive</a><a href="#stats">Stats</a><a href="#manual">Manual</a><a href="#start">Getting started</a><a href="#help">Help</a><a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p>ZAPM is not a NetHack variant: Cyrus Dolph wrote new C++ code, but copied NetHack's commands, structure and jokes, with science fiction in place of fantasy. Scrolls became floppy disks, potions canisters, wands ray guns, rings bionic implants. It has one descendant, <a href="../prime/">PRIME</a> (2011). See the <a href="../#tree">family tree</a>.</p>
+<p>Played here: ZAPM 0.8.3 from the winny- fork, compiled to WebAssembly.</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table><tr><td>Cyrus Dolph</td><td>Author (2002–2010)</td></tr><tr><td>winny-</td><td>0.8.3 fork on GitHub</td></tr></table>
+</section>
+
+<section id="shots"><h2>Screenshots</h2>
+<div class="shots"><figure><img src="zapm/title.png" alt="ZAPM title"><figcaption>Title: “Copyright (C) 2002–2010 Cyrus Dolph.”</figcaption></figure><figure><img src="zapm/steps.png" alt="Space Base 1"><figcaption>First steps: a Space Marine on Space Base 1, warp fungi (F) around the corner.</figcaption></figure><figure><img src="zapm/fight.png" alt="Killing a warp fungus"><figcaption>A fight: “You start smashing enemies with your pulse rifle. … The warp fungus is killed!”</figcaption></figure><figure><img src="zapm/inv.png" alt="Inventory"><figcaption>Starting kit: energy cells, buckazoids, a pistol, a pulse rifle, bullets, a flak jacket, a motion tracker.</figcaption></figure></div>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>The guide says the game is “intended for an immature audience” and would have “gone straight to video”. <span class="src">(<a href="zapm/manual.txt">Guide</a>)</span></li>
+<li>ZAPM 0.6.3 was part of the 2008 /dev/null/nethack tournament. <span class="src">(<a href="https://www.roguebasin.com/index.php/ZapM">RogueBasin</a>, <a href="https://nethackwiki.com/wiki/ZAPM">NetHack Wiki</a>)</span></li>
+<li>There is a fake artifact, the <em>Bizarre</em> Orgasmatron; using it can kill you. <span class="src">(<code>Artifact.cpp</code>)</span></li>
+<li>Floppy disk software can stop with “Your license for this software has expired.” <span class="src">(<code>FloppyDisk.cpp</code>)</span></li>
+<li>Money is counted in buckazoids, the currency of Space Quest. The first monster in the guide is NetHack's grid bug, which gets “derezzed”.</li>
+<li>Each monster has a movie quote in <code>lore.txt</code>, from Dark Star to Flash Gordon.</li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>NetHack in space:</strong> the same keys, but every item class is redone as technology.</li>
+<li><strong>Unknown items are “buggy”, “debugged” or “optimized”</strong> instead of cursed/blessed.</li>
+<li><strong>Mutant powers</strong> for psions, <strong>bionic implants</strong> for everyone, <strong>skills</strong> you choose to raise.</li>
+<li><strong>Reusable floppy disks</strong> with licences that run out.</li>
+<li>Lawyers who sue you, and Unix daemons as end-game monsters.</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li>C++ in a C style, curses and panels for the screen. About 29,000 lines, 60 source files.</li>
+<li>The monster table <code>MonsterData.h</code> is generated from a spreadsheet (<code>monsters.sxc</code> → CSV → <code>monsters.pl</code>).</li>
+<li><strong>This port:</strong> in-memory curses routed to separate map, status, message and inventory windows; WebAssembly; auto-explore on <kbd>X</kbd>. Source: <a href="https://github.com/memmaker/zapm">memmaker/zapm</a>.</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<table><tr><th>Thing</th><th>Count</th><th>Notable ones</th></tr><tr><td>Professions</td><td>5</td><td>Janitor, Space Marine, Psion, Quarterback, Software Engineer (a sixth, Cracker, is in the code but not offered).</td></tr><tr><td>Monsters</td><td>80</td><td>Tribble, flying toaster, killer tomatoes, redshirt, stormtrooper, high ping bastard, cheerleader ninja, usenet troll, lawyer, 50 foot woman, Bastard Operator From Hell, mail daemon, T-1000, agent.</td></tr><tr><td>Object types</td><td>~170</td><td>31 armours, 35 weapons, 29 tools, 20 canisters, 19 floppy disks, 13 implants, 12 ray guns, 8 artifacts.</td></tr><tr><td>Mutant powers</td><td>24</td><td>Including optic blast, pyrokinesis and X-ray vision; lawyers get Cease and Desist, Seize Evidence, Sue for Damages, Summon Witness.</td></tr></table>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>Cyrus Dolph’s “incomplete guide to an incomplete game”: <a href="zapm/manual.txt">read it here (text)</a>.</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol><li><a href="../zapm/">Open the game</a>, press a key, choose a profession. Space Marine is the easiest start.</li>
+<li>Move with the arrows or digits; walk into monsters to hit them, <kbd>f</kbd> fires your gun.</li>
+<li><kbd>X</kbd> explores; <kbd>&gt;</kbd> walks to the stairs and goes down.</li>
+<li><kbd>Enter</kbd> opens a menu of all commands; <kbd>?</kbd> is help.</li></ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>No walkthrough exists; the guide explains items and skills. Tips:</p><ul>
+<li>Spend skill points (<kbd>E</kbd>) whenever you level.</li>
+<li>Test unknown floppies in a safe place; “buggy” ones hurt.</li>
+<li>Shopkeeper droids sell identification; pay with <kbd>p</kbd>.</li>
+<li>More: <a href="https://nethackwiki.com/wiki/ZAPM">ZAPM on the NetHack Wiki</a>.</li></ul>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<p>ZAPM has a God Mode (<kbd>`</kbd>: gain level, create monster or object, reveal map, transport), but it only works when the game is started with the flags <code>-d -g -o</code>. This browser port does not use them. <em>Export save</em> / <em>Import save</em> keeps backups.</p>
+</section>
+</div></body>
+</html>
