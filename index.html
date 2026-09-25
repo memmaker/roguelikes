@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Roguelikes</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root { --bg:#0b0a0d; --stone:#17151a; --line:#2e2a33; --text:#d9d4c7; --dim:#8d8676; --gold:#e0b24f; --ember:#ff7a2a; }
+* { box-sizing:border-box; }
+body { margin:0; min-height:100vh; color:var(--text); font:15px/1.55 "IBM Plex Mono",monospace;
+  background:
+    radial-gradient(ellipse at 50% -10%, rgba(255,140,50,.18), transparent 60%),
+    repeating-linear-gradient(0deg, transparent 0 31px, rgba(255,255,255,.025) 31px 32px),
+    repeating-linear-gradient(90deg, transparent 0 63px, rgba(255,255,255,.02) 63px 64px),
+    var(--bg); }
+header { text-align:center; padding:56px 16px 24px; }
+h1 { font:800 clamp(34px,7vw,64px)/1 Cinzel,serif; margin:0; letter-spacing:.08em; color:var(--gold);
+  text-shadow:0 0 18px rgba(255,150,40,.45), 0 2px 0 #000; }
+.sub { color:var(--dim); margin:12px 0 0; }
+/* a tiny ASCII corridor: @ walks, a monster waits */
+.corridor { font-size:18px; margin:26px auto 0; width:min(560px,100%); white-space:pre; overflow:hidden;
+  color:#5b5563; position:relative; height:1.6em; }
+.corridor .at { position:absolute; left:0; color:var(--gold); animation:walk 9s steps(40) infinite; }
+.corridor .g { position:absolute; right:6%; color:#6fd36f; animation:blink 1.8s infinite; }
+@keyframes walk { 0%{left:2%} 80%,100%{left:82%} }
+@keyframes blink { 50%{opacity:.35} }
+.torch { display:inline-block; color:var(--ember); animation:flick .35s infinite alternate; }
+@keyframes flick { from{opacity:.65; transform:scale(.92)} to{opacity:1; transform:scale(1.06)} }
+main { max-width:1100px; margin:0 auto; padding:16px 16px 64px; display:grid; gap:24px;
+  grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); }
+.card { display:flex; flex-direction:column; background:linear-gradient(#1c1a20,#121015); border:1px solid var(--line);
+  border-radius:10px 10px 4px 4px; overflow:hidden; text-decoration:none; color:inherit;
+  box-shadow:0 10px 30px rgba(0,0,0,.6); transition:transform .15s, box-shadow .15s, border-color .15s; }
+.card:hover, .card:focus-visible { transform:translateY(-4px); border-color:var(--gold);
+  box-shadow:0 14px 40px rgba(0,0,0,.7), 0 0 24px rgba(224,178,79,.25); outline:none; }
+.card img { width:100%; aspect-ratio:12/5; object-fit:cover; image-rendering:pixelated; background:#0c0a0e;
+  border-bottom:1px solid var(--line); }
+.body { padding:16px 18px 18px; display:flex; flex-direction:column; flex:1; }
+h2 { font:600 22px Cinzel,serif; margin:0 0 4px; color:var(--gold); }
+.tag { color:var(--dim); font-size:12px; margin-bottom:10px; }
+.ver { color:var(--dim); font:11px ui-monospace, Menlo, monospace; margin:-6px 0 10px; }
+.body p { margin:0 0 16px; flex:1; }
+.play { align-self:flex-start; padding:7px 16px; border:1px solid var(--gold); border-radius:4px; color:var(--gold); font-weight:600; }
+.card:hover .play { background:var(--gold); color:#1a1408; }
+footer { text-align:center; color:var(--dim); font-size:12px; padding:0 16px 32px; }
+@media (prefers-reduced-motion:reduce) { * { animation:none !important; } }
+</style>
+</head>
+<body>
+<header>
+  <h1><span class="torch">&#x1F525;</span> Roguelikes <span class="torch">&#x1F525;</span></h1>
+  <p class="sub">Descend into a dungeon. Choose your stairs.</p>
+  <div class="corridor" aria-hidden="true">#######################################<span class="at">@</span><span class="g">k</span></div>
+</header>
+<main>
+<!-- One card per published game (rule: ~/Games/rogue2wasm.md) -->
+  <a class="card" href="quickband/">
+    <img src="quickband.png" alt="Monster sprites from Quickband's 32×32 tileset">
+    <div class="body"><h2>Quickband</h2><div class="tag">NPPAngband variant · 2010s</div><div class="ver">Based on Quickband 2.0.6 (AngbandPlus)</div>
+      <p>Angband cut down to a quick game: fewer, denser levels, better loot and faster levelling. Built so a full run from town to the final boss fits into days instead of months.</p>
+      <span class="play">&gt; Enter the dungeon</span></div></a>
+  <a class="card" href="tinyangband/">
+    <img src="tinyangband.png" alt="Monster sprites from TinyAngband's 16×16 tileset">
+    <div class="body"><h2>TinyAngband</h2><div class="tag">Japanese Zangband variant · 2000s</div><div class="ver">Based on TinyAngband 1.0.1 · iks3/tinyangband @ d221733</div>
+      <p>Made by the XAngband team as a compact alternative to the sprawling Zangband family: a world map with several towns and dungeons, and a quest count you choose at birth.</p>
+      <span class="play">&gt; Enter the dungeon</span></div></a>
+  <a class="card" href="tome2/">
+    <img src="tome2.png" alt="Monster sprites from ToME 2's 16×16 tileset">
+    <div class="body"><h2>ToME 2</h2><div class="tag">Angband variant · 2000s</div><div class="ver">Based on ToME 2.3.11 · tome2/tome2 @ dac2d95</div>
+      <p>The Tales of Middle-earth: a whole map of Middle-earth to roam, dozens of themed dungeons, gods to follow and a skill system that lets any class grow its own way. Also includes the Theme module.</p>
+      <span class="play">&gt; Enter the dungeon</span></div></a>
+  <a class="card" href="roguepc/">
+    <img src="roguepc.png" alt="A room in the original IBM PC text mode of Rogue">
+    <div class="body"><h2>Rogue PC</h2><div class="tag">The original Rogue · 1985</div><div class="ver">Based on Rogue PC 1.48 (rogue-pc-modern-C)</div>
+      <p>The Epyx IBM PC edition of Rogue, in its original colours and CP437 symbols or with tiles: 26 levels down to the Amulet of Yendor, and back up again.</p>
+      <span class="play">&gt; Enter the dungeon</span></div></a>
+  <a class="card" href="xrogue/">
+    <img src="xrogue.png" alt="Monster sprites from the NetHack 16×16 tileset used by XRogue">
+    <div class="body"><h2>XRogue</h2><div class="tag">Advanced Rogue variant · 1990s</div><div class="ver">Based on XRogue 8.0.3</div>
+      <p>The last of the Advanced Rogue line: nine classes with their own magic, trading posts and wilderness, and a quest relic deep in the dungeon that you must carry back to the surface.</p>
+      <span class="play">&gt; Enter the dungeon</span></div></a>
+  <a class="card" href="umoria/">
+    <img src="umoria.png" alt="Umoria monsters">
+    <div class="body"><h2>Umoria</h2><div class="tag">The original Moria · 1983</div><div class="ver">Based on Umoria 5.7.15 · dungeons-of-moria/umoria @ 3bf8abc</div>
+      <p>The ancestor of Angband: one town, fifty levels of dungeon and the Balrog waiting at the bottom. Simple, harsh and still fair after forty years.</p>
+      <span class="play">&gt; Enter the dungeon</span></div></a>
+  <a class="card" href="of-heaven-and-hell/">
+    <img src="of-heaven-and-hell.png" alt="Of Heaven and Hell title art">
+    <div class="body"><h2>Of Heaven and Hell</h2><div class="tag">Original roguelike · since January 2024</div>
+      <p>Diablo, rebuilt as a turn-based roguelike: a Go reimplementation that follows the original game's rules and data as closely as possible.</p>
+      <span class="play">&gt; Enter the dungeon</span></div></a>
+</main>
+<footer>ruzzoli.de · play in your browser, no install</footer>
+</body>
+</html>
