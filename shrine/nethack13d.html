@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NetHack 1.3d · Shrine</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>NetHack 1.3d</h1>
+  <p class="epi">Hack, stitched together over the net · the first public NetHack</p>
+  <a class="play" href="../nethack13d/">&gt; Enter the dungeon</a>
+</header>
+<div class="facts">
+  <div><b>Date of birth</b><span>July 1987</span> posted to comp.sources.games</div>
+  <div><b>Creators</b><span>Mike Stephenson</span> with Arromdee, Turner, Neiger, Backus</div>
+  <div><b>Language</b><span>C</span> ~32,000 lines in 101 files</div>
+  <div><b>Platform</b><span>Unix + MS-DOS</span> BSD, System V, PC</div>
+</div>
+<nav class="toc"><a href="#lineage">Lineage</a><a href="#credits">Credits</a><a href="#shots">Screenshots</a><a href="#trivia">Trivia</a><a href="#usp">What's unique</a><a href="#code">Code dive</a><a href="#stats">Stats</a><a href="#manual">Manual</a><a href="#start">Getting started</a><a href="#help">Help</a><a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p>NetHack is built on the code of <a href="hack.html">Hack</a>. Its README calls it “an integrated version of two major flavors of Hack”: Andries Brouwer's Unix Hack 1.0.3 and Don Kneller's PC Hack. Mike Stephenson merged the two, took the file names from PC Hack, and folded in patches that other players had posted: new classes, fountains, Keystone Kops, spiders, a magic marker. Each addition is still a switch in <code>config.h</code>.</p>
+<p>1.3d was the first public release. Later versions (2.x, 3.x) grew from it, and so did the many variants in the <a href="../#tree">family tree</a>. This page's game is “NetHack 1.3d Revived”, a 2007 patch set that makes the 1987 source build on modern Linux.</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table>
+<tr><td>Mike Stephenson</td><td>Merged the Hack flavours into NetHack; new classes and traps, throne rooms, spellbooks and spellcasting, praying, endgame changes</td></tr>
+<tr><td>Ken Arromdee</td><td>New classes, weapons code, armour weights, tools, polymorphing yourself</td></tr>
+<tr><td>Scott R. Turner</td><td>Rock moles, Keystone Kops, squeaky boards and magic traps, fountains</td></tr>
+<tr><td>Gil Neiger</td><td>Magic marker, fountain improvements</td></tr>
+<tr><td>Eric Backus</td><td><code>#dip</code> for fountains</td></tr>
+<tr><td>Jay Fenlason, Andries Brouwer, Don Kneller</td><td>Hack, Hack 1.0.3 and PC Hack, the code underneath</td></tr>
+<tr><td>NetHack 1.3d Revived (2007), bhaak</td><td>Patches that make it build on modern Linux; GitHub copy (<a href="https://github.com/bhaak/NetHack-1.3d">bhaak/NetHack-1.3d</a> @ bcec982)</td></tr>
+<tr><td>DragonDePlatino, DawnBringer</td><td>DawnLike tiles (CC-BY 4.0); the NetHack 3.6 tiles are the alternative</td></tr>
+</table>
+</section>
+
+<section id="shots"><h2>Screenshots</h2>
+<div class="shots">
+<figure><img src="nethack13d/steps.png" alt="Four rooms joined by corridors, a Cave-man and his dog"><figcaption>First steps: a Cave-man and his little dog on level 1, rooms found by auto-explore.</figcaption></figure>
+</div>
+<p>More screenshots to come: our capture tool does not yet record the text windows.</p>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>1.3d is the first public release of NetHack; Stephenson approved the posting to comp.sources.games in July 1987. <span class="src">(<a href="https://nethackwiki.com/wiki/NetHack_1.3d">NetHackWiki</a>)</span></li>
+<li>The “Net” is for the Internet, over which the DevTeam worked together. <span class="src">(<a href="https://en.wikipedia.org/wiki/NetHack">Wikipedia</a>)</span></li>
+<li>Spells, fountains, thrones and turning yourself into a monster all appear here for the first time. <span class="src">(<a href="https://nethackwiki.com/wiki/NetHack_1.3d">NetHackWiki</a>)</span></li>
+<li>Excalibur is already here: name a long sword and dip it into a fountain. <span class="src">(<a href="https://nethackwiki.com/wiki/NetHack_1.3d">NetHackWiki</a>)</span></li>
+<li>The revived edition's README says it came out in 2007, 20 years after 1.3d, for players who remember “when leprechaun were big L”. <span class="src">(<a href="https://github.com/bhaak/NetHack-1.3d/blob/bcec982/README.revived">README.revived</a>)</span></li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>Twelve classes</strong> instead of Hack's six: Samurai, Ninja, Priest, Valkyrie, Elf and Healer join the Archeologist, Tourist, Fighter, Knight, Cave-man and Wizard.</li>
+<li><strong>Spellbooks and prayer.</strong> Magic is no longer only in items: learn spells from books, spend energy to cast them, and pray to your god when in trouble.</li>
+<li><strong>Fountains and thrones.</strong> Quaff from, dip into or sit on them, with random good and bad results.</li>
+<li><strong>Keystone Kops</strong> chase you out of a shop you robbed, and throw cream pies.</li>
+<li><strong>“The wizard may not stay dead!”</strong>, says the README: the Wizard of Yendor comes back.</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li><strong>Language:</strong> K&amp;R C, about 32,000 lines in 101 <code>.c</code>/<code>.h</code> files. Files are named in the short PC Hack style: <code>shk.c</code>, <code>dog.c</code>, <code>fountain.c</code>, <code>pray.c</code>.</li>
+<li><strong>Feature switches:</strong> every contributor's addition sits behind a <code>#define</code> in <code>config.h</code> (<code>SPELLS</code>, <code>PRAYERS</code>, <code>KAA</code>, <code>KOPS</code>, <code>FOUNTAINS</code>, …). The tool <code>makedefs</code> reads <code>objects.h</code> and writes the item defines, honouring those <code>#ifdef</code>s.</li>
+<li><strong>Environment:</strong> 4.xBSD and System V Unix on termcap terminals, and MS-DOS with an optional IBM graphics mode. The README's author built it on a Pyramid 98xe.</li>
+<li><strong>This port:</strong> the game's escape codes run through a small VT100 emulator; the map is drawn as tiles in X11 and in the browser (WebAssembly). WebAssembly needed real prototypes for the old K&amp;R functions, and we fixed a missing argument in the “You give … gold” message on the way. Source: <a href="https://github.com/memmaker/nethack13d">memmaker/nethack13d</a>.</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<table>
+<tr><th>Thing</th><th>Count</th><th>Notable ones</th></tr>
+<tr><td>Classes</td><td>12</td><td>The <em>Samurai</em> and <em>Ninja</em>; the <em>Elf</em> is a class, not a race.</td></tr>
+<tr><td>Monsters</td><td>62</td><td>The <em>Keystone Kop</em>, the <em>quantum mechanic</em>, the <em>rock mole</em>, the <em>giant eel</em>, the <em>mail daemon</em> and the <em>wizard of Yendor</em>.</td></tr>
+<tr><td>Spells</td><td>33</td><td>Finger of death, create familiar, genocide, cone of cold.</td></tr>
+<tr><td>Potions</td><td>19</td><td>Gain energy, hallucination, holy water.</td></tr>
+<tr><td>Scrolls</td><td>21</td><td>Genocide, punishment, amnesia, fire.</td></tr>
+<tr><td>Rings</td><td>19</td><td>Conflict, teleport control, increase damage, warning.</td></tr>
+<tr><td>Wands</td><td>20</td><td>Wishing, probing, cold, sleep, death.</td></tr>
+<tr><td>Weapons</td><td>41</td><td>Katana, shuriken, a whole rack of polearms (bec de corbin, lucern hammer, voulge); Excalibur is the one artifact.</td></tr>
+<tr><td>Armour</td><td>15</td><td>Elfin chain mail, crystal plate mail, bronze plate mail.</td></tr>
+<tr><td>Tools</td><td>9</td><td>Magic marker, stethoscope, ice box, leash.</td></tr>
+<tr><td>Traps</td><td>16</td><td>Squeaky board, magic trap, web, rust trap.</td></tr>
+<tr><td>Levels</td><td>40</td><td>The Amulet of Yendor is in a maze from level 30 on; throne rooms from level 5, swamps from 19.</td></tr>
+</table>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>The manual page shipped with the source, <a href="nethack13d/nethack.6.txt">nethack(6) (troff text)</a>, and the in-game introduction, <a href="nethack13d/help.txt">help (text)</a>. From the NetHack 1.3d source, which builds on Hack © Stichting Mathematisch Centrum, 1985.</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol>
+<li><a href="../nethack13d/">Open the game</a>, type a name and answer <kbd>n</kbd> to choose a class (Samurai or Valkyrie is easiest), or <kbd>y</kbd> to get a random one.</li>
+<li>Move with <kbd>h</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd><kbd>y</kbd><kbd>u</kbd><kbd>b</kbd><kbd>n</kbd> or the arrow keys; walk into a monster to attack. <kbd>_</kbd> explores on its own.</li>
+<li>Press <kbd>Enter</kbd> for a menu of every command, <kbd>i</kbd> for the inventory.</li>
+<li>Stuck in a dead end? Search with <kbd>s</kbd> (or <kbd>20s</kbd>). Press <kbd>&gt;</kbd> to walk to the down stairs and take them.</li>
+<li>Eat when you are “Hungry”. The full key list is in the <a href="../nethack13d/help.html">in-game guide</a>.</li>
+</ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>We found no walkthrough for 1.3d. Rules of thumb:</p>
+<ul>
+<li>Never hit a floating eye in melee. Never eat a cockatrice corpse.</li>
+<li>Engrave <em>Elbereth</em> in the dust when cornered: most monsters won't step onto it.</li>
+<li>Pray when your hit points are very low, but not often.</li>
+<li>Don't steal from shops: the Keystone Kops come.</li>
+<li>More: <a href="https://nethackwiki.com/wiki/NetHack_1.3d">NetHackWiki on NetHack 1.3d</a>.</li>
+</ul>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<ul>
+<li><strong>Wizard mode</strong> (<code>nethack -D</code>, for the user named in <code>config.h</code>) exists in the source but can't be reached in the browser: the page doesn't pass <code>-D</code>.</li>
+<li><strong>Excalibur</strong>: name a long sword “Excalibur” and <code>#dip</code> it into a fountain.</li>
+<li><strong>Save scumming</strong> works in the browser: <em>Export save</em> before something risky, <em>Import save</em> if it goes wrong.</li>
+</ul>
+</section>
+</div></body>
+</html>
