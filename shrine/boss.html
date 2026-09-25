@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BOSS: Beyond Moria · Shrine</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>BOSS: Beyond Moria</h1>
+  <p class="epi">Moria goes to America · beat the Boss before he takes over the world</p>
+  <a class="play" href="../boss/">&gt; Enter the dungeon</a>
+</header>
+<div class="facts"><div><b>Date of birth</b><span>1991</span> BOSS 2.0: 1 March 1992</div><div><b>Creators</b><span>Gulledge · Black</span> University of Washington</div><div><b>Language</b><span>Pascal</span> ~24,500 lines; VMS Pascal</div><div><b>Platform</b><span>VAX/VMS → PC</span> Free Pascal port</div></div>
+<nav class="toc"><a href="#lineage">Lineage</a><a href="#credits">Credits</a><a href="#shots">Screenshots</a><a href="#trivia">Trivia</a><a href="#usp">What's unique</a><a href="#code">Code dive</a><a href="#stats">Stats</a><a href="#manual">Manual</a><a href="#start">Getting started</a><a href="#help">Help</a><a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p>BOSS started from <strong>VMS Moria</strong>, the Pascal original by Robert Koeneke and Jimmey Wayne Todd, by way of a copy modified at SUNY by Bill Palter and Nick B. Triantos. Robert Gulledge and Jason Black at the University of Washington then replaced Tolkien with modern America: magic became science, orcs became gang members, Middle-earth became eight US cities. It is a sibling of <a href="umoria.html">Umoria</a>, not a descendant; see the <a href="../#tree">family tree</a>.</p>
+<p>Played here: BOSS 2.4b, Michal Bielinski’s PC port, compiled with Free Pascal to WebAssembly.</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table><tr><td>Robert Alan Koeneke</td><td>Moria</td></tr><tr><td>Jimmey Wayne Todd Jr.</td><td>Moria</td></tr><tr><td>Bill Palter, Nick B. Triantos</td><td>SUNY Moria modifications</td></tr><tr><td>Robert Gulledge (RLG)</td><td>BOSS</td></tr><tr><td>Jason Black (cloister bell)</td><td>BOSS, FAQ</td></tr><tr><td>Michal Bielinski</td><td>PC port</td></tr></table>
+</section>
+
+<section id="shots"><h2>Screenshots</h2>
+<div class="shots"><figure><img src="boss/title.png" alt="BOSS title screen"><figcaption>Title: “BOSS : Beyond Moria, Version 2.4b”, with the full credits.</figcaption></figure><figure><img src="boss/steps.png" alt="The town of Seattle"><figcaption>First steps: Seattle, day 1, 08:00. A hefty wrestler in a jock strap, with 2,400 in cash.</figcaption></figure><figure><img src="boss/fight.png" alt="Fighting a Vulture Gang Member"><figcaption>A fight in the street: “You thump the Vulture Gang Member.”</figcaption></figure><figure><img src="boss/inv.png" alt="Inventory"><figcaption>Starting kit: baseballs, K-rations, Floppy Disks of Identify, a spandex jumpsuit, a football helmet and an aluminum bat.</figcaption></figure></div>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>The authors wanted a Moria you can win “in a weekend, instead of in a few weeks”. <span class="src">(<a href="boss/faq.txt">BOSS FAQ, 1992</a>)</span></li>
+<li>The evil aliens are called <em>Daysians</em>. The FAQ says the name is a joke and leaves it to you to find. <span class="src">(<a href="boss/faq.txt">BOSS FAQ, 1992</a>)</span></li>
+<li>Monsters and items live in data files, so admins could rename the Green Daisyan Lieutenant after their system administrator without recompiling. <span class="src">(<a href="boss/faq.txt">BOSS FAQ, 1992</a>)</span></li>
+<li>Danny Dollar runs the bank: “honest, but stingy as heck”, with interest paid weekly. <span class="src">(<a href="boss/faq.txt">BOSS FAQ, 1992</a>)</span></li>
+<li>Some monsters give you a “social disease”. It stops certain potions from working; the medical clinic cures it, and every cure costs more. <span class="src">(<a href="boss/faq.txt">BOSS FAQ, 1992</a>)</span></li>
+<li>The Vic-20 in the computer table is rated at 1%: “(Sounds right, doesn't it?)” <span class="src">(<a href="boss/manual.txt">manual</a>)</span></li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>Parody setting:</strong> science instead of magic, floppy disks instead of scrolls, pop-culture monsters.</li>
+<li><strong>Eight cities</strong> instead of one town: Seattle, Boise, Denver, Kansas City, Chicago, Detroit, Pittsburgh, New York City. To take the bus to the next one you must kill that city's mob boss (a <code>P</code> at 500 metres).</li>
+<li><strong>Time limit:</strong> 100 game days before the Boss takes over the world.</li>
+<li><strong>A bank</strong> with deposits and loans, potion mixing (<kbd>M</kbd>), a kill list (<kbd>k</kbd>), and a berserk rage for wrestlers (<kbd>b</kbd>).</li>
+<li><strong>Beating the Boss is not the end:</strong> another may take his place, and your score counts how many you beat.</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li><strong>Original:</strong> VMS Pascal on the University of Washington VAXes, like its parent Moria. About 24,500 lines in <code>boss.pas</code> and its include files.</li>
+<li>Monsters, items, classes and skill names are in text data files (<code>dat/</code>), unusual for its time.</li>
+<li><strong>PC port:</strong> Michal Bielinski, Turbo/Free Pascal for DOS and Linux.</li>
+<li><strong>This port:</strong> Free Pascal compiled to WebAssembly, a canvas terminal. Source: <a href="https://github.com/dungeons-of-moria/boss-beyond-moria">dungeons-of-moria/boss-beyond-moria</a>.</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<table><tr><th>Thing</th><th>Count</th><th>Notable ones</th></tr><tr><td>Qualities</td><td>8</td><td>Instead of races: Elite, Hefty, Mad, Wise, Lucky, Healthy, Sexy, Alien.</td></tr><tr><td>Classes</td><td>9</td><td>Wrestler, Scientist, Guru, Ninja, Soldier, Wanderer, Con-Artist, Thief, Journalist.</td></tr><tr><td>Monsters</td><td>385</td><td>Mutant Keebler Elf, Vogons, Drooling Trekkie, Milli &amp; Vanilli, Mutant Lawyer, Zippy the Zapping Pinhead, Venerable Balrog, and the Boss.</td></tr><tr><td>Objects</td><td>379</td><td>Floppy disks (scrolls), computers (wands), guns, grenades, football helmets.</td></tr><tr><td>Cities</td><td>8</td><td>Seattle to New York City, by bus.</td></tr><tr><td>Time limit</td><td>100 days</td><td></td></tr></table>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>The complete original help file: <a href="boss/manual.txt">BOSS manual (text)</a>. Also the <a href="boss/faq.txt">monthly BOSS FAQ</a> from rec.games.moria, December 1992.</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol><li><a href="../boss/">Open the game</a>, press a key, pick a quality, sex and class. <kbd>Escape</kbd> accepts the stats, then type a name.</li>
+<li>Wear your gear: <kbd>w</kbd> and a letter.</li>
+<li>Move with the arrow keys or digits. Walk into a letter (shop) to trade; the bank and clinic are in town too.</li>
+<li>Take the <code>&gt;</code> down into the tunnels. At 500 metres, find the mob boss <code>P</code>; kill him to unlock the bus.</li>
+<li><kbd>?</kbd> lists the commands; the <a href="../boss/help.html">in-game guide</a> has them all.</li></ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>No walkthrough exists. The FAQ answers most questions. Tips:</p><ul>
+<li>Watch the clock: 100 days for all eight cities.</li>
+<li>Deposit cash with Danny Dollar; the interest adds up over weeks.</li>
+<li>Pay back loans before you leave town.</li>
+<li>Mixing potions (<kbd>M</kbd>) is a gamble; high intelligence helps, failures can blow up.</li></ul>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<p>No reachable cheats. BOSS has a wizard mode, but only in debug builds; this port does not include it. Use <em>Export save</em> / <em>Import save</em> to keep a backup.</p>
+</section>
+</div></body>
+</html>
