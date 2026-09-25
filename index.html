@@ -44,6 +44,27 @@ h2 { font:600 22px Cinzel,serif; margin:0 0 4px; color:var(--gold); }
 .play { align-self:flex-start; padding:7px 16px; border:1px solid var(--gold); border-radius:4px; color:var(--gold); font-weight:600; }
 .card:hover .play { background:var(--gold); color:#1a1408; }
 footer { text-align:center; color:var(--dim); font-size:12px; padding:0 16px 32px; }
+/* view toggle + heritage tree */
+.views { display:flex; justify-content:center; margin:22px 0 0; }
+.views button { font:600 13px "IBM Plex Mono",monospace; color:var(--dim); background:var(--stone); border:1px solid var(--line);
+  padding:8px 16px; cursor:pointer; }
+.views button:first-child { border-radius:6px 0 0 6px; } .views button:last-child { border-radius:0 6px 6px 0; border-left:0; }
+.views button[aria-pressed=true] { color:#1a1408; background:var(--gold); border-color:var(--gold); }
+.views button:focus-visible { outline:2px solid var(--ember); outline-offset:2px; }
+body.tree main { display:none; } body:not(.tree) #tree { display:none; }
+#tree { max-width:900px; margin:0 auto; padding:16px 16px 64px; }
+#tree .legend { color:var(--dim); font-size:12px; margin:0 0 18px; }
+#tree ul { list-style:none; margin:0; padding-left:22px; border-left:1px solid var(--line); }
+#tree > ul { border:0; padding:0; }
+#tree li { position:relative; padding:5px 0 5px 14px; }
+#tree li::before { content:""; position:absolute; left:-22px; top:17px; width:30px; border-top:1px solid var(--line); }
+#tree > ul > li::before { display:none; }
+#tree li.insp::before { border-top-style:dashed; border-color:var(--ember); }
+#tree .n { color:var(--text); } #tree .y { color:var(--dim); font-size:12px; }
+#tree .why { display:block; color:var(--dim); font-size:12px; }
+#tree a.n { color:var(--gold); font-weight:600; text-decoration:none; border-bottom:1px solid transparent; }
+#tree a.n::before { content:"▶ "; font-size:10px; } #tree a.n:hover { border-color:var(--gold); }
+.dash { color:var(--ember); }
 @media (prefers-reduced-motion:reduce) { * { animation:none !important; } }
 </style>
 </head>
@@ -52,6 +73,9 @@ footer { text-align:center; color:var(--dim); font-size:12px; padding:0 16px 32p
   <h1><span class="torch">&#x1F525;</span> Roguelikes <span class="torch">&#x1F525;</span></h1>
   <p class="sub">Descend into a dungeon. Choose your stairs.</p>
   <div class="corridor" aria-hidden="true">#######################################<span class="at">@</span><span class="g">k</span></div>
+  <div class="views" role="group" aria-label="View">
+    <button type="button" data-v="" aria-pressed="true">▦ Game cards</button><button type="button" data-v="tree" aria-pressed="false">⑂ Family tree</button>
+  </div>
 </header>
 <main>
 <!-- One card per published game (rule: ~/Games/rogue2wasm.md) -->
@@ -111,6 +135,47 @@ footer { text-align:center; color:var(--dim); font-size:12px; padding:0 16px 32p
       <p>Diablo, rebuilt as a turn-based roguelike: a Go reimplementation that follows the original game's rules and data as closely as possible.</p>
       <span class="play">&gt; Enter the dungeon</span></div></a>
 </main>
+<section id="tree" aria-label="Family tree">
+<p class="legend">Who built on whom. Solid line: code is descended from the parent. <span class="dash">Dashed line</span>: new code, inspired by the parent. Games you can play here are gold.</p>
+<ul><li><span class="n">Rogue</span> <span class="y">1980 · Toy, Wichman, Arnold</span><ul>
+  <li><a class="n" href="roguepc/">Rogue PC</a> <span class="y">1985 · Epyx IBM PC edition (Toy, Lane, Wichman)</span></li>
+  <li><span class="n">Advanced Rogue</span> <span class="y">1984 · Morgan, Dalka</span><ul>
+    <li><a class="n" href="xrogue/">XRogue</a> <span class="y">1991 · Pietkivitch</span></li></ul></li>
+  <li class="insp"><span class="n">Hack</span> <span class="y">1982 · Fenlason</span><ul>
+    <li><span class="n">NetHack</span> <span class="y">1987</span><ul>
+      <li class="insp"><a class="n" href="zapm/">ZAPM</a> <span class="y">2000s · Cyrus Dolph</span><span class="why">sci-fi parody of NetHack, own C++ code</span></li></ul></li></ul></li>
+  <li class="insp"><span class="n">Larn</span> <span class="y">1986 · Noah Morgan</span><ul>
+    <li><span class="n">Larn 12.4</span><ul>
+      <li><a class="n" href="larn/">Larn (RL_M 26.4)</a> <span class="y">today · atsb, official maintainer</span></li></ul></li></ul></li>
+  <li class="insp"><a class="n" href="omega/">Omega</a> <span class="y">1987 · Laurence Brothers</span><span class="why">standalone, no code from other games</span></li>
+  <li class="insp"><span class="n">Moria</span> <span class="y">1983 · Robert Koeneke, VMS Pascal</span><ul>
+    <li><a class="n" href="umoria/">Umoria</a> <span class="y">1988 · C port by James E. Wilson</span><ul>
+      <li><span class="n">Angband</span> <span class="y">1990 · Cutler, Astrand, from Umoria 5.2</span><ul>
+        <li><span class="n">Zangband</span> <span class="y">1994 · Topi Ylinen</span><ul>
+          <li><span class="n">XAngband</span> <span class="y">Japanese, formerly KantAngband</span><ul>
+            <li><a class="n" href="tinyangband/">TinyAngband</a> <span class="y">2000s</span></li></ul></li>
+          <li><span class="n">PernAngband</span> <span class="y">1998 · DarkGod</span><ul>
+            <li><a class="n" href="tome2/">ToME 2</a> <span class="y">2000s</span></li></ul></li></ul></li>
+        <li><span class="n">Angband 3.0</span><ul>
+          <li><span class="n">NPPAngband</span><ul>
+            <li><a class="n" href="quickband/">Quickband</a> <span class="y">2010s</span></li></ul></li>
+          <li><span class="n">Sil</span> <span class="y">2010s</span><ul>
+            <li><a class="n" href="sil-q/">Sil-Q</a> <span class="y">2010s · continues Sil</span></li></ul></li></ul></li>
+        <li><span class="n">Angband 4.2</span><ul>
+          <li><a class="n" href="tactical-angband/">Tactical Angband</a> <span class="y">2020s · from 4.2.5</span></li></ul></li>
+        <li class="insp"><span class="n">Diablo</span> <span class="y">1996 · Blizzard North</span><ul>
+          <li class="insp"><a class="n" href="of-heaven-and-hell/">Of Heaven and Hell</a> <span class="y">since 2024 · Go reimplementation</span></li></ul></li>
+      </ul></li></ul></li></ul></li>
+</ul></li></ul>
+</section>
 <footer>ruzzoli.de · play in your browser, no install</footer>
+<script>
+// #tree in the URL = family-tree view (shareable, back button works)
+const views=document.querySelectorAll('.views button');
+function show(){ const t=location.hash==='#tree'; document.body.classList.toggle('tree',t);
+  views.forEach(b=>b.setAttribute('aria-pressed', String((b.dataset.v==='tree')===t))); }
+views.forEach(b=>b.onclick=()=>{ history.replaceState(null,'',b.dataset.v?'#tree':location.pathname); show(); });
+addEventListener('hashchange',show); show();
+</script>
 </body>
 </html>
