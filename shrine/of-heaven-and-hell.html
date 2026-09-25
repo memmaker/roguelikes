@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Of Heaven and Hell · Shrine</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>Of Heaven and Hell</h1>
+  <p class="epi">Diablo, rebuilt as a turn-based roguelike</p>
+  <a class="play" href="../of-heaven-and-hell/">&gt; Enter the dungeon</a>
+</header>
+<div class="facts"><div><b>Date of birth</b><span>2024</span> first commit 24 Jan 2024; still in development</div><div><b>Creator</b><span>Felix Ruzzoli (memmaker)</span> with Ross Carran</div><div><b>Language</b><span>Go</span> ~73,000 lines in 383 files</div><div><b>Platform</b><span>macOS, Windows, Linux, browser</span> Ebiten; also an ASCII terminal mode</div></div>
+<nav class="toc"><a href="#lineage">Lineage</a><a href="#credits">Credits</a><a href="#trivia">Trivia</a><a href="#usp">What's unique</a><a href="#code">Code dive</a><a href="#stats">Stats</a><a href="#manual">Manual</a><a href="#start">Getting started</a><a href="#help">Help</a><a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p>Two parents: <a href="https://en.wikipedia.org/wiki/Diablo_(video_game)">Diablo</a> (Blizzard North, 1996) for the world, classes, items and affixes, and <a href="../#tree">Angband</a> for turn-based, grid-based play. The Diablo rules are ported from the reconstructed 1.09 source (devilution), with Hellfire’s items, spells and classes; code is reused from the author’s earlier <a href="https://github.com/memmaker/TerminalAssassin">TerminalAssassin</a>. See the <a href="../#tree">family tree</a>.</p>
+<p>Played here: the Heaven and Hell mod, the game’s own world (a second mod, D1, follows Diablo closely).</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table><tr><td>Felix Ruzzoli (memmaker)</td><td>Design and code</td></tr><tr><td>Ross Carran</td><td>Contributions</td></tr><tr><td>The devilution / devilutionX teams</td><td>The reconstructed Diablo source the rules come from</td></tr><tr><td>Blizzard North</td><td>Diablo</td></tr></table>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>The README is modest: “This won’t win any awards in terms of innovation anytime soon, I know.”</li>
+<li>The goal: Angband-style play with a modern UI, “played in much shorter burst of time”. <span class="src">(<code>README.md</code>)</span></li>
+<li>No to-hit rolls: attacks always connect, and armour absorbs damage. There are no resistances and no ammo. <span class="src">(<code>README.md</code>)</span></li>
+<li>Ported Diablo functions keep the 1996 game’s order of random-number calls. <span class="src">(<code>AGENTS.md</code>)</span></li>
+<li>Levels include a Town in Hell and a Merchant District; one quest is to find “evidence against humanity”. <span class="src">(<code>levels.rec</code>, <code>quests.rec</code>)</span></li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>Diablo’s loot, turn by turn:</strong> prefix and suffix affixes, unique items, a Tristram-like town.</li>
+<li><strong>Mods:</strong> the whole game is data (<code>.rec</code> files); a D1 mod replays Diablo’s own tables.</li>
+<li>Pathfinding, auto-pickup, a multi-window browser layout with inventory, character and log feeds.</li>
+<li>Choice of lighting (Diablo’s aura or Angband’s carried light) and respawn rules per mod.</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li>Go, about 73,000 lines in 383 files, drawn with Ebiten; a separate ASCII mode uses tcell.</li>
+<li>All game data in GNU recutils-style <code>.rec</code> text files under <code>files/mods/</code>.</li>
+<li><strong>Browser:</strong> compiled to js/wasm and embedded; saves go to IndexedDB.</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<table><tr><th>Thing</th><th>Count</th><th>Notable ones</th></tr><tr><td>Classes</td><td>3</td><td>Warrior, Archer, Mage</td></tr><tr><td>Skills</td><td>23</td><td></td></tr><tr><td>Monster kinds</td><td>86</td><td>Meat Jack, King Zedek, the true Shekel, the true Kirioth, Lucifer; plague corpses, flagellants, winged saints</td></tr><tr><td>Item bases</td><td>110</td><td>plus 65 affixes</td></tr><tr><td>Unique items</td><td>17</td><td>Soul Reaver, Malleus Maleficarum, Plate Mail of the Dark Lord, Never-ending Night</td></tr><tr><td>Quests</td><td>10</td><td>Kill Meat Jack, Clean the poisoned water, Kill Lucifer</td></tr><tr><td>Levels</td><td>20</td><td>Cathedral, Catacombs, Caves, Hell, Dungeon of Doom, Merchant District</td></tr></table>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>No separate manual: press <kbd>F1</kbd> in the game for help.</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol><li><a href="../of-heaven-and-hell/">Open the game</a> and pick a class; Warrior is simplest.</li>
+<li>Talk to the people in town, take the first quest (Meat Jack).</li>
+<li>Go down through the Cathedral. Items are picked up automatically.</li>
+<li><kbd>F5</kbd> quick-saves, <kbd>F9</kbd> loads.</li></ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>No walkthrough exists yet. Follow the quest log; the townspeople point the way.</p>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<p><kbd>F10</kbd> opens the debug menu: go to any level, god mode, complete a quest, spawn a random unique. The console command <code>wizard</code> opens it too. <span class="src">(<code>src/game/root.go</code>)</span></p>
+</section>
+</div></body>
+</html>

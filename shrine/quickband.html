@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quickband · Shrine</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>Quickband</h1>
+  <p class="epi">Angband in twelve levels</p>
+  <a class="play" href="../quickband/">&gt; Enter the dungeon</a>
+</header>
+<div class="facts"><div><b>Date of birth</b><span>≤ 2005</span> v1.05 announced 8 Aug 2005; this is 2.0.6</div><div><b>Creator</b><span>Antoine</span> on top of NPPAngband by Jeff Greene and Diego González</div><div><b>Language</b><span>C</span> ~191,000 lines</div><div><b>Platform</b><span>Windows, Unix/X11, Mac</span> also a Nintendo DS port</div></div>
+<nav class="toc"><a href="#lineage">Lineage</a><a href="#credits">Credits</a><a href="#trivia">Trivia</a><a href="#usp">What's unique</a><a href="#code">Code dive</a><a href="#stats">Stats</a><a href="#manual">Manual</a><a href="#start">Getting started</a><a href="#help">Help</a><a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p><a href="https://en.wikipedia.org/wiki/Angband_(video_game)">Angband</a> → NPPAngband → <strong>Quickband</strong>. 1.x was built on an older NPPAngband; 2.0 was rebased on NPPAngband 0.5.1 (itself from Angband 3.1). See the <a href="../#tree">family tree</a>.</p>
+<p>Played here: Quickband 2.0.6, from the <a href="https://github.com/NickMcConnell/AngbandPlus">AngbandPlus</a> archive, fork at <a href="https://github.com/memmaker/quickband">memmaker/quickband</a>.</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table><tr><td>Antoine</td><td>Author and maintainer</td></tr><tr><td>Jeff Greene, Diego González</td><td>NPPAngband</td></tr><tr><td>Buzzkill</td><td>UT32 tile support (2.0.6)</td></tr><tr><td>The Angband team</td><td>Everything underneath</td></tr></table>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>Antoine’s pitch: the game takes “just a few hours to complete”. <span class="src">(<a href="https://rec.games.roguelike.angband.narkive.com/BdsAv3mZ/quickband-v1-05-released">rgra, 2005</a>)</span></li>
+<li>2.0 “dealt with all incidences of Sauron, Morgoth, One Ring, Grond and Iron Crown in code”: the final bosses are Lurtz and Saruman. <span class="src">(<code>QuickChanges.txt</code>)</span></li>
+<li>Stay at high level with lots of artifacts and the game gives you “prods to hurry up”. <span class="src">(<code>QuickChanges.txt</code>, 2.01)</span></li>
+<li>Low Charisma makes enchanting unreliable, and high Dexterity gives speed. <span class="src">(<code>QuickChanges.txt</code>)</span></li>
+<li>2.0.5 introduced “the notorious wand of wall building”. <span class="src">(<code>QuickChanges.txt</code>)</span></li>
+<li>A reviewer: “if I ever get the urge to play Angband, I will play Quickband instead”. <span class="src">(<a href="https://dowhilecompiling.blogspot.com/2012/01/monthly-rl-quickband.html">Do While Compiling, 2012</a>)</span></li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>12 levels:</strong> Lurtz waits on level 11, Saruman on 12. Kill Saruman to win.</li>
+<li>Everything is compressed: fast levelling, good items early, more monsters per level, quick level feelings.</li>
+<li>Racial knowledge: Elves identify bows by feel, Dwarves armour, Hobbits slings, Gnomes wands.</li>
+<li>New classes (Barbarian, Berserker, Sage) and races (Maia, Sprite).</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li>C, about 191,000 lines in 83 files, NPPAngband’s code base (Angband 3.1 era).</li>
+<li>Data in text files in <code>lib/edit</code>: <code>monster.txt</code>, <code>object.txt</code>, <code>quest.txt</code> …</li>
+<li><strong>This port:</strong> WebAssembly with a canvas frontend, UT32 tiles, sound and town music, auto-explore (<kbd>H</kbd>), an Enter command menu and an inventory cursor.</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<table><tr><th>Thing</th><th>Count</th><th>Notable ones</th></tr><tr><td>Races</td><td>13</td><td>Kobold, Maia, Sprite (new in 2.0.5)</td></tr><tr><td>Classes</td><td>11</td><td>Warrior, Mage, Priest, Rogue, Ranger, Paladin, Brigand, Druid, Barbarian, Berserker, Sage</td></tr><tr><td>Monsters</td><td>~704</td><td>Lurtz the Uruk-Hai Captain, Saruman of Many Colours, Wormtongue</td></tr><tr><td>Object kinds</td><td>371</td><td>plus 115 ego types and 131 artifacts</td></tr><tr><td>Vaults</td><td>58</td><td></td></tr><tr><td>Dungeon levels</td><td>12</td><td></td></tr></table>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>The in-game help (NPPAngband’s, with a tutorial) is on the site: <a href="../quickband/help.html">read the manual</a>. The Quickband changes are listed in <code>QuickChanges.txt</code>; <kbd>?</kbd> opens the help in the game.</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol><li><a href="../quickband/">Open the game</a>; a Dwarf Warrior or Half-Troll Berserker is forgiving.</li>
+<li>Buy Cure Light Wounds potions and Phase Door scrolls in town.</li>
+<li>Go down. Levels come quickly, so does danger.</li></ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>No walkthrough exists. The help has a tutorial (<code>tutorial.txt</code>). Tips:</p><ul>
+<li>Stair-scumming is limited; fight the level you are on.</li>
+<li>Get resistances before Lurtz (11) and Saruman (12).</li>
+<li>Dragons breathe often and have more HP than in Angband.</li></ul>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<p>NPPAngband’s debug mode: <kbd>Ctrl</kbd>+<kbd>A</kbd>, confirm, then a debug key (wish, jump level, create item …). The character is marked as a cheater. <span class="src">(<code>cmd0.c</code>; not tried here)</span></p>
+</section>
+</div></body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tactical Angband · Shrine</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>Tactical Angband</h1>
+  <p class="epi">Angband without the grind</p>
+  <a class="play" href="../tactical-angband/">&gt; Enter the dungeon</a>
+</header>
+<div class="facts"><div><b>Date of birth</b><span>2022</span> first commit 4 May 2022; this is 0.9beta2 on Angband 4.2.6</div><div><b>Creator</b><span>Tom Morton (tomm)</span></div><div><b>Language</b><span>C</span> ~192,000 lines</div><div><b>Platform</b><span>macOS, Windows, Linux</span> Angband 4.2 frontends</div></div>
+<nav class="toc"><a href="#lineage">Lineage</a><a href="#credits">Credits</a><a href="#trivia">Trivia</a><a href="#usp">What's unique</a><a href="#code">Code dive</a><a href="#stats">Stats</a><a href="#manual">Manual</a><a href="#start">Getting started</a><a href="#help">Help</a><a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p><a href="https://en.wikipedia.org/wiki/Angband_(video_game)">Angband</a> 4.2 → <strong>Tactical Angband</strong>. A direct fork of Vanilla: same monsters, items and classes, but the game is cut in half and the escape buttons removed. See the <a href="../#tree">family tree</a>.</p>
+<p>Played here: 0.9beta2 from <a href="https://github.com/tomm/tactical-angband">tomm/tactical-angband</a>.</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table><tr><td>Tom Morton</td><td>Design and code</td></tr><tr><td>Nick McConnell, Eric Branlund, Andi Sidwell and the Angband team</td><td>Angband 4.2, the base (most commits in the history)</td></tr></table>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>The first Tactical commit: “Rename Angband to TacticalAngband. Here we go”. <span class="src">(git history, 4 May 2022)</span></li>
+<li>Levels are numbered 2, 4, 6 … 100, so monster and item depths still match Vanilla. <span class="src">(<code>README.md</code>)</span></li>
+<li>The Black Market always stocks Acquirement scrolls. <span class="src">(<code>README.md</code>)</span></li>
+<li>Monster spells and breaths do half damage, except Morgoth’s and Sauron’s. <span class="src">(<code>README.md</code>)</span></li>
+<li>The Paladin’s Healing spell heals 300 HP, not 2000. <span class="src">(<code>README.md</code>)</span></li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>50 small levels</strong>, each a quarter the size of Vanilla’s; sight limited to 10 squares.</li>
+<li><strong>One blow times “might”</strong> instead of many blows per round, for players and monsters.</li>
+<li><strong>No teleport:</strong> Teleport Self, Other and Level are gone. Instead: potions and boots of running, wands of wind and swap places, the scroll of locking.</li>
+<li>No banishment; weaker summons; short, non-stacking blindness, confusion and paralysis.</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li>C, about 192,000 lines in 165 files: Angband 4.2’s modern code base. Almost all game data is text in <code>lib/gamedata</code>.</li>
+<li>Docs are Sphinx/reStructuredText (<code>docs/</code>), inherited from 4.2.</li>
+<li><strong>This port:</strong> WebAssembly with a canvas frontend, tiles, sound and music.</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<table><tr><th>Thing</th><th>Count</th><th>Notable ones</th></tr><tr><td>Races</td><td>11</td><td>Human to Kobold, as in 4.2</td></tr><tr><td>Classes</td><td>9</td><td>Warrior, Mage, Druid, Priest, Necromancer, Paladin, Rogue, Ranger, Blackguard</td></tr><tr><td>Spells</td><td>163</td><td>New: Locking, Swap Places, Imprisonment, Holy Terror, Mass Terror</td></tr><tr><td>Monsters</td><td>624</td><td>Up to Sauron and Morgoth</td></tr><tr><td>Object kinds</td><td>386</td><td>plus 108 ego types and 138 artifacts</td></tr><tr><td>Vaults and rooms</td><td>162</td><td></td></tr><tr><td>Levels</td><td>50</td><td>Numbered 2–100</td></tr></table>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>The Angband 4.2 manual applies (the Tactical changes are in the README): <a href="../tactical-angband/help.html">in-game help</a>, <a href="https://angband.readthedocs.io/en/latest/">Angband manual</a>, <a href="https://github.com/tomm/tactical-angband#readme">list of changes</a>.</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol><li><a href="../tactical-angband/">Open the game</a>. A Dwarf or Half-Troll Warrior or Blackguard is simplest.</li>
+<li>Buy Cure Light Wounds potions and Phase Door (rarer now) in town.</li>
+<li>Dive. There are only 50 levels; Sauron and Morgoth wait at the bottom.</li></ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>No walkthrough for this variant. The Angband 4.2 guides mostly apply. Tips:</p><ul>
+<li>You can’t teleport away: plan your exits, carry running potions.</li>
+<li>Scrolls of locking close doors behind you.</li>
+<li>Acquirement is always in the Black Market — save gold for it.</li></ul>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<p>Angband 4.2’s debug commands: <kbd>Ctrl</kbd>+<kbd>A</kbd>, confirm; the character is marked in the score list. <span class="src">(not tried here)</span></p>
+</section>
+</div></body>
+</html>

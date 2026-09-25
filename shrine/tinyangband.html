@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TinyAngband · Shrine</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>TinyAngband</h1>
+  <p class="epi">a whole Angband in 27 floors</p>
+  <a class="play" href="../tinyangband/">&gt; Enter the dungeon</a>
+</header>
+<div class="facts"><div><b>Date of birth</b><span>2009</span> 0.0.0 uploaded 25 Feb 2009</div><div><b>Creator</b><span>iks</span> with testers from the Japanese IRC channel #gridbug</div><div><b>Language</b><span>C</span> ~189,000 lines incl. Japanese texts</div><div><b>Platform</b><span>Windows, Unix/X11, Mac, DOS</span> Japanese and English</div></div>
+<nav class="toc"><a href="#lineage">Lineage</a><a href="#credits">Credits</a><a href="#trivia">Trivia</a><a href="#usp">What's unique</a><a href="#code">Code dive</a><a href="#stats">Stats</a><a href="#manual">Manual</a><a href="#start">Getting started</a><a href="#help">Help</a><a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p><a href="https://en.wikipedia.org/wiki/Angband_(video_game)">Angband</a> → Zangband → XAngband (Japanese) → <strong>TinyAngband</strong>. The history file says it plainly: “first version, made from XAngband 1.3.0” (in Japanese). iks took XAngband and cut it down to a game you can win in an evening. See the <a href="../#tree">family tree</a>.</p>
+<p>Played here: TinyAngband 1.0.1 from <a href="https://github.com/iks3/tinyangband">iks3/tinyangband</a>, English build.</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table><tr><td>iks</td><td>Author and maintainer</td></tr><tr><td>#gridbug (Japanese IRC)</td><td>Play-testing</td></tr><tr><td>PaulBlay</td><td>English translation of the help files (0.0.2)</td></tr><tr><td>XAngband DevTeam</td><td>The game it was cut from</td></tr></table>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>The official objectives, in full: “1. Go to the general store. 2. Buy a Lantern. 3. Kill Morgoth.” <span class="src">(<code>lib/help/general.txt</code>)</span></li>
+<li>There is no autoroller: your stats are rolled to meet your class’s needs. <span class="src">(<code>general.txt</code>)</span></li>
+<li>A Vala patron is chosen at birth; press <kbd>r</kbd> to reroll if you don’t like them. <span class="src">(<code>general.txt</code>)</span></li>
+<li>The English readme still describes XAngband’s Yeek cave and wilderness, which TinyAngband removed. <span class="src">(<code>readme_eng.txt</code>)</span></li>
+<li>1.0.0 added 24×24 tiles and background music on Windows. <span class="src">(<code>version.txt</code>)</span></li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>Short:</strong> Sauron on floor 26, Morgoth on 27. A win takes hours, not months.</li>
+<li><strong>Small:</strong> 9 races, 6 classes, 156 monsters. Every one matters.</li>
+<li>Random quest monsters every 5 floors.</li>
+<li>Keeps Zangband’s pets, patrons and auto-pickup editor.</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li>C, about 189,000 lines in 160 files (with Japanese strings next to English ones). Autotools build.</li>
+<li>Data files in <code>lib/edit</code> (<code>r_info</code>, <code>k_info</code> …), Hengband-style.</li>
+<li><strong>This port:</strong> WebAssembly with a canvas frontend, tiles and sound.</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<table><tr><th>Thing</th><th>Count</th><th>Notable ones</th></tr><tr><td>Races</td><td>9</td><td>Human, Half-Elf, Elf, Hobbit, Dwarf, Half-Orc, Dúnadan, High-Elf, Barbarian</td></tr><tr><td>Classes</td><td>6</td><td>Warrior, Mage, Priest, Archer, Paladin, Warrior-Mage</td></tr><tr><td>Magic realms</td><td>2</td><td>Set by your class</td></tr><tr><td>Monsters</td><td>156</td><td>Ends with Sauron (floor 26) and Morgoth (27)</td></tr><tr><td>Object kinds</td><td>341</td><td>plus 96 ego types and 101 artifacts</td></tr><tr><td>Vaults</td><td>38</td><td></td></tr><tr><td>Floors</td><td>27</td><td></td></tr></table>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>The full in-game help is on the site: <a href="../tinyangband/help.html">read the manual</a>. In the game, <kbd>?</kbd> opens it.</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol><li><a href="../tinyangband/">Open the game</a>, pick a race and class (Warrior is easiest).</li>
+<li>Go to the General Store (<kbd>1</kbd>) and buy a lantern.</li>
+<li>Take the stairs down and keep diving.</li></ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>No walkthrough exists, and the game is short enough not to need one. The help includes the Zangband newbie guide (<code>tang.txt</code>). Tips:</p><ul>
+<li>Quest monsters wait on floors 5, 10, 15, 20 and 25.</li>
+<li>Kill Sauron on 26 to open the stairs to 27.</li>
+<li>After winning, retire with <kbd>Q</kbd> <kbd>y</kbd> <kbd>@</kbd>.</li></ul>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<p>The Zangband wizard commands remain: <kbd>Ctrl</kbd>+<kbd>W</kbd> for wizard mode, <kbd>Ctrl</kbd>+<kbd>A</kbd> for debug commands. Both mark the character as a cheater. <span class="src">(<code>command.txt</code>; not tried here)</span></p>
+</section>
+</div></body>
+</html>
