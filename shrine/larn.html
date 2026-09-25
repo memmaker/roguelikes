@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Larn · Shrine</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>Larn</h1>
+  <p class="epi">The Caverns of Larn · a cure for your daughter, against the clock</p>
+  <a class="play" href="../larn/">&gt; Enter the dungeon</a>
+</header>
+<div class="facts"><div><b>Date of birth</b><span>1986</span> Larn 12.0 on Usenet</div><div><b>Creator</b><span>Noah Morgan</span></div><div><b>Language</b><span>C</span> ~20,700 lines</div><div><b>Platform</b><span>Unix + curses</span> later DOS, Amiga, Atari</div></div>
+<nav class="toc"><a href="#lineage">Lineage</a><a href="#credits">Credits</a><a href="#shots">Screenshots</a><a href="#trivia">Trivia</a><a href="#usp">What's unique</a><a href="#code">Code dive</a><a href="#stats">Stats</a><a href="#manual">Manual</a><a href="#start">Getting started</a><a href="#help">Help</a><a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p>Larn has no parent game. Noah Morgan wrote it in 1986 for Unix, in the spirit of Hack, Rogue and Moria, as its manual says, “but with a different feel and winning criteria”. Kevin Routley continued it up to 12.3 (1991); 12.4.x followed for Windows. In 1987 Phil Cordier turned it into <em>ULarn</em> with real character classes.</p>
+<p>The version played here is <strong>RL_M</strong>, maintained by Gibbon (atsb) since 2014 as if development had never stopped: 26.4 adds spreading water and lava on the volcano levels. See the <a href="../#tree">family tree</a>.</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table><tr><td>Noah Morgan</td><td>Author (Larn 12.0, 1986)</td></tr><tr><td>Don Kneller</td><td>MS-DOS port (IBM PC, DEC Rainbow)</td></tr><tr><td>Kevin Routley</td><td>Larn 12.1 – 12.3</td></tr><tr><td>Edwin Denicholas</td><td>Larn 12.4.3 for Win32</td></tr><tr><td>hymie!</td><td>14.1.1</td></tr><tr><td>Gibbon (atsb)</td><td>Official maintainer, 14.0 to RL_M 26.4</td></tr></table>
+</section>
+
+<section id="shots"><h2>Screenshots</h2>
+<div class="shots"><figure><img src="larn/title.png" alt="The Larn intro text"><figcaption>The start: your daughter is ill, and Polinneaus’s caverns may hold the cure.</figcaption></figure><figure><img src="larn/steps.png" alt="The town of Larn"><figcaption>First steps: the town with its shops, the bank, your home and the dungeon entrance.</figcaption></figure><figure><img src="larn/fight.png" alt="Fighting a gnome"><figcaption>A fight on dungeon level 1: “You hit the gnome. The gnome died!”</figcaption></figure><figure><img src="larn/inv.png" alt="Status and inventory"><figcaption>Inventory: leather armour and a dagger, and 42 gold found on the way.</figcaption></figure></div>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>A game of Larn can be finished in one sitting, unlike NetHack or ADOM. <span class="src">(<a href="https://en.wikipedia.org/wiki/Larn_(video_game)">Wikipedia</a>)</span></li>
+<li>Morgan’s original Larn is still part of the NetBSD games collection. <span class="src">(<a href="https://en.wikipedia.org/wiki/Larn_(video_game)">Wikipedia</a>)</span></li>
+<li>Win, and the Larn Revenue Service sends you a tax bill for your “undeclared income” — owed in your next game. <span class="src">(<a href="https://en.wikipedia.org/wiki/Larn_(video_game)">Wikipedia</a>; source: <code>bill.c</code>)</span></li>
+<li>Each win makes the next game harder: the difficulty level rises by one. <span class="src">(<a href="https://en.wikipedia.org/wiki/Larn_(video_game)">Wikipedia</a>)</span></li>
+<li>The disease your daughter has is called dianthroritis. <span class="src">(<a href="https://en.wikipedia.org/wiki/Larn_(video_game)">Wikipedia</a>)</span></li>
+<li>In 2026, at 40, Larn is one of the oldest games still developed from its original code. <span class="src">(<a href="https://en.wikipedia.org/wiki/Larn_(video_game)">Wikipedia</a>)</span></li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>A deadline.</strong> The cure must be home before the time (in “mobuls”) runs out.</li>
+<li><strong>A town you come back to:</strong> a bank that pays interest, a school that raises stats, a trading post, the tax office — one of the first persistent home levels in a roguelike.</li>
+<li><strong>Fixed levels.</strong> Ten dungeon levels plus a volcano, and each level stays as you left it.</li>
+<li><strong>One sitting.</strong> A game takes hours, not months.</li>
+<li><strong>New in RL_M:</strong> water spreads and erodes, lava flows and destroys walls.</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li><strong>Language:</strong> C, about 20,700 lines. Monsters, objects and spells are plain tables in <code>data.c</code>.</li>
+<li><strong>Environment:</strong> 1986 Unix terminals with termcap; later MS-DOS, Amiga, Atari ST, Windows. RL_M builds on everything from a DEC VAX to OS/2.</li>
+<li><strong>Maze files:</strong> some levels come from a hand-drawn maze file (<code>larnmaze</code>); fortune cookies from <code>lfortune</code>.</li>
+<li><strong>This port:</strong> a curses shim drawing tiles, compiled to WebAssembly. Source: <a href="https://github.com/memmaker/larn">memmaker/larn</a>, upstream <a href="https://github.com/atsb/RL_M">atsb/RL_M</a>.</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<table><tr><th>Thing</th><th>Count</th><th>Notable ones</th></tr><tr><td>Classes</td><td>1</td><td>No classes: your title rises with your level.</td></tr><tr><td>Monsters</td><td>56</td><td>From bat and gnome to the <em>lama nobe</em>, the <em>disenchantress</em>, the <em>ziller</em>, the platinum dragon and the <em>demon prince</em>; more demon lords below.</td></tr><tr><td>Spells</td><td>38</td><td>Three-letter codes: <code>mle</code> magic missile, <code>vpr</code> vaporize rock, <code>sph</code> sphere of annihilation, <code>gen</code> genocide.</td></tr><tr><td>Objects</td><td>97</td><td>Lance of death, sunsword, orb of dragon slaying, cube of undead control, device of theft prevention, fortune cookies.</td></tr><tr><td>Levels</td><td>11 + 4</td><td>Town, ten dungeon levels, and the volcano below.</td></tr><tr><td>Time limit</td><td>35,000 moves</td><td>Counted in mobuls.</td></tr></table>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>Larn’s own help file, the intro plus the full command list: <a href="larn/manual.txt">read it here (text)</a>. It is also the in-game help (<kbd>?</kbd>).</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol><li><a href="../larn/">Open the game</a>, read the intro and press <kbd>Enter</kbd>.</li>
+<li>You start in town. Stand on a building and press <kbd>E</kbd> to enter: the school raises stats, the stores sell armour and weapons, the bank keeps your gold. <kbd>Escape</kbd> leaves.</li>
+<li>Stand on the dungeon entrance and press <kbd>E</kbd> again to go down.</li>
+<li>Move with <kbd>h</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd><kbd>y</kbd><kbd>u</kbd><kbd>b</kbd><kbd>n</kbd>; <kbd>c</kbd> casts, <kbd>i</kbd> inventory, <kbd>Enter</kbd> lists all commands.</li>
+<li>Bank your gold: it earns interest while you are away.</li></ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>There is no walkthrough, but the aim is always the same: find the potion of cure dianthroritis (on the last volcano level, guarded by the demon prince) and get home in time. Tips:</p><ul>
+<li>Don’t hurry at first: the time limit is generous. Build levels on the upper floors.</li>
+<li>Put gold in the bank early: interest pays for the expensive gear in the Dealer’s shop.</li>
+<li>Learn protection and magic missile; cast <em>vaporize rock</em> to cut through walls.</li>
+<li>More: <a href="https://larn.org/">larn.org</a> and the <a href="https://en.wikipedia.org/wiki/Larn_(video_game)">Wikipedia article</a>.</li></ul>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<ul><li><strong>Wizard mode works here:</strong> press <kbd>_</kbd>. No password: you get stats of 70, a lance of death, all spells, the whole map, and experience of 6,000,000. Wizards are not scored.</li>
+<li><strong>Save scumming:</strong> <em>Export save</em> / <em>Import save</em>.</li></ul>
+</section>
+</div></body>
+</html>

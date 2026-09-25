@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Umoria · Shrine</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>Umoria</h1>
+  <p class="epi">The Dungeons of Moria · kill the Balrog, 50 levels down</p>
+  <a class="play" href="../umoria/">&gt; Enter the dungeon</a>
+</header>
+<div class="facts"><div><b>Date of birth</b><span>1983</span> Moria 1.0 · Umoria 1987</div><div><b>Creators</b><span>Koeneke · Wilson</span></div><div><b>Language</b><span>C / C++</span> ~32,400 lines; first VMS Pascal</div><div><b>Platform</b><span>VAX/VMS → Unix</span> curses</div></div>
+<nav class="toc"><a href="#lineage">Lineage</a><a href="#credits">Credits</a><a href="#shots">Screenshots</a><a href="#trivia">Trivia</a><a href="#usp">What's unique</a><a href="#code">Code dive</a><a href="#stats">Stats</a><a href="#manual">Manual</a><a href="#start">Getting started</a><a href="#help">Help</a><a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p>Robert Alan Koeneke played <strong>Rogue</strong> on a PDP-11 at the University of Oklahoma and, when the new VAX had no games, wrote his own: first in VMS BASIC, then in 1983 in VMS Pascal as <em>Moria</em>, with Tolkien's mines as the setting. In 1987 James E. Wilson converted it to C for Unix: <strong>Umoria</strong>. Umoria is the parent of Angband, and so of most games in the lower half of the <a href="../#tree">family tree</a>; BOSS is a sibling from VMS Moria.</p>
+<p>Played here: Umoria 5.7.15, the restoration by Michael R. Cook, compiled as C++.</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table><tr><td>Robert Alan Koeneke</td><td>Creator of Moria (1981–86)</td></tr><tr><td>Jimmey Wayne Todd Jr.</td><td>Character generation, races, classes, backgrounds</td></tr><tr><td>James E. Wilson</td><td>Creator of Umoria (1987–94)</td></tr><tr><td>David J. Grabiner</td><td>Umoria maintainer</td></tr><tr><td>Michael R. Cook</td><td>Umoria 5.7 restoration (Windows, macOS, refactoring)</td></tr></table>
+</section>
+
+<section id="shots"><h2>Screenshots</h2>
+<div class="shots"><figure><img src="umoria/title.png" alt="The Moria splash screen"><figcaption>The splash screen: “Robert A. Koeneke’s classic roguelike”.</figcaption></figure><figure><img src="umoria/steps.png" alt="The town at night"><figcaption>First steps: the town, with six numbered shops and the stairs down.</figcaption></figure><figure><img src="umoria/fight.png" alt="Fighting a grey mushroom patch"><figcaption>A fight at 50 feet: a Grey Mushroom patch confuses you with its spores, then dies.</figcaption></figure><figure><img src="umoria/inv.png" alt="Inventory and equipment"><figcaption>Inventory: a dwarf warrior with food, torches, a stiletto, soft leather armour and a cloak.</figcaption></figure></div>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>Koeneke vowed Moria was unbeatable; a week later a friend won. His character Iggy went into the game as <em>Evil Iggy</em>, and the trick was fixed. <span class="src">(Koeneke, <a href="https://github.com/dungeons-of-moria/umoria/blob/master/historical/history.md">history.md</a>)</span></li>
+<li>For the copy sent to the University of Texas before a football game, the town beggar became “An OU football fan” who multiplied at full speed. Texas had to call for a fix. <span class="src">(Koeneke, <a href="https://github.com/dungeons-of-moria/umoria/blob/master/historical/history.md">history.md</a>)</span></li>
+<li>Koeneke got letters from behind the iron curtain from players on VAXes that export laws said could not be there. <span class="src">(Koeneke, <a href="https://github.com/dungeons-of-moria/umoria/blob/master/historical/history.md">history.md</a>)</span></li>
+<li>The name Umoria came from the comp.sources.games moderator, who shortened “UNIX Moria”. <span class="src">(Wilson, <a href="https://github.com/dungeons-of-moria/umoria/blob/master/historical/history.md">history.md</a>)</span></li>
+<li>The hardest part of the Pascal-to-C conversion: off-by-one errors, because Pascal arrays start at 1. It took Wilson years. <span class="src">(Wilson, <a href="https://github.com/dungeons-of-moria/umoria/blob/master/historical/history.md">history.md</a>)</span></li>
+<li>Wilson almost decompiled UltraRogue instead, to fix its bugs, before he found the Moria sources. <span class="src">(Wilson, <a href="https://github.com/dungeons-of-moria/umoria/blob/master/historical/history.md">history.md</a>)</span></li>
+<li>Diablo’s credits name Umoria as an inspiration. <span class="src">(Wilson, <a href="https://github.com/dungeons-of-moria/umoria/blob/master/historical/history.md">history.md</a>; <a href="https://en.wikipedia.org/wiki/Moria_(1983_video_game)">Wikipedia</a>)</span></li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>A town with shops</strong> you return to: sell loot, buy potions and scrolls.</li>
+<li><strong>Races and classes</strong> with a generated family background.</li>
+<li><strong>Levels are forgotten</strong>: every staircase makes a new level, so you can dive or stay as you like.</li>
+<li><strong>One goal:</strong> kill the Balrog at 2,500 feet (level 50). No amulet to carry home.</li>
+<li><strong>Monster memory:</strong> the game remembers what you have learned about each monster, across characters.</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li><strong>Moria:</strong> VMS Pascal with some VAX assembler, on a VAX-11/780 at the University of Oklahoma.</li>
+<li><strong>Umoria:</strong> C, for Unix and curses; later MS-DOS, Atari ST, Amiga, Mac. 5.7 is C++ with the same data tables (<code>data_creatures.cpp</code>, <code>data_treasure.cpp</code>).</li>
+<li>Wilson did most of the Pascal-to-C syntax conversion with Emacs macros.</li>
+<li><strong>This port:</strong> curses shim with tiles, WebAssembly, auto-explore on <kbd>g</kbd>. Source: <a href="https://github.com/memmaker/umoria">memmaker/umoria</a>, upstream <a href="https://github.com/dungeons-of-moria/umoria">dungeons-of-moria/umoria</a>.</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<table><tr><th>Thing</th><th>Count</th><th>Notable ones</th></tr><tr><td>Races</td><td>8</td><td>Human, half-elf, elf, halfling, gnome, dwarf, half-orc, half-troll.</td></tr><tr><td>Classes</td><td>6</td><td>Warrior, mage, priest, rogue, ranger, paladin.</td></tr><tr><td>Monsters</td><td>279</td><td>From the Filthy Street Urchin and the Blubbering Idiot in town to the Vorpal Bunny, the Quylthulg, Creeping Gold Coins, Evil Iggy and the Balrog.</td></tr><tr><td>Spells</td><td>31 + 31</td><td>Mage spells and priest prayers; rangers and paladins use them too.</td></tr><tr><td>Objects</td><td>420</td><td>Including the shop stock.</td></tr><tr><td>Shops</td><td>6</td><td>General store, armoury, weaponsmith, temple, alchemist, magic shop.</td></tr><tr><td>Levels</td><td>50</td><td>Town, then 50 feet per level down to the Balrog.</td></tr></table>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>“The Dungeons of Moria”, the full Umoria manual from the source: <a href="umoria/manual.txt">read it here (Markdown text)</a>.</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol><li><a href="../umoria/">Open the game</a>: choose race, sex and class, <kbd>Escape</kbd> to accept the stats, then a name.</li>
+<li>Wear your gear: <kbd>w</kbd> and a letter (armour, cloak, weapon; a torch as light).</li>
+<li>Movement is on the digit keys <kbd>1</kbd>–<kbd>9</kbd> (the original keyset), or the arrows. Walk into a shop number to trade.</li>
+<li>Find the <code>&gt;</code> in town and press <kbd>&gt;</kbd>. <kbd>g</kbd> explores on its own.</li>
+<li><kbd>?</kbd> lists commands; the <a href="../umoria/help.html">in-game guide</a> has them all.</li></ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>No walkthrough exists. The manual’s advice, plus the usual:</p><ul>
+<li>Buy Flasks of oil in the general store and throw them (<kbd>v</kbd>): 2d6 fire damage each, the strongest early attack for any class.</li>
+<li>Read Scrolls of Word of Recall to go back to town and return to your deepest level.</li>
+<li>Get free action, see invisible and resistances before 1,000 feet.</li>
+<li>More: the <a href="https://github.com/dungeons-of-moria/umoria/blob/master/historical/faq.md">Moria FAQ</a> in the source.</li></ul>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<ul><li><strong>Wizard mode:</strong> <kbd>Ctrl</kbd>+<kbd>W</kbd>, answer yes. No password. The game is no longer scored. Then <kbd>Ctrl</kbd>+<kbd>A</kbd> cures everything, <kbd>Ctrl</kbd>+<kbd>D</kbd> jumps to any depth, <kbd>Ctrl</kbd>+<kbd>F</kbd> kills every monster in sight, <kbd>Ctrl</kbd>+<kbd>L</kbd> lights up the map, <kbd>+</kbd> gives experience. On Windows and Linux the browser may close the tab on Ctrl+W.</li>
+<li><strong>Save scumming:</strong> <em>Export save</em> / <em>Import save</em>.</li></ul>
+</section>
+</div></body>
+</html>
