@@ -8,5 +8,7 @@ year, earliest first. `years.json` is the single source of truth: per game the r
 historical version the played build is based on (not a modern
 restoration or fork of it) and a source URL. `./order.py --fix` writes those years
 (linked to the source, unstyled) into the cards and the matching tree entries
-and re-sorts; `./order.py` checks, and deploy refuses otherwise. Tree entries
-without a game of their own keep a hand-set `data-year`.
+and re-sorts; `./order.py` checks (also that no tree entry predates its parent),
+and deploy refuses otherwise. Tree entries
+without a game of their own take their year (and optional label such as
+"1990s") from the `tree` section of years.json.

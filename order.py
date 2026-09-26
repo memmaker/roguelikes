@@ -59,7 +59,7 @@ def card_spans(text):
     return spans
 
 # --- tree: nested <ul>/<li>
-def fix_ul(text, start, what):
+def fix_ul(text, start, what, parent_year=None):
     """text[start:] begins right after '<ul>'. Sorts this ul's children recursively.
     Returns (new_text, index of this ul's closing '</ul>')."""
     spans, i = [], start
@@ -73,17 +73,21 @@ def fix_ul(text, start, what):
         while True:
             t = tok.search(text, i)
             if t.group() == '<ul>':
-                text, close = fix_ul(text, t.end(), what)
+                text, close = fix_ul(text, t.end(), what, year(text[li_start:], what))
                 i = close + len('</ul>')
             elif t.group() == '</li>':
                 i = t.end(); break
             else:
                 raise ValueError(f'unexpected {t.group()} at {t.start()}')
         spans.append((li_start, i))
+    for s_, e in spans:  # no entry predates its parent
+        if parent_year is not None and year(text[s_:e], what) < parent_year:
+            errors.append(f'{what}: {name(text[s_:e])} ({year(text[s_:e], what)}) predates its parent ({parent_year})')
     text2 = reorder(text, spans, what)
     return text2, tok.search(text2, spans[-1][1] if spans else start).start()
 
-YEARS = json.load(open(os.path.join(os.path.dirname(PATH), 'years.json'), encoding='utf-8'))
+_DATA = json.load(open(os.path.join(os.path.dirname(PATH), 'years.json'), encoding='utf-8'))
+YEARS, TREE = _DATA['games'], _DATA['tree']  # games: slug -> {year, src}; tree: name -> {year, label?}
 
 def yr_link(y, src):
     return f'<a class="yr" href="{src}">{y}</a>'
@@ -95,16 +99,23 @@ def sync_card(m):
         errors.append(f'years.json: no entry for card {slug}'); return c
     y, src = YEARS[slug]['year'], YEARS[slug]['src']
     c = YEAR.sub(f'data-year="{y}"', c, 1)
-    return re.sub(r'(<div class="tag">[^<]*· )(?:<a class="yr"[^>]*>)?\d{4}s?(?:</a>)?',
+    return re.sub(r'(<div class="tag">[^<]*· )(?:<a class="yr"[^>]*>)?\d{4}(?:s|–\d\d)?(?:</a>)?',
                   lambda t: t.group(1) + yr_link(y, src), c, 1)
 
 def sync_li(m):
-    li, slug = m.group(0), m.group(2)
-    if slug not in YEARS: return li
-    y, src = YEARS[slug]['year'], YEARS[slug]['src']
-    li = YEAR.sub(f'data-year="{y}"', li, 1)
-    return re.sub(r'(<span class="y">)(?:<a class="yr"[^>]*>)?\d{4}s?(?:</a>)?',
-                  lambda t: t.group(1) + yr_link(y, src), li, 1)
+    li, slug, name = m.group(0), m.group(1), m.group(2)
+    if slug:
+        if slug not in YEARS:
+            errors.append(f'years.json: no games entry for tree {slug}'); return li
+        y = YEARS[slug]['year']; shown = yr_link(y, YEARS[slug]['src'])
+    else:
+        if name not in TREE:
+            errors.append(f'years.json: no tree entry for {name}'); return li
+        y = TREE[name]['year']; shown = str(TREE[name].get('label', y))
+    li = YEAR.sub(f'data-year="{y}"', li, 1) if YEAR.search(li.split('>', 1)[0]) \
+        else re.sub(r'^<li([^>]*)>', lambda t: f'<li{t.group(1)} data-year="{y}">', li)
+    return re.sub(r'(<span class="y">)(?:<a class="yr"[^>]*>)?\d{4}(?:s|–\d\d)?(?:</a>)?',
+                  lambda t: t.group(1) + shown, li, 1)
 
 def sync(text):
     spans = card_spans(text)
@@ -113,7 +124,8 @@ def sync(text):
         out += [text[pos:s_], re.sub(r'.*', sync_card, text[s_:e], 1, re.S)]; pos = e
     text = ''.join(out) + text[pos:]
     ts = text.index('<section id="tree"')
-    return text[:ts] + re.sub(r'<li[^>]*>(<a class="n" href="([^"/]+)/")[^\n]*', sync_li, text[ts:])
+    return text[:ts] + re.sub(r'<li[^>]*>(?:<a class="n" href="([^"/]+)/"|<span class="n">([^<]*)</span>)[^\n]*',
+                                     sync_li, text[ts:])
 
 def main():
     fix = '--fix' in sys.argv
