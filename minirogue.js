@@ -108,7 +108,8 @@
           return;
         }
         if (!lv.clicked) return this.click(g);
-        d.phase = 'leave';  // on the stairs: fade out
+        d.phase = 'leave';  // on the stairs: fade out, then the stairs show again
+        g.later(1200, () => { d.phase = 'gone'; });
       },
       overlay(g, pos, T) {
         const d = g.lv.double;
@@ -158,6 +159,10 @@
     },
     spawn(kind, pos) { s.mons.push({ kind, pos, hp: MONSTERS[kind].hp }); },
     drop(kind, pos) { s.items.push({ kind, pos }); },
+    later(ms, fn) {  // run fn after ms and redraw, unless the game restarted meanwhile
+      const run = s;
+      setTimeout(() => { if (s === run && !s.dead) { fn(); draw(); } }, ms);
+    },
     stairsDown(pos) { s.down = pos; },
     stairsUp(pos) { s.up = pos; },
     occupied: (p) => same(p, s.p) || same(p, s.down) || same(p, s.up) || !!monAt(p) || !!itemAt(p),
