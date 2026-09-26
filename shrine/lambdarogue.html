@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LambdaRogue · Shrine</title>
+<!--og-->
+<meta name="description" content="Mario Donick's Book of Stars: from the Temple of Enoa into the dungeons below, with Greek gods to pray to, songs of magic learned from books, quests and professions, or a straight Coffeebreak dive to Eris. Its own hand-drawn tiles, sounds and soundtrack.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="--More--">
+<meta property="og:title" content="LambdaRogue · Shrine">
+<meta property="og:description" content="Mario Donick's Book of Stars: from the Temple of Enoa into the dungeons below, with Greek gods to pray to, songs of magic learned from books, quests and professions, or a straight Coffeebreak dive to Eris. Its own hand-drawn tiles, sounds and soundtrack.">
+<meta property="og:url" content="https://ruzzoli.de/roguelikes/shrine/lambdarogue.html">
+<meta property="og:image" content="https://ruzzoli.de/roguelikes/lambdarogue.png">
+<meta name="twitter:card" content="summary_large_image">
+<!--/og-->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>LambdaRogue</h1>
+  <p class="epi">The Book of Stars · a story-driven graphical roguelike RPG in Free Pascal, “Per Libris Ad Astra”</p>
+  <a class="play" href="../lambdarogue/">&gt; Enter the dungeon</a>
+</header>
+<div class="facts"><div><b>Date of birth</b><span>2006</span> 0.1 (alpha 1) on 20 July 2006, first code 14 July; this build 1.6.4, patch of 10 June 2012 (source 17 November 2012)</div><div><b>Creator</b><span>Mario Donick</span> tiles by Cecilia Favo De Mel</div><div><b>Language</b><span>Free Pascal</span> ~37,700 lines + JEDI-SDL</div><div><b>Platform</b><span>Windows, Linux</span> SDL graphics or console; Mac via a separate port</div></div>
+<nav class="toc"><a href="#lineage">Lineage</a><a href="#credits">Credits</a><a href="#trivia">Trivia</a><a href="#usp">What's unique</a><a href="#code">Code dive</a><a href="#stats">Stats</a><a href="#manual">Manual</a><a href="#start">Getting started</a><a href="#help">Help</a><a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p>No parent: <strong>LambdaRogue</strong> is an original game in its own Free Pascal code, not a variant of any other roguelike. RogueBasin names NetHack, Angband, ADOM, Sacred and Diablo 2 as influences, and the Google Code page files it with the “bands” (a new random level every time you take the stairs). It began in 2006 as a C++ experiment and moved to Free Pascal almost at once; 0.1 came out in July 2006, 1.0 on 3 August 2008, 1.6.4 in June 2012. A last update, 1.7, followed on itch.io on 29 December 2018. It has no known descendants.</p>
+<p>See the <a href="../#tree">family tree</a> (among the standalone originals). Sources: <a href="https://www.roguebasin.com/index.php/LambdaRogue">RogueBasin</a> (first release Jul 2006, 0.1), the <a href="lambdarogue/changelog.txt">change log</a> (dated entries from 14 July 2006), the author’s <a href="https://www.pascalgamedevelopment.com/archive/index.php/t-5778.html">2010 forum post</a>, <a href="https://sourceforge.net/p/lambdarogue/news/">SourceForge news</a> (2007–2009) and the <a href="https://code.google.com/archive/p/lambdarogue/">Google Code archive</a> (download dates).</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table><tr><td>Mario Donick</td><td>Concept, story, quests and programming, 2006–2018</td></tr><tr><td>Cecilia Favo De Mel</td><td>Tileset, HUD and character portraits (RogueBasin names her Cecilia Souza Santos, a Brazilian artist)</td></tr><tr><td>Artwork</td><td>Based on stock photography by DeviantArt artists: Marcus Ranum, Tigg-Stock, Archetype-stock, Linz-Stock, Faestock, Dakann, Quazzz-stock, Wolfcat-Stock, RayvenStock, demoncherrystock, dewfooter</td></tr><tr><td>Music</td><td>Nagual Art, BLUnderwood, Alvaro M. Rocha (Creative Commons)</td></tr><tr><td>Sound</td><td>PacDV, Partners in Rhyme, Dubtrain’s Angband sound effects</td></tr><tr><td>Thanks</td><td>Brian “getter77” Jeffears, Dave Moore, Mingos, Jose Almeida, Alex M., Paul “Krice” Pekkarinen, Grimwerk, Christian Schneider, Soraya, Wiebke</td></tr></table>
+<p class="src">From the game’s <a href="lambdarogue/manual.html#credits">credits screen</a>, the <a href="lambdarogue/license.txt">soundtrack credits</a> and <a href="https://www.roguebasin.com/index.php/LambdaRogue">RogueBasin</a>.</p>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>The program file was called <code>fprl</code> until 1.0: “FreePascal RogueLike”, the name it had when the author started in 2006. <span class="src">(<a href="lambdarogue/changelog.txt">change log</a>, 1.0)</span></li>
+<li>It started as a C++ experiment; the author called it the only game of his that really had players other than himself. <span class="src">(<a href="https://www.pascalgamedevelopment.com/archive/index.php/t-5778.html">Pascal Game Development, 2010</a>)</span></li>
+<li>Version 1.0 arrived on 3 August 2008, “first stable version after 2+ years”; a year later the project moved from SourceForge to Google Code. <span class="src">(<a href="https://sourceforge.net/p/lambdarogue/news/">SourceForge news</a>)</span></li>
+<li>It is postcardware: the help asks players who like it to send the author a postcard or a handwritten letter. <span class="src">(<a href="https://www.roguebasin.com/index.php/LambdaRogue">RogueBasin</a>, <a href="lambdarogue/manual.html#contact">in-game help</a>)</span></li>
+<li>1.6.4 added Coffeebreak mode (no story, just dive to level 20 and kill Eris) and moved the quickbar to the bottom of the screen, “Diablo-like”. <span class="src">(<a href="lambdarogue/changelog.txt">change log</a>)</span></li>
+<li>Level 18 is “Krice’s hideout”, guarded by a monster called Krice; the credits thank Paul “Krice” Pekkarinen. <span class="src">(<a href="https://github.com/memmaker/lambdarogue/blob/main/Dungeon.pas">Dungeon.pas</a>, <a href="https://github.com/memmaker/lambdarogue/blob/main/data/monsters.txt">monsters.txt</a>)</span></li>
+<li>Money is “Credits”, the drinks are Cola and the drug Vitari, and hospitals offer withdrawal treatment and life insurance: a post-technological fantasy world. <span class="src">(<a href="https://github.com/memmaker/lambdarogue/blob/main/data/items.txt">items.txt</a>, <a href="lambdarogue/manual.html#about">help</a>)</span></li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>A long story in a roguelike:</strong> three chapters of plot scenes with artwork, a good and an evil ending, NPC quests by profession and religion, all around the Book of Stars.</li>
+<li><strong>Gods and songs:</strong> you pray to one of five Greek gods, and magic is chanting songs learned from books, paid with psychic points (PP).</li>
+<li><strong>Professions with ranks:</strong> soldier, archer, enchanter or thief, promoted at academies (Centurio to Primus Pilus, Mage to Battlemage, Hunter to Ranger).</li>
+<li><strong>Distress and divine rage:</strong> taking damage builds distress (DST), which pays for your profession’s talent and your god’s divine rage; the Humility skill makes the rage stronger and cheaper.</li>
+<li><strong>Screen layout:</strong> status, minimap and message log in the corners around a tiled map, with a quickbar and mouse tooltips; music and sound throughout.</li>
+<li><strong>Two modes:</strong> Story mode or a Coffeebreak dive.</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li><strong>Language:</strong> Free Pascal, procedural (“still uses procedural instead of object oriented style”, the author wrote in 2010): about 37,700 lines of game code in 41 files; <code>fprl.pas</code> alone is 12,900 lines with the main loop and every screen. JEDI-SDL for graphics, SDL_mixer for Ogg music.</li>
+<li><strong>Data files:</strong> monsters, items, gods, songs and quests are plain text records (<code>data/*.txt</code>, <code>NewMonster:</code>, <code>NewItem:</code> …); story and help are text files; some levels are hand-drawn text maps, the others random.</li>
+<li><strong>Two outputs:</strong> SDL graphics (800×600 or 1024×768, 20×40 or 40×80 tiles) or a text console.</li>
+<li><strong>This port:</strong> Free Pascal compiled straight to WebAssembly (<code>wasm32-wasip1</code>); one unit replaces SDL and hands the page a list of blits to draw on a canvas. Saves in IndexedDB, extra windows, an Enter command menu, an item cursor, <kbd>z</kbd> explore and <kbd>&gt;</kbd> walking to the stairs. Source: <a href="https://github.com/memmaker/lambdarogue">memmaker/lambdarogue</a>, upstream from the <a href="https://code.google.com/archive/p/lambdarogue/downloads">Google Code archive</a>.</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<table><tr><th>Thing</th><th>Count</th><th>Notable ones</th></tr><tr><td>Areas</td><td>27</td><td>Temple, Catacombs and Sewers of Enoa, the Old Mine, Ash Caves, the Core, the Ice Ruins of Noldarur, the Forgotten Realm, the ship “Valeri” (two decks)</td></tr><tr><td>Monsters</td><td>63</td><td>incl. 9 elite versions and bosses: Eris, the Undying King, Astaroth, the Lonely Librarian, the worm mother, model X and Y robots, the Abandoned Android</td></tr><tr><td>Professions</td><td>4</td><td>soldier, archer, enchanter, thief; 18 ranks</td></tr><tr><td>Gods</td><td>5</td><td>Aphrodite, Hermes, Apoll, Dionysa, Ares</td></tr><tr><td>Songs</td><td>32</td><td>Blitzeis, Tsunami, Tempora, Familiarize, Dimension, Redeem</td></tr><tr><td>Items</td><td>375</td><td>68 potions (Cola, Vitari), 43 swords, 26 axes, 19 lances, 19 firearms, 32 rings, 32 pages and books (Short History of Herbstwelt), 29 foods, 7 runes</td></tr><tr><td>Quests</td><td>65</td><td>the first from Abbess Ahna: find the Book of Stars</td></tr><tr><td>Media</td><td>11 + 27</td><td>music tracks and sound effects, 7 character portraits, chapter and ending art</td></tr></table>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>No manual ships with the game; its help menu is the manual: <a href="lambdarogue/manual.html">all help topics</a> (goal, keys, status, skills, talents, fighting, magic, quests, workshop, hints). Also the <a href="lambdarogue/changelog.txt">change log</a> (0.1 in 2006 to 1.6.4) and the <a href="lambdarogue/license.txt">licence</a> (GNU GPL v2; the soundtrack under its own Creative Commons licences).</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol><li><a href="../lambdarogue/">Open the game</a>, start a new game, name your hero and pick Story or Coffeebreak mode, a profession and a god.</li>
+<li>In Story mode talk (<kbd>t</kbd>) to Abbess Ahna in the Temple of Enoa for your first quest.</li>
+<li>Move with the arrow keys or <kbd>hjklyubn</kbd>; <kbd>z</kbd> explores, <kbd>&gt;</kbd> walks to stairs you have seen; <kbd>a</kbd> acts on the tile in front of you.</li>
+<li>Chant songs with <kbd>m</kbd> (<kbd>c</kbd> repeats the last), pray with <kbd>p</kbd>, heal with Aspirin and restore PP with Cola; spend skill points at an academy.</li>
+<li>Enter lists every command; the game’s <a href="../lambdarogue/help.html">help page</a> has keys and saving.</li></ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>We found no walkthrough or strategy guide (the old lambdarogue.net site and its forum are gone). Rules of thumb from the game’s own help:</p><ul>
+<li>Press <kbd>?</kbd> then <kbd>p</kbd> for hints based on your current character.</li>
+<li>Talk to the assistant of the Lonely Librarian in the Sewers of Enoa: a good start for the Book of Stars.</li>
+<li>Pray regularly; your god gets angry if you never do. Keep humility up for divine rage.</li>
+<li>Identify unknown weapons and armour before using them; train the skill of the weapon you wield.</li>
+<li>Read the <a href="lambdarogue/manual.html#winning">general hints</a> and <a href="lambdarogue/manual.html#fighting">fighting</a> pages. More: <a href="https://www.roguebasin.com/index.php/LambdaRogue">RogueBasin</a>, the <a href="https://groups.google.com/g/lambdarogue">Google Group</a>, the <a href="https://mariodonick.itch.io/lambdarogue-the-book-of-stars">itch.io page</a>.</li></ul>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<p>The source has a debug console (<code>CheatCodes</code> in <code>fprl.pas</code>: <code>ME.SET</code>, <code>ME.RANK</code>, <code>ME.GOD</code>, <code>ME.HEAL</code>, <code>MAP.QUAKE</code>, <code>REALITY.INIT</code> …), but its key <kbd>B</kbd> is commented out, so no build, including this one, can reach it. No wizard mode, no cheat options.</p>
+<ul><li><strong>Save scumming:</strong> <em>Export save</em> / <em>Import save</em> on the game page. A life insurance from a hospital (Story mode) brings you back after death.</li></ul>
+</section>
+</div></body>
+</html>

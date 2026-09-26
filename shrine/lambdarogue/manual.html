@@ -1,0 +1,309 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>LambdaRogue · Manual</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shrine.css">
+<style>pre { white-space:pre-wrap; overflow-wrap:anywhere; font-size:13px; background:var(--stone); border:1px solid var(--line); border-radius:6px; padding:12px 14px; overflow-x:auto; }</style></head><body><div class="wrap">
+<nav><a href="../lambdarogue.html">← LambdaRogue shrine</a> · <a href="../../lambdarogue/">Play</a></nav>
+<h1>LambdaRogue 1.6.4 · in-game help</h1>
+<p>The game ships no manual: this is its help menu (<kbd>?</kbd>), topics a–o, from <code>data/story/help_*.txt</code> and the key screen in <code>fprl.pas</code>. Topic p is a context-sensitive page built from your current character. © Mario Donick, GPL v2. The developer’s postal address is left out.</p>
+<nav class="toc"><a href="#about">Goal of the game</a><a href="#contact">How to contact the developer</a><a href="#credits">Credits and “thank you”</a><a href="#keys">Keys</a><a href="#quickbar">Configuring the quickbar</a><a href="#status">Basic status values (HP, PP, EXP, CLV)</a><a href="#skills">Skills and abilities</a><a href="#talents">Talents, divine rage and distress (DST)</a><a href="#statusitems">Item values (WP, GP, AP) and battle</a><a href="#fighting">Fighting monsters in melee and long-range battle</a><a href="#basicmagic">The basics of using magic (chanting)</a><a href="#combatmagic">Magic in combat</a><a href="#quests">How quests work</a><a href="#resources">The resource workshop</a><a href="#winning">Some general hints</a></nav>
+<section id="about"><h2>Goal of the game</h2><pre>GOAL OF THE GAME
+
+In story mode, the first goal of the game is to find the Book of Stars and
+to give this book to Ahna, the abbess of the Temple of Enoa. A good starting
+point would be talking to the assistant of the Lonely Librarian, living in
+the Sewers of Enoa. However, finding the Book of Stars is only a first step
+in winning the game&#x27;s main quest. Furthermore, there are lots of sidequests
+available, depending on your chosen profession and/or religion.
+
+In coffeebreak mode, the goal is different: The evil goddess Eris has ab-
+ducted most inhabitants of Herbstwelt. She sent you an invitation to visit
+her, and she promised to set the people free once you meet her. Eris let some
+traders live, to give you a chance to reach the place where she is waiting.
+Obiviously, Eris wants to play with you before killing you. To save the
+people, you have to follow her &quot;invitation&quot;, go down the dungeons until you
+reach the Halls of Eris. There, you need to find and kill the evil goddess.
+
+In coffeebreak mode, no additional quests are available. Profession ranks
+are gained automatically every 4 character levels. Your adventure is restric-
+ted to the main dungeon. Finally, hospitals don&#x27;t offer life insurances in
+this game mode. For the full LambdaRogue experience, play the game in story
+mode.</pre></section>
+<section id="contact"><h2>How to contact the developer</h2><pre>HOW TO CONTACT THE DEVELOPER
+
+If you have suggestions, wishes, or bug reports---please contact me:
+
+website:  http://lambdarogue.net
+e-mail :  mario.donick@live.de
+forums :  http://groups.google.com/group/LambdaRogue
+
+[postcardware request with the developer’s postal address, left out here]
+
+Thanks!</pre></section>
+<section id="credits"><h2>Credits and “thank you”</h2><pre>CONCEPT, STORY, QUESTS, AND PROGRAMMING:
+Mario Donick
+
+TILESET, HUD, AND CHARACTER PORTRAITS:
+Cecilia Favo De Mel
+
+ARTWORK BASED ON STOCK PHOTOGRAPHY BY DeviantART-ists:
+Marcus Ranum, Tigg-Stock, Archetype-stock, Linz-Stock, Faestock, Dakann,
+Quazzz-stock, Wolfcat-Stock, RayvenStock, demoncherrystock, dewfooter
+
+MUSIC: Nagual Art, BLUnderwood, Alvaro M. Rocha
+
+SOUND EFFECTS:
+PacDV Free Sound Effects (http://www.pacdv.com/sounds/index.html)
+Partners in Rhyme (http://www.partnersinrhyme.com/soundfx/Disasters.shtml)
+Dubtrain Angband Sound Effects (CC licensed, http://www.dubtrain.com/angband)
+
+SPECIAL THANKS TO: Brian &quot;getter77&quot; Jeffears, Dave Moore, Mingos, Jose Almeida,
+Alex M., Paul &quot;Krice&quot; Pekkarinen, Grimwerk, Christian Schneider, Soraya
+-- and Wiebke.</pre></section>
+<section id="keys"><h2>Keys</h2><pre>KEYS USED TO PERFORM ACTIONS (default keys of this build)
+
+Default movement: arrow keys or NumPad (switch Numlock ON!)
+Movement keys (N,S,E,W,NE,NW,SE,SW): kjlhuynb
+[a]
+  open chest                        (in front of a treasure chest)
+  sacrifice money                   (in front of an altar)
+  enter staircase                   (in front of a staircase)
+  drink from well                   (in front of a well)
+  examine crypt                     (in front of a crypt)
+[g] pick up item                    [i] show inventory
+[m] show songbook (spells)          [c] chant last spell again
+[t] talk to NPC or trader           [f] fire long-range weapon
+[d] dig / disarm trap               [p] pray to your god
+[s] show status screen              [L] show questlog
+[.] rest one turn                   [r] rest certain number of turns
+[I] identify tile                   [Q] show game menu; also: [ESC]
+[S] search/steal                    [C] show and reset quick keys
+[D] close door                      [M] show big minimap (SDL only)
+[T] throw an item                   [-] switch tactics
+[x] use talent                      [X] divine rage
+
+Added by the web port:
+[z] explore (any key stops)         [&lt;] [&gt;] walk to known stairs, take them
+[ENTER] menu of all commands</pre></section>
+<section id="quickbar"><h2>Configuring the quickbar</h2><pre>CONFIGURING THE QUICKBAR
+
+Using the quick bar (or action bar), you can easily access chants (spells),
+potions and food by pressing one of the function keys, [F1] to [F12]. These
+keys are referred to as &quot;quick keys&quot;.
+
+The bar is shown on the bottom of the screen; the exact position depends on
+selected resolution (800x600 or 1024x768). You can move the bar to any posi-
+tion by right-clicking on the desired position. To move it to the default po-
+sition, open the quick key list (press [C] by default), then press [r].
+
+To bind potions or food to a quick key, open the inventory (by pressing [i]
+by default). Press the quick key you want to use. You are then asked to enter
+the number of the item.
+
+To bind chants to a quick key, open the songbook (press [m] by default). Then
+press the quick key you want to use. Finally, enter the number of the chant
+you want to bind to the key.
+
+To delete bindings, open the quick key list (press [C] by default). Press the
+quick key which should be resetted.</pre></section>
+<section id="status"><h2>Basic status values (HP, PP, EXP, CLV)</h2><pre>SOME NOTES ON BASIC STATUS VALUES (HP, PP, EXP, CLV)
+
+To represent the physical and psychic attributes of the character you&#x27;re
+(role)playing, several numerical values are used. The most important value
+is HP (Health Points). It represents your basic physical constitution and
+is shown as, for example, 32/65, which means you currently have 32 out of
+a maximum of 65. HP decrease when you get hurt (e.g. enemy attacks, poison,
+lava...), and if your HP are below 1, you&#x27;ll die. Use items or magic to
+heal yourself (e.g. Aspirin or Water). You may also go to hospital.
+
+If you want to use magic, you also have to watch your psychic power (PP).
+PP are used when chanting magical songs (i.e. doing magic). Every chant
+consumes a certain amount of PP---the exact value is shown in songbook. To
+regenerate PP, use Cola or Caffeine, or sit down a while.
+
+During the game, you collect experience (EXP), by killing monsters or by
+solving quests. When your EXP reach a certain value, you gain a level (CLV).
+Whenever you gain a level, you earn a skill point which you can distribute
+on one of your skills by going to the academy. You&#x27;ll also notice that your
+maximum HP and PP get increased, and that you&#x27;re fully healed. The status
+screen shows you how many EXP you need until you gain the next CLV.</pre></section>
+<section id="skills"><h2>Skills and abilities</h2><pre>SKILLS AND ABILITIES
+
+Besides basic status values, there are values which represent the education of
+your character. These values are called abilities and skills, and they&#x27;re used
+to calculate how well you perform actions related to these values. In general,
+higher values are better, but you might also consider to specialize in only a
+few fields, matching your selected profession and religion.
+
+&quot;Abilities&quot; describe your basic abilities to perform actions, independently
+from items or tools. &quot;Fight&quot; describes your ability to perform combat. &quot;Hit&quot;
+determines if you hit or miss enemies when shooting, throwing, or performing
+long-range magic attacks. &quot;Chant&quot; represents how well you perfom magic. A
+high &quot;Steal&quot;-ability allows you to steal without alarming the guards and to
+evade traps.
+
+&quot;Skills&quot; describe your abilities to use weapons (Sword, Axe, Lance, Fire-arm)
+and tools (Spades, Pick-axes). There are also two more general skills: High
+&quot;Humility&quot; means lower cost and greater effect of divine rage. A high &quot;Trade&quot;
+skill gives you advantages in buying and selling items.</pre></section>
+<section id="talents"><h2>Talents, divine rage and distress (DST)</h2><pre>TALENTS, DIVINE RAGE, AND DISTRESS
+
+Each profession offers a &quot;talent&quot; as special action which consists of 4 or 5
+powers. Powers are learned by gaining ranks within your character&#x27;s profes-
+sion. A soldier, for example, can gain the ranks Centurio, Hastatus, Prin-
+ceps, Pilus, and finally Primus Pilus. Each rank of a profession&#x27;s career
+has one associated power, either active or passive. The talent you can use
+is the cumulated effect of all active powers. Passive powers improve status
+values of your character. The 1st power of a talent is available for free
+right from the start. Press the talent key (default: [x]) to use the talent.
+
+Each religion has one associated &quot;divine rage&quot;. Like the profession talent,
+this is a special action you can use when needed, but divine rage is not di-
+vided into powers. You can increase the effect and reduce the costs of di-
+vine rage by training your Humility skill. To invoke divine rage, press the
+divine rage key (default: [X]).
+
+Both powers and divine rage cost &quot;distress&quot; (DST). You gain distress by ta-
+king damage. When you use your talent or invoke divine rage, DST is reduced
+by the DST cost of the talent&#x27;s powers or the divine rage.</pre></section>
+<section id="statusitems"><h2>Item values (WP, GP, AP) and battle</h2><pre>ITEM VALUES (WP, GP, AP) AND THEIR INFLUENCE ON BATTLE
+
+Your success during battles is also influenced by several properties of the
+items you&#x27;re using for fighting. Every item has the following values:
+
+- WP (Weapon Points): Efficiency of item as weapon in melee combat
+- GP (Gun Points): Efficiency of item as firearm in long-range combat
+- AP (Armour Points): Efficiency of item as armour
+
+The WP, GP and AP of all currently equipped items are added to your Fight-
+ability, resulting in the MLD-value. M is your current total efficiency in
+melee-combat (L in long-range-combat), while D is your current total armour
+protection (defense).
+
+EXAMPLE: Wielding a Gladius with 8 WP while having a Fight-ability of 6 and
+a Sword-skill of 7 creates a total M of 13 (6 Fight + 7 out of 8 WP).
+
+To make use of a weapon&#x27;s full WP/GP, to inflict critical damage, and to use
+possible magical bonuses of weapons, the related skill has to be the same as
+or higher than the weapon&#x27;s WP/GP (min. 8 in the example).</pre></section>
+<section id="fighting"><h2>Fighting monsters in melee and long-range battle</h2><pre>FIGHTING MONSTERS IN MELEE- AND LONG-RANGE BATTLE
+
+There are two possibilities to attack an enemy: Either attack it in melee
+combat, or keep distant and attack it with a long-range weapon, like bow
+or crossbow.
+
+To attack in melee, just walk into the direction of the enemy. If you&#x27;re
+next to the enemy, you will attack it. Watch the status lines at the
+bottom of the screen to get information on your attacks, e.g. if you miss
+the enemy, or if you hit it very hard, or if you do no damage at all, or
+how many HP (health) the enemy has left. If the enemy&#x27;s HP is 0, you have
+killed the enemy and won the battle.
+
+To attack from a greater distance, you need to equip a long-range weapon
+first. Then press the &quot;fire&quot;-key, [f] by default. Then press a direction
+key to shoot into the given direction. You need ammunition suited for your
+current weapon (if you have more than one suited ammo type in your inven-
+tory, the first one will be used; you should sort items accordingly).
+
+It depends highly on your View-skill how far you can shoot and how often
+your attack will miss. Train the skill well if you plan to use bows often!</pre></section>
+<section id="basicmagic"><h2>The basics of using magic (chanting)</h2><pre>THE BASICS OF USING MAGIC
+
+Magic is performed by chanting magical spells. These spells are also
+called &quot;songs&quot;, and whenever you learn a new song, it is written down in
+your songbook which is shown by pressing the &quot;songbook&quot;-key, [m] by
+default.
+
+To learn or train a song, you must study crystals. Many crystals can be
+bought in libraries, some other crystals must be found or obtained other-
+wise. When you&#x27;ve studied a crystal, the associated song is accessable from
+your songbook. To chant a song (i.e. to cast a spell), you have to select it
+from your songbook. You will then try to chant the song.
+
+Your success depends on your current psychic power (PP) and on the skills
+&quot;Chant&quot; and, for attacking spells, &quot;View&quot;. If your PP are below the mini-
+mum PP requirements of a certain spell, it won&#x27;t be cast at all. If the
+spell is cast and your &quot;Chant&quot;-skill is low, it might fail often. In the
+case of failure, the consumed PP are wasted.
+
+For most songs, you have to be an Enchanter to use them. Only a few are
+open for other professions.</pre></section>
+<section id="combatmagic"><h2>Magic in combat</h2><pre>MAGIC IN COMBAT SITUATIONS
+
+If you perfom well in using magic, you can use it to your advantage in
+combat situations. You then not only have a weapon to fight and potions to
+heal yourself, you can also use attack spells to harm the enemy (in many
+cases greater than by using weapons) or chant songs to heal yourself.
+
+Most attack spells make use of water, ice, and fire, and all of them are
+available in a weak and a standard variant. &quot;Wet&quot;, for example, is the
+weak water spell, &quot;water&quot; is the standard. The weaker variants consume
+less psychic power (PP), but also do less damage.
+
+In general, water spells are weaker than ice spells, and ice spells are
+weaker than fire spells, but if you use e.g. a water spell against an
+enemy immune against water, you won&#x27;t harm it. The same goes for ice and
+fire. All water animals are immune against water, and every enemy who is
+able to cast water, ice or fire itself is immune against such attacks.
+
+Hint: To repeat a spell, you don&#x27;t need to open the songbook every time.
+Just press the &quot;chant&quot;-key, [c] by default, to chant a spell again.</pre></section>
+<section id="quests"><h2>How quests work</h2><pre>HOW QUESTS WORK AND HOW QUESTS ARE SOLVED
+
+You will soon notice some people (NPCs) in the game who offer you a reward
+if you help them with a certain task. One might, for example, ask you to
+hunt a certain amount of enemies or to find some special treasure. To get
+such a quest, you first have to talk to a NPC and see if he or she tells
+you about it. You may then decide to accept or to reject the quest. If you
+reject a quest, you can come back and accept it later.
+
+After you accepted a quest, you can review a short description of your
+task in your questlog (brought up from status screen or by pressing the
+&quot;questlog&quot;-key, [L] by default). There you&#x27;ll also find all quests that
+have been accomplished sucessfully; these are marked with a :) smiley.
+
+To solve a quest, you have to perform the required task. If Ahna, for
+example, gives you the quest to find the item &quot;Book of Stars&quot;, you have to
+search for that book. If you talk to Ahna again and have the required item
+in your inventory, she will take it and you will be rewarded. The scheme
+&quot;Get Quest from client, solve it, then return to client&quot; is valid for all
+kinds of quests and you should never forget the third step.</pre></section>
+<section id="resources"><h2>The resource workshop</h2><pre>THE RESOURCE WORKSHOP AND ITS USES
+
+You will rather early see wooden barrels standing around in the dungeons.
+You can destroy these barrels, and often, they contain some item which you
+can pick up. But there&#x27;s more: You can also pick up the wood that is left
+over from the destroyed barrel. Later, you will also find metal parts, that
+can be picked up, too. Wood and metal are examples for resources.
+
+Resources don&#x27;t go into your inventory, but into a resource storage that can
+can hold wood, metal, stone, paper, and leather. You can access the resource
+storage from special traders, the resource workshops. There you can also dis-
+assemble items into their resources. For doing so, simply go to the trader,
+open your inventory, choose &quot;drop&quot; and select the item you want to disas-
+semble. The item gets destroyed and the resources are added to your resource
+storage.
+
+In a resource workshop, you can either sell resources, or you can use them
+to craft special items usually not available. These items use wood, metal,
+stone and leather. Sometimes also a certain item is required. Requirements
+are shown next to the items. The quality of crafted items depends on the
+dungeon level of the workshop; go deeper to find better crafting receipts.</pre></section>
+<section id="winning"><h2>Some general hints</h2><pre>SOME GENERAL HINTS
+
+To win the game, you have to fulfill the quests which the NPC Ahna offers
+you. First of all you should find the legendary Book of Stars and deliver
+it to Ahna. Here are some general hints which might be helpful for you:
+
+- This is not an action game. Take your time and think about your actions.
+- The Book of Stars isn&#x27;t protected by a mighty enemy on the deepest level.
+- Read every in-game text at least one time. Read it carefully.
+- If enemy attacks feel too hard, get better armour.
+- If enemies are hard to kill, get a better or a better fitting weapon.
+- Try to offer certain items on altars or dip them into enchanted wells.
+- Use items &amp; the dungeon structure to your advantage. Think tactically.
+- Running away or hiding from enemies can sometimes be a wise decision.
+- Digging through rock can reveal hidden items. Buy a spade and try.
+- If you believe you&#x27;re trapped, try searching for hidden doors.
+- Caveworms are peaceful. If they stand in your way, just wait some turns.
+- Long-range weapons use the first valid ammu type available in inventory.</pre></section>
+</div></body></html>

@@ -1,0 +1,2400 @@
+CHANGELOG:
+
+-- 1.6.4 --
+
+This patch gives monsters (esp. bosses) some new special abilities, adds more than 60
+new items, incl. 18 set items, places random traps in the dungeons, as well as some
+elite monsters, improves interface, and introduces the new "Coffeebreak" game mode,
+allowing you to play the game without quests and story. In coffeebreak mode, your goal
+is simple: Go down to dungeon level 20 and kill Eris, the evil deity. Nothing more. In
+coffebreak mode, profession ranks are gained automatically in character levels 4, 8,
+12, 16, and 20.
+
+
+NEW FEATURES:
+- >60 new items (incl. many new unique items and set items which are dropped by bosses,
+  elite monsters, and destroyed monster hives)
+- new monster abilities (mainly used by boss monsters)
+- items can now provide bonuses to the various skills
+- traps in the dungeon. To disarm a discovered trap, press [d] while next to the trap.
+- new game mode: "Coffeebreak"
+
+INTERFACE:
+- bonuses on skills provided by items are now shown clearly in status screen (such as
+  "Fight: 7+2", meaning "Fight skill is 7, and receives a bonus by equipped items").
+
+  Graphics mode only:
+  - improved look of the quickbar
+  - moved quickbar to bottom of the screen (Diablo-like)
+  - improved look of the small font
+  - message log in dungeon view extended to 8 lines by using the small font
+  - improved look of the messagelog in dungeon view -- using the small font, it now shows
+    the last 8 messages. Also, the oldest messages fade into dungeon view
+  - tooltips are now shown near the mouse cursor position
+  - a purple bar attached to the quickbar now shows EXP progress to next character level
+    (this value is NOT based on your current EXP, but uses an internal counter to calculate
+    how much EXP you're still missing for next level. The bar shows how much percent of this
+    value you have reached. Sounds complicated? Then simply ignore this explanation and just
+    watch the bar grow. ;) )
+
+BUG FIXES:
+- CTD when trying to attach a rune to an unknown weapon
+- CTD when characters with high Steal skill tried to unlock door without dungeon key or
+  picklock (-> removed this feature anyway, because picklocks are useless with this)
+- distress generation did not always increase as much as it should have
+- the item "History of Herbstwelt (Part 1)" was wrongly named (Part I instead 1)
+- forgot to enable electricity attacks also for long-range attacks with fire-arm and magic
+- wrong icon for IncMove effect
+- greasing weapons with potions with force effect (such as "Dust") was shown as ineffective
+  (although it worked)
+- status "reduced PP costs" did only work with equipment, but not with potions
+- with strength drugs, it was possible to increase strength to even more than 200%
+- savegames of characters with a name only 1 char long could not be accessed
+- an empty line starting with a space character in data files was not ignored by the parser
+- wishing for PP restoration did restore HP (instead of PP)
+
+BALANCING:
+- increased difficulty of battles against several monsters by giving them new abilities
+  - peaceful innocent caveworms now may defecate when attacked -> creates caveworm excrements
+  - the Lonely Librarian throws with scriptures and can push bookshelves in front of himself,
+    to hide behind the shelves
+  - Canthra can shout powerful at the player, thereby pushing the player back
+  - Eris can invoke earthquakes and create illusions of herself; Eris Illusions got her tele-
+    port skill; Eris' HP increased to 500, Eris PP' increased to 15
+  - Dwarvenfall can dig himself into rock
+  - lava may erupt around lavabees
+- both "gracile sandals" (female) and "patent leather shoes" (male) now regen. PP
+- increased damage of "Liquid Fever" to 15
+- for discovering a level for the first time, score and EXP are gained
+- in coffeebreak mode, several balancing adjustments are made to make surviving possible without
+  gaining quest rewards
+- destroyed monster hives now drop items
+
+MISC:
+- made several changes to levels of unique items, mostly to ensure that they appear when it
+  makes sense (e.g. an enchanter-only item was dropped during a soldier-only quest).
+- renamed "precious ring of Thagor" to "Focus Ring"
+- replaced "shiny warbow of wealth" by "Warbow of Kaduria"
+- renamed "Krice's Shield" to "Shield of Kaduria"
+- changed Ian's quest reward to "Clear Potion"
+- improved the way how bonuses to skills are handled internally
+- effects of greased weapons now work even when weapon skill is not maximized
+- removed decontaminating option
+- a new type of unique monsters has been added: "elite". These are uniques which are
+  very strong variants of standard monsters. Elite monsters drop set items.
+- shortened the message "You hit the XYZ, but do no significant damage" to "The XYZ
+  resists your attack" (shorter -- looks better in message log).
+- replaced the old "purpose of the game" help file with a new, much clearer "goal of the
+  game" help file
+
+
+-- 1.6.3 --
+
+This patch is all about fun with items and has several bug fixes and balancing adjustments.
+Items are now colorcoded (normal = white; special = green; rare = yellow; unique = purple),
+and 39 new items have been added. And you can also add one of the runes (Beithe, Ailm, Muin,
+hUath) to most of the weapons, e.g. for creating "Muin's Epic Axe" or "Beithe's Mythic
+Sword". This works as usual: drop the 1st item, then drop the 2nd item onto the 1st one.
+
+Have fun :)
+
+The patch also includes the contents of the previous patches 1.6.1-X and 1.6.2.
+
+
+NEW FEATURES:
+- new items for dungeon levels 6, 9, 11 to 14, and 16 to 19. In total, 39 new items. More new
+  items (for the Halls of Eris, Noldarur, the Forgotten Realm, and the Valeri) will be added
+  in patch 1.6.5.
+- most weapons, except those from resource workshops, can be combined with either a rune of
+  Beithe, Muin, Ailm or hUath, to add a bonus to WP, GP or AP
+
+BUG FIXES:
+- story text file 37 was missing (Morning Star Conspiracy)
+- the number of prayers was not reset to 0 when starting a new game after returning to main menu
+- withdrawal treatments did cost X, but player had to have X+1 to buy one
+- caveworms and worm mothers did generate separate hints in context help (-> removed.)
+- minimap disappeared in Temple and Outskirts (and maybe in some other static levels)
+- in console mode, other keys than SPACE and ENTER could be used to close text windows
+- Santa's Cap was not wearable
+- Santa's gear was not restricted to DLV 18
+- the alternate (evil) ending did not work, because Eris dropped the Book of Stars instead
+  of Meteor.
+- after winning the game, the game did not return to the title screen, but was closed (like
+  in versions < 1.6.2)
+- corpses of dead creatures were flagged as unique
+- long names of required items in resource workshop were exceeding available window space
+- effect "ExtraEXP" was not available as temporary effect (only with equipment)
+- screen was not darkened when showing long quest intro texts
+- selecting an item to steal from trader could not be cancelled, because the window could not
+  be closed
+- in rare cases, unique monsters and staircases were created outside the visible area of the
+  dungeons
+
+INTERFACE:
+- items are color-coded (white = common items; green = special; yellow = rare; purple = unique)
+- now both item info screen and spell info screen are closed by the same key (ESC)
+- changed default use/action key to "a" (also in quest dialogs)
+- changed key to close/advance story windows to SPACE (instead of "any key")
+
+BALANCING:
+- reduced base cost for life insurance (i.e. saving the game) to 200
+- potions are always identified, except rare and unique potions
+- DLV of items in dungeons is between DLV-3 and DLV (i.e. if you are in DLV 8, you can find
+  items whose level is between 5 and 8).
+- disassembling items gives higher amount of resources
+- increased Contus' WP to 16
+- Eris doesn't freeze when attacked by ice
+- Sheets are only available in shops
+- traders always have full stock (no empty slots in their inventories anymore)
+
+MISC:
+- quickstart preset Thief started with 3 picklocks although only 1 is needed
+- Eris key is not needed anymore to reach the Halls of Eris
+- players can travel between Temple and Noldarur as often as desired, as long as the portal
+  has been created and the Ordinator is still alive --> i.e. new reward for killing the ordinator
+- Guardian Zealots use electricity for ranged attacks
+- monsters react on potions with DecPP effect
+- changed sound effect of effect "ExtraGold" to "coins.ogg"
+- for ghosts (player bones), no corpses are created anymore
+
+
+-- 1.6.2 --
+
+This is a maintenance patch, fixing or adding some issues reported by players. It
+also includes the additions and fixes of the christmas release (1.6.1-X), so if
+you've not updated back then, you should do it now.
+
+NEW FEATURES:
+- the quest from the christmas special (1.6.1-X) is still included
+
+BUG FIXES:
+- character dump now correctly shows "Hit" instead of (the old) "View" in skills
+  overview
+- melee weapons with force effect did not work correctly
+- tried to play .mp3 instead of .ogg files as ending music
+- used "ammu" instead of "ammo" in many descriptions
+
+INTERFACE:
+- creating a new game and loading a saved game have been consolidated in one screen.
+  Press 1 to create a new game, then either choose an existing save or press SPACE
+  to enter a new character name.
+- Dying, Winning or selecting "quit" during the game does not exit the application, but
+  instead returns to the main menu.
+- in intro and ending sequence, a hint is shown to make clear that the sequence can
+  be skipped by pressing ESC. Pressing ESC to skip was always possible, but apparently
+  not all players were used to this behavior
+- fullscreen can be forced on Windows and Linux by manually adding the following
+  lines to lambdarogue.cfg in a texteditor:
+
+  ForceFullScreen
+  = True
+
+  Mind the space in the 2nd line. To get windowed mode again, delete these lines.
+  Fullscreen setting will be ignored on MacOS. If you're using Notepad on Windows,
+  be sure that the file ending after saving the file is indeed .cfg, not .txt!
+
+BALANCING:
+- increased spade's SP to 6
+- higher chance to reveal rare item by digging through rock
+
+MISC:
+- in shops, the number of items of an item package is shown next to the item name
+  (e.g. for Aspirin, it shows "Aspirin (x25)", to make clear that you get 25 pieces
+  of Aspirin when you buy it)
+- the first dungeon level is (again) known to the player after the first visit
+- character dump now shows WP/GP/AP of current equipment
+- game options and keybindings are now available from the title screen
+- changed 4th quickstart preset to female thief (now all professions are included
+  in the quickstart option)
+- volume of music and sound can be adjusted in game options
+- in text mode, the current terminal size is checked during startup. If the terminal
+  is smaller than 80x25, a message is shown and the game stopped.
+- updated credits (now includes Cecilia Favo De Mel as tileset artist)
+
+
+-- 1.6.1 aka "The Morning Star Conspiracy" --
+
+The Rubyred Apostolate welcomes you to its conspiracy ^^ Well, this is
+LambdaRogue 1.6.1, introducing many new features, both in gameplay, and
+visuals. Scroll down to read the complete changelog; here a just some highlights:
+
+* New secondary questline. Talk to Brother Marcus to start.
+* Improved gameplay with greatly enhanced profession system, extended religious
+  influence, better monster AI, and many smaller additions.
+* New small tileset, character portraits, and GUI graphics -- exclusively drawn
+  for LambdaRogue by Brasilian artist Cecilia Favo de Mel.
+* Dozens of bug fixes and minor tweaks.
+
+Save games of previous versions are not compatible with the 1.6.1 update;
+too big fundamental changes were made.
+
+
+NEW FEATURES:
+- a new sidequest: The Morning Star Conspiracy. Talk to Brother Marcus to start the quest
+- a great new small tileset -- incl. male and female character tiles for all professions
+- new GUI graphics and character portraits
+- improved monster AI: they use items, some follow you through closed doors
+- there is a chance that new characters (not in quickstart mode) may not be able to cast magic
+  (can be changed by hard training)
+- sometimes, dead creatures leave their corpse behind
+- paper can be destroyed by fire (so be careful when carrying books with you)
+- fire, water, and ice can transform the ground (e.g. fire melts ice to water)
+- the webs (formerly known as spider webs) are now created by antbees (but dissolve much faster)
+- praying at altars *can* make the deity ask the player to enter a (one-word) request
+- the "identify tile" function now also shows HP/PP and WP/GP/AP of monsters on the identified tile
+- each profession has one special ability invoked by pressing x. Depending on profession rank,
+  this special ability gets stronger or more useful
+- changed the way how divine rage and divine attacks work (now activated manually)
+- the player can poison enemies by different means
+- the player can grease his current weapon with potions
+- new attack type "AreaDamage"
+- several new and changed quests, books, items and item combinations
+
+BUG FIXES:
+- spells could not be trained when songbook was full
+- resting lasted one turn too much, thus wasting food, auras, etc.
+- dying while resting several turns did not stop the resting counter after the game over screen
+- ammu damage rating was not taken into account by long-range damage calculation
+- Missing stairs in 1st space ship level
+- Dwarvenfall and Weapon's Officer were missing
+- Some quest rewards not working (Roslin; the Commander)
+- throwing DecPara-items on monsters with Paralization attack had no effect
+- spaceship levels had wrong names
+- Ned's, Fred's, and Ron's quests were available without speaking to the Riddle Master first
+- Academy preparation courses did cost 1 Credit more than shown
+- debug console had several bugs, causing crashes and other unintended effects (not that this
+  would be of any relevance for the released game anyway ... but still a bug)
+- in character dumps, player was called dead if he prayed or saved during the game, regardless
+  if player actually has won the game
+- in rare cases, player could pickup "unknown credits"
+- help file on status values was not up to date regarding PP regeneration
+- heal aura health regeneration could exceed maximum HP of player and monsters
+- missing "unique" flag for Psychic Ring
+- wrong description of "Vitarin"
+- item information of equipables showed the (in equipbales unused) range value of associated effects
+- status effects "invisible" and "max. move" were not displayed in status area ...
+- ... and "invisible" had no effect icon
+- when "crystal of 'revenge'" was rejected at altar, the related message was unreadable in SDL mode
+- chapter graphics for "Noldarur" was not shown in SDL mode
+- several typos and grammar mistakes
+- in the old small tileset, there was no tile for Benito Leone
+- on MacOS, the check for existing save games of a character did not work
+- monsters could move after executing long-range attacks
+- there was a bug in flagging unique monsters as killed which caused the game to crash when this
+  unique monster was created not using CreateUniqueMonster(), but CreateMonster() (for example when
+  summoned, instead of generated due to level)
+- character dump did not show player's equipment correctly
+
+BALANCING:
+- chant PP cost, refresh rate and price (of the crystals) are now calculated automatically based on
+  the chant's efficiency; all crystals are significantly more expensive than before, and chants which
+  cause area damage or aura damage cost 25% more than normal chants
+- gained EXP is reduced if a high number of monsters of a certain type have been killed
+  (> 25 monsters: only 75% of EXP;
+   > 40 monsters: only 50% of already reduced EXP;
+   > 50 monsters: only 30% of already twice reduced EXP;
+   > 60 monsters: no EXP at all)
+- reduced the amount of stone needed for item crafting
+- removed old deprecated status bonus from praying
+- Psychic Ring reduces PP costs of spells by 1/4 (instead of restoring PP)
+- antbee webs disappear after about 12 turns
+- reduced price of Psychic Ring to 200
+- deactivated growing monsters, but monsters in levels deeper than their standard level are
+  stronger (WP/GP) by 1 + the difference between current and standard level
+- "dragon poison" is now obtained by combining potions, instead of simply dipping beer into a well
+- increased effect of "dragon poison" and "phial of rage" (which is now called "phial of distress")
+- enchanters now need 7 known songs to become mage
+- changed rewards and profession requirements for some low-level quests
+- when humility is trained, the number of prayers is increased by the new humility level
+- reduced the amount of old horses to hunt to 8
+
+MISC:
+- changed audio output to SDL and audio files to .ogg format
+- on MacOS, fullscreen option is deactivated
+- Some better descriptions for items and in context-sensitive help
+- Item information screen now shows ammu damage value for ammu
+- Questlog may now contain up to 128 entries on 8 pages
+- spell info screen now uses the standard effect descriptions (similar to item info screen)
+- Some additional messages about enemy actions (like regeneration etc.)
+- Items are not generated on lava anymore
+- spider webs are now called antbee webs (because there are no spiders in the game)
+- when trapped in an antbee web, the number of turns until the web dissolves is shown
+- Renamed the hospitals
+- removed deprecated parts of lambdarogue.cfg
+- potions thrown on monsters are now destroyed after their effect
+- combined items are now automatically identified
+- static levels are now stored in data/levels/premade
+- "View" skill is now called "Hit", because this is much more precise
+- "Sergeant" rank is now called "Lieutenant"
+- not all NPCs will answer with the standard "I am glad to know you" sentence
+- for now removed all NPC portraits -- too much to keep this up on my own. Maybe I will
+  pay someone to draw new portraits sometime like I did with the tileset
+- moved Adam to the Catacombs to free up a NPC slot in DLV 1
+- "Halls of Eris" renamed to "the Core"
+- the NPCs in the Temple of Enoa have now ranks like abbess, prior, brother etc.
+- renamed items with "NeoTerr" to "Herbstwelt"
+- updated "History of NeoTerr", books I and II (and called them "History of Herbstwelt")
+- completely rewritten "History of Herbstwelt", book III
+- removed an obsolete interlude screen
+- made sure that evil players have a way of becoming good again
+- minimap shows environment of all levels now
+
+
+-- 1.6 aka "Flight of the Valeri" --
+
+Welcome to release 1.6. This is the first major update since August 2009.
+The release fixes many bugs, improves balancing in late-midgame and endgame,
+includes new content and UI enhancements:
+
+* A complete new chapter with a new area to explore and a new endgame
+* improved inventory: equipped items don't take up space in your
+  inventory anymore, and you can open your inventory from shop screens, e.g.
+  for selling items to that trader without leaving the shop.
+* new enemy special attacks and vulnerabilities
+* new artwork style, darker than before, but more consistent with the rest of
+  the game -- incl. graphical intro and ending sequences
+
+SAVE GAME COMPATIBILITY TO PREVIOUS VERSIONS IS BROKEN.
+
+Most of the bugs have been found thanks to extensive playing and testing by
+JosÃ© Almeida, who has, by the way, achieved the first confirmed victory in
+this game. Thanks a lot, JosÃ©.
+
+This release is available as full download only.
+
+To download the game, head to http://lambdarogue.net :-)
+
+
+NEW FEATURES:
+- a complete new chapter with a new dungeon area to explore
+- you can now craft new items using collected resources
+- the inventory has been reworked, so equipped items don't take up space in your
+  inventory anymore --> effectively, you have 6 additional inventory slots now
+- enemies can be vulnerable to certain magic types
+- some enemies have new special attacks
+
+INTERFACE:
+- UI of shops, inventory and songbook improved:
+  - screens are not closed automatically after an action anymore
+  - inventory now displays equipped items on a ragdoll
+  - you can open your inventory from shops, to sell items without leaving
+    the shop first
+  - unified UI of resource workshop to be the same as in other screens; it
+    also displays the current Credits now
+  - unified descriptions of item special effects
+  - improved item information screen
+
+  SDL-MODE ONLY:
+  - completly new artwork style
+  - intro and ending sequence
+  - removed Netbook mode option (did only work with certain drivers on
+    Windows XP)
+
+BUG FIXES:
+- three quests did not give the intended rewards to the player
+- many text corrections, once again thx to Brian "getter77" Jeffears
+- a story file had outdated descriptions of NPC "the guard of time" (did not
+  fit the newly added portrait graphics anymore) ...
+- ... but the portrait for "the guard of time" was not displayed anyway.
+  (typo in file name)
+- hidden doors were visible as open spaces on the overview map
+- overview map legend had no entry for rocks/mountains
+- the "Your final score is ..." message was positioned one row too high
+- HP of "Mindhunter" was 150 instead of 50
+- entering "0" (or pressing Enter without value) when asked how long to dig
+  did not cancel digging
+- many strong lances could be used by enchanters
+- description of "outskirts guardian" quest did not fit the available space
+- info screen about ammu items showed a "melee bonus", which was nonsense
+- old staircases weren't identified by the identify command
+- frozen/paralyzed monsters were able to shoot
+- "Meteor" potion had no icon
+- tooltips did not disappear when mouse had left focus of quickbar and
+  status area
+- quickstart preset "female enchanter" started with wrong chant
+- the "Noldarur" interlude graphics was missing
+- "hungry"/"fainting"/"starving" status were not shown in character tooltip
+- "Meteor" could be dropped in enchanted wells or sacrificed
+- it was possible to open the portal through time without first having talked
+  to Prof. Zimmermann
+- sacrificing items without special reaction at the altar in DLV 1 always
+  created the "Crystal of 'Revenge'"
+- thrown items always disappeared without a message if they didn't hit a
+  monster or wall
+- archers did not start with the proper ammu
+- sometimes the direction key prompt did not work correctly
+- you always needed 1 credit more than the actual selling price to buy an item
+- Ice resistance did not work
+- Quickbar Tooltips for chants did not display the correct PP requirement,
+  showed a wrong refreshment rate for chants and omitted the spell level
+
+BALANCING:
+- reduced AP, increased WP of many endgame monsters
+- increased HP of "Mindhunter" to 55
+- reduced "Move" value of "Juno" to 6; of "Lavabee" to 2
+- reduced PP of "Icewolf" to 1
+- reduced PP of "Ordinator" to 10 and AP to 30
+- increased EXP reward of many endgame monsters
+- "Eris" won't be hurt by lava anymore
+- monsters that can cast fire spells are not hurt by lava
+- "crossbows" use "long bolts" now
+- "caffeine" is now sold in packages again (15)
+- changed the formula for successful steals: now your steal skill simply has
+  to be greater than 2*DLV + a random value from 0 to 3 --> stealing without
+  alarming the guards should be easier now
+- fewer monsters in Forgotten Realm
+- "Manna" efficiency increased to 200
+- DLV of "C#" is now 1, while DLV of "Open Eye Potion" is now 3
+- reduced value of resources
+- increased GP of Bow, Smallbow, Compbow, Longbow
+- now using long-range weapons in defensive mode inflicts less damage
+  --> to forbid archers to stay endlessly in defensive mode
+- Mighty Hits are not that mighty when in defensive mode
+- increased DLV of small bolts to 12 and long bolts to 15
+- made monsters in Forgotten Realm more difficult
+
+MISC:
+- save games are not deleted automatically after loading anymore
+- preparation courses, skill trainings and buying life insurance are all stored
+  as achievements in character dump
+- source code cleanup and rearranging
+- "arrows" are called "small arrows" now
+- additional sound effects
+- descriptions of all long-range weapons show what type of ammu is needed
+- Shara's and Arwyn's quest descriptions are more clear
+- removed obsolete random statements.txt
+- "Crono" has moved to DLV 10
+- splitted item sets; removed all bonuses of set items (the itemset feature
+  will receive a major overhaul)
+- deactivated resource "plastics"
+- only NPCs with quests that are valid for the current character (i.e. with
+  valid profession or religion) are shown
+- player resistances against fire/ice/water/electricity are also taken into
+  account for long-range enemy attacks
+- ice monsters are vulnerable to fire
+- fire and electricity monsters are vulnerable to water
+- water monsters are vulnerable to ice
+- removed CLV requirement for quest 1/3
+- restructered the help screen; added help page regarding resource usage;
+  clarified some help texts
+
+
+-- 1.5.3 --
+
+Welcome to patch 1.5.3! On the one hand, this patch includes lots of new eye-candy,
+but it also brings some new gameplay features:
+
+* Switch between offensive and defensive tactics! In defense mode, you suffer only half
+  of the normal damage, but you also inflict only half of the normal damage. I love this
+  small change, because it makes battles more exciting, esp. against boss monsters, and
+  in other critical situations.
+* Explore new item combination and throwing effects (potions, esp.)! Beware of earthquakes!
+
+Now the interface enhancements:
+
+* Enjoy the visually improved field of view (FoV) and new character graphics that fit your
+  chosen profession and your sex -- no more female enchanters that look like male soldiers ;-)
+* Face NPCs, unique enemies, and gods directly, with the newly introduced character portraits!
+* Use your mouse to get tooltips and to select icons from the quickbar
+
+See the changelog for all changes.
+
+Existing save games of the 1.5 branch (1.5, 1.5.1, 1.5.1a, 1.5.2) are compatible with
+the new release: You can continue your current game and enjoy the new content and enhanced
+look.
+
+To download the patch for Windows and Linux, head to http://lambdarogue.net :-)
+
+
+NEW FEATURES:
+- select either offensive (default) or defensive tactics for battle; in defense mode,
+  you suffer only half of the normal damage, but you also inflict only half of the normal
+  damage
+- throwing potions and food at monsters can lead to a variety of effects
+- new valid item combinations
+- some new items, a new spell
+- a new door type: iron gates. Initially locked, but opens with dungeon key or picklock. If
+  closed again, it is locked automatically (this is the difference to locked doors)
+- earthquakes
+- character history includes place of birth; relationships to parents influences certain
+  game situations
+
+BUG FIXES:
+- tileset surface was not freed when switching between small and big resolution tiles
+- trying to select a spell not listed in songbook caused a range-check CTD
+- all quests involving "Water" did not work in 1.5.2, because these quests still referred
+  to this item type as "Bottle of Water" (a fixed quests.txt was already provided as
+  separate download shortly after release of patch 1.5.2)
+- if digging in 1.5.2 brought up an item, it was always a "Crystal of Identify" (because
+  I renamed "Rock" to "Rubble" in that patch, but the digging function still wanted to
+  create "Rock")
+- due to the renaming of "Bottle of Water" to "Water", the quickbar confused the item
+  with the spell of the same name --> renamed spell to "Stream"
+- some text files had weird formatting (wrong line breaks, mainly)
+- "resource workshop" icon had an artifact (a white line beneath the icon)
+- alignment of equip status in "identify item" selection screen was two columns off
+
+INTERFACE:
+- improved battle messages (e.g. inflicted additional magical damage is shown)
+
+  SDL-mode only:
+  - click on an icon in quickbar to use the item / chant the spell
+  - click on the status area to open the status window
+  - tooltips for status area and quickbar icons
+  - Field of View fades out near it's borders
+  - portraits for Non Playing Characters (NPCs) and gods
+  - in big tile mode, the player character is shown according to profession and sex
+  - animated earthquakes
+  - improved alignment of small shield and shoe icons in relation to text
+  - dungeon overview map can be closed by SPACE or Enter, too
+
+BALANCING:
+- further tweaked balancing for dungeon levels 5 to 18
+- maximum Light is now 5
+- "candles" add +1 to Light, "lanterns" +2
+- combining "Aspirin" and "Caffeine" creates only 1 "Copyrin" now instead of 15.
+- efficiency of "Hard Vitari" is now 60
+- min. dungeon level of "unremarkable ring"s is now 7
+- exploding gas cylinders do only damage to the player if not in defensive mode
+- increased SP of "spade" to 5
+- when a creature resists additional magical damage of certain weapons, these weapons
+  still inflict their normal physical damage
+- to be promoted to "Believer", Enchanters have to offer more than 50% of their
+  Credits (but at least 1000 Credits)
+
+MISC:
+- changed the name of "Dionysos" to "Dionysa" (thus, its now a female god)
+- changed the name of "Creyas" to "Orpheus"
+- NPC "Chan" became female, too
+- renamed NPC-pair 3/2 to "Tamara and Samuel"
+- level wipes are stored as achievement
+- deactivated sound effect when enemies become invisible
+- added sound effects for melee and long-range attacks
+- HP/PP regeneration and fireaura sounds improved
+- output function for small text now can automatically adjust the text position using
+  offsets
+- more "file not found" checks in various places
+- updated mpg123 version to 1.11
+- better icon for Windows executable
+
+
+-- 1.5.2 --
+
+This release continues to polish the 1.5 branch of "LambdaRogue: The Book of Stars". The
+new version introduces ways of interaction to the game that have long been missed, namely
+item combining, and throwing. Additionally, balancing has been worked on again, to fill
+some, well, "difficulty gaps" in the mid-game.
+
+To combine one item with another, simply drop both items at the same dungeon tile. The
+dropping order is irrelevant. Currently, there exist about 25 possible combinations, many
+of them involving usual comestibles. Future updates will bring additional variations. If
+items can't be combined, you'll receive the message that there is no space on the dungeon
+tile, as in previous releases.
+
+To throw an item at a creature, press the newly introduced Throw-button, which is [T] by
+default. Then select an item and enter a direction. You can throw as far as your field of
+view goes. If your item hits a creature, the item falls to the ground. If your item hits
+a solid wall, it will be destroyed, so -- throw tactically. The inflicted damage depends
+on your strength, the type of item, possible long-range bonuses your equipment might have,
+and a little bit luck.
+
+Existing save games of the 1.5 branch (1.5, 1.5.1 and 1.5.1a) are compatible with the new
+release: You can continue your current game and make use of the new possibilities. However,
+beware that some items have slightly modified properties (see below).
+
+To download the patch for Windows and Linux, head to http://lambdarogue.net :-)
+
+
+NEW FEATURES:
+- item combining
+- item throwing
+- many new items
+
+BUG FIXES:
+- preparation courses at academies did always cost 700 Cr, regardless of difficulty
+- monster amount was a little bit mixed up ... ;)
+- not all promotions were stored as achievements
+
+BALANCING:
+- increased the efficiency of "Potion of Magic" to 20
+- increased AP of "Green Ring" to 3
+- decreased AP of "lost priestess" to 15
+- decreased AP of "evocator" to 18
+- reduced min. CLV of "Hauberk" and "Pixane" to 10 resp. 12
+- increased AP of "Hauberk" to 10
+- decreased WP of "evocator" to 26
+- decreased WP of "lost priestess" to 25
+- increased efficiency of "penicillin" to 150
+- increased efficiency of "aspirin" to 50
+- reduced monster spawn rate in gold (hard) difficulty
+- decreased AP of "Mindhunter" to 14
+- "ring of Vigor" is now shop-only
+
+INTERFACE:
+- improved animation of bullets in SDL mode
+- added missing effect icons for IncStr and IncMove
+
+MISC:
+- item "bottle of water" is now called "water", to be more consistent to other drinks
+- "package of X" items are now simply called "X" (e.g. "package of Aspirin" is now
+  "Aspirin")
+- updated and optimized some texts (quests, story, credits) and messages
+- due to request of players, the Temple's main building now has a side exit in the
+  western half, to shorten the way from Catacombs to Trader's Artrium
+
+
+-- 1.5.1a --
+
+BUG FIXES:
+- the game crashed with a range-check error when a "big" variant of a monster was killed
+
+
+-- 1.5.1 --
+
+NEW FEATURES:
+- player may decide to skip the entire temple level at beginning and start directly in
+  the catacombs (quickstart mode games will automatically skip the temple level)
+- some more items can be sacrificed at altars
+
+BUG FIXES:
+- after buying an Insurance Card, the card showed up as "Unknown Rune" in inventory (rep. by
+  dorwinrin and siglegion)
+- when coming from the wilderness, the player was placed at the stairs to the sewers (rep. by
+  Krice)
+- tile description was not shown if player had a equipped lantern in dark areas (rep. by Grimwerk)
+- sometimes, the random item a player got at start was from the same type as one of the items he
+  got because of profession. this created 2 stacks of the same type in inventory. then, when
+  picking up an additional item of the same type, the number in both stacks increased. (rep. by
+  Grimwerk)
+
+- AP of shoes and hats showed up as "defense bonus" in item info screen, which should
+  be reserved for other item types (such as rings)
+- it was possible to sacrifice items at altars, even if the altars were not empty
+- sometimes players were placed in spider webs immediatly after entering a dungeon level
+- even if player had equipped a lantern, player was shown grayed out in dark areas
+
+INTERFACE:
+- simply pressing ENTER cancels item dropping; also added a hint about this
+
+BALANCING:
+- a lifetime health insurance card now simply costs 1000 * DIFFICULTY Credits
+- preparation courses at academies now simply cost 300 * DIFFICULTY Credits
+
+MISC:
+- after loading a saved game, a "tip of the day" is shown
+- added a message about unsuccessfully attempting to open a locked door without key
+- added a message that [S]earching (e.g. for hidden doors) worked, even if nothing was found
+- removed an obsolete message related to (long-ago removed) mouse input
+
+SOURCE:
+- various cleanups (mainly removed mouse-related functions which are not used anymore)
+- renamed unit "Output" to "GFX"
+- removed unused variables and unit includes
+- moved general file-related functions to new unit "FileIO" (thus cleaning up fprl.pp
+  and input.pp)
+
+
+
+-- 1.5 aka "Heart of Aphrodite" --
+
+NEW FEATURES:
+- many new side quests (now 40+ handcrafted quests, including new quests types)
+- a separate dungeon (The Forgotten Realm)
+- the starting weapon of new characters (not the presets in quickstart mode) now reflects
+  their best weapon skill (i.e. if you're good in using firearms, you'll start with a firearm)
+- temporary resistances (work the same as items with inherent resistances, but only
+  for a certain number of turns)
+- more and more precise level feelings
+- several new monsters and monster variants
+- improved monster AI:
+  - they can now move diagonally (like the player) ...
+  - ... and they try diagonal moves first, to ensure that they do not waste a move
+- new monster special attacks:
+  - DrainPP (reduces player's PP)
+  - DrainSTR (transfers player STR to enemy HP; replacement of the older "weaken")
+- "information only"-NPCs without a quest can give rewards to the player as a gift
+- new diploma system with ranks
+- many new items (incl. two-handed weapons and new item types: shields and shoes)
+
+INTERFACE:
+- you can freely bind items and chants to the function keys F1 to F12 ...
+- ... but the "Quick Consume"-function has been removed for this
+- killing monsters during hunting quests now shows how many monsters of the
+  current type need to be killed for the particular quest, as well as the
+  number of the quest
+- more information about monster special attacks
+- resistances (both temporary and of wearable items are shown in status area
+
+  SDL-mode only:
+  - now also available in 1024x768 resolution (also in cropped mode for
+    1024x600 Netbook resolutions)
+  - switching between resolutions and between window/fullscreen mode is possible
+    without restarting the game
+  - some messages are shown in a smaller (7x12) font
+  - the iconbar with the quickkeys can be moved freely by pressing the right
+    mouse button anywhere in the window
+  - a character portrait (depending on selected profession) is shown next to
+    the status bars
+  - every status bar shows a short description (just HP, PP and STR) on the
+    bar
+  - better status icons for effects and (new) resistances; color codes:
+    - red inner frame: negative effect (like poisoned, blind etc.)
+    - blue inner frame: resistance (temporary or from equipment)
+    - green inner frame: positive effect (like bless etc.)
+  - improved spell icons
+  - optimized healthbar of monsters
+  - new GFX for confusion
+  - the minimap frame is now circular (instead of being rectangular)
+  - the markers on minimap are circles, too (and changed color of NPCs to gold)
+  - the minimap is now also shown in DLV1 (temple and outskirts), but displays
+    only positions of NPCs, traders and staircases there
+  - you can click on the + icon of the minimap to open a bigger minimap of the
+    whole level (drawn in ASCII)
+  - texts of books and scrolls are shown like in console mode (this is less
+    beautiful, but is faster, saves memory and my time; the introscreens of
+    chapters and interludes are still shown using the nice graphics).
+
+  Console-mode only:
+  - status modifications are shown in red (negative) or green (positive) at the
+    left side of the screen ...
+  - ... resistances are shown in cyan at the right side of the screen
+  - the title screen contains a hint that players should switch on NumLock
+  - ice is now shown in lightcyan and cyan
+
+
+BUG FIXES:
+- allocated memory of loaded pictures was not freed correctly, which made the
+  game consume more and more memory until it crashed -- fixed, thanks to Krice
+- lanterns did only enlight one corner of dark rooms (I simply forgot to
+  check this for all corners; thanks to neadlek in the LR forums for reporting
+  this bug)
+- picking up items did not increase the turn counter
+- sometimes the staircases in DLV 19 were created within a wall
+- when you had negative or zero humility, but 100% divine rage, the amount of
+  inflicted damage to an enemy was undefined, leading to strange results
+- additionally, if the damage inflicted would be 0, it would instead increase
+  the enemy's HP
+- sometimes the player marker on the minimap was covered by NPCs, traders etc.
+- the Weapon Smith in DLV 5 did never appear (typo in monsters.txt)
+- the efficiency of the "Ring of Speed" was undefined (bug in items.txt)
+- quest 6/6 could not be solved, 'cause I forgot to include the quest requirement
+  in quests.txt
+- non-quickstart characters start with a weapon depending on their highest weapon
+  skill
+- the quickstart preset "female monk" should start with a "Rusty dagger" as weapon,
+  but this weapon did not exist (forgotten to add to items.txt)
+- it was possible to get endless "Eris' Key"s as long as it was not yet identified
+- Drinking "Meteor" was successful, even without solving Ahna's main quest
+- description of beer fits now into the item info window
+- harvesting big mushrooms created small mushrooms and vice versa
+- buying preparation courses in academies did only cost 1 Credits, regardless what
+  was shown
+- item information did sometimes show "unknown ..." as name
+- when offering money to the gods, the amount was not processed correctly if the
+  player accidently entered a space at the end
+- lots of corrections in several texts  ** thanks to Brian Jeffears aka getter77
+  for proof reading **
+
+BALANCING:
+- 1% less monsters in all difficulties
+- respawn rate decreased
+- "Guards uniform" now requires level 4, "Refined Suit" requires level 5
+- decreased the Move-value of preachers by 1
+- increased preachers GP and WP by 1
+- decreased lavabee's GP and AP by 5
+- decreased Flicker's HP by 10 and AP by 1
+- number of flickers to hunt in the flicker hunting quest reduced by 10
+- "big" monsters have 3 WP, 3 AP and 10 HP more than standard monsters
+- "strong" monsters have 6 WP, 3 AP and 15 HP more than standard monsters
+- "mighty" monsters have 8 WP, 6 AP and 30 HP more than standard monsters
+- HP of all unique monsters increased by 100
+- increased the probability of finding rare items by digging
+- fire inflicts 10 times more damage on monster hives than before
+- fire resistance also protects from lava
+- "Creyas" now only wants 5000 (instead of 35000) Credits for his offer
+- price of most arrows and bolts (ammu for bows etc.) reduced by 10
+- amount of arrows and bolts in a package increased by 50%
+- level 10 does now contain traders, too
+- enemy ice attacks and waiting enemies totally block player's attacks
+- the efficiency of all food has been decreased (usually by 200); rye-bread
+  removed
+- the formula for calculating the price of preparation courses (academy) has
+  been changed; it is now CLV*345+(EXP/3) --> makes prices more predictable
+  and prep.courses expensive, but finally affordable at all
+- removed trapdoor in DLV 2
+- increased "Ronda Garnder"'s move value by 1
+- most monsters now have their individual PP value; and most standard monsters
+  have a rather low PP of 1 or 2 (thus allowing only 1 or 2 special attacks)
+- holetoad's HP increased by 3; they can now also use water attacks
+- caveworms drain STR
+- rebalanced various items
+- longswords, claymores and some other swords are two-handed now, as well as
+  all lances and all bows (except the smaller crossbows)
+- CLV cap is 20; LevelUps occur faster
+
+MISC:
+- size of dungeon levels is reduced (1/2)
+- size of savegames reduced to about 300KB
+- changes to the layout of several dungeons
+- many changes to existing quests and NPCs
+- mushrooms have been moved to the outskirts
+- quickstart screen shows estimated difficulty of character presets
+- help screen now contains information on configuring the quickbar and a full
+  credits list (artwork, music etc.)
+- "rangers" now start as "archers" and can become "rangers" by obtaining a
+  diploma
+- enchanters start with already learned spells (in earlier versions, you had
+  to study the crystals in your inventory first)
+- the context sensitive help screen shows a hint if the current weapon has a
+  magical bonus which can not yet be used due to a low weapon skill
+- lambdarogue.exe now contains an icon and version information
+- each god has its own greeting style
+- items can require the character to be male or female in order to be equipped
+- the "library"-trader in DLV 1 now resides inside the library
+
+
+-- 1.4 aka "Northdoom" --
+
+Welcome to LambdaRogue 1.4. This is, without exaggeration, the best and most
+polished release in the history of this game -- and it comes as christmas
+present ;) The 1.4 update has a greatly improved interface, lots of new content,
+an epic questdriven storyline, sound effects, tons of bug fixes and balancing
+adjustments and several minor improvements.
+
+INTERFACE:
+- the message system has been rewritten, so we have finally a log containing the
+  last 20 messages
+- the message area on the bottom of the screen now uses this message log
+- in shops and inventory, symbols indicate if weapon, armour, clothes and hats
+  are better or worse than your current equipped item
+- the "You are dead forever"-message after dying is removed
+- revamped status screen
+- wells are identified as "enchanted wells", to emphasize their magical meaning
+- a new key "Quick Consume" (C by default; Closing Doors is now D) allows to
+  eat or drink without opening the full inventory
+- message "you hit ... hard" replaced by "The ... suffers critical damage"
+- chants from your songbook can be chanted by pressing one of the function keys
+  F1 to F12
+
+  CONSOLE-MODE ONLY:
+  - the descriptions of the current tile are shown in dark gray, to make clear
+    that these descriptions are no "normal" messages
+  - status modifications are shown above the message area
+  - the "press any key to continue" message beneath longer texts is shown in dark
+    gray, to emphasize the text itself
+
+  SDL-MODE ONLY:
+  - switching between big and small tiles in-game is possible without restart
+  - mouse movement mode removed completely.
+  - the UI has been cleaned up:
+    - the visible dungeon area covers the whole window, without empty spaces at the
+      borders
+    - status area and message area are transparent now, allowing more dungeon to be
+      visible
+    - HP, PP and STR are shown using graphical bars
+    - status modifications are shown using small icons beneath the new bars
+  - magical chants are shown in a quickbar for easy access
+  - there's an in-game help page which describes the SDL interface
+  - all dialog screens have a paper-like background graphics; input boxes have a
+    background in a similar brown
+  - the character portraits in status screen have been re-edited
+  - blood in small tile mode improved
+  - the minimap shows known staircases and the positions of traders and NPCs
+  - changed the paralization visual effect
+
+BUG FIXES:
+- the maximum HP of big, strong and mighty monsters was not adjusted correctly;
+  only the current HP. This led to wrong monster health bars in graphics mode.
+- the health bar was not shown when a monster stood northwest of the player
+- the game over screen was sometimes shown more than one time
+- monsters could perform long-range attacks against the player, even if the player
+  was invisible
+- the "Waterproof Doublet" did not protect from water magic, because once again
+  I forgot to mention this in items.txt
+- hospitals and restaurant in DLV 15 had no proper names
+- the decoration icon in resource workshop did not show up
+- when an itemset was brought to an NPC, ALL items (instead of just 1) were
+  removed from inventory
+- it was possible to be caught in a part of the sewers with no exits
+- spades and pickaxes did not count as metal- or wood-containing items in factories
+- resting lasted one turn less than entered by the player
+- if the player and an enemy were killed at the same time and the player gained a level
+  by this kill, the game continued after the game over screen (because of the refreshed
+  HP). However, this lead to a crash when the player died the next time.
+- sometime the lonely librarian dropped the "Sanctum" instead the "library index" (resp.
+  now the "diary page")
+- picklocks did not work
+- after attacking a monster, the turn-counter did not increase if the monster got not
+  killed by the attack
+- the "Slayer" was misnamed in items.txt
+- sometimes there was a range-check error when a bones-monster was created
+
+NEW FEATURES:
+- the main quest is more coherent and woven with a new side quest to an epic story
+- side quests replaced by new side quests
+- lots of new texts and improved existing texts
+- new dungeon features:
+  - gas cylinders; explode when destroyed manually or hit by fire
+  - old machine parts; can be harvested for getting metal
+  - machine oil; can be set on flames
+  - snow, ice, frozen trees
+- magical chants need to refresh a certain number of turns before they can used again
+- suffering damage increases a "divine rage" value -- when it has reached 100%, a special
+  divine attack will be issued (different for each god)
+- mushrooms (which exist since LR 1.3) can be harvested
+- wooden garbage (which also exists since LR 1.3) can be put in resource storage
+- every chant has a certain refresh rate -- meaning if you chant a spell with a refresh
+  rate of 3, you have to wait 3 turns until you can chant it again
+- bigger and more structured temple level
+- sound effects (in addition to the music)
+- monster's special attacks and spells reduce their PP value, thus they have now limited
+  special/spell capabilities
+- a new "equipment summary" screen where all equipment-values are listed in a table
+
+MISC:
+- removed the compass-item "ring of guidance"
+- replaced the "library index" by a "diary page"
+- the provided mpg123.exe for music playback on Windows has been updated to
+  a newer version -- this removes all these "junk at the beginning" messages
+  at the start of played music
+- quests can include longer intro texts and intro books
+- quests can require a certain profession
+- deactivated the profession "constructor"
+- removed the items "colorful magazine" and "old flyer"
+- music is now stored in "music" folder; "sound" contains sound effects
+- price calculations are processed in a new function
+- a story file can be shown after a monster has been killed the first time
+- renamed "burgle"-skill to "steal"
+
+BALANCING:
+- rebalanced level requirements and prices of all weapons and most armour
+- rebalanced all monsters
+- the chance for hitting an enemy hard (doing critical damage) is increased ...
+- ... but to hit an enemy hard at all you need to perform well with your current
+  weapon (i.e. your weapon-skill has to be the same or higher than the WP of your
+  current weapon)
+- critical damage is total TP without any negative modificators
+- the magical effect of weapons with magical effect does only occur if you
+  perform well with your current weapon
+- monster attacks do not fail that often
+- quickstart characters start with weaker weapons and armour
+- quickstart games always start in silver (normal) difficulty and with 0 EXP / lvl 1
+- wooden barrels have only an integrity of 10; gas cylinders of 20; plus a random value
+- the firerate of monsters with long-range attacks is slightly decreased
+- decreased the total number of monsters per level and their spawning rate
+- long arrows are available in the shop in dlv 1
+- hit or miss in long-range battle is calculated the old way (just depends on the view
+  skill again)
+- Junoblood is rare (instead unique)
+- thiefs always avoid trapdoors
+- positive reactions on prayers depend on humility skill
+- sacrified money is worth much more prayers than before
+- the songbook can only contain 12 songs
+- new characters start with at least 10 PP
+- chant efficiency of chants with a training level > 1 is now:  base + (chantlvl * chantlvl)
+- chant costs is now: base + 2*chantlvl
+- preachers cast fire spells (instead only shooting fire from far away)
+- dark preachers cast ice spells
+- reduced the amount of monster's created (bronze: 2%, silver: 3%, gold: 6%)
+- "Frozen Depths" is not rare anymore (but is still not that easy to be obtained ...)
+- levelups need more experience
+- HP/PP get increased more than before during levelups
+- player level restricted to 25
+
+
+-- 1.3 --
+
+Although there are many new gameplay features, this time the savegames
+of LambdaRogue 1.2 are compatible with this version. However, I suggest to
+to start a new game, because the meaning of several abilities ("sword",
+"axe", "lance" and "firearm") has changed -- if you continue your current
+game, you will be weaker than before and you might even recognize that
+your character can not use his current weapon efficiently.
+
+INTERFACE:
+- a new command "search, study and steal", used for searching hidden doors,
+  stealing money and items (thief only) and studying when next to a bookshelf;
+  the key is "S" by default
+- the "You can't move" message (when paralyzed) is not shown anymore
+- blood does not overlap areas affected by auras anymore
+- item information are more precise regarding item bonuses
+- total current efficiency in melee-/long-range combat and in defense is shown
+  as MLD (Melee; Long-range; defense) instead as WGA
+
+  SDL MODE ONLY:
+  - the small spell effects have been graphically improved in big-tile mode
+  - if you're swimming in water, the character is only half-visible
+  - magic SFX are shown a little bit faster (30 ms between frames instead 80)
+  - the title screen is shown immediatly (instead of fading in)
+  - items are visible beneath monsters
+  - the title screen shows a small notice about the current input mode (mouse
+    or keyboard)
+
+  CONSOLE MODE ONLY:
+  - if you're swimming in water, the character is drawn in blue
+
+BUG FIXES:
+- the need for identifying items in the 1.2 release lead to the problem that
+  item rewards in quests were not dropped correctly
+- when paralyzed, the game could not be saved & quit
+- the "amount" column in duplication and identify screen was too far on the
+  left, compared to the inventory screen
+- there were several problems in items.txt, leading to some non-working or
+  not available items
+- in big tile mode, ammu and magic were not shown above the player (this was
+  just a visual problem; internally it moved over the correct distance)
+- in SDL mode, the health bar of unique monsters was shown not only above the
+  enemy, but in several copys in the upper left quarter of the screen ...
+- there have been 3 range-check errors regarding identifying items
+- blood was not created properly
+- when rangers were asked if they want to decontaminate the ground, only up-
+  percase answers (Y and N) were accepted (now also y and n work)
+
+MISC:
+- removed unused parts of classes.txt
+- finally renamed the variables "intSwim" and "intCode" to "intHumility" and
+  "intBurgle"
+- identifying a locked door now shows "locked door" (instead of "security door")
+- the help screen on characters takes into account that graphical mode does not
+  use any ASCII chars ...
+- used JEDI Code Format to re-format the source files
+- the ingame help now contains a chapter about item stats (WP, GP, AP ...)
+
+NEW FEATURES:
+- new dungeons features:
+  - dark rooms (nothing is visible)
+  - spider webs (traps player and monsters)
+  - hidden doors (search for them)
+  - furniture: stool (regain PP by sitting on it), table, bookshelf (when you
+    have skillpoints, study there by pressing the search/steal/study-key)
+  - barrels (can be destroyed by kicking; may reveal items)
+  - mushrooms
+- thief characters can steal items from shops and money from NPCs
+- a new enemy ("guard"; appears when the attempt to steal fails; big graphical
+  tile by Mingos)
+- a new spell which removes the darkness
+- resting while sitting on a stool regains PP
+- gods finally perform some independent actions
+- some new rare items
+
+BALANCING:
+- damage is calculated in a different way: the total damage is "fight"-
+  skill + WP of current weapon (and if player's weapon-skill is lower than
+  WP of current weapon, the difference is subtracted from the damage)
+- the crypts of unique monsters are always open (prevents crypt scumming, esp.
+  in the first dungeon level)
+- curses of gods are affected by humility skill
+- from spells, only fire spells can destroy monster hives
+- monsters follow the player over longer distances
+- antbees have 15 GP (instead 20)
+- levels with closed crypts contain 4 of them (instead of 2)
+- ghosts have a little more HP
+
+
+-- 1.2 --
+
+Note that saves of earlier releases won't work with this version.
+
+INTERFACE:
+- removed all the individual load/save-messages (as nobody could read them
+  anyway)
+- when in front of a trader, a hint is shown that you can drop items there to
+  sell them
+
+  SDL MODE ONLY:
+  - a health bar is shown above attacked monsters
+  - new tiles for several monsters in big tile mode (antbee, cavebat, watchdog,
+    ghost, holetoad, medusa, nightmare, undead)
+
+  CONSOLE MODE ONLY:
+  - the color of monsters depends on their health
+
+BUG FIXES:
+- a typo in chardump after winning (was "succesful" instead "successful")
+
+NEW FEATURES:
+- rare items, unique items and potions (except the ones you have bought already
+  in a shop) have to be identified before you can use them
+- 2 new monster abilities: "heal" and "weaken"
+- additional hints on the context-sensitive help page
+- some new items
+
+BALANCING:
+- the "Weaponsmith" weakens now the player instead directly removing player weapon
+- "lost priestess"es heal themselves instead casting water
+
+* thanks to Mingos for creating new tiles for LambdaRogue *
+
+
+
+-- 1.1 --
+
+INTERFACE
+- screen is cleared before title screen is shown
+
+  SDL MODE ONLY:
+  - default tile size in SDL mode increased to 40x80
+  - use of the old smaller tilesize (20x40) can be configured in options
+  - new tileset based on Absurd Nethack tileset
+
+BUG FIXES:
+- crash when placing monsters around monster hives in deeper levels
+- quest 19/1 crashed due to a bug in quests.txt
+- intMTP was not initialized with 0, so on Windows it had strange, evil values
+  that lead to crashes sometimes (and always to a magically increasing player
+  HP when player was fighting the monster ...)
+- when the player got killed during attacking a monster hive, the game over
+  screen appeared two times
+
+
+-- 1.0.1 --
+
+INTERFACE:
+- more messages don't need to be confirmed by Enter anymore
+- slowworms are now represented as "c" to distinguish them from "s"nakes
+- lavabees are now represented as "v" to distinguish them from cave"b"ats
+- worm mothers are now represented as "M" to distinguish them from cave"w"orms
+- sandmen are now represented as "N" to distinguish them from "n"ightmares
+- mindhunters are now represented as "i" to distinguish them from the new "h"oletoads
+
+BUG FIXES:
+- NumPad-9 and NumPad-3 (northeast and southeast) did not work in console mode,
+  because these keys were interpreted as PgUp and PgDn. Now, if you want to use
+  NumPad for movement, you have to switch NumLock on. This also means that the
+  numbers on the alphanumerical area will make you move.
+- preachers did not throw fire at the player
+- repeating the last spell (by chanting it again) consumed too little PP
+- there have been obsolete periods in "your <magical> attack missed"-messages
+- a typo in items.txt ("simole cap" instead "simple cap")
+- the version number on title screen did not show up
+
+MISC:
+- splitted code for base output functions from menu screens
+- constants are defined in their own unit
+
+BALANCING:
+- "pikes" replaced by "scorpio", increased WP to 8
+- "herrings" replaced by "holetoad", given ability to jump ("teleport")
+
+
+-- 1.0 --
+
+Two years have gone since the first release -- now it's time for 1.0. Once again
+save game compatibility is broken, and even lambdarogue.cfg has changed (see MISC
+section of changelog).
+
+GENERAL:
+- removed LOTS of range check problems, fixed some memory leaks
+- massive code cleanup; removed many obsolete variables and functions
+- smaller save games: about 800 KB -- 1 MB (instead 8 -- 12 MB)
+- NPCs are only placed if they are defined in quests.txt
+- binary file is now named "lambdarogue" instead "fprl" (however, please still use
+  the startup script "startlr" or "startlr.bat") "fprl" was the name when I created
+  LambdaRogue in 2006; it stands for "FreePascal RogueLike"
+- I now use Lazarus as IDE for developing the program, so the source archive contains
+  a file fprl.lpi (the project file for Lazarus). I still provide the makefile, if you
+  don't use Lazarus
+
+INTERFACE:
+- the old Bresenham-LOS has been replaced by recursive shadowcasting LOS
+  -> nice side effect: now LambdaRogue has also FOV, and lanterns have a visible effect
+- all options can be configured ingame, so you don't need to edit lambdarogue.cfg
+  manually (but you still can)
+- default keybindings (for keys not defined in lambdarogue.cfg) are now the same as
+  in default lambdarogue.cfg
+- [space] can be used to continue after messages (is more standard then [Enter] )
+- [ESC] is used to exit shops, inventory, songbook, statusscreen and helpscreen
+- when pressing [ESC] while on the map, the game's menu is brought up
+- monsters with long-range attacks can have individual bullets (not arrows everytime)
+- the first letter of entered text does not get capitalized automatically anymore
+- improved many messages (more useful and more clear now)
+- information on learned spells are more useful (similar to item info)
+- solved quests in questlog are marked with a :) smiley
+- when continuing a game, the existing save games are shown in a list
+
+  SDL MODE ONLY:
+  - if SDL mode can't be initialized, a hint is shown that console mode could be used
+  - Status Screen is shown without fading in
+  - New artwork on title screen
+  - pressing SPACE works to return to game when reading an item (books, scrolls etc.)
+
+  CONSOLE MODE ONLY:
+  - rings are displayed as yellow = (instead as white [ )
+  - landscape is not shown in status bar anymore (was a bug)
+
+* thanks to Dave Moore for explaing recursive shadowcasting LOS to me *
+
+BUG FIXES:
+- The message that is shown when the player wants to pickup an item, but his inventory is
+  full, had no "press ... to continue"-remark
+- Craius' quest was only offered when Nina's quest had been solved
+- Kandera talked of snake skin instead of slowworm skin
+- dark preachers couldn't cast fire spells as intended (bug in monsters.txt)
+- there was no reaction on sacrificing "Crystal of Mystic Wall" (Typo ...)
+- the "Old Flyer" showed a wrong text when studied in console mode
+- the "Lance of Resistance" did not protect from Poison as intended (but that item got
+  removed anyway)
+- when buying an item, the message showed "... the item you wish to see" (instead "to buy")
+- there were still some very strange bugs in monster generation
+- Sometimes music playing and stopping procedures crashed with an access violation
+- "Force" spells had no effect when the player had reached a too high level
+- new monsters were sometime created on the player's position
+- crystals restricted to enchanters could be learned by other professions
+- several death reasons were not shown correctly on game over screen
+- when killed while digging, the game did not stop immediatly; instead the digging was
+  finished (which caused the game over screen to appear several times)
+- barriers did not protect from melee attacks by monsters next to the player (barriers only
+  protected from counterattacks after a player attack and from long-range attacks)
+- praying to be healed from drug addictions did not work
+
+MISC
+- lambdarogue.cfg has changed slightly; the old key "Tunnel" is now called "Dig", and the
+  former key "QuitGame" is now called "GameMenu"
+- additional help files with information on status values and skills, abilities and talents
+  -- and ways to contact me (send me a postcard or a handwritten letter)
+- some additional hints in context help
+- longrange attack of monsters now have an own verb (this was possible since a year, but it
+  seems I forgot about it :-) )
+- addead an "emergency break" to prevent treasure-chest-placement endless loops
+- soundtrack is not level based, but randomly chosen from 6 pieces
+- music tracks don't stop and change when level is changed
+- Aura Spells fill the FOV
+- better format for professions / diplomas in character dump
+- slightly modified some longer plot texts
+
+
+!! The following lists contain many spoilers !!
+
+NEW FEATURES:
+- we have 20 dungeon levels (again)
+- wilderness replaced by static townlevel (i.e. a temple)
+  (wilderness slowed down playing progress and was simply useless)
+- more variation in dungeon generation
+- the hidden level is now random generated (but there's one other static
+  level you encounter later in the game)
+- known magical songs can be trained by studying crystals of the same type
+- new reward type for some quests: skill training
+- new enemies with new special attacks:
+  - invisibility (duration: DLV + random(3))
+  - mighty hit (leaves only 1 HP to player)
+  - split (splits into several other creatures)
+  - teleport (teleports several tiles away)
+  - summon (summons one enemy)
+- besides new special attacks, enemies can have more than one special attack
+  -> this leads to funny possibilities (e.g. a mad wizard who summons monsters which can
+     split themselves into smaller monsters which may poison the player while the wizard is
+     attacking with fire balls)
+- monster creation can depend of solved or open quests (e.g. a unique monster may be created
+  only after the quest to kill the monster has been given to the player; this not only opens
+  new plot possibilities, but also solves the problem that some quest relevant unique monster
+  could be killed before the quest had been given)
+- removed some quests, changed some quests, added new quests
+- completly new rare and unique weapons
+- every dungeon level has a name that is shown when the level is entered (and also in
+  character dump after death or winning)
+- now all runes produce an effect when being sacrificed at an altar
+
+BALANCING:
+- reworked all weapons and monster stats
+- random items and treasure chests are only generated the first time a DLV is entered
+  --> prevents level scumming
+- monster types that were killed very often don't drop items any more
+  --> prevents item scumming by only killing easy monsters
+- additionally, less items are dropped by monsters
+- resisting curses needs humility >= 15 (before: 10)
+- when blessed, chants are always successful
+- Dwarvenfall does not shoot anymore
+- monster's hive in DLV 4 removed
+- more potions produce effects when dipped into wells
+- in golden difficulty, only 7% of available space is filled with enemies (instead of 10%)
+- new monster's spawn less often
+- less blood
+- all unique monsters and the secret level are accessable in all difficulty levels
+- difficulty level also affects spawning rate of new monsters (instead only the rate of monsters
+  that are generated when a DLV is entered)
+- in golden difficulty, big, strong and mighty variants of monsters are always generated
+- traders are only in 1st, 5th and 15th dungeon level (especially the first level becomes some
+  kind of Angband-style "Town level" where you mainly go to buy and sell items)
+- bullets and arrows of longrange attacks stop at the end of FOV + 1
+- reduced the baseprice for items sold buy you to 8% of the price for new items
+- increased prices for life insurance to 250 Cr and withdrawal treatment to 130 Cr
+- weapons and armour are more expensive 
+- lanterns now cost 85 Cr and have a range of 3
+
+
+
+-- 0.3.1 (gamma 2) --
+
+Note that save game compatibility is broken.
+
+INTERFACE
+- title screen has options (new game; quickstart; load game; quit)
+- as doors open with "bump to open" since 0.3.0.2, opening with a keypress or right-click
+  has been removed
+- LOS improved; the object which blocks sight is now visible, too
+- variants of monsters (sick rats <-> hellrats; cave worms <-> worm mothers etc.) are
+  shown using the same character
+- lowercase letters are for standard monsters, uppercase letters for unique monsters
+- while digging, the remaining integrity of rock is shown
+- the identify-command displays rock as rock when below dlv 1 (in dlv 1 as mountain)
+- the identify-command shows the integrity of monster hives
+- a hint which key has to be pressed to take an item is shown when in front of an item
+- if a player is paralized and tries to move, a message is shown
+- a more comprehensive "you are paralized" message
+- help key is now ?  (instead of H)
+- movement keys defined in lambdarogue.cfg are shown in help screen
+- items can only picked up by pressing the explict get-key (G by default), not with Enter
+- a message is shown when you kill a monster
+- many messages don't need to be confirmed with ENTER anymore -> increased game flow
+- messages keep longer on screen
+- bullets of long-range weapons show the correct character/graphic (instead always arrows)
+
+  SDL-MODE ONLY:
+  - tile size on the map has been doubled (inventory and shops show the old small icons, though)
+  - bigger tiles use several of the "Absurd"-tileset for Nethack
+  - the border between water and land and grass and sand looks smoother
+
+  CONSOLE-MODE ONLY:
+  - lanterns are now displayed as yellow }  (instead as white / which is also sword and spade)
+  - ash is now displayed as darkgrey ' (instead as blue . )
+  - optimized colors for several spell effects, items and dungeon features
+  - the help screen provides a list of the most important characters and their meaning
+  - the map is only drawn between status bar and message panel
+  - status bar and message panel are divided from the map by horizontal lines
+  - title screen is colored
+
+BUG FIXES:
+- entering dlv 8 produced an endless loop while trying to place treasure chests
+- sometimes water monsters appeared at wrong places
+- the whole monster placement routine placed monsters at strange places (e.g. outside
+  the dungeon ...)
+- sometimes cave worm guano overlapped the entrance to the dungeon
+- when entering the first dlv, the player was not placed at the dungeon entrance
+- enemies that destroy armour/weapon now do this only if armour/weapon is equipped
+- when items in shops were marked both as profession-bound and level-bound, this was
+  unreadable (because the two remarks overlapped each other)
+- long-range attacks of monsters hit the player even if he had a barrier
+- console mode on Windows did not allow entering of uppercase letters
+- although paralized, sometimes movement was possible
+- the "Ring of Agility" could not be equipped
+- sometimes new characters started with equipment that need a clvl > 1
+- Pindar (in DLV 5) promised to give the player 150 Cr, but instead gave a golden ring
+- typo in chants.txt
+
+
+!! The following lists contain dozens of spoilers !!
+
+NEW FEATURES:
+- new players may start with 4 predefined character types (makes the beginning easier):
+  - male knight, believer in Ares
+  - female ranger, believer in Aphrodite
+  - male battlemage, believer in Hermes
+  - female monk, believer in Apoll
+- two alternative endings (both considered as winning)
+- many new items (rare and unique)
+- some new spells resp. effects (Force; Heal Aura)
+- more items produce effects when offerend at an altar or dipped into water
+- some special weapons (both melee and long-range) do ice/water/fire/force-damage while attacking
+- you can now dig diagonally and digging stops when you broke through
+- you can find rare items when digging
+- NPCs can sell special items (it's simply a "new" quest type: "GetGold" with reward "Item")
+- taking strength drugs (Vitari) makes you drug addictive
+- hospitals offer a withdrawal treatment for addictives
+- addiction can also be healed by praying or by blesses
+- monster hives are vulnerable to fire auras, fire spells and fire arrows
+- thiefs can use picklocks to open locked doors
+- new unique monsters (the total number depends on selected difficulty level)
+- town has been splitted off into several small houses scattered through the wilderness
+- there is more variation in dungeon level generation
+- monsters now continue to attack a player who tries to destroy a monster's hive
+- hidden dungeon level (in golden difficulty level)
+- an extended help function which offers basic information to several topics,
+  including a help page that gives hints depending on the player's current status
+- in addition to the standard intro text, the background story of LambdaRogue (which was
+  available on the LambdaRogue website only until now) is shown when a new game begins
+- level feelings
+- new scrolls which reveal some of the history, culture and religion of NeoTerr
+
+BALANCING:
+- enemy fire/ice/water spells are a little bit stronger
+- Dark preachers shoot and cast fire (instead of cursing)
+- Dwarvenfall curses (instead Calm)
+- Worm Mothers destroy armour (instead Calm)
+- slowworms calm (instead Poison)
+- itemset "Redemption" gives 20% DP (instead 10%)
+- "Water of Life" now heals 200 HP (instead 100)
+- "Ring of Guidance" no longer is basic equipment of new characters
+- instead, a randomly chosen item is added to basic equipment of new characters
+- the min strength of "Claymore" is now 80
+- endurance of the spell "Mystic Wall" has been doubled
+- only Enchanters can study crystals of spells which would need more than 5 PP
+- monster hive's integrity is 250*dlv (no percent as before)
+- the amount of damage done to a monster's hive in normal attacks is WP of wielded weapon
+- experience after destroying a hive is 100*dlv
+- most better weapons/armour need a min clvl again
+- WP of arrows and bolts decreased
+- score is only increased by levelups, getting and solving quests, destroying hives and winning the game
+- disassembling items produces less resources
+- big, strong and mighty variants of monsters appear later than before (after 25, 70 & 130 kills)
+- damage of fire aura spells is now the remaining number of turns the aura is active
+- damage of ice aura spells is now the half of the remaining number of turns the aura is active
+- damage of water aura spells is now a third of the remaining number of turns the aura is active
+- monsters that get healed by fire/ice/water are healed the same way as described before
+- the other monsters can die by staying too long in fire/ice/water aura
+- increased the chance that monsters run away if their HP is low
+- seasons abandoned
+- high humility protects from curse
+
+
+MISC:
+- code cleanup (source has been reduced by several hundred lines)
+- edited some comments in lambdarogue.cfg to make them clearer
+- NPCs are not placed on wells, altars, crypts or treasure chests any more
+- randomly scattered items are not placed on NPCs anymore
+- less memory consumption
+
+
+
+-- 0.3.0.4 (gamma 1) --
+
+BUG FIXES:
+- Diplomas in character dump look weird
+- Texts of two quests contain errors (but don't affect solvability)
+
+BALANCING:
+- increased the power of the unique enemies; changed their special attacks
+
+
+
+-- 0.3.0.3 (gamma 1) --
+
+NEW FEATURES:
+- added missing texts
+- slightly edited the intro text
+
+MISC:
+- at startup, the existance of important directories and files is checked. if
+  possible, the missing dirs will be created, but if data files are missing, the
+  game stops with a readable error
+
+BUG FIXES:
+- mouse control in academy does not work
+- the intro text had a typo ("poets" instead "poems")
+
+
+-- 0.3.0.2 (gamma 1) --
+
+Note that savegame compatibility is broken.
+
+NEW FEATURES:
+- a new basic weapon: "Knife" (even weaker than dagger)
+- a new healing item: "Penicillin" (better than Aspirin)
+- new rare and unique items with special effects
+- a new quest for enchanters
+- completely re-edited and new diplomas
+- more variation in random dungeon generation
+- a free creative commons soundtrack for the game
+- finally added texts for readable items
+- more items produce a reaction when offered on altars or dipped into wells
+
+INTERFACE CHANGES:
+- Bumping into doors opens them
+- inventory now shows the available Credits
+- songbook now shows the current and max. PP
+- status screen is tidier
+- the role of the father's profession is displayed in character generation screen
+- questlog has been splitted from status screen and shows now all quests from all levels
+- if the new option "UseMouse" in lambdarogue.cfg is set to "= True", the game can be played by mouse
+  - left click: move in direction of click (either 1 tile per click or depending on the distance to
+    the current player's position. This can be configured in the config file). Note that this is no
+    pathfinding function - your @ won't go to the tile you've clicked on, it will just move in the
+    eight standard directions
+  - right click: open door, loot chest, take item, drink from well, examine crypt, go up-/downstairs
+  - when in mouse mode, icons are shown for the most common actions not accessable via right-click
+    (i.e. status, inventory, songbook, talk, fire weapon, chant last chanted song)
+  - mouse can also be used in character generation, inventory, songbook and shops
+- The message asking if a peaceful monster should really be attacked has been removed (because there
+  are no "0"-monsters anylonger in the towns)
+- added LOTS of decorative graphics in SDL- and mouse-mode (even more in mouse- than only SDL-mode)
+- trying to equip an item that can't be equipped produces a warning
+- if an equipped item is selected to drop, dip, sacrifice or sell, it gets removed automatically
+- the second (brighter) tileset can be used as default for new games by setting "UseSecondTileset" in
+  lambdarogue.cfg to "= True"
+- SDL mode drawing speed improved again
+- fade-effects in certain screens
+- extended spell effects
+- Iteminfo shows the price the player would get for selling an item
+- a message is shown if a spell hits no enemy
+- the last spell chanted can be repeated without opening the songbook
+- key evaluation on main screen is less cpu consuming now
+- uppercase and lowercase are evaluated as seperate keys (so e.g. I and i may do different things)
+- keybindings in lambdarogue.cfg changed:
+  - movement now possible with Vi-keys
+  - quit with Q
+  - help with H
+
+
+BALANCING/GAMEPLAY CHANGES:
+- three difficulty levels
+- all characters start with a weapon and some basic equipment
+- monsters who live in water or cast water spells are immune against water magic
+- monsters who cast ice or fire are immune against fire magic
+- the range of all fire, ice and water-chants increased
+- heal spell is now for lvl 1 characters; it's range increased
+- secondary skill "swim" replaced by "humility"
+- new characters in standard difficulty start with 5 (instead of 4) skill points to distribute
+- the father's profession has
+  - positive effects on player's skills if the player was grown with love etc.
+  - negative effects on player's skills if the player had a bad childhood
+- the price for selling items is now 25% of the base price plus 5% per Trade-skill point (max. 100%)
+- Enchanters start with 30 PP bonus
+- Cola now restores 40 PP, Coffee 80  (before, they restored 8 resp. 16; far too less)
+- increased the damage done by arrows and bolts
+- the player hits more often than before
+- removed purely decorative men and women; result: more real monsters
+- removed neuter sex
+
+BUG FIXES:
+- the "Kill Dwarvenfall"-quest in DLV 10 could not be accepted -> made the game unwinnable
+- when tileset 2 was selected, the clearscreen function did not work correctly
+- the Cape of Magic could not be equipped
+- the Cloak of Caution did not work
+- some typos in data files
+- after starting a new game or entering a new dungeon level, the screen was not
+  updated immediately
+- sometimes caveworm excrements overlapped the dungeon entry
+- fullscreen never worked on Windows
+- sometimes treasure chests, crypts, wells or altars were placed on staircases
+- aura spells disappeared after 1 turn (introduced with LOS in 0.3.0.1)
+- the compass in console mode covered the equipment icons
+- the last line in console mode was not cleared
+
+
+
+-- 0.3.0.1 (gamma 1) --
+
+NEW FEATURES:
+- Line of Sight
+- Light is now created using the Bresenham circle function already used for Aura Spells
+- compass items, leading to the staircase to the next dungeon level
+- dungeons can have monster hives which spawn monsters extensively until destroyed
+
+BALANCING/GAMEPLAY CHANGES:
+- the monster "rat" is called "hellrat" now
+- disassembling arrows in resource workshop now also produces wood
+- inventory and songbook are limited to 16 items
+
+INTERFACE CHANGES:
+- greatly improved drawing speed in SDL mode
+- the BACKSPACE key now deletes only one character, not the entire line
+- inventory, songbook, shops, resource workshops and NPC dialogs now also use the decorative graphics
+- after entering the character name in title screen, a message is shown that indicates if a save game exists
+- a hint is shown when an item, a trader or a NPC is on the same position as the player
+- if a tile contains both an NPC/trader and an item, the item has a higher priority to be drawn
+
+BUG FIXES:
+- many quests couldn't be solved, because of different spelling in data files "items.txt" and "quests.txt"
+- fog of war always used the "fog tile" from tileset 1, even if tileset 2 had been selected
+- redefining keys in a way that "b" is used for movement or an action made the cheat prompt appear
+- regardless how much units of a resource type were sold, it always gave credits for only 1 unit
+- it was possible to sell negative amounts of resources
+- in console mode, the status line was hidden sometimes by other text
+- restaurant-type traders (displayed as green 6) were placed outside dungeon level 1, 5 and 10
+- save games did not contain all trader positions
+- The Bresenham circle function had some x/y on the wrong positions
+- instead of professions, religions were compared for profession-bound items
+- questlog in character dump counted pure information NPCs as quest
+
+
+
+
+-- 0.3 (gamma 1) --
+
+NEW FEATURES:
+- totally rewritten quest engine; now you can have more than 1 quest at time to solve, which
+  makes everything far more flexible
+- a new main quest with several subquests (for this, the engine rewrite was needed)
+- totally new side quests
+- re-created ALL items and spells
+- Aura Spells now make affected dungeon areas known to the player
+- new item types:
+  - dungeon key; used to open locked doors
+  - lanterns; used to widen the field of view
+  - papers, book pages etc.; used as resource and to discover things about the world and past
+  - potion of duplication allows duplicating items
+- new item effect type: AvoidTrap
+- new quest type: GetItemset
+- new floor types: well (drink from it; see what happens); crypt (examine; find treasure and/or ghosts)
+- the random dungeon generator has been optimized to create themed levels
+- in dungeons, there's a chance to fall down through a trapdoor
+- you now can sacrifice items by dropping them on the altar
+- more dungeon puzzle tiles
+- electronic doors have been replaced by classical locked doors
+- the subway system has been removed completely (even from the game engine)
+- quest type "Hack NeoTerrNet" removed
+- borders around towns removed
+- praying can remove curses now
+- certain items can be studied
+
+BALANCING/GAMEPLAY CHANGES:
+- the profession of the character's father and the relationship to the parents influence
+  inital character values
+- renamed profession "singer" to "enchanter"
+- replaced profession "programmer" by profession "thief"
+- removed professions "security", "lecturer", "very important person", "MBA" and "subway driver"
+- replaced skill "code" by skill "burgle"
+- a high burgle skill:
+  - allows to open locked doors without need for a dungeon key
+  - prevents from being hit by traps in treasure chests
+- spells (chants) are learned from crystals now, not from songdiscs
+- the game starts in buildings or in the town
+- basic prices for resources have been changed
+- the amount of monsters in the dungeons has been increased
+- the effects of prayers have been rebalanced
+- Diplomas have been edited to fit the current setting of LR
+- calculation of light has been optimized
+- ghosts based on bone files of dead players only appear when examing a crypt
+
+INTERFACE CHANGES:
+- the fog of war is drawn in a better way (before 0.3, it was just black. Now it's slower, but looks more
+  common and better: landscape is visible while enemies and items aren't)
+- drawing of items, blood and effects optimized (so that the ground is visibile under the item or effect)
+- removed exp, clvl, dlvl and credits from always visible status line; rearranged equipment-status
+- optimized equipment-info texts in inventory
+- default font changed; rendering improved
+- default graphical tileset improved and changed to a more fantasy theme (instead sci-fi)
+- instead of an ASCII set, the alternative tileset is a brighter version of the standard set (for darker
+  screens)
+- a new titlescreen
+- the academy is now displayed as yellow 5 instead yellow 6.
+- the restaurant is now displayed as green 6 instead green 5.
+- there is another wall type
+- portals have been changed to staircases
+- Both Tileset variants have their own background images. So, other background colors are possible for both modes.
+- gamma controls removed
+- NPCs which have no quest, but only information don't display as ??? in the questlog after the player has
+  talked to them; instead a remark is shown
+- the resources status screen now shows the total value in Credits of all resources
+- polished overall appearance of several UI elements
+- removed "quick" inventory and spellbook ... nice idea, but too unhandy
+- the inventory option "look/listen" has been replaced by seperate option "look" and "study"
+  - look: just look at status information of item
+  - study: learn chant or read book
+
+BUG FIXES:
+- "GetResources" quest types crashed with an access violation ...fixed.
+- 0.2 introduced a new bug which caused many doors to disappear ...fixed.
+- prices with VIP-card were displayed correctly, but when buying, the standard (higher)
+  price has been used
+- runes of Beithe did not work - now they do
+- used runes of Beithe are now removed correctly after usage
+- the illumination of a floor tile created by digging was zero, is 4 now.
+- the windowtitle shows up correctly in GNOME taskbar now
+- shooting monsters now do damage
+- if player is shot to death, the correct enemy name is shown
+- corrected a bug in calculation of HitOrMiss
+- fixed a bug that caused frozen monsters to have undefined messages in battles
+
+MISC CHANGES:
+- "kill unique monster" is now internally handled as standard "hunt enemies" quest
+- lots of code cleanups
+- the items needed to learn chants (spells) are created automatically now; this allows concentration
+  on the spells itself rather than the items. As these items are only "links" to the spells and have
+  no special meaning by themselves, this is no break of my "no stock!"-rule
+
+
+-- 0.2 (beta 7) --
+
+NEW FEATURES:
+- Items can be disassembled into their resources.
+- Resources can be sold.
+- A new quest type: "GetResources" (deliver a certain amount of various resources to a NPC)
+
+BALANCING/GAMEPLAY CHANGES:
+- only 10 dungeon levels instead of 20
+- all predefined levels have been replaced by random levels
+- all levels except the first one are dungeons
+- portals can be everywhere, not only on water
+- the story and all former quests have been removed completely
+- quests can only occur in levels with towns (and only 3 levels have towns)
+- the item effect "BecomeInvisible" is now valid for wearables, too (so you can equip items
+  which make you invisible)
+- removed many monsters; reworked the others (credo: less is more)
+- removed many redundant items; deactivated item variants; re-balanced many items
+- element spells have different damage effects and PP costs: fire > ice > water
+
+INTERFACE CHANGES:
+- by default, the classical (list style) inventory and songbook is used (the quick inventory
+  and songbook can be activated by their special keys or make to default by editing the
+  configuration file)
+- shops now show a remark if an item needs a higher level or another profession
+
+BUG FIXES:
+- preparation courses in academies now really cost money ...
+- levels without NPCs now don't show NPCs any longer
+- the skill point distribution screen now shows and handles the correct number of skill points
+- rare items can finally be found (and only found in the proper dungeon level)
+
+MISC:
+- random dungeon generation has been improved to remove several strange artifacts
+
+
+
+-- 0.1.110pre1 (beta 6 preview 1) --
+
+NEW FEATURES:
+- hospitals offer life insurances, i.e. it is possible to save the game there. However,
+  it only allows to continue one time at this save point, because save games are deleted
+  now directly after loading [I am aware of the problem that now the save game can be
+  lost due to computer problems]. Additionally, saving costs money. The price is
+  25 * (total_number_of_saves + 1). So the first save will cost 25 Credits, the next
+  saves 50, 75, 120 and so on. The total number of saves is shown in status screen and
+  character dumps, too.
+- it is possible to listen to music while playing. LR uses the free and open source
+  command line mp3 player "mpg123" for this. Title music must be "title.mp3", game over
+  music must be "death.mp3", winning music must be "win.mp3", hacking music must be
+  "hacker.mp3" and the music for every area is numbered from 1 to 20. All files have
+  to be stored in "sound"-folder.
+- opening security doors requires a code, as always, but now there's only a limited
+  number of inputs possible. After that, security forces will be alarmed.
+- player can use a drug which temporarly increases STR, leading to stronger hits
+- finally Pandora's ale works as planned
+- fire-, water- and ice-aura effects are shown as the circle they're meant to be
+
+
+BALANCING/GAMEPLAY CHANGES:
+- treatments in hospital are cheaper
+- Nivia has a passage to the eastern wilderness now
+- time and date are shown only in status screen (misc. page)
+- female character's don't have such high Move-values any longer (but still more than
+  males or neuters)
+- monsters have a Move-skill now. If it's not determined in the monsters.txt, the
+  player's Move-skill is used as base and increased or decreased by a random value
+  between 1 and 5.
+- the Move-skill is now only used to determine if an attack hits or misses; it plays
+  no role for calculating the defense any longer
+- an attack hits if the attacker's total move value (TMV) is higher or the same as the
+  opponents. The TMV is based on the Move skill and influenced by hunger, confusion,
+  blindness, paralization, curses and blessings. Besides these, there's a 15% chance
+  of bad luck, leading to 0 TMV. The equipment can have positive or negative effects
+  on TMV, too. If both TMVs are equal, one of these is randomly increased or decreased
+  by 1.
+- there is no longer a minimum damage of at least 1 done.
+- there's a small chance to hit the monster "hard" (= damage gets doubled)
+- new characters start with a package of Aspirin
+
+INTERFACE CHANGES:
+- battle messages are splitted into two lines
+- several messages have been improved
+- the game window has an icon now
+
+BUG FIXES:
+- until now, nobody offered the quest to kill the final enemy. So it was not possible
+  to win the game. NOW it is.
+- the last DLV is now recognized correctly and it's not longer possible to go further
+  then defined by WinLevel-constant
+- time-restricted effects did not become less when fighting an enemy (they only did
+  while moving)
+- when confused, the "west"-key was not swapped
+- potions with "curse"-effect did not curse, but bless
+- corrected spelling and sorting of polish restaurant
+- sometimes unique enemies, portals and NPCs were created outside the areas
+
+MISC:
+- further code cleanup
+- effect handling has been simplified
+- the makefile produces complete directories for the specified platform, so I just
+  need to make an archive from these folders, without caring of copying all relevant
+  data or deleting unnecessary files. "make [linux | win32]" will just compile and
+  copy the binary into an existing folder. "make [linux-full | win32-full]" will
+  delete an existing folder and create it from the beginning, also with the rather
+  large soundfiles
+- landscape generation was made more consistent
+
+
+
+
+-- 0.1.105 (beta 5) --
+
+NEW FEATURES:
+- monsters can shoot at the player if there's no barrier behind them and player
+- skills don't improve automatically after level ups (instead you have to go to academy)
+- Hospital: Heals the player and sells insurance cards
+  (healing in hospitals is for free if the player owns an insurance card)
+- Restaurant: Offers better food.
+- Academy: Here you can use your skill points to improve your skills
+- It's also possible to get a V.I.P. card which works as insurance card and has
+  many other useful benefits (mostly lower prices)
+- quests now have to be accepted by pressing the action-key, so the player has the
+  freedom to decide which to do first.
+- subway stations have names
+- using the identify/look command on subway stations brings up a subway map
+- some unique weapons/armour/rings/helmets can regenerate HP or PP
+- the descriptions of many items have been improved
+- the first area has been slightly modified
+- item information displays the efficiency of potions and food
+- more variation concerning dungeon levels
+- score and the number of turns are counted. score points are achieved by
+  finding and earning money, accepting quests, solving quests, finding items,
+  killing enemies and level ups
+- character dumps contain the total number of turns the player survived,
+  his score and the number of prayers
+- the win condition of the game is now controlled by quests.txt, making it possible
+  to offer several ways to win (e.g. the classical "find and return with an item")
+
+BALANCING/GAMEPLAY CHANGES:
+- HP doesn't regenerate with each turn if no proper item is equipped
+- all characters have more money at startup
+- they also start with more food ...
+- ... and more HP
+- cave worm excrements are now only scattered in random levels
+- the damage of lava is less predictable
+- new characters only have 4 (instead of 5) skill points to distribute
+- the profession "Master of Business Administration" has been renamed
+  to "Very Important Person" and the initial skills of former-MBA have been reduced by 4 ...
+- ... but at least a V.I.P. has a V.I.P. card from the beginning
+- Rangers Fight-skill is now reduced by 3, in addition their sword skill is reduced by 3, too
+- food is more efficient
+
+INTERFACE CHANGES:
+- the two lines of character description are shown on one screen
+- in quick inventory now the number of the selected inventory slot can be shown
+- in quick songbook now the number of the selected page can be shown
+- improved status screen with different sections for basic stats, questlog,
+  ressources and misc. things
+
+BUG FIXES:
+- you can't buy "empty items" in shops any longer
+- targets of killing-quests disappeared after leaving a dungeon level and appear again after
+  saving/quitting/reloading in their own dungeon level
+- in later levels, there were no men and women
+- subway stations weren't recognized as towntiles correctly
+- monsters follow the player better than in previous versions
+- scrolling left in quick inventory/spellbook should be bugless now
+- fixed some inconsitencies in items.txt
+- stores sometimes were empty at startup
+- modified variants of potions had wrong efficiency values
+- modified variants of equipment-items had wrong minimum character levels
+- the prayer-counter didn't increase
+
+MISC:
+- a little code cleanup
+
+
+
+-- 0.1.100c (beta 4, build: 2007-03-01) --
+
+- deep water is identified correctly when swimming in it (with Swim-Skill > 8)
+- the classic style (list) inventory and songbook have been optimized
+- there were still some wrong "ENTER to continue" messages
+- the message "[foo] was hit by a trap" was changed to "One of your traps hit a/an [foo]."
+- if the player wants to pick up or buy an item while inventory is full, a message is shown
+- after buying an item, a message is shown, too
+- several debugging messages and functions have been deactivated ;)
+
+- additionally, NeoTerrNet has been thrown over again and will be redesigned for the next
+  beta (so there's no longer a mini-roguelike in LambdaRogue; too time-consuming to care
+  about it)
+
+
+
+-- 0.1.100b (beta 4, build: 2007-02-28) --
+
+- deep water, security doors and seasoned trees and grass are now identified correctly
+- the wrong "ENTER to continue" message while fighting and taking money has been removed
+- scrolling left in quick inventory/spellbook leads to the most right item when the
+  first item is selected
+- sacrificing negative amounts of money is not longer possible
+- the SDL window's gamma value is stored in the save file
+- corrected some typos in data files
+- the Windows version now has a startup-script, too (startlr.bat)
+- automatic walking to a tile once occupied by a now slain enemy can be switched
+  off in config file
+- messages "You kill the [foo]" and "The lava hurts you" removed
+- all messages that should wait for pressing ENTER should do this now correctly in SDL-mode
+
+* thanks to Christian "Schnaader" Schneider for the Windows startup-script
+  and many important bugreports *
+
+
+-- 0.1.100a (beta 4, build: 2007-02-27) --
+
+- the current tile is auto-identified and shown at the bottom of the screen
+- the "identify tile" command now identifies tiles next to the player
+- the version number now contains a build date (snapshots are not affected by this,
+  as they are just have an increasing ID and internally the version number of the
+  next upcoming real release)
+- the quick inventory/songbook can now also be scrolled left
+- if you move towards a non-empty tile with a non-hostile creature (monster or
+  NPC), you can choose to [a]ttack or just to [m]ove to this tile
+- big, strong and mighty enemies now count in hunting quests
+- big, strong and mighty enemies appear less often ...
+- ... or can be switched off totally in config file
+- help screen now shows all keys
+- the "press any key" message is back when it makes sense, but in the form of
+  "[ENTER] to continue"
+- the config file parser is no longer case-sensitive
+- the "you take"-message uses the correct indefinite article ("a"/"an")
+- i _think_ there's no infinite loop at game start any longer
+- the default config file had an error
+- a nasty bug which was leading to corrupt data has been fixed
+
+
+
+-- 0.1.100 (beta 4) --
+
+NEW GAME FEATURES:
+- added more story parts
+- added dozens of random sentences for NPCs who don't yet offer own quests
+- new quests
+- constructors and rangers can clear contaminated ground (and earn money for this)
+- the first level is predefined and provides unique starting positions for the
+  different religions; the quests in DLV 1 are leading into the story
+- new dungeon layer: air.
+- aura spells are differentiated from normal spells
+  (aura spells (fire, ice, water) create a real aura in the air layer)
+- ice aura freezes monster's movements
+- dungeon and landscape generation improved
+- monsters can be declared as "human". Those monsters live in towns and aren't hostile
+  from the beginning, only when attacked by the player
+- characters now have a short vita and description (the usual "you're the son of..."-stuff)
+- a new status value STR, which is reduced if the player is hungry. If STR is too low,
+  the character can't hold many weapons
+- if certain skill combinations are trained very good, the player achieves a diploma
+
+GENERAL CHANGES AND FIXES:
+- corrected several typos
+- corrected a bug in input handling of SDL mode
+- added two spaces into "Aphrodite gives you4extra EXP" (so it's now "you 4 extra EXP")
+- changed day/month/year to day/month/cycle
+- changed the colors of the map
+- if a barrier is around the player, this is shown in status bar
+- quests appear not line by line, but as whole text
+- an optional new inventory screen for fast access
+- the same for songbook, while here exists an option to open the book with the last
+  song chanted as selection (this is useful to sing the same song more than one time)
+- graphical improvements to the SDL mode
+- non-aura spells are shown like fire-arms (but colored)
+- arrangement of status values has been optimized
+- for saving/loading quest data, now the WinLevel constant is used to determine the max. DLV
+- digging now only produces rocks if it's really digged (into stone)
+- the GP of helmets and hats wasn't included in the calculation of long range combat
+- weapon shops now sell ammunition (they never did ...)
+- poverty is slain. *fg* i.e. shops aren't empty any longer
+- date and time finally increases the year/cycle-counter
+- caveworm excrements don't block subway entrances and doors any longer
+- barriers didn't disappear as expected when the player stayed on the same location while battle
+- transport quests couldn't be solved if the target NPC had the wrong religion
+- dropping of items now works correctly
+- monster spawning had some minor bugs
+- numpad diagonal keys in console mode are working now
+- numpad enter key in SDL mode is working now
+- numpad 0 shows inventory
+- on Windows, the game crashed due to too high stack requirements
+
+BALANCING/GAMEPLAY CHANGES:
+- the random levels are smaller than in previous releases
+- more non-empty chests
+- long range weapons may miss
+- monsters drop items more often
+- various changes for the initial stats of characters
+- EXP are calculated based on the monster's strength
+- more EXP are needed for level ups
+- the character level is restricted to 25
+- traders don't appear in every level
+- random items appear more often
+- caveworms and herrings don't attack first
+- good, mighty and holy items appear later and require greater levels
+
+NON-VISIBLE CHANGES IN ENGINE:
+- now 40 instead of 20 possible story parts
+- some new puzzle tiles for dungeon creation
+- code optimizations
+
+BUG FIXES IN DATA-FILES:
+- corrected several typos
+- songdiscs with chants in items.txt did not correspond to the chants in chants.txt
+
+MISC:
+- added a FAQ
+
+
+-- 0.1.99 (beta 3; not released) --
+
+NEW GAME FEATURES:
+- random maps and predefined maps
+- storyline (different for each class; only 1 of 5 available in this beta)
+- many new items (including normal, rare, unique and set items)
+- standard weapons/armour/clothes/potions have different variants (old, cheap, normal, good, mighty and holy)
+- new quests and maps
+- items can be sold
+- computers can be hacked (implemented as a mini-roguelike)
+- improved monster AI (they run away, use certain potions...)
+- character dumps
+- new character generation
+- added professions and items requiering a certain profession to be used
+- new effects: freeze time, curse, bless, random
+- monsters can cast water and let weapon/armour disappear from player
+- chests can be traps
+- digging can produce rocks now
+- quests can require that other quests are fulfilled or plot scenes have occured
+- dropped packaged items (e.g. ammunition) will only remain on the floor if they are still complete
+- two new secondary abilities ("swim" to pass deep water and "trade" to get better prices)
+- new floortype: contaminated ground
+
+USER INTERFACE CHANGES:
+- the game now works without SDL, too (pure console mode)
+- SDL: output method can be switched between ASCII and graphical tiles (by pressing "0")
+- SDL: full screen with the possibility to adjust gamma
+- firearms are shown in a more ADOM-like way (as ****** from the player char to the target)
+- better linux startup script with options to merge and delete bone files
+- the skill selected for training (on level ups) has to be confirmed with Enter
+- looking at items in inventory and shops shows more and better structured information
+- support for different tilesets
+- keys and some settings are customizable
+
+BALANCING/GAMEPLAY CHANGES:
+- character levels are restricted to 40
+- on level up, the maximum HP and PP are increased by 9%; the current HP/PP are restored to the new max.
+- Aphrodite-characters get only half of the EXP the other classes would get
+- Aphrodite-characters get more EXP for quests and EXP for _every_ quest, even if other classes wouldn't get EXP
+- for Dionysos-characters, food is as double efficient as normal
+- Ares-characters don't get EXP for killing caveworms
+- trader inventories change less often
+- lava is passable, but hurts player and monsters
+- monsters now have 3 stronger variants which appear after a certain amount of killed monsters of a type
+- runes are now rare
+- going by subway consumes less time than walking
+- subway tickets now cost 10 Credits (instead of 20)
+- number of bullets/arrows in ammunition packages doubled
+- monsters lose items more often
+- removed minimap once again (this time due to gameplay reasons)
+- in random areas, there is a "fog of war" that hides still unknown territories
+- when leaving a random level, 3*percentage of discovered territory is added to EXP
+
+NON-VISABLE CHANGES IN ENGINE:
+- we now use/have...
+-   the Jedi SDL headers
+-   IMG_LOAD instead of LOAD_BMP
+-   Unicode
+-   key repeat
+- source code now provides a makefile
+- the main window now has a proper title
+- if no quest is defined for NPCs, they have random statements
+- saving/loading is MUCH quicker than before
+
+BUG FIXES IN ENGINE:
+- set items weren't identified as set correctly
+- shops now respect the minimum dungeon levels of items
+- water aura now has it's own graphical tile
+- an infinite loop while random dungeon generation
+- monsters don't longer attack players in a subway
+- the game doesn't crash any longer after quitting (fixed by the use of 1 big BMP for tiles instead of 200 smaller ones)
+- cheating with dropped packaged items is not longer possible
+- firearms only hit in the field of view of the player character (+ a small additional range)
+- "press any key"-messages now also accept cursor keys
+- helmets and hats weren't evaluated in TP-calculation
+
+BUG FIXES IN DATA FILES:
+- the "cyberpunk" wasn't shown correctly (bug in in monsters.txt)
+- the quest "deliver documents to senator Kane" didn't work (bug in quests.txt)
+- item set "Garmon's ..." wasn't complete (missing item in quests.txt)
+- additionally, set items weren't recognized as item set at all (bug in items.txt)
+
+
+-- 0.1.95 (beta 2) --
+
+2006/09/01
+- fixed: vertical subways did not work properly
+- fixed: scrolls couldn't be read
+
+2006/08/30
+- subway
+
+2006/08/29
+- seasons
+- neuters have more money at the beginning of the game
+- closed doors that need code to open
+- predefined maps can have random generated parts
+
+2006/08/28
+- fixed: solved quests weren't loaded correctly from saved games
+- new floor type: snow
+- finished to implement graphics
+- player can rest 1 turn by pressing . and any number of turns by pressing r
+- minimap now called by pressing 0
+- worm guano now blocks magic/chanting
+- 2 new monsters
+- the maps aren't rotated/mirrored any longer
+
+2006/08/27
+- changing time of day (currently only for better atmosphere)
+- changed map symbols and player symbol totally to tiles
+- as we are a sci-fi-game, we now use a font that better fits
+
+2006/08/26
+- fixed: while entering numbers, the left-key to delete one char did not work. Now it does ;)
+- items work as quest reward
+- new quest type: "get item for NPC"
+- replaced floor type "crystal tree" with randomly scattered "worm guano"
+- changed tiles. now we have a mixture of pure ASCII and ASCII-based tilegraphics
+
+2006/08/25
+- NPCs and quests (already working: "kill" and "transport")
+- new floor types: grasslands and hills
+- towns now can have "safe" grass, trees and hills (without monster)
+- replaced first dungeon level with a larger one
+- unique monsters have fixed starting positions (read from level files)
+
+
+-- 0.1.9 (beta 1) --
+
+2006/08/24
+- fixed: another confusion-bug
+- fixed: a bug with password-protected NetSites
+- re-implemented: set items
+- added a general function for checking the existence of a complete set of items (used for runes so far)
+- added rune sets
+- added new NetSites
+- some new items
+- new negative effects: paralyze (player can't move), calm (player can't chant)
+- early monsters won't appear in very late levels
+- blood in the dungeon isn't saved (makes savefiles smaller and looks better)
+- floor tiles can be marked as "town" - then monsters will avoid these tiles. Traders and NPCs only appear on such tiles.
+- in new areas, player starts at the portal to the previous area
+- minimap now shows mud, sand and forests
+
+2006/08/23
+- monsters are divided into water- and non-water monsters
+- treasure chests
+- changed the calculation of level ups
+- two new skills: code (primary), tool (secondary)
+- a new title screen
+- added runes (based on celtic oghams; 4 sets with 5 runes)
+- every religion is associated to 1 skill and 1 status value
+
+2006/08/22
+- fixed: the crash after quitting the game
+- fixed: the crash while showing the dungeon map -> so the map is back again
+- fixed: the levelup-screen did not use the "key-without-enter-is-sufficient"-input method
+- new effect: magic wall (barrier against attacks)
+- aura-chants are working (currently: ice/fire/water)
+- praying and sacrificing
+- finally a working NeoTerrNet
+- recreated online help based on NeoTerrNet
+- in addition to the backspace key, the [cursor left] key deletes only the last character
+(while entering text and numbers)
+- player can place traps to kill monsters
+- items and spells can harm player himself, too
+
+2006/08/21
+- greek gods as religions
+- many new monsters
+- new effect: blindness
+- fixed: a bug with confusion
+- fixed: doors can now be closed diagonally
+- predefined levels can be rotated randomly
+- doorways are a bit brighter
+- new items
+
+
+-- 0.1.9pre3 (pre-beta 3) --
+
+2006/08/20
+- numbers can be entered via numpad
+- simple menu choices can be made without pressing enter
+
+
+-- 0.1.9pre2 (pre-beta 2) --
+
+2006/08/20
+- changed field of view algorithm
+- adjusted initial "view"-value of character classes
+- various balancing adjustments
+- finally, money can be found in dungeon
+- "you kill the [monster]" message added
+- fixed: the symbol for supermarkets (ascii:138) wasn't displayed; changed to ascii:144
+- added another predefined level (3)
+
+
+-- 0.1.9pre (pre-beta 1) --
+
+2006/08/18
+- new weapons
+- monsters only move to and run from player, when player is visible
+
+2006/08/17
+- dungeons can have terminals for browsing the net
+
+2006/07/30
+- new items
+
+2006/07/29
+- started to integrate the Net (some kind of internet)
+
+2006/07/26
+- enabled numpad. Now there should be enough moving possibilites for all predilections ;)
+- fixed: a blood bug :)
+- religions (i.e. the possible classes the player can choose from) are read from textfiles now
+- last dungeon level is 20 for (will be changed to 40 someday)
+
+
+-- 0.1.6 (alpha 7) --
+
+2006/07/25
+- fixed: packaged items only appeared as 1 item in inventory when taken up from ground
+- level 1 is and will stay predefined
+- enabled cursor keys
+- learning is finished, so chants can be used
+- trading uses an extra key
+- adjusted the background "story"
+- player can become invisible if he wants to hide from monsters
+
+
+-- 0.1.5 (alpha 6) --
+
+2006/07/24
+- items can be sold in packages (e.g. 20 arrows at once)
+- the savefile is now deleted, when the game has been won
+- player can buy scrolls (need to learn chants; however,
+  learning isn't finished yet; so using the chants obviously works not.)
+- if player is poisoned, he will be shown in another color
+- one new trader (sells scrolls)
+- traders are shown in different colors
+- fixed: attempt to free SDL-surface after game over two times
+
+
+-- 0.1.4 (alpha 5) --
+
+2006/07/23
+- fixed a bug with digging... now it should work better
+- fixed other minor bugs
+- changed main background back to black... looks better...
+- shooting implemented (incl. ammunition)
+- better help screen, better INSTALL-file
+- secondary abilities can be trained, too
+- fixed a stack overflow under WinXP
+- remapped keys
+- added a shell script for startup
+- when player takes an item, a message is shown
+- vanquished unique monsters stay dead
+- monsters attack the player, when standing next to him
+- added various debug-messages
+- player has some credits when new game is started
+- monsters can confuse player; added item to heal confusion
+- secondary abilities are now used for battle calculation
+- initial HP-value increased (...to prevent early deaths)
+- support for predefined levels
+- new items
+
+
+-- 0.1.3 (alpha 4) --
+
+2006/07/23
+- underground forests
+- player can use certain objects to block paths (useful for disturbing monsters)
+- repeated tunneling now consumes time (1 turn per repetition)
+- depending on the tool used for digging, it lasts more or less time
+- fixed the shop bug
+
+
+2006/07/22
+- further improvements to monster's ai
+- now traders are stored in savegames, too
+
+
+-- 0.1.2a (alpha 3) --
+
+2006/07/22
+- fixed a bug with saving games
+- removed random movement of monsters; they now follow or escape the player
+- after loading a saved game, no new items are created
+
+
+-- 0.1.2 (alpha 3) --
+
+2006/07/22
+- dungeon size varies
+- minimap disabled due to an mysterious access violation
+- now whe have 3 item categories:
+  normal items (dropped by monsters, lying around in dungeons, available by traders)
+  rare items (only dropped by monsters)
+  unique items (dropped by unique monsters)
+- added detailed status display
+- fixed some bugs
+- started to improve structure and comments of source code
+- player now has secondary abilities for the different weapon types
+- added titlescreen, coloured background
+- changed ability "spell" to "chant"
+- extended character generation
+- loading and saving implemented (seems to work... but not tested very much)
+
+
+2006/07/21
+- the game can be won by reaching the ocean (e.g. the last dungeon level)
+- monsters can lose items, incl. unique and set items
+- player's can't sell items to traders (inspired by Dungeon Crawl)
+- more blood :-)
+- unique monsters can be detected on the minimap by using special items
+- monsters use magic or special abilities
+- more items, more monsters, incl. items to resist enemy spells
+- set items removed (unique items are sufficient for the moment)
+- the size of different areas (dungeon levels) differs
+
+
+-- 0.1.1 (alpha 2) --
+
+2006/07/21
+- traders are categorized (1: supermarket, 2: weaponary, 3: armoury)
+- unique items no longer show up on map or while trading
+- when reaching a new character level, the player can improve abilities
+- set items implemented
+
+2006/07/20
+- items are stored in textfiles
+- monsters are stored in textfiles, too
+- added rings and helmets to wear
+- dropped items don't just disappear any longer, they are "dropped" on the ground
+- traders don't have an infinite number of their items
+- for certain armour/weapons the player's level has to be high enough
+- now we have unique items and unique monsters
+
+
+-- 0.1 (alpha 1) --
+
+2006/07/20
+- traders are fully working
+- minimap shows shopareas from the beginning
+- added more items and monsters
+- corrected a bug in inventory
+- slain monsters leave some blood (useful as markers)
+- improved placement and choice of items in dungeons
+
+2006/07/19
+- items can be taken, dropped, eaten and drunken
+- change between different dungeon levels implemented
+- changed statusbar
+- added effects of food and poison
+- monsters now spawn in relation to current dungeon level, not to player's level
+- improved character generation
+- implemented real battle calculation
+- improved placement of doors
+- corrected an infinite loop while going up/down
+- dungeon levels contain traders
+- implemented minimap
+
+2006/07/18
+- monsters added
+- monsters move, can be slain and attack
+- the player can die
+- character generation screen added
+- rivers and mountains added
+- inventory and items implemented
+- decided for background story and goal of the game
+
+2006/07/16
+- changed display method to SDL
+- added status bar
+
+2006/07/14
+- moving and digging implemented
