@@ -92,7 +92,7 @@ def ularn():                                          # same Amiga set, loose fi
         sq.resize((32, 32), Image.NEAREST).save(os.path.join(d, slug(name) + '.png'), optimize=True)
     print('ularn', len(os.listdir(d)))
 
-def angband(g, game, rinfo, tag, prf, sheet, size):
+def angband(g, game, rinfo, tag, prf, sheet, size, the=False):
     """Angband family: R:<idx>:0xAA/0xCC in the graf prf -> tile row AA&0x7F, col CC&0x7F."""
     src = open(G + '/' + game + '/lib/edit/' + rinfo, encoding='latin-1').read()
     idx = [int(i) for i in re.findall(r'^N:(\d+):', src, re.M)]
@@ -102,6 +102,7 @@ def angband(g, game, rinfo, tag, prf, sheet, size):
     for i, a, c in re.findall(r'^R:(\d+):0x(\w\w)[/:]0x(\w\w)', open(G + '/' + game + '/lib/pref/' + prf).read(), re.M):
         n = names.get(int(i))
         if not n or i == '0': continue
+        if the: n = re.sub(r'^(the|The) ', '', n)   # web_run_end() strips a/an/the
         x, y = (int(c, 16) & 0x7F) * size, (int(a, 16) & 0x7F) * size
         img.crop((x, y, x + size, y + size)).resize((32, 32), Image.NEAREST if size <= 32 else Image.LANCZOS) \
            .save(os.path.join(d, slug(n.strip()) + '.png'), optimize=True)
@@ -110,6 +111,7 @@ def angband(g, game, rinfo, tag, prf, sheet, size):
 def tome2(): angband('tome2', 'tome-2.3.11', 'r_info.txt', 'N', 'graf-new.prf', 'lib/xtra/graf/16x16.bmp', 16)
 def tinyangband(): angband('tinyangband', 'tinyangband', 'r_info.txt', 'E', 'graf-new.prf', 'lib/xtra/graf/16x16.bmp', 16)
 def quickband(): angband('quickband', 'quickband', 'monster.txt', 'N', 'graf-dvg.prf', 'lib/xtra/graf/32x32.png', 32)
+def nppangband(): angband('nppangband', 'nppangband', 'monster.txt', 'N', 'graf-shb.prf', 'web/tiles.webp', 64, True)   # Shockbolt 64px (web/mkgraf-shb.py)
 
 def arogue(g, d, src):
     """Advanced Rogue family: monsters[] names (comments stripped) -> mon_tile, NetHack sheet."""
@@ -355,4 +357,4 @@ def mag():                                            # DawnLike 16px (port/tile
     names = re.findall(r'^"([^"]+)",\s*\'.\'', open(m + '/src/MONSTER.H', encoding='latin-1').read().replace('\r', ''), re.M)
     cut('mag', m + '/port/tiles-dawn.png', 16, zip(names, ints(re.sub(r'mon_tile\[\d+\]', 'mon_tile[]', open(m + '/port/tiles.h').read()), 'mon_tile')))
 
-rogue(); hack(); umoria(); urogue(); larn(); ularn(); rogue36(); srogue(); roguepc(); tome2(); tinyangband(); quickband(); arogue58(); arogue77(); xrogue(); boss(); omega(); prime(); dynahack(); silq(); tactical(); crawl(); zapm(); alphaman(); decker(); nethack13d(); nethack50(); slashem(); zangband(); frogcomposband(); forays(); lambdarogue(); hengband(); easyband(); mag(); tactical('faangband')
+rogue(); hack(); umoria(); urogue(); larn(); ularn(); rogue36(); srogue(); roguepc(); tome2(); tinyangband(); quickband(); arogue58(); arogue77(); xrogue(); boss(); omega(); prime(); dynahack(); silq(); tactical(); crawl(); zapm(); alphaman(); decker(); nethack13d(); nethack50(); slashem(); zangband(); frogcomposband(); forays(); lambdarogue(); hengband(); easyband(); mag(); tactical('faangband'); nppangband()
