@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hengband · Shrine</title>
+<!--og-->
+<meta name="description" content="Zangband remade in Japan and still growing: samurai, ninja, mirror-masters and cavalry that ride their pets, personalities next to race and class, many new dungeons and quests, and one of the biggest monster lists of the Angband family.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="--More--">
+<meta property="og:title" content="Hengband · Shrine">
+<meta property="og:description" content="Zangband remade in Japan and still growing: samurai, ninja, mirror-masters and cavalry that ride their pets, personalities next to race and class, many new dungeons and quests, and one of the biggest monster lists of the Angband family.">
+<meta property="og:url" content="https://ruzzoli.de/roguelikes/shrine/hengband.html">
+<meta property="og:image" content="https://ruzzoli.de/roguelikes/hengband.png">
+<meta name="twitter:card" content="summary_large_image">
+<!--/og-->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>Hengband</h1>
+  <p class="epi">変愚蛮怒 · Zangband remade in Japan, a quarter of a century and still in beta</p>
+  <a class="play" href="../hengband/">&gt; Enter the dungeon</a>
+</header>
+<div class="facts"><div><b>Date of birth</b><span>2000</span> 0.1.0 on 19 June 2000; this build 3.0.2.4-Beta (2026)</div><div><b>Creator</b><span>Mr.Hoge</span> and the Hengband Dev Team</div><div><b>Language</b><span>C++20</span> ~287,000 lines (C until 2021)</div><div><b>Platform</b><span>Windows, Mac, Linux</span> Win32, X11, curses</div></div>
+<nav class="toc"><a href="#lineage">Lineage</a><a href="#credits">Credits</a><a href="#trivia">Trivia</a><a href="#usp">What's unique</a><a href="#code">Code dive</a><a href="#stats">Stats</a><a href="#manual">Manual</a><a href="#start">Getting started</a><a href="#help">Help</a><a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p>Moria → <a href="umoria.html">Umoria</a> → Angband → <a href="zangband.html">Zangband</a> → Japanese Zangband 2.2.8 → <strong>Hengband</strong> → Chengband → PosChengband → ComPosband → <a href="frogcomposband.html">FrogComposband</a>. Mitsuhiro Itakura translated Zangband 2.2.8 into Japanese, on top of Sitoshin’s Japanese Angband 2.8.3, and added features of his own such as the auto-picker. Hengband grew out of that version in spring 2000: work began in late March, and 0.1.0, the first public version, came out on 19 June 2000. 1.0.0 followed in February 2001 and the first stable 1.0.7 in November 2001, which RogueBasin gives as its first release. It also took code from ToME, OAngband and other variants. Chengband forked it around 2010; the Japanese <a href="tinyangband.html">TinyAngband</a> is a cousin through XAngband, not a child.</p>
+<p><strong>Who started it?</strong> RogueBasin names “iks” as developer; the game itself names Mr.Hoge. The game wins: its news screen credits “Mr.Hoge &amp; Many others”, the FAQ says “Mr.Hoge wrote the first original part of Hengband”, and the licence names Mr.hoge as copyright holder of all Hengband changes. iks is a long-time team member (first commits in March 2002, over 700 in the repo) (TinyAngband’s author also goes by iks).</p>
+<p>See the <a href="../#tree">family tree</a>. Sources: <code>lib/file/news.txt</code>, the <a href="hengband/manual.html#faq">FAQ</a>, the <a href="hengband/license.txt">licence</a>, the official <a href="https://hengband.github.io/history/history0.1.0.html">version history</a>, <a href="https://www.roguebasin.com/index.php/Hengband">RogueBasin</a> and <a href="https://ja.wikipedia.org/wiki/%E5%A4%89%E6%84%9A%E8%9B%AE%E6%80%92">Japanese Wikipedia</a>.</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table><tr><td>Mr.Hoge</td><td>Founder; copyright holder of the Hengband changes</td></tr><tr><td>Dev Team</td><td>Early team per the FAQ: Mr.Hoge, Habu, Henkma, iks, Kuwa, Mogami, nsk. Most commits today: Hourier, Deskull, Habu, Mogami, Eric Branlund (the English text), dis-, iks and 40-odd others</td></tr><tr><td>Itakura</td><td>Mitsuhiro Itakura, Japanese Zangband 2.2.8</td></tr><tr><td>Japanese Angband</td><td>Sitoshin, sayu, FIRST, TeO and others</td></tr><tr><td>Zangband</td><td>Topi Ylinen, Robert Rühlmann and the Zangband DevTeam</td></tr><tr><td>Angband</td><td>Ben Harrison (2.7–2.9), on Moria (Robert Alan Koeneke) and Umoria (James E. Wilson)</td></tr><tr><td>Music</td><td>Arranged by Sasahito Handa (CC0 / CC BY); sounds from OpenGameArt (CC0)</td></tr><tr><td>Adam Bolt</td><td>The 16×16 tiles used in this port</td></tr></table>
+<p class="src">From <code>lib/file/news.txt</code>, the <a href="hengband/license.txt">licence</a>, the <a href="hengband/manual.html#faq">FAQ</a>, <code>git shortlog</code> and the <code>lib/xtra</code> readmes.</p>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>The very first plan: bring weapon proficiency, dual-wielding and two-handed fighting into Zangband. <span class="src">(<a href="https://hengband.github.io/history/history0.1.0.html">history of 0.1.0</a>)</span></li>
+<li>The reason given for version 1.0.0 in February 2001, roughly: “since we’re at it, let’s make the major version 1.” <span class="src">(<a href="https://hengband.github.io/history/history1.0.0.html">history of 1.0.0</a>)</span></li>
+<li>3.0.0 was due in February 2021 and was postponed; five years and a hundred releases later it is still called Beta. <span class="src">(<a href="https://hengband.github.io/history/history3.0.0.html">history of 3.0.0</a>, <a href="hengband/changelog.txt">changelog</a>)</span></li>
+<li>The monster list is a parody zoo: Bull Gates the applephobe, Steven Jobz, the Internet Exploder, King Koopa, Kenshirou, Dio Brando, a Metal Babble, the Flying Spaghetti Monster and the Killer Rabbit of Caerbannog. <span class="src">(<a href="https://github.com/memmaker/hengband/blob/master/lib/edit/MonraceDefinitions.jsonc">MonraceDefinitions.jsonc</a>)</span></li>
+<li>An inscription starting with <code>#</code> makes an ordinary item look like an artifact; the help’s example is “a Long Sword of Hoge”. <span class="src">(<a href="hengband/manual.html#objects-Inscriptions">Objects help</a>)</span></li>
+<li>The licence lets anyone change and share the game, but a changed version must not send scores to the Hengband score server. <span class="src">(<a href="hengband/license.txt">licence</a>)</span></li>
+<li>Since April 2026 a website lets an AI play Hengband; RogueBasin calls its pace “glacial”. <span class="src">(<a href="https://www.roguebasin.com/index.php/Hengband">RogueBasin</a>)</span></li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>Personalities:</strong> a third birth choice next to race and class, from Mighty and Shrewd to Lazy, Sexy, Lucky, Munchkin and the Chargeman.</li>
+<li><strong>Odd classes:</strong> Samurai with sword techniques, Ninja, Mirror Master, Cavalry who ride their pets, Beastmaster, Magic Eater, Blue Mage who learns monster spells, Imitator, Smith, Sniper, Tourist.</li>
+<li><strong>Fighting changes:</strong> weapon and riding proficiency, dual-wielding, two-handed grips, and learned sword techniques (Hissatsu).</li>
+<li><strong>A bigger world:</strong> Zangband’s wilderness with several towns, 20 dungeons from the Yeek cave to R’lyeh and Heaven, 44 quests, a casino, a bounty office and a monster arena.</li>
+<li><strong>Japanese first:</strong> written and discussed in Japanese; the English text comes from the same source, one <code>_("ja", "en")</code> call per message.</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li><strong>Language:</strong> C++20, about 287,000 lines in 1,943 files under <code>src/</code>, split into many small folders (<code>cmd-item/</code>, <code>monster-race/</code>, <code>spell-realm/</code> …). The C sources became C++ in March 2021, during the 3.0 alphas.</li>
+<li><strong>History:</strong> the git history starts on 12 January 2002 with 1.0.8 (imported from CVS) and has 21,699 commits.</li>
+<li><strong>Data:</strong> JSONC files in <code>lib/edit/</code> with Japanese and English names side by side (<code>MonraceDefinitions.jsonc</code>, <code>BaseitemDefinitions.jsonc</code>, <code>ArtifactDefinitions.jsonc</code>, <code>DungeonDefinitions.jsonc</code>, <code>SpellDefinitions.jsonc</code>, one file per quest), plus text files for vaults, egos and towns.</li>
+<li><strong>Help:</strong> <code>lib/help/*.txt</code> with <code>[[[[y|…|</code> colour tags, <code>***** &lt;Tag&gt;</code> anchors and lettered links; <code>j*.txt</code> are the Japanese originals.</li>
+<li><strong>This port:</strong> WebAssembly build with a canvas z-term frontend, Adam Bolt tiles, eight sub-windows, sound and music, auto-explore (<kbd>X</kbd>), an Enter command menu and item menus; built without the score sender. Source: <a href="https://github.com/memmaker/hengband">memmaker/hengband</a>, upstream <a href="https://github.com/hengband/hengband">hengband/hengband</a>.</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<table><tr><th>Thing</th><th>Count</th><th>Notable ones</th></tr><tr><td>Races</td><td>38</td><td>Amberite, Mind Flayer, Golem, Spectre, Ent, Archon, Balrog, Kutar, Android, Merfolk</td></tr><tr><td>Classes</td><td>29</td><td>Samurai, Ninja, Cavalry, Mirror Master, Blue Mage, Magic Eater, Imitator, Smith, Tourist, Elementalist</td></tr><tr><td>Personalities</td><td>13</td><td>Lazy, Sexy, Lucky, Munchkin, Chargeman</td></tr><tr><td>Realms</td><td>13</td><td>10 magic realms (Life … Crusade, Daemon) and 3 techniques: Music, Hissatsu, Hex; 416 spells</td></tr><tr><td>Mutations</td><td>96</td><td></td></tr><tr><td>Monsters</td><td>1,417</td><td>366 uniques: the Cthulhu mythos, Amber’s princes, Oberon, the Serpent of Chaos, a Zombified Serpent of Chaos, the Greater Cyber Wyrm Angel Daemon Lich, Santa Claus</td></tr><tr><td>Object kinds</td><td>643</td><td>plus 270 artifacts and 190 ego types</td></tr><tr><td>Dungeons</td><td>20</td><td>Angband, Yeek cave, Labyrinth, Numenor, R’lyeh, Heaven, Hell, Glass castle, Chameleon cave</td></tr><tr><td>Quests</td><td>44</td><td>Thieves’ Hideout, the Sewer, Warg Problem, Assault on Montsalvat, Oberon, the Serpent of Chaos</td></tr><tr><td>Vaults</td><td>173</td><td></td></tr></table>
+<p class="src">Counted in <code>lib/edit/*.jsonc</code>, <code>EgoDefinitions.txt</code>, <code>VaultDefinitions.txt</code> and the <code>src/</code> enums.</p>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>The full English in-game help (<kbd>?</kbd>, all of <code>lib/help/*.txt</code> and <code>*.hlp</code>, colours and links kept) is here: <a href="hengband/manual.html">manual</a>, including the <a href="hengband/manual.html#tang">Newbie Guide</a> and the <a href="hengband/manual.html#faq">FAQ</a>. Also: the <a href="hengband/changelog.txt">changelog</a> (every GitHub release note since 2021, mostly Japanese, then <code>version.txt</code>, the English history of 1.0–1.6) and the <a href="hengband/license.txt">licence</a> (Japanese original with a short English summary). Release notes of all versions since 0.1.0 are on the <a href="https://hengband.github.io/history.html">official site</a> (Japanese).</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol><li><a href="../hengband/">Open the game</a> and make a character: a Human or Dwarf Warrior, or a Half-Troll Warrior, is forgiving. In the autoroller press <kbd>n</kbd> then <kbd>2</kbd> for each stat, then Enter.</li>
+<li>Wear and wield your gear (<kbd>w</kbd>), then shop in Outpost: Cure Light Wounds potions, Phase Door scrolls, flasks of oil to throw.</li>
+<li>Go to the Yeek cave next to Outpost, as the help suggests; <kbd>&gt;</kbd> walks to known stairs and <kbd>X</kbd> explores for you.</li>
+<li>The Enter key lists every command; <kbd>i</kbd> and <kbd>e</kbd> open item menus; <kbd>C</kbd> shows your character.</li>
+<li>Read the game’s <a href="../hengband/help.html">help page</a> for keys and saving.</li></ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>We found no walkthrough: the dungeons are random. The goal is to kill Oberon on level 99 and then the Serpent of Chaos on level 100. Rules of thumb:</p><ul>
+<li>Get Free Action, See Invisible and resist confusion and poison early.</li>
+<li>Always carry an escape (Phase Door, Teleportation) and Word of Recall; do not fight what you do not know.</li>
+<li>Read the <a href="hengband/manual.html#tang">Newbie Guide</a>, <a href="hengband/manual.html#general-Winning">Winning the Game</a> and the <a href="hengband/manual.html#faq">FAQ</a>.</li>
+<li>More: <a href="https://www.roguebasin.com/index.php/Hengband">RogueBasin</a>, the <a href="https://hengband.github.io/">official site</a> with its <a href="https://hengband.github.io/score.html">score server</a> (character dumps of other players), and <a href="https://github.com/hengband/hengband/discussions">GitHub Discussions</a>.</li></ul>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<p>Both modes are in this build but locked by an option: first turn on <em>allow_debug_opts</em> (<kbd>=</kbd> options, or <kbd>"</kbd> then <code>Y:allow_debug_opts</code>). Either mode marks the character as a cheater: no score.</p>
+<ul><li><strong>Wizard mode</strong> <kbd>Ctrl</kbd>+<kbd>W</kbd>: asks once, then on death the game asks “Die?”.</li>
+<li><strong>Debug mode</strong> <kbd>Ctrl</kbd>+<kbd>A</kbd>, then a key: create objects, jump levels, edit stats, map the level, and more. Tested in the browser: <kbd>Ctrl</kbd>+<kbd>A</kbd> <kbd>k</kbd> casts a ball on yourself.</li>
+<li><strong>Cheat options</strong> (with <em>allow_debug_opts</em>): peek into object, monster and dungeon creation (<code>cheat_peek</code>, <code>cheat_hear</code>, <code>cheat_room</code>), know all monster lore (<code>cheat_know</code>), avoid death (<code>cheat_live</code>).</li>
+<li><strong>Save scumming:</strong> <em>Export save</em> / <em>Import save</em> on the game page.</li></ul>
+</section>
+</div></body>
+</html>
