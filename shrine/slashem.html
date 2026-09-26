@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SLASH'EM · Shrine</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>SLASH'EM</h1>
+  <p class="epi">Super Lotsa Added Stuff Hack – Extended Magic · NetHack with everything added</p>
+  <a class="play" href="../slashem/">&gt; Enter the dungeon</a>
+</header>
+<div class="facts">
+  <div><b>Date of birth</b><span>November 1997</span> SLASH'EM 0.1 per its own history file (NetHackWiki says 7 January 1998); this version 0.0.7E7F3: 30 December 2006</div>
+  <div><b>Creators</b><span>Warren Cheung</span> later the Slash'EM dev team: J. Ali Harlow, Pekka Rousu, Clive Crous, Paul Hurtley and others</div>
+  <div><b>Language</b><span>C</span> ~185,000 lines in 214 <code>src/*.c</code>/<code>include/*.h</code> files</div>
+  <div><b>Platform</b><span>Unix, Windows, DOS, Mac…</span> also OS/2, Amiga, Atari, BeOS, VMS, Windows CE; here: the browser</div>
+</div>
+<nav class="toc"><a href="#lineage">Lineage</a><a href="#credits">Credits</a><a href="#trivia">Trivia</a><a href="#usp">What's unique</a><a href="#code">Code dive</a><a href="#stats">Stats</a><a href="#manual">Manual</a><a href="#start">Getting started</a><a href="#help">Help</a><a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p>SLASH'EM is a NetHack variant built from two older NetHack mods. Tom Proudfoot's <em>SLASH</em> (February 1996, from his own NetHack-- and parts of Stephen White's NetHack Plus) was synchronised with NetHack 3.2 by Enrico Horn as SLASH 4.1.2. Larry Stewart-Zerba's <em>Wizard Patch</em> (April 1996 to April 1997, later with Warwick Allison) enhanced the Wizard's spellcasting. Warren Cheung combined SLASH 4.1.2 and the Wizard Patch into SLASH'EM 0.1 in November 1997.</p>
+<p>The code then followed NetHack upstream: 0.0.6 was merged onto NetHack 3.3, and 0.0.7 (the version here, 0.0.7E7F3) onto NetHack 3.4.3. Sources: <code>dat/history</code> and the Guidebook's history chapter. See the <a href="../#tree">family tree</a>, next to <a href="nethack50.html">NetHack 5.0</a>.</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table>
+<tr><td>Warren Cheung</td><td>Created SLASH'EM 0.1 (1997); combined 0.0.5E7F1 with NetHack 3.3 into 0.0.6; project administrator</td></tr>
+<tr><td>J. Ali Harlow</td><td>Project administrator; GTK interface and 32×32 tiles for 0.0.6, the Unix port; released 0.0.7E7F1 to E7F3</td></tr>
+<tr><td>Warren Cheung, Christian Cooper, J. Ali Harlow, Paul Hurtley, Pekka Rousu, Darshan Shaligram</td><td>Combined SLASH'EM 0.0.6E5F2 with NetHack 3.4 to create 0.0.7</td></tr>
+<tr><td>Pekka Rousu, Clive Crous</td><td>Developers; Paul Hurtley: Mac port</td></tr>
+<tr><td>Tom Proudfoot; Enrico Horn</td><td>SLASH, and its 3.2 port SLASH 4.1.2</td></tr>
+<tr><td>Larry Stewart-Zerba, Warwick Allison</td><td>The Wizard Patch</td></tr>
+<tr><td>Kevin Hugo</td><td>Mac port and many changes (many of the “KMH” comments in the code)</td></tr>
+<tr><td>Nathan La, Dirk Schoenberger, Robin Johnson</td><td>Tiles for the SLASH/SLASH'EM monsters</td></tr>
+<tr><td>Kelly Bailey, Tina Hall</td><td>Level designs (Minetown variants; Grund's Stronghold)</td></tr>
+<tr><td>The NetHack DevTeam</td><td>NetHack 3.4.3, the code underneath</td></tr>
+<tr><td>This port</td><td>Web window port and browser build (<a href="https://github.com/memmaker/slashem">memmaker/slashem</a>)</td></tr>
+</table>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>The name stands for “Super Lotsa Added Stuff Hack – Extended Magic”. <span class="src">(<a href="https://nethackwiki.com/wiki/SLASH%27EM">NetHackWiki</a>)</span></li>
+<li>The dates disagree: the game's own history file says SLASH'EM 0.1 appeared in November 1997, NetHackWiki says Warren Cheung released it on 7 January 1998. <span class="src">(<a href="https://nethackwiki.com/wiki/SLASH%27EM">NetHackWiki</a>)</span></li>
+<li>0.0.7E7F3 (30 December 2006) is the last stable release; an alpha 0.0.8E0F1 came out the same day. <span class="src">(<a href="https://slashem.sourceforge.net/">slashem.sourceforge.net</a>)</span></li>
+<li>It is considered much more difficult than vanilla NetHack. <span class="src">(<a href="https://nethackwiki.com/wiki/SLASH%27EM">NetHackWiki</a>)</span></li>
+<li>Sokoban is among the features NetHack adopted from SLASH'EM. <span class="src">(<a href="https://www.roguebasin.com/index.php/SLASH%27EM">RogueBasin</a>)</span></li>
+<li>Its vampire race and Black Market level were taken over by other variants such as UnNetHack; Slash'EM Extended and SlashTHEM continue it. <span class="src">(<a href="https://nethackwiki.com/wiki/SLASH%27EM">NetHackWiki</a>)</span></li>
+<li>According to NetHackWiki, as of March 2026 no fork of SLASH'EM is maintained. <span class="src">(<a href="https://nethackwiki.com/wiki/SLASH%27EM">NetHackWiki</a>)</span></li>
+<li>3D and isometric front-ends exist: noegnud and Vulture. <span class="src">(<a href="https://en.wikipedia.org/wiki/SLASH%27EM">Wikipedia</a>)</span></li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>18 roles, 10 races.</strong> New roles Flame Mage, Ice Mage, Necromancer, Undead Slayer and Yeoman; new races doppelganger, drow, hobbit, lycanthrope and vampire, next to NetHack's 13 roles and 5 races.</li>
+<li><strong>Techniques</strong> (<kbd>#technique</kbd>, <kbd>T</kbd>): 41 role and race powers with a cooldown, from the Samurai's <em>kiii</em> and the Healer's <em>surgery</em> to the Necromancer's <em>raise zombies</em> and the Monk's <em>spirit bomb</em>.</li>
+<li><strong>A much bigger dungeon.</strong> Grund's Stronghold, the Wyrm Caves, One-eyed Sam's Black Market, the Lost Tomb, the Spider Caves, the Sunless Sea, the Temple of Moloch, the Giant Caverns and Frankenstein's Lab; special levels such as the rat and kobold levels, the storerooms, the nymph level, a Mall and the Guild of Disgruntled Adventurers.</li>
+<li><strong>Alignment quests</strong>: besides the role Quest, a Lawful, Neutral and Chaotic Quest, each a single level behind a portal.</li>
+<li><strong>Lightsabers and firearms</strong> (pistols to rocket launchers), medical kits, orbs, and edible killers: the “killer food ration” is a monster.</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li><strong>Language:</strong> K&amp;R-era C: 184,611 lines in 214 files under <code>src/</code> and <code>include/</code>; 344,004 lines in 535 <code>.c</code>/<code>.h</code>/<code>.y</code>/<code>.l</code> files counting ports and tools (upstream commit <code>ab6287b</code>).</li>
+<li><strong>Platforms:</strong> <code>sys/</code> has Unix, MS-DOS, Windows NT and CE, Mac, OS/2, Amiga, Atari, BeOS and VMS. Window ports in <code>win/</code>: tty, X11, Qt, GTK, GNOME, Win32, GEM, an OpenGL port (<code>gl</code>, glHack) and a proxy port for remote interfaces.</li>
+<li><strong>Data tables:</strong> monsters in <code>src/monst.c</code>, objects in <code>src/objects.c</code>, artifacts in <code>include/artilist.h</code>, roles and races in <code>src/role.c</code>, techniques in <code>src/tech.c</code>. Levels are written in <code>.des</code> files compiled by <code>lev_comp</code> (yacc/lex), the dungeon layout in <code>dat/dungeon.def</code> by <code>dgn_comp</code>. Save files are raw structs.</li>
+<li><strong>USER_SOUNDS</strong>: regex rules map messages to sound files; our port uses the same hook for its sound effects.</li>
+<li><strong>Our port:</strong> a web window port (<code>win/web/winweb.c</code>) built with Emscripten, auto-explore, walking to stairs, an Enter menu of all commands, and autosave. The level compilers run under node because wasm32's 4-byte <code>long</code> changes the data file headers.</li>
+<li><strong>Source:</strong> <a href="https://github.com/memmaker/slashem">memmaker/slashem</a>; upstream is the SourceForge tarball <a href="https://sourceforge.net/projects/slashem/files/slashem-source/0.0.7E7F3/">se007e7f3.tar.gz</a>; <a href="https://github.com/memmaker/slashem/compare/ab6287b...main">our changes</a>.</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<p>Counted in the source (object counts are table entries, a few of them alternatives under <code>#ifdef</code>; 537 objects in the build).</p>
+<table>
+<tr><th>Thing</th><th>Count</th><th>Notable ones</th></tr>
+<tr><td>Roles</td><td>18</td><td>The Flame Mage's rank titles run from <em>Spark</em> to <em>Disintegrator</em>; the Undead Slayer's quest leader is <em>Van Helsing</em> and its nemesis <em>Count Dracula</em>; the Yeoman faces <em>Colonel Blood</em>.</td></tr>
+<tr><td>Races</td><td>10</td><td>Human, elf, dwarf, gnome, orc, doppelganger, drow, hobbit, lycanthrope, vampire.</td></tr>
+<tr><td>Monsters</td><td>612</td><td><em>Grund the Orc King</em>, <em>Doctor Frankenstein</em> and his Monster, <em>Vecna</em>, the <em>Beholder</em>, the <em>Nightmare</em>, the koala, the wombat, and mimics as food: the <em>killer tripe ration</em> and the <em>huge pile of killer coins</em>.</td></tr>
+<tr><td>Artifacts</td><td>69</td><td>The Hand of Vecna, the Eye of the Beholder, the Keys of Law, Neutrality and Chaos, the Stake of Van Helsing, the Crown of Saint Edward, the Bat from Hell, Houchou.</td></tr>
+<tr><td>Techniques</td><td>41</td><td>Berserk, research, eviscerate, liquid leap, sigil of tempest, tinker, spirit bomb, draw blood.</td></tr>
+<tr><td>Weapons</td><td>82 + 18 firearms</td><td>Pistol, sniper rifle, auto shotgun, rocket launcher and their ammunition; lightsabers in green, blue and red, and a red double lightsaber.</td></tr>
+<tr><td>Armour</td><td>92</td><td>Eleven colours of dragon scales and scale mail (22 entries).</td></tr>
+<tr><td>Rings / Amulets</td><td>33 / 12</td><td>Ring of mood, of gain intelligence; amulet of drain resistance, of flying.</td></tr>
+<tr><td>Tools</td><td>~60</td><td>Orbs of enchantment, charging and destruction; land mine, beartrap, spoon, torch.</td></tr>
+<tr><td>Potions / Scrolls</td><td>32 / 23</td><td>Including vampire blood.</td></tr>
+<tr><td>Spellbooks</td><td>56</td><td>Flame sphere, freeze sphere, poison blast, acid stream, command undead, passwall, create familiar.</td></tr>
+<tr><td>Wands</td><td>30</td><td>Create horde, fireball, draining, fear.</td></tr>
+<tr><td>Food</td><td>37</td><td>Asian pear, eyeball, severed hand, meat stick, pill, holy wafer, K- and C-ration.</td></tr>
+<tr><td>Traps</td><td>22</td><td>Land mine, rolling boulder, magic portal.</td></tr>
+<tr><td>Dungeon</td><td>21 dungeons</td><td>Dungeons of Doom 42–46 levels, Gehennom 17, Gnomish Mines 8–9 (7 Minetown variants), Sokoban 4, the Quest 5–6, Vlad's Tower 3, Elemental Planes 6, plus eleven one-level branches.</td></tr>
+</table>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>The <a href="slashem/Guidebook.txt">SLASH'EM Guidebook (text, 3,960 lines, December 2003 edition)</a> shipped with the source, under the <a href="slashem/license.txt">NetHack General Public License</a>. Its last chapter is the history these pages quote. The in-game <kbd>?</kbd> help and the <a href="../slashem/help.html">port's help page</a> cover the keys.</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol>
+<li><a href="../slashem/">Open the game</a>, type a name and answer <kbd>n</kbd> to pick role, race, gender and alignment (a Valkyrie or a Samurai forgives mistakes), or <kbd>y</kbd> for random.</li>
+<li>Move with the arrow keys or <kbd>h</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd><kbd>y</kbd><kbd>u</kbd><kbd>b</kbd><kbd>n</kbd>; walk into a monster to attack. <kbd>~</kbd> explores on its own, <kbd>&gt;</kbd> walks to the stairs you have seen.</li>
+<li>Press <kbd>Enter</kbd> for a menu of every command, <kbd>i</kbd> for the inventory (also shown in its own window).</li>
+<li>Try your role's technique with <kbd>#technique</kbd>; pray (<kbd>#pray</kbd>) when hit points are low and you have not prayed in a long time.</li>
+<li>Eat when “Hungry”, keep your pet close, and expect to die more often than in NetHack: the full key list is in the <a href="../slashem/help.html">in-game guide</a>.</li>
+</ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>There is no walkthrough as such; the closest is NetHackWiki's <a href="https://nethackwiki.com/wiki/Standard_strategy_(SLASH%27EM)">Standard strategy (SLASH'EM)</a>, from character creation to the endgame. Rules of thumb from it:</p>
+<ul>
+<li>Gain experience level 2 on the first two dungeon levels before going deeper.</li>
+<li>Press <kbd>p</kbd> in a shop for the shopkeeper's services, such as identification and rustproofing.</li>
+<li>Drain resistance matters more than in NetHack (wands of draining, deep dragons).</li>
+<li>Don't fight One-eyed Sam head on in the Black Market.</li>
+<li>More: <a href="https://nethackwiki.com/wiki/SLASH%27EM">NetHackWiki: SLASH'EM</a>, <a href="https://www.roguebasin.com/index.php/SLASH%27EM">RogueBasin</a>, the source's own <code>doc/strategy.txt</code>.</li>
+</ul>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<ul>
+<li><strong>Wizard mode</strong> (<code>slashem -D</code>) is compiled in, but the browser page never passes <code>-D</code> (and the web build can't look up the user it checks), so it can't be reached here.</li>
+<li><strong>Explore mode</strong> works: <kbd>X</kbd> or <kbd>#explore</kbd> turns the game into a non-scoring discovery game, with no way back.</li>
+<li><strong>Save scumming</strong> works in the browser: <em>Export save</em> before something risky, <em>Import save</em> if it goes wrong.</li>
+<li>No exploits are listed here: none were checked on a fetched page.</li>
+</ul>
+</section>
+</div></body>
+</html>
