@@ -194,15 +194,15 @@ def silq():                                           # N:1-3 are more <player> 
     angband('sil-q', 'sil-q-1.5.0', 'monster.txt', 'N', 'graf-new.prf', 'lib/xtra/graf/16x16_microchasm.png', 16)
     os.remove(os.path.join(HERE, 'sil-q', '-player-.png'))
 
-def tactical():                                       # Shockbolt Dark (WEB_TILESET 5): monster:<name>:0xAA:0xCC, 64px
-    t = G + '/tactical-angband/lib/tiles/shockbolt/'
-    img, d = Image.open(t + '64x64.png').convert('RGBA'), os.path.join(HERE, 'tactical-angband')
+def tactical(g='tactical-angband'):                   # Shockbolt Dark (WEB_TILESET 5): monster:<name>:0xAA:0xCC, 64px
+    t = G + '/' + g + '/lib/tiles/shockbolt/'
+    img, d = Image.open(t + '64x64.png').convert('RGBA'), os.path.join(HERE, g)
     os.makedirs(d, exist_ok=True)
     for n, a, c in re.findall(r'^monster:([^:]+):0x(\w\w):0x(\w\w)', open(t + 'graf-shb-dark.prf').read(), re.M):
         if n == '<player>': continue
         x, y = (int(c, 16) & 0x7F) * 64, (int(a, 16) & 0x7F) * 64
         img.crop((x, y, x + 64, y + 64)).resize((32, 32), Image.LANCZOS).save(os.path.join(d, slug(n) + '.png'), optimize=True)
-    print('tactical-angband', len(os.listdir(d)))
+    print(g, len(os.listdir(d)))
 
 def crawl():                                          # tiles/tile.png, 32px, 30/row; tiles.cc tileidx_monster(), English mon-data.h names
     c = G + '/crawl-linley/source/'
@@ -355,4 +355,4 @@ def mag():                                            # DawnLike 16px (port/tile
     names = re.findall(r'^"([^"]+)",\s*\'.\'', open(m + '/src/MONSTER.H', encoding='latin-1').read().replace('\r', ''), re.M)
     cut('mag', m + '/port/tiles-dawn.png', 16, zip(names, ints(re.sub(r'mon_tile\[\d+\]', 'mon_tile[]', open(m + '/port/tiles.h').read()), 'mon_tile')))
 
-rogue(); hack(); umoria(); urogue(); larn(); ularn(); rogue36(); srogue(); roguepc(); tome2(); tinyangband(); quickband(); arogue58(); arogue77(); xrogue(); boss(); omega(); prime(); dynahack(); silq(); tactical(); crawl(); zapm(); alphaman(); decker(); nethack13d(); nethack50(); slashem(); zangband(); frogcomposband(); forays(); lambdarogue(); hengband(); easyband(); mag()
+rogue(); hack(); umoria(); urogue(); larn(); ularn(); rogue36(); srogue(); roguepc(); tome2(); tinyangband(); quickband(); arogue58(); arogue77(); xrogue(); boss(); omega(); prime(); dynahack(); silq(); tactical(); crawl(); zapm(); alphaman(); decker(); nethack13d(); nethack50(); slashem(); zangband(); frogcomposband(); forays(); lambdarogue(); hengband(); easyband(); mag(); tactical('faangband')
