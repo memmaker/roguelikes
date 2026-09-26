@@ -4,10 +4,14 @@ by release year, earliest first. Each .card <div> and each tree <li> carries
 data-year (the game's first release; decade-only dates use the decade's first
 year). Ties keep their current order.
 
-  ./order.py        check, exit 1 if out of order (deploy.sh runs this)
-  ./order.py --fix  re-sort in place
+Release years live in years.json only (slug -> {year, src}): --fix writes each
+card's data-year and tag year, and the data-year and leading year of the tree
+<li> that links to the same game, all linked (unstyled) to src.
+
+  ./order.py        check, exit 1 if out of order or out of sync (deploy.sh runs this)
+  ./order.py --fix  sync from years.json and re-sort in place
 """
-import re, sys
+import json, re, sys
 
 import os
 PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'index.html')
@@ -25,17 +29,8 @@ def name(chunk):
     m = re.search(r'<h2>(.*?)</h2>|class="n"[^>]*>(.*?)</', chunk)
     return (m.group(1) or m.group(2)) if m else chunk[:40]
 
-def shown_year(chunk):
-    """A card's tag must show its data-year (or its decade, e.g. 2010s)."""
-    m = re.search(r'<div class="tag">[^<]*· (\d{4})(s?)</div>', chunk)
-    y = year(chunk, 'cards')
-    if not m or (int(m.group(1)) != y if not m.group(2) else y // 10 != int(m.group(1)) // 10):
-        errors.append(f'cards: {name(chunk)} tag year does not match data-year {y}')
-
 def sort_items(items, what):
     """items: list of raw chunks; returns sorted list, records disorder."""
-    if what == 'cards':
-        for c in items: shown_year(c)
     keyed = [(year(c, what), c) for c in items]
     for (a, ca), (b, cb) in zip(keyed, keyed[1:]):
         if b < a:
@@ -88,9 +83,44 @@ def fix_ul(text, start, what):
     text2 = reorder(text, spans, what)
     return text2, tok.search(text2, spans[-1][1] if spans else start).start()
 
+YEARS = json.load(open(os.path.join(os.path.dirname(PATH), 'years.json'), encoding='utf-8'))
+
+def yr_link(y, src):
+    return f'<a class="yr" href="{src}">{y}</a>'
+
+def sync_card(m):
+    c = m.group(0)
+    slug = re.search(r'class="play" href="([^"/]+)/"', c).group(1)
+    if slug not in YEARS:
+        errors.append(f'years.json: no entry for card {slug}'); return c
+    y, src = YEARS[slug]['year'], YEARS[slug]['src']
+    c = YEAR.sub(f'data-year="{y}"', c, 1)
+    return re.sub(r'(<div class="tag">[^<]*· )(?:<a class="yr"[^>]*>)?\d{4}s?(?:</a>)?',
+                  lambda t: t.group(1) + yr_link(y, src), c, 1)
+
+def sync_li(m):
+    li, slug = m.group(0), m.group(2)
+    if slug not in YEARS: return li
+    y, src = YEARS[slug]['year'], YEARS[slug]['src']
+    li = YEAR.sub(f'data-year="{y}"', li, 1)
+    return re.sub(r'(<span class="y">)(?:<a class="yr"[^>]*>)?\d{4}s?(?:</a>)?',
+                  lambda t: t.group(1) + yr_link(y, src), li, 1)
+
+def sync(text):
+    spans = card_spans(text)
+    out, pos = [], 0
+    for s_, e in spans:
+        out += [text[pos:s_], re.sub(r'.*', sync_card, text[s_:e], 1, re.S)]; pos = e
+    text = ''.join(out) + text[pos:]
+    ts = text.index('<section id="tree"')
+    return text[:ts] + re.sub(r'<li[^>]*>(<a class="n" href="([^"/]+)/")[^\n]*', sync_li, text[ts:])
+
 def main():
     fix = '--fix' in sys.argv
-    text = open(PATH, encoding='utf-8').read()
+    orig = open(PATH, encoding='utf-8').read()
+    text = sync(orig)
+    if text != orig and not fix:
+        errors.append('index.html years differ from years.json')
     text = reorder(text, card_spans(text), 'cards')
     ts = text.index('<section id="tree"')
     text, _ = fix_ul(text, text.index('<ul>', ts) + 4, 'tree')

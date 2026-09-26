@@ -49,6 +49,7 @@ main { max-width:1100px; margin:0 auto; padding:16px 16px 64px; display:grid; ga
 .card { position:relative; }
 .card .play::after { content:""; position:absolute; inset:0; } /* whole card clicks Play */
 .btns { display:flex; gap:8px; } .info { position:relative; z-index:1; }
+a.yr { color:inherit; text-decoration:none; position:relative; z-index:1; } /* year → release-date source */
 .card:hover, .card:focus-within { transform:translateY(-4px); border-color:var(--gold);
   box-shadow:0 14px 40px rgba(0,0,0,.7), 0 0 24px rgba(224,178,79,.25); outline:none; }
 .card img { width:100%; aspect-ratio:12/5; object-fit:cover; image-rendering:pixelated; background:#0c0a0e;
@@ -101,263 +102,263 @@ body.tree main { display:none; } body:not(.tree) #tree { display:none; }
 <!-- One card per published game (rule: ~/Games/rogue2wasm.md). Cards and each tree level sorted by data-year, earliest first: ./order.py -->
   <div class="card" data-year="1981">
     <img src="rogue36.png" alt="Monster sprites from the NetHack 16×16 tileset used by Rogue 3.6">
-    <div class="body"><h2>Rogue 3.6</h2><div class="tag">The original Rogue · 1981</div><div class="ver">Based on Rogue 3.6.4 · RoguelikeRestorationProject/rogue3.6 @ f36912c</div>
+    <div class="body"><h2>Rogue 3.6</h2><div class="tag">The original Rogue · <a class="yr" href="https://www.roguebasin.com/index.php/Rogue">1981</a></div><div class="ver">Based on Rogue 3.6.4 · RoguelikeRestorationProject/rogue3.6 @ f36912c</div>
       <p>Rogue as it first spread across the world's Unix machines in 1981, with its original monsters from the giant ant to the zombie: the version Advanced Rogue and Super-Rogue grew from.</p>
       <span class="btns"><a class="play" href="rogue36/">&gt; Enter the dungeon</a><a class="play info" href="shrine/rogue36.html">Info</a></span></div></div>
   <div class="card" data-year="1984">
     <img src="srogue.png" alt="Monster sprites from the NetHack 16×16 tileset used by Super-Rogue">
-    <div class="body"><h2>Super-Rogue</h2><div class="tag">Rogue variant · 1984</div><div class="ver">Based on Super-Rogue 9.0 · RoguelikeRestorationProject/srogue @ c693810</div>
+    <div class="body"><h2>Super-Rogue</h2><div class="tag">Rogue variant · <a class="yr" href="https://www.roguebasin.com/index.php/Super-Rogue">1984</a></div><div class="ver">Based on Super-Rogue 9.0 · RoguelikeRestorationProject/srogue @ c693810</div>
       <p>Robert Kindelberger's bigger Rogue 3.6: four stats, a weight limit, trading posts, maze levels and magic pools, with the Amulet of Yendor waiting at level 35 or deeper.</p>
       <span class="btns"><a class="play" href="srogue/">&gt; Enter the dungeon</a><a class="play info" href="shrine/srogue.html">Info</a></span></div></div>
   <div class="card" data-year="1985">
     <img src="hack.png" alt="Monster sprites from the DawnLike 16×16 tileset used by Hack">
-    <div class="body"><h2>Hack</h2><div class="tag">The ancestor of NetHack · 1985</div><div class="ver">Based on Hack 1.0.3 (restoHack) · Critlist/restoHack @ 0bd798b</div>
+    <div class="body"><h2>Hack</h2><div class="tag">The ancestor of NetHack · <a class="yr" href="https://nethackwiki.com/wiki/Hack_1.0.3">1985</a></div><div class="ver">Based on Hack 1.0.3 (restoHack) · Critlist/restoHack @ 0bd798b</div>
       <p>Andries Brouwer's Hack 1.0.3 (1985), the game NetHack grew from: pets, shops, a nymph that steals, a cockatrice that stones, and the Amulet of Yendor waiting at the bottom. Tiles: DawnLike, or NetHack's own, switchable.</p>
       <span class="btns"><a class="play" href="hack/">&gt; Enter the dungeon</a><a class="play info" href="shrine/hack.html">Info</a></span></div></div>
   <div class="card" data-year="1985">
     <img src="rogue54.png" alt="Monster sprites from the NetHack 16×16 tileset used by Rogue 5.4">
-    <div class="body"><h2>Rogue 5.4</h2><div class="tag">The original Rogue · 1985</div><div class="ver">Based on Rogue 5.4.5 (rogueforge) · RoguelikeRestorationProject/rogue5.4 @ 9d0dccc</div>
+    <div class="body"><h2>Rogue 5.4</h2><div class="tag">The original Rogue · <a class="yr" href="https://www.roguebasin.com/index.php/Rogue">1985</a></div><div class="ver">Based on Rogue 5.4.5 (rogueforge) · RoguelikeRestorationProject/rogue5.4 @ 9d0dccc</div>
       <p>The Berkeley Unix Rogue that named a genre: 26 levels, one monster for every letter, items you learn by using them, and the Amulet of Yendor at the bottom.</p>
       <span class="btns"><a class="play" href="rogue54/">&gt; Enter the dungeon</a><a class="play info" href="shrine/rogue54.html">Info</a></span></div></div>
   <div class="card" data-year="1985">
     <img src="arogue58.png" alt="Monster sprites from the NetHack 16×16 tileset used by Advanced Rogue">
-    <div class="body"><h2>Advanced Rogue 5.8</h2><div class="tag">Rogue variant · 1985</div><div class="ver">Based on Advanced Rogue 5.8.2 · RoguelikeRestorationProject/arogue5.8 @ 49b1289</div>
+    <div class="body"><h2>Advanced Rogue 5.8</h2><div class="tag">Rogue variant · <a class="yr" href="https://www.roguebasin.com/index.php/Advanced_Rogue">1985</a></div><div class="ver">Based on Advanced Rogue 5.8.2 · RoguelikeRestorationProject/arogue5.8 @ 49b1289</div>
       <p>The early Advanced Rogue: four classes with spells and prayers, around 120 monsters, trading posts, and a quest artifact to bring back up.</p>
       <span class="btns"><a class="play" href="arogue58/">&gt; Enter the dungeon</a><a class="play info" href="shrine/arogue58.html">Info</a></span></div></div>
   <div class="card" data-year="1985">
     <img src="urogue.png" alt="Monster sprites from the NetHack 16×16 tileset used by UltraRogue">
-    <div class="body"><h2>UltraRogue</h2><div class="tag">Advanced Rogue variant · 1985</div><div class="ver">Based on UltraRogue 1.0.7 · RoguelikeRestorationProject/urogue @ 8dec2be</div>
+    <div class="body"><h2>UltraRogue</h2><div class="tag">Advanced Rogue variant · <a class="yr" href="https://www.roguebasin.com/index.php/UltraRogue">1985</a></div><div class="ver">Based on UltraRogue 1.0.7 · RoguelikeRestorationProject/urogue @ 8dec2be</div>
       <p>The biggest game of the Rogue family: ten classes, about four hundred monsters from dinosaurs to the gods of Greyhawk, and an artifact you must bring up from the depths before the stairs will take you home.</p>
       <span class="btns"><a class="play" href="urogue/">&gt; Enter the dungeon</a><a class="play info" href="shrine/urogue.html">Info</a></span></div></div>
   <div class="card" data-year="1985">
     <img src="roguepc.png" alt="A room in the original IBM PC text mode of Rogue">
-    <div class="body"><h2>Rogue PC</h2><div class="tag">The original Rogue · 1985</div><div class="ver">Based on Rogue PC 1.48 (rogue-pc-modern-C)</div>
+    <div class="body"><h2>Rogue PC</h2><div class="tag">The original Rogue · <a class="yr" href="https://en.wikipedia.org/wiki/Rogue_(video_game)">1985</a></div><div class="ver">Based on Rogue PC 1.48 (rogue-pc-modern-C)</div>
       <p>The Epyx IBM PC edition of Rogue, in its original colours and CP437 symbols or with tiles: 26 levels down to the Amulet of Yendor, and back up again.</p>
       <span class="btns"><a class="play" href="roguepc/">&gt; Enter the dungeon</a><a class="play info" href="shrine/roguepc.html">Info</a></span></div></div>
   <div class="card" data-year="1986">
     <img src="arogue77.png" alt="Monster sprites from the NetHack 16×16 tileset used by Advanced Rogue">
-    <div class="body"><h2>Advanced Rogue 7.7</h2><div class="tag">Rogue variant · 1986</div><div class="ver">Based on Advanced Rogue 7.7.1 · RoguelikeRestorationProject/arogue7.7 @ 976b5bb</div>
+    <div class="body"><h2>Advanced Rogue 7.7</h2><div class="tag">Rogue variant · <a class="yr" href="https://www.roguebasin.com/index.php/Advanced_Rogue">1986</a></div><div class="ver">Based on Advanced Rogue 7.7.1 · RoguelikeRestorationProject/arogue7.7 @ 976b5bb</div>
       <p>Rogue grown into a full RPG: nine classes with spells, prayers and chants, over a hundred monsters, trading posts, and a quest artifact to carry back to the surface.</p>
       <span class="btns"><a class="play" href="arogue77/">&gt; Enter the dungeon</a><a class="play info" href="shrine/arogue77.html">Info</a></span></div></div>
   <div class="card" data-year="1986">
     <img src="larn.png" alt="Monster sprites from the Amiga Larn tileset">
-    <div class="body"><h2>Larn</h2><div class="tag">Classic roguelike · 1986</div><div class="ver">Based on RL_M 26.4.0 · atsb/RL_M @ 12cefcd</div>
+    <div class="body"><h2>Larn</h2><div class="tag">Classic roguelike · <a class="yr" href="https://en.wikipedia.org/wiki/Larn_(video_game)">1986</a></div><div class="ver">Based on RL_M 26.4.0 · atsb/RL_M @ 12cefcd</div>
       <p>Your daughter is dying and the cure lies at the bottom of the caverns of Larn. A small, fixed dungeon, a town that turns gold into power, and a deadline that counts every step.</p>
       <span class="btns"><a class="play" href="larn/">&gt; Enter the dungeon</a><a class="play info" href="shrine/larn.html">Info</a></span></div></div>
   <div class="card" data-year="1987">
     <img src="ularn.png" alt="Monster sprites from the Amiga Larn tileset used by uLarn">
-    <div class="body"><h2>uLarn</h2><div class="tag">Larn variant · 1987</div><div class="ver">Based on Ularn 1.7.0 · ularn/ularn @ ef42184</div>
+    <div class="body"><h2>uLarn</h2><div class="tag">Larn variant · <a class="yr" href="https://en.wikipedia.org/wiki/Larn_(video_game)">1987</a></div><div class="ver">Based on Ularn 1.7.0 · ularn/ularn @ ef42184</div>
       <p>Larn made harder: pick one of eight classes, from Ogre to Rambo, and fetch the cure for your daughter from the bottom of the volcano, past demon lords and the God of Hellfire, before time runs out.</p>
       <span class="btns"><a class="play" href="ularn/">&gt; Enter the dungeon</a><a class="play info" href="shrine/ularn.html">Info</a></span></div></div>
   <div class="card" data-year="1987">
     <img src="nethack13d.png" alt="Monster sprites from the DawnLike 16×16 tileset used by NetHack 1.3d">
-    <div class="body"><h2>NetHack 1.3d</h2><div class="tag">The first NetHack line · 1987</div><div class="ver">Based on NetHack 1.3d (revived) · bhaak/NetHack-1.3d @ bcec982</div>
+    <div class="body"><h2>NetHack 1.3d</h2><div class="tag">The first NetHack line · <a class="yr" href="https://github.com/bhaak/NetHack-1.3d/blob/bcec982/README.revived">1987</a></div><div class="ver">Based on NetHack 1.3d (revived) · bhaak/NetHack-1.3d @ bcec982</div>
       <p>Mike Stephenson's early NetHack, a year after Hack: ninja, samurai, priests and valkyries join the classes, alongside shops and the Amulet deep below. Tiles: DawnLike, or NetHack's own, switchable.</p>
       <span class="btns"><a class="play" href="nethack13d/">&gt; Enter the dungeon</a><a class="play info" href="shrine/nethack13d.html">Info</a></span></div></div>
   <div class="card" data-year="1987">
     <img src="omega.png" alt="The @ at the gates of Rampart, guarded by red G guards">
-    <div class="body"><h2>Omega</h2><div class="tag">Wilderness roguelike · 1987</div><div class="ver">Based on Omega 0.80.2 · memmaker/omega @ f874b13</div>
+    <div class="body"><h2>Omega</h2><div class="tag">Wilderness roguelike · <a class="yr" href="https://en.wikipedia.org/wiki/Omega_(video_game)">1987</a></div><div class="ver">Based on Omega 0.80.2 · memmaker/omega @ f874b13</div>
       <p>Laurence Brothers' sprawling world: the city of Rampart, a wilderness map, guilds, priesthoods, a moon that changes your luck, and many dungeons. Text only, 16 colours.</p>
       <span class="btns"><a class="play" href="omega/">&gt; Enter the dungeon</a><a class="play info" href="shrine/omega.html">Info</a></span></div></div>
-  <div class="card" data-year="1988">
+  <div class="card" data-year="1987">
     <img src="umoria.png" alt="Umoria monsters">
-    <div class="body"><h2>Umoria</h2><div class="tag">The original Moria · 1988</div><div class="ver">Based on Umoria 5.7.15 · dungeons-of-moria/umoria @ 3bf8abc</div>
+    <div class="body"><h2>Umoria</h2><div class="tag">The original Moria · <a class="yr" href="https://github.com/dungeons-of-moria/umoria/blob/master/historical/history.md">1987</a></div><div class="ver">Based on Umoria 5.7.15 · dungeons-of-moria/umoria @ 3bf8abc</div>
       <p>The ancestor of Angband: one town, fifty levels of dungeon and the Balrog waiting at the bottom. Simple, harsh and still fair after forty years.</p>
       <span class="btns"><a class="play" href="umoria/">&gt; Enter the dungeon</a><a class="play info" href="shrine/umoria.html">Info</a></span></div></div>
   <div class="card" data-year="1988">
     <img src="mag.png" alt="DawnLike monster sprites in a torch-lit MAG room">
-    <div class="body"><h2>MAG</h2><div class="tag">Early DOS roguelike · 1988</div><div class="ver">Based on MAG PC-1.1 (1989) · the author's DOS source drop, memmaker/mag @ cc36a63</div>
+    <div class="body"><h2>MAG</h2><div class="tag">Early DOS roguelike · <a class="yr" href="http://crpgaddict.blogspot.com/2011/03/game-52-mikes-aventure-game-mag-1988.html">1988</a></div><div class="ver">Based on MAG PC-1.1 (1989) · the author's DOS source drop, memmaker/mag @ cc36a63</div>
       <p>Mike's Adventure Game by Michael J. Teixeira, between Rogue and Hack in size: find the Sudbury Sapphire, held by the Imperial Dragons, and bring it back up. Locked doors and keys, dark rooms lit by wall torches, a bow at your side. DawnLike tiles or the original PC text screen.</p>
       <span class="btns"><a class="play" href="mag/">&gt; Enter the dungeon</a><a class="play info" href="shrine/mag.html">Info</a></span></div></div>
   <div class="card" data-year="1991">
-    <img src="boss.png" alt="The town of Seattle in BOSS, drawn in text">
-    <div class="body"><h2>BOSS: Beyond Moria</h2><div class="tag">VMS Moria variant · 1991</div><div class="ver">Based on BOSS 2.4b · dungeons-of-moria/boss-beyond-moria @ bc2f3e5</div>
-      <p>Moria moved to a modern city: start in Seattle as a wrestler, ninja or scientist, carry baseballs, floppy disks and ray guns, and stay on the right side of the cops.</p>
-      <span class="btns"><a class="play" href="boss/">&gt; Enter the dungeon</a><a class="play info" href="shrine/boss.html">Info</a></span></div></div>
-  <div class="card" data-year="1991">
     <img src="xrogue.png" alt="Monster sprites from the NetHack 16×16 tileset used by XRogue">
-    <div class="body"><h2>XRogue</h2><div class="tag">Advanced Rogue variant · 1991</div><div class="ver">Based on XRogue 8.0.3</div>
+    <div class="body"><h2>XRogue</h2><div class="tag">Advanced Rogue variant · <a class="yr" href="https://www.roguebasin.com/index.php/XRogue">1991</a></div><div class="ver">Based on XRogue 8.0.3</div>
       <p>The last of the Advanced Rogue line: nine classes with their own magic, trading posts and wilderness, and a quest relic deep in the dungeon that you must carry back to the surface.</p>
       <span class="btns"><a class="play" href="xrogue/">&gt; Enter the dungeon</a><a class="play info" href="shrine/xrogue.html">Info</a></span></div></div>
+  <div class="card" data-year="1992">
+    <img src="boss.png" alt="The town of Seattle in BOSS, drawn in text">
+    <div class="body"><h2>BOSS: Beyond Moria</h2><div class="tag">VMS Moria variant · <a class="yr" href="https://github.com/dungeons-of-moria/boss-beyond-moria">1992</a></div><div class="ver">Based on BOSS 2.4b · dungeons-of-moria/boss-beyond-moria @ bc2f3e5</div>
+      <p>Moria moved to a modern city: start in Seattle as a wrestler, ninja or scientist, carry baseballs, floppy disks and ray guns, and stay on the right side of the cops.</p>
+      <span class="btns"><a class="play" href="boss/">&gt; Enter the dungeon</a><a class="play info" href="shrine/boss.html">Info</a></span></div></div>
   <div class="card" data-year="1994">
     <img src="zangband.png" alt="Monster sprites from the Shockbolt tileset">
-    <div class="body"><h2>Zangband</h2><div class="tag">Angband variant · 1994</div><div class="ver">Based on Zangband 2.7.6 · jjnoo/Zangband @ e177ff5</div>
+    <div class="body"><h2>Zangband</h2><div class="tag">Angband variant · <a class="yr" href="https://www.roguebasin.com/index.php/ZAngband">1994</a></div><div class="ver">Based on Zangband 2.7.6 · jjnoo/Zangband @ e177ff5</div>
       <p>Angband in the shadow of Zelazny's Amber: a huge wilderness with many towns and dungeons, Amberite princes among the monsters, chaos patrons, pets and Lua-scripted magic realms.</p>
       <span class="btns"><a class="play" href="zangband/">&gt; Enter the dungeon</a><a class="play info" href="shrine/zangband.html">Info</a></span></div></div>
   <div class="card" data-year="1995">
     <img src="alphaman.png" alt="A lair in AlphaMan, drawn in text">
-    <div class="body"><h2>AlphaMan</h2><div class="tag">Standalone · 1995</div><div class="ver">Based on AlphaMan 1.1 · superjamie/alphaman-src @ dda5598</div>
+    <div class="body"><h2>AlphaMan</h2><div class="tag">Standalone · <a class="yr" href="https://roguebasin.com/index.php/Alphaman">1995</a></div><div class="ver">Based on AlphaMan 1.1 · superjamie/alphaman-src @ dda5598</div>
       <p>After the bombs: a mutant with two random powers roams a valley in the ruins of Central New York, raids castles and lairs for old-world tech, and must stop the Grinch and his nerve toxin.</p>
       <span class="btns"><a class="play" href="alphaman/">&gt; Enter the valley</a><a class="play info" href="shrine/alphaman.html">Info</a></span></div></div>
-  <div class="card" data-year="1995">
+  <div class="card" data-year="1997">
     <img src="crawl-linley.png" alt="Monster tiles from the 2005 Dungeon Crawl tile version">
-    <div class="body"><h2>Linley's Dungeon Crawl</h2><div class="tag">The original Crawl · 1995</div><div class="ver">Based on Linley's Dungeon Crawl 4.00b26 + Itakura tile version e070 · memmaker/crawl-linley @ fd103ab</div>
+    <div class="body"><h2>Linley's Dungeon Crawl</h2><div class="tag">The original Crawl · <a class="yr" href="https://github.com/memmaker/crawl-linley/blob/main/docs/versions.txt">1997</a></div><div class="ver">Based on Linley's Dungeon Crawl 4.00b26 + Itakura tile version e070 · memmaker/crawl-linley @ fd103ab</div>
       <p>The game Stone Soup grew from: twenty-six species, gods with their own rules, a dungeon of branches from the Orc Mines to Hell and Pandemonium, and the Orb of Zot at the bottom. Shown with its 2005 tile version.</p>
       <span class="btns"><a class="play" href="crawl-linley/">&gt; Enter the dungeon</a><a class="play info" href="shrine/crawl-linley.html">Info</a></span></div></div>
   <div class="card" data-year="1997">
     <img src="slashem.png" alt="Monster sprites from SLASH'EM's own 16×16 tileset">
-    <div class="body"><h2>SLASH'EM</h2><div class="tag">NetHack variant · 1997</div><div class="ver">Based on SLASH'EM 0.0.7E7F3 · SourceForge se007e7f3.tar.gz</div>
+    <div class="body"><h2>SLASH'EM</h2><div class="tag">NetHack variant · <a class="yr" href="https://nethackwiki.com/wiki/SLASH%27EM">1997</a></div><div class="ver">Based on SLASH'EM 0.0.7E7F3 · SourceForge se007e7f3.tar.gz</div>
       <p>Super Lotsa Added Stuff Hack - Extended Magic: NetHack with more of everything. Extra roles and races, hundreds of new monsters and items, new spells and dungeon branches, all still on the way to the Amulet of Yendor.</p>
       <span class="btns"><a class="play" href="slashem/">&gt; Enter the dungeon</a><a class="play info" href="shrine/slashem.html">Info</a></span></div></div>
   <div class="card" data-year="2000">
-    <img src="tome2.png" alt="Monster sprites from ToME 2's 16×16 tileset">
-    <div class="body"><h2>ToME 2</h2><div class="tag">Angband variant · 2000s</div><div class="ver">Based on ToME 2.3.11 · tome2/tome2 @ dac2d95</div>
-      <p>The Tales of Middle-earth: a whole map of Middle-earth to roam, dozens of themed dungeons, gods to follow and a skill system that lets any class grow its own way. Also includes the Theme module.</p>
-      <span class="btns"><a class="play" href="tome2/">&gt; Enter the dungeon</a><a class="play info" href="shrine/tome2.html">Info</a></span></div></div>
-  <div class="card" data-year="2000">
     <img src="hengband.png" alt="Monster sprites from Adam Bolt's 16×16 tileset">
-    <div class="body"><h2>Hengband</h2><div class="tag">Japanese Zangband variant · 2000</div><div class="ver">Based on Hengband 3.0.2.4-Beta · hengband/hengband @ bf1054199</div>
+    <div class="body"><h2>Hengband</h2><div class="tag">Japanese Zangband variant · <a class="yr" href="https://hengband.github.io/history/history0.1.0.html">2000</a></div><div class="ver">Based on Hengband 3.0.2.4-Beta · hengband/hengband @ bf1054199</div>
       <p>Zangband remade in Japan and still growing: samurai, ninja, mirror-masters and cavalry that ride their pets, personalities next to race and class, many new dungeons and quests, and one of the biggest monster lists of the Angband family.</p>
       <span class="btns"><a class="play" href="hengband/">&gt; Enter the dungeon</a><a class="play info" href="shrine/hengband.html">Info</a></span></div></div>
-  <div class="card" data-year="2000">
-    <img src="tinyangband.png" alt="Monster sprites from TinyAngband's 16×16 tileset">
-    <div class="body"><h2>TinyAngband</h2><div class="tag">Japanese Zangband variant · 2000s</div><div class="ver">Based on TinyAngband 1.0.1 · iks3/tinyangband @ d221733</div>
-      <p>Made by the XAngband team as a compact alternative to the sprawling Zangband family: a world map with several towns and dungeons, and a quest count you choose at birth.</p>
-      <span class="btns"><a class="play" href="tinyangband/">&gt; Enter the dungeon</a><a class="play info" href="shrine/tinyangband.html">Info</a></span></div></div>
   <div class="card" data-year="2001">
     <img src="easyband.png" alt="Monster sprites from the Shockbolt tileset">
-    <div class="body"><h2>Easyband</h2><div class="tag">Angband variant · 2001</div><div class="ver">Based on Easyband 2.3 · source archive easyband23_src.rar (2001-09)</div>
+    <div class="body"><h2>Easyband</h2><div class="tag">Angband variant · <a class="yr" href="https://web.archive.org/web/20120502033403/http://www.angband.pwp.blueyonder.co.uk:80/easy.html">2001</a></div><div class="ver">Based on Easyband 2.3 · source archive easyband23_src.rar (2001-09)</div>
       <p>Angband 2.9.3 made friendlier: more generous loot, cheaper shops, a Magic shop that identifies and recharges, cure-all and identify commands, and 676 monsters, many of them from GSN2band, on the classic dive to Morgoth.</p>
       <span class="btns"><a class="play" href="easyband/">&gt; Enter the dungeon</a><a class="play info" href="shrine/easyband.html">Info</a></span></div></div>
   <div class="card" data-year="2001">
     <img src="decker.png" alt="ICE sprites from Decker">
-    <div class="body"><h2>Decker</h2><div class="tag">Cyberpunk hacking roguelike · 2001</div><div class="ver">Based on Decker 1.12 · memmaker/decker @ 29a82b6</div>
+    <div class="body"><h2>Decker</h2><div class="tag">Cyberpunk hacking roguelike · <a class="yr" href="https://sourceforge.net/projects/decker/">2001</a></div><div class="ver">Based on Decker 1.12 · memmaker/decker @ 29a82b6</div>
       <p>A hacker's career in the spirit of Shadowrun: take contracts, upgrade your cyberdeck and write your own programs, then crawl turn by turn through generated corporate systems where ICE programs are the monsters.</p>
       <span class="btns"><a class="play" href="decker/">&gt; Jack in</a><a class="play info" href="shrine/decker.html">Info</a></span></div></div>
   <div class="card" data-year="2002">
+    <img src="tome2.png" alt="Monster sprites from ToME 2's 16×16 tileset">
+    <div class="body"><h2>ToME 2</h2><div class="tag">Angband variant · <a class="yr" href="https://github.com/tome2/tome2">2002</a></div><div class="ver">Based on ToME 2.3.11 · tome2/tome2 @ dac2d95</div>
+      <p>The Tales of Middle-earth: a whole map of Middle-earth to roam, dozens of themed dungeons, gods to follow and a skill system that lets any class grow its own way. Also includes the Theme module.</p>
+      <span class="btns"><a class="play" href="tome2/">&gt; Enter the dungeon</a><a class="play info" href="shrine/tome2.html">Info</a></span></div></div>
+  <div class="card" data-year="2003">
     <img src="zapm.png" alt="The ZAPM title in yellow block letters over a small map">
-    <div class="body"><h2>ZAPM</h2><div class="tag">Science-fiction NetHack parody · 2002</div><div class="ver">Based on ZAPM 0.8.3 · winny-/ZAPM-winny @ 0fd7af8</div>
+    <div class="body"><h2>ZAPM</h2><div class="tag">Science-fiction NetHack parody · <a class="yr" href="https://www.roguebasin.com/index.php/ZapM">2003</a></div><div class="ver">Based on ZAPM 0.8.3 · winny-/ZAPM-winny @ 0fd7af8</div>
       <p>A janitor, a space marine or a psion on a space base full of aliens, droids, klingons and bad jokes. Canisters for potions, floppy disks for scrolls, ray guns for wands. Text only.</p>
       <span class="btns"><a class="play" href="zapm/">&gt; Enter the dungeon</a><a class="play info" href="shrine/zapm.html">Info</a></span></div></div>
   <div class="card" data-year="2003">
     <img src="nppangband.png" alt="Monster sprites from the Shockbolt tileset">
-    <div class="body"><h2>NPPAngband</h2><div class="tag">Angband variant · 2003</div><div class="ver">Based on NPPAngband 0.5.1 · nppangband/NPPAngband @ b1d1d85</div>
+    <div class="body"><h2>NPPAngband</h2><div class="tag">Angband variant · <a class="yr" href="https://www.roguebasin.com/index.php/No_Pet_Peeves_Angband">2003</a></div><div class="ver">Based on NPPAngband 0.5.1 · nppangband/NPPAngband @ b1d1d85</div>
       <p>No Pet Peeves Angband: terrain that changes every fight (lava, deep water, ice, forests and monsters native to them), quests from the Adventurer's Guild, themed levels, monster traps and stealing, on the classic dive to Morgoth.</p>
       <span class="btns"><a class="play" href="nppangband/">&gt; Enter the dungeon</a><a class="play info" href="shrine/nppangband.html">Info</a></span></div></div>
   <div class="card" data-year="2005">
     <img src="faangband.png" alt="Monster sprites from the Shockbolt tileset">
-    <div class="body"><h2>FAangband</h2><div class="tag">Angband variant · 2005</div><div class="ver">Based on FAangband 2.0.1 · NickMcConnell/FAangband @ 0d85203</div>
+    <div class="body"><h2>FAangband</h2><div class="tag">Angband variant · <a class="yr" href="https://rec.games.roguelike.angband.narkive.com/dsEDoL2n/new-variant-faangband-0-1-0">2005</a></div><div class="ver">Based on FAangband 2.0.1 · NickMcConnell/FAangband @ 0d85203</div>
       <p>First Age Angband: Beleriand in the War of the Jewels. Travel a wilderness of forests, mountains and the towns of Men, Elves and Dwarves, learn specialties, set traps, and end at Angband itself. Version 2 is rebuilt on Angband 4.2.</p>
       <span class="btns"><a class="play" href="faangband/">&gt; Enter the dungeon</a><a class="play info" href="shrine/faangband.html">Info</a></span></div></div>
+  <div class="card" data-year="2005">
+    <img src="quickband.png" alt="Monster sprites from Quickband's 32×32 tileset">
+    <div class="body"><h2>Quickband</h2><div class="tag">NPPAngband variant · <a class="yr" href="https://rec.games.roguelike.angband.narkive.com/BdsAv3mZ/quickband-v1-05-released">2005</a></div><div class="ver">Based on Quickband 2.0.6 (AngbandPlus)</div>
+      <p>Angband cut down to a quick game: fewer, denser levels, better loot and faster levelling. Built so a full run from town to the final boss fits into days instead of months.</p>
+      <span class="btns"><a class="play" href="quickband/">&gt; Enter the dungeon</a><a class="play info" href="shrine/quickband.html">Info</a></span></div></div>
   <div class="card" data-year="2006">
     <img src="lambdarogue.png" alt="Monster sprites from LambdaRogue's own hand-drawn tiles on a stone floor">
-    <div class="body"><h2>LambdaRogue</h2><div class="tag">Graphical roguelike RPG · 2006</div><div class="ver">Based on LambdaRogue 1.6.4 · source from the Google Code archive (2012-11-17)</div>
+    <div class="body"><h2>LambdaRogue</h2><div class="tag">Graphical roguelike RPG · <a class="yr" href="https://www.roguebasin.com/index.php/LambdaRogue">2006</a></div><div class="ver">Based on LambdaRogue 1.6.4 · source from the Google Code archive (2012-11-17)</div>
       <p>Mario Donick's Book of Stars: from the Temple of Enoa into the dungeons below, with Greek gods to pray to, songs of magic learned from books, quests and professions, or a straight Coffeebreak dive to Eris. Its own hand-drawn tiles, sounds and soundtrack.</p>
       <span class="btns"><a class="play" href="lambdarogue/">&gt; Enter the dungeon</a><a class="play info" href="shrine/lambdarogue.html">Info</a></span></div></div>
   <div class="card" data-year="2009">
+    <img src="tinyangband.png" alt="Monster sprites from TinyAngband's 16×16 tileset">
+    <div class="body"><h2>TinyAngband</h2><div class="tag">Japanese Zangband variant · <a class="yr" href="https://github.com/iks3/tinyangband">2009</a></div><div class="ver">Based on TinyAngband 1.0.1 · iks3/tinyangband @ d221733</div>
+      <p>Made by the XAngband team as a compact alternative to the sprawling Zangband family: a world map with several towns and dungeons, and a quest count you choose at birth.</p>
+      <span class="btns"><a class="play" href="tinyangband/">&gt; Enter the dungeon</a><a class="play info" href="shrine/tinyangband.html">Info</a></span></div></div>
+  <div class="card" data-year="2009">
     <img src="prospector.png" alt="An away team in a space suit beside its landed ship on a grassy planet, with alien critters, forests and a volcano">
-    <div class="body"><h2>Prospector</h2><div class="tag">Space exploration roguelike · 2009</div><div class="ver">Based on Prospector R197 · Google Code rlprospector svn r197</div>
+    <div class="body"><h2>Prospector</h2><div class="tag">Space exploration roguelike · <a class="yr" href="https://www.roguebasin.com/index.php/Prospector">2009</a></div><div class="ver">Based on Prospector R197 · Google Code rlprospector svn r197</div>
       <p>Matthias Mennel's space roguelike: captain a small ship through an unexplored sector, map planets and send your away team down for minerals and alien bio data, trade at the stations, hire and train a crew, fight pirates, and retire rich. The game's own sprites by David Gervais and Deon, and its own sounds.</p>
       <span class="btns"><a class="play" href="prospector/">&gt; Enter the dungeon</a><a class="play info" href="shrine/prospector.html">Info</a></span></div></div>
-  <div class="card" data-year="2010">
+  <div class="card" data-year="2011">
     <img src="prime.png" alt="Monster sprites from the PRIME NotEye tileset">
-    <div class="body"><h2>PRIME</h2><div class="tag">ZAPM variant · 2010s</div><div class="ver">Based on PRIME 2.5a · Larzid/PRIME @ 4404414</div>
+    <div class="body"><h2>PRIME</h2><div class="tag">ZAPM variant · <a class="yr" href="https://github.com/Larzid/PRIME">2011</a></div><div class="ver">Based on PRIME 2.5a · Larzid/PRIME @ 4404414</div>
       <p>ZAPM grown up: new professions, mutant powers and implants, and the space base with its Sewer Plant, Gamma Caves, Robot Town and Mainframe. Shown with its NotEye tileset.</p>
       <span class="btns"><a class="play" href="prime/">&gt; Enter the dungeon</a><a class="play info" href="shrine/prime.html">Info</a></span></div></div>
-  <div class="card" data-year="2010">
-    <img src="quickband.png" alt="Monster sprites from Quickband's 32×32 tileset">
-    <div class="body"><h2>Quickband</h2><div class="tag">NPPAngband variant · 2010s</div><div class="ver">Based on Quickband 2.0.6 (AngbandPlus)</div>
-      <p>Angband cut down to a quick game: fewer, denser levels, better loot and faster levelling. Built so a full run from town to the final boss fits into days instead of months.</p>
-      <span class="btns"><a class="play" href="quickband/">&gt; Enter the dungeon</a><a class="play info" href="shrine/quickband.html">Info</a></span></div></div>
-  <div class="card" data-year="2010">
-    <img src="sil-q.png" alt="Monster sprites from Sil-Q's MicroChasm 16×16 tileset">
-    <div class="body"><h2>Sil-Q</h2><div class="tag">Sil continuation (Angband lineage) · 2010s</div><div class="ver">Based on Sil-Q 1.5.0 · sil-quirk/sil-q @ 09a53ab</div>
-      <p>Steal a Silmaril from Morgoth's crown and escape Angband alive. No classes, no levels and almost no magic: stealth, careful positioning and a few hard-won skills keep you going.</p>
-      <span class="btns"><a class="play" href="sil-q/">&gt; Enter the dungeon</a><a class="play info" href="shrine/sil-q.html">Info</a></span></div></div>
-  <div class="card" data-year="2012">
-    <img src="dynahack.png" alt="Monster sprites from the NetHack 3.4.3-style 16×16 tileset used by DynaHack">
-    <div class="body"><h2>DynaHack</h2><div class="tag">NetHack4 / UnNetHack variant · 2012</div><div class="ver">Based on DynaHack 0.6.0 · tung/DynaHack @ 25aaf2a</div>
-      <p>NetHack with randomized magical equipment, UnNetHack's new items, monsters and maps, magic chests and fewer instant deaths, played through the modern NetHack4-style interface. Tiles: NetHack 3.4.3's.</p>
-      <span class="btns"><a class="play" href="dynahack/">&gt; Enter the dungeon</a><a class="play info" href="shrine/dynahack.html">Info</a></span></div></div>
   <div class="card" data-year="2012">
     <img src="forays.png" alt="A Forays map in the game's own font: the @ fighting a darkness dweller, a carnivorous bramble by the water">
-    <div class="body"><h2>Forays into Norrendrin</h2><div class="tag">Tactical fantasy roguelike · 2012</div><div class="ver">Based on Forays into Norrendrin 0.8.4 · Forays/ForaysIntoNorrendrin @ 3ed1559</div>
+    <div class="body"><h2>Forays into Norrendrin</h2><div class="tag">Tactical fantasy roguelike · <a class="yr" href="https://www.roguebasin.com/index.php/Forays_into_Norrendrin">2012</a></div><div class="ver">Based on Forays into Norrendrin 0.8.4 · Forays/ForaysIntoNorrendrin @ 3ed1559</div>
       <p>Derrick Creamer's lean, tactical descent: no classes and no experience, only shrines that grant skills and feats, five weapons and three armors you always carry, and light and terrain that decide every fight. Text only, in the game's own colours.</p>
       <span class="btns"><a class="play" href="forays/">&gt; Enter the dungeon</a><a class="play info" href="shrine/forays.html">Info</a></span></div></div>
+  <div class="card" data-year="2013">
+    <img src="dynahack.png" alt="Monster sprites from the NetHack 3.4.3-style 16×16 tileset used by DynaHack">
+    <div class="body"><h2>DynaHack</h2><div class="tag">NetHack4 / UnNetHack variant · <a class="yr" href="https://nethackwiki.com/wiki/DynaHack">2013</a></div><div class="ver">Based on DynaHack 0.6.0 · tung/DynaHack @ 25aaf2a</div>
+      <p>NetHack with randomized magical equipment, UnNetHack's new items, monsters and maps, magic chests and fewer instant deaths, played through the modern NetHack4-style interface. Tiles: NetHack 3.4.3's.</p>
+      <span class="btns"><a class="play" href="dynahack/">&gt; Enter the dungeon</a><a class="play info" href="shrine/dynahack.html">Info</a></span></div></div>
   <div class="card" data-year="2018">
     <img src="frogcomposband.png" alt="Monster sprites from the Shockbolt tileset">
-    <div class="body"><h2>FrogComposband</h2><div class="tag">Angband variant · 2018</div><div class="ver">Based on FrogComposband 7.1.salmiak.6 · sulkasormi/frogcomposband @ 3d28f6b1</div>
+    <div class="body"><h2>FrogComposband</h2><div class="tag">Angband variant · <a class="yr" href="https://github.com/sulkasormi/frogcomposband/blob/master/readme.txt">2018</a></div><div class="ver">Based on FrogComposband 7.1.salmiak.6 · sulkasormi/frogcomposband @ 3d28f6b1</div>
       <p>The biggest of the Hengband/PosChengband line: dozens of races and classes, monster races that grow up or possess what they kill, a wilderness full of towns and quests, and a fast coffee-break mode.</p>
       <span class="btns"><a class="play" href="frogcomposband/">&gt; Enter the dungeon</a><a class="play info" href="shrine/frogcomposband.html">Info</a></span></div></div>
-  <div class="card" data-year="2020">
+  <div class="card" data-year="2022">
+    <img src="sil-q.png" alt="Monster sprites from Sil-Q's MicroChasm 16×16 tileset">
+    <div class="body"><h2>Sil-Q</h2><div class="tag">Sil continuation (Angband lineage) · <a class="yr" href="https://github.com/sil-quirk/sil-q">2022</a></div><div class="ver">Based on Sil-Q 1.5.0 · sil-quirk/sil-q @ 09a53ab</div>
+      <p>Steal a Silmaril from Morgoth's crown and escape Angband alive. No classes, no levels and almost no magic: stealth, careful positioning and a few hard-won skills keep you going.</p>
+      <span class="btns"><a class="play" href="sil-q/">&gt; Enter the dungeon</a><a class="play info" href="shrine/sil-q.html">Info</a></span></div></div>
+  <div class="card" data-year="2022">
     <img src="tactical-angband.png" alt="Monster sprites from the Shockbolt tileset">
-    <div class="body"><h2>Tactical Angband</h2><div class="tag">Angband 4.2 variant · 2020s</div><div class="ver">Based on Tactical Angband 0.9beta2 · tomm/tactical-angband @ 06a3ea6</div>
+    <div class="body"><h2>Tactical Angband</h2><div class="tag">Angband 4.2 variant · <a class="yr" href="https://github.com/tomm/tactical-angband">2022</a></div><div class="ver">Based on Tactical Angband 0.9beta2 · tomm/tactical-angband @ 06a3ea6</div>
       <p>Angband without the grind: 50 small levels, short sight lines, one mighty blow instead of many small ones, and almost no long-range teleporting, so every fight is decided by positioning.</p>
       <span class="btns"><a class="play" href="tactical-angband/">&gt; Enter the dungeon</a><a class="play info" href="shrine/tactical-angband.html">Info</a></span></div></div>
   <div class="card" data-year="2026">
     <img src="nethack50.png" alt="Monster sprites from NetHack's own 16×16 tileset used by NetHack 5.0">
-    <div class="body"><h2>NetHack 5.0</h2><div class="tag">Modern NetHack · 2026</div><div class="ver">Based on NetHack 5.0 · NetHack/NetHack @ dd8acee</div>
+    <div class="body"><h2>NetHack 5.0</h2><div class="tag">Modern NetHack · <a class="yr" href="https://github.com/NetHack/NetHack/releases/tag/NetHack-5.0.0_Released">2026</a></div><div class="ver">Based on NetHack 5.0 · NetHack/NetHack @ dd8acee</div>
       <p>The current NetHack from the DevTeam: forty years of monsters, gods, shops, quests and Sokoban, ending in the Astral Plane. Separate map, message and inventory windows. Tiles: NetHack's own.</p>
       <span class="btns"><a class="play" href="nethack50/">&gt; Enter the dungeon</a><a class="play info" href="shrine/nethack50.html">Info</a></span></div></div>
 </main>
 <section id="tree" aria-label="Family tree">
 <p class="legend">Who built on whom. Solid line: code is descended from the parent. <span class="dash">Dashed line</span>: new code, inspired by the parent. Games you can play here are gold; <span class="dash">✦</span> opens a game's shrine.</p>
 <ul><li data-year="1980"><span class="n">Rogue</span> <span class="y">1980 · Toy, Wichman, Arnold</span><ul>
-  <li data-year="1981"><a class="n" href="rogue36/">Rogue 3.6</a><a class="shrine" href="shrine/rogue36.html" title="Shrine: history, stats, manual">✦</a> <span class="y">1981 · first widely released version</span><ul>
+  <li data-year="1981"><a class="n" href="rogue36/">Rogue 3.6</a><a class="shrine" href="shrine/rogue36.html" title="Shrine: history, stats, manual">✦</a> <span class="y"><a class="yr" href="https://www.roguebasin.com/index.php/Rogue">1981</a> · first widely released version</span><ul>
     <li data-year="1982"><span class="n">Rogue 5.2 / 5.3</span> <span class="y">1982–83</span><ul>
-      <li data-year="1985"><a class="n" href="roguepc/">Rogue PC</a><a class="shrine" href="shrine/roguepc.html" title="Shrine: history, stats, manual">✦</a> <span class="y">1985 · Epyx IBM PC edition (Toy, Lane, Wichman)</span></li>
-      <li data-year="1985"><a class="n" href="rogue54/">Rogue 5.4</a><a class="shrine" href="shrine/rogue54.html" title="Rogue 5.4 shrine: history, stats, manual">✦</a> <span class="y">1985 · Berkeley (BSD) Rogue</span></li></ul></li>
-    <li data-year="1984"><a class="n" href="srogue/">Super-Rogue</a><a class="shrine" href="shrine/srogue.html" title="Shrine: history, stats, manual">✦</a> <span class="y">1984 · Robert Kindelberger</span></li>
+      <li data-year="1985"><a class="n" href="roguepc/">Rogue PC</a><a class="shrine" href="shrine/roguepc.html" title="Shrine: history, stats, manual">✦</a> <span class="y"><a class="yr" href="https://en.wikipedia.org/wiki/Rogue_(video_game)">1985</a> · Epyx IBM PC edition (Toy, Lane, Wichman)</span></li>
+      <li data-year="1985"><a class="n" href="rogue54/">Rogue 5.4</a><a class="shrine" href="shrine/rogue54.html" title="Rogue 5.4 shrine: history, stats, manual">✦</a> <span class="y"><a class="yr" href="https://www.roguebasin.com/index.php/Rogue">1985</a> · Berkeley (BSD) Rogue</span></li></ul></li>
+    <li data-year="1984"><a class="n" href="srogue/">Super-Rogue</a><a class="shrine" href="shrine/srogue.html" title="Shrine: history, stats, manual">✦</a> <span class="y"><a class="yr" href="https://www.roguebasin.com/index.php/Super-Rogue">1984</a> · Robert Kindelberger</span></li>
     <li data-year="1984"><span class="n">Advanced Rogue</span> <span class="y">1984 · Morgan, Dalka · from 3.6 and Super-Rogue</span><ul>
-      <li data-year="1985"><a class="n" href="urogue/">UltraRogue</a><a class="shrine" href="shrine/urogue.html" title="Shrine: history, stats, manual">✦</a> <span class="y">1985 · Herb Chong</span></li>
-      <li data-year="1985"><a class="n" href="arogue58/">Advanced Rogue 5.8</a><a class="shrine" href="shrine/arogue58.html" title="Shrine: history, stats, manual">✦</a> <span class="y">1985</span><ul>
-        <li data-year="1986"><a class="n" href="arogue77/">Advanced Rogue 7.7</a><a class="shrine" href="shrine/arogue77.html" title="Shrine: history, stats, manual">✦</a> <span class="y">1986 · last Advanced Rogue</span><ul>
-          <li data-year="1991"><a class="n" href="xrogue/">XRogue</a><a class="shrine" href="shrine/xrogue.html" title="Shrine: history, stats, manual">✦</a> <span class="y">1991 · Pietkivitch</span></li></ul></li></ul></li></ul></li></ul></li>
-  <li class="insp" data-year="1982"><a class="n" href="hack/">Hack</a><a class="shrine" href="shrine/hack.html">✦</a> <span class="y">1982 · Jay Fenlason; 1.0.3: 1985 · Andries Brouwer</span><ul>
-    <li data-year="1987"><a class="n" href="nethack13d/">NetHack</a><a class="shrine" href="shrine/nethack13d.html">✦</a> <span class="y">1987 · Mike Stephenson; 1.3d: 1987</span><ul>
-      <li data-year="1997"><a class="n" href="slashem/">SLASH'EM</a><a class="shrine" href="shrine/slashem.html" title="Shrine: history, stats, manual">✦</a> <span class="y">1997 · Warren Cheung · SLASH 4.1.2 + Wizard Patch, from NetHack 3.2; 0.0.7E7F3 on NetHack 3.4.3</span></li>
-      <li class="insp" data-year="2002"><a class="n" href="zapm/">ZAPM</a><a class="shrine" href="shrine/zapm.html" title="Shrine: history, stats, manual">✦</a> <span class="y">2000s · Cyrus Dolph</span><span class="why">sci-fi parody of NetHack, own C++ code</span><ul>
-        <li data-year="2010"><a class="n" href="prime/">PRIME</a><a class="shrine" href="shrine/prime.html" title="Shrine: history, stats, manual">✦</a> <span class="y">2010 · Psiweapon, Michał Bieliński</span></li></ul></li>
-      <li data-year="2009"><span class="n">UnNetHack</span> <span class="y">2009 · Patric Mueller · from NetHack 3.4.3</span></li>
-      <li data-year="2011"><span class="n">NitroHack</span> <span class="y">2011 · Daniel Thaler · from NetHack 3.4.3</span><ul>
-        <li data-year="2012"><span class="n">NetHack4</span> <span class="y">2012 · Alex Smith, Sean Hunt</span></li>
-        <li data-year="2012"><a class="n" href="dynahack/">DynaHack</a><a class="shrine" href="shrine/dynahack.html" title="Shrine: history, stats, manual">✦</a> <span class="y">2012 · Tung Nguyen · NitroHack 4.0.4 with UnNetHack's content merged in</span></li></ul></li>
-      <li data-year="2026"><a class="n" href="nethack50/">NetHack 5.0</a><a class="shrine" href="shrine/nethack50.html" title="Shrine: history, stats, manual">✦</a> <span class="y">2026 · NetHack DevTeam · from NetHack 3.6 (via 3.7 dev)</span></li></ul></li></ul></li>
+      <li data-year="1985"><a class="n" href="urogue/">UltraRogue</a><a class="shrine" href="shrine/urogue.html" title="Shrine: history, stats, manual">✦</a> <span class="y"><a class="yr" href="https://www.roguebasin.com/index.php/UltraRogue">1985</a> · Herb Chong</span></li>
+      <li data-year="1985"><a class="n" href="arogue58/">Advanced Rogue 5.8</a><a class="shrine" href="shrine/arogue58.html" title="Shrine: history, stats, manual">✦</a> <span class="y"><a class="yr" href="https://www.roguebasin.com/index.php/Advanced_Rogue">1985</a></span><ul>
+        <li data-year="1986"><a class="n" href="arogue77/">Advanced Rogue 7.7</a><a class="shrine" href="shrine/arogue77.html" title="Shrine: history, stats, manual">✦</a> <span class="y"><a class="yr" href="https://www.roguebasin.com/index.php/Advanced_Rogue">1986</a> · last Advanced Rogue</span><ul>
+          <li data-year="1991"><a class="n" href="xrogue/">XRogue</a><a class="shrine" href="shrine/xrogue.html" title="Shrine: history, stats, manual">✦</a> <span class="y"><a class="yr" href="https://www.roguebasin.com/index.php/XRogue">1991</a> · Pietkivitch</span></li></ul></li></ul></li></ul></li></ul></li>
   <li class="insp" data-year="1983"><span class="n">Moria</span> <span class="y">1983 · Robert Koeneke, VMS Pascal</span><ul>
-    <li data-year="1988"><a class="n" href="umoria/">Umoria</a><a class="shrine" href="shrine/umoria.html" title="Shrine: history, stats, manual">✦</a> <span class="y">1988 · C port by James E. Wilson</span><ul>
+    <li data-year="1987"><a class="n" href="umoria/">Umoria</a><a class="shrine" href="shrine/umoria.html" title="Shrine: history, stats, manual">✦</a> <span class="y"><a class="yr" href="https://github.com/dungeons-of-moria/umoria/blob/master/historical/history.md">1987</a> · C port by James E. Wilson</span><ul>
       <li data-year="1990"><span class="n">Angband</span> <span class="y">1990 · Cutler, Astrand, from Umoria 5.2</span><ul>
         <li data-year="1990"><span class="n">Oangband</span> <span class="y">1990s · Bahman Rabii, Leon Marrick</span><ul>
-          <li data-year="2005"><a class="n" href="faangband/">FAangband</a><a class="shrine" href="shrine/faangband.html" title="Shrine: history, stats, manual">✦</a> <span class="y">2005 · Nick McConnell, from Oangband 0.7.0; 2.0 (2021) rebuilt on Angband 4.2</span></li></ul></li>
-        <li data-year="1994"><a class="n" href="zangband/">Zangband</a><a class="shrine" href="shrine/zangband.html" title="Shrine: history, stats, manual">✦</a> <span class="y">1994 · Topi Ylinen; 2.x from Angband 2.8.1, later Robert Rühlmann, Steven Fuerst</span><ul>
+          <li data-year="2005"><a class="n" href="faangband/">FAangband</a><a class="shrine" href="shrine/faangband.html" title="Shrine: history, stats, manual">✦</a> <span class="y"><a class="yr" href="https://rec.games.roguelike.angband.narkive.com/dsEDoL2n/new-variant-faangband-0-1-0">2005</a> · Nick McConnell, from Oangband 0.7.0; 2.0 (2021) rebuilt on Angband 4.2</span></li></ul></li>
+        <li data-year="1994"><a class="n" href="zangband/">Zangband</a><a class="shrine" href="shrine/zangband.html" title="Shrine: history, stats, manual">✦</a> <span class="y"><a class="yr" href="https://www.roguebasin.com/index.php/ZAngband">1994</a> · Topi Ylinen; 2.x from Angband 2.8.1, later Robert Rühlmann, Steven Fuerst</span><ul>
           <li data-year="1998"><span class="n">PernAngband</span> <span class="y">1998 · DarkGod</span><ul>
-            <li data-year="2000"><a class="n" href="tome2/">ToME 2</a><a class="shrine" href="shrine/tome2.html" title="Shrine: history, stats, manual">✦</a> <span class="y">2000s</span><ul>
+            <li data-year="2002"><a class="n" href="tome2/">ToME 2</a><a class="shrine" href="shrine/tome2.html" title="Shrine: history, stats, manual">✦</a> <span class="y"><a class="yr" href="https://github.com/tome2/tome2">2002</a></span><ul>
               <li class="insp" data-year="2012"><span class="n">Tales of Maj'Eyal (ToME 4)</span> <span class="y">2012 · DarkGod</span><span class="why">new T-Engine 4 code, same author and world</span></li></ul></li></ul></li>
           <li data-year="2000"><span class="n">XAngband</span> <span class="y">Japanese, formerly KantAngband</span><ul>
-            <li data-year="2000"><a class="n" href="tinyangband/">TinyAngband</a><a class="shrine" href="shrine/tinyangband.html" title="Shrine: history, stats, manual">✦</a> <span class="y">2000s</span></li></ul></li>
-          <li data-year="2000"><a class="n" href="hengband/">Hengband</a><a class="shrine" href="shrine/hengband.html" title="Shrine: history, stats, manual">✦</a> <span class="y">2000 · Mr.Hoge and others, from the Japanese Zangband 2.2.8</span><ul>
+            <li data-year="2009"><a class="n" href="tinyangband/">TinyAngband</a><a class="shrine" href="shrine/tinyangband.html" title="Shrine: history, stats, manual">✦</a> <span class="y"><a class="yr" href="https://github.com/iks3/tinyangband">2009</a></span></li></ul></li>
+          <li data-year="2000"><a class="n" href="hengband/">Hengband</a><a class="shrine" href="shrine/hengband.html" title="Shrine: history, stats, manual">✦</a> <span class="y"><a class="yr" href="https://hengband.github.io/history/history0.1.0.html">2000</a> · Mr.Hoge and others, from the Japanese Zangband 2.2.8</span><ul>
             <li data-year="2010"><span class="n">Chengband</span> <span class="y">2010 · Chris Kousky, Dave Zhang, Andrew Levy</span><ul>
               <li data-year="2012"><span class="n">PosChengband</span> <span class="y">2012 · Chris Kousky, ideas from Posband</span><ul>
                 <li data-year="2017"><span class="n">ComPosband</span> <span class="y">2017 · Gwilim Owen</span><ul>
-                  <li data-year="2018"><a class="n" href="frogcomposband/">FrogComposband</a><a class="shrine" href="shrine/frogcomposband.html" title="Shrine: history, stats, manual">✦</a> <span class="y">2018 · Antero Sulka (sulkasormi) et al.</span></li></ul></li></ul></li></ul></li></ul></li></ul></li>
+                  <li data-year="2018"><a class="n" href="frogcomposband/">FrogComposband</a><a class="shrine" href="shrine/frogcomposband.html" title="Shrine: history, stats, manual">✦</a> <span class="y"><a class="yr" href="https://github.com/sulkasormi/frogcomposband/blob/master/readme.txt">2018</a> · Antero Sulka (sulkasormi) et al.</span></li></ul></li></ul></li></ul></li></ul></li></ul></li>
         <li data-year="2000"><span class="n">GSN2Band</span> <span class="y">2000 · Gwidon S. Naskrent, from Angband 2.9.1</span><ul>
-          <li data-year="2001"><a class="n" href="easyband/">Easyband</a><a class="shrine" href="shrine/easyband.html" title="Shrine: history, stats, manual">✦</a> <span class="y">2001 · Andres Zanzani, from GSN2Band 1.0</span></li></ul></li>
+          <li data-year="2001"><a class="n" href="easyband/">Easyband</a><a class="shrine" href="shrine/easyband.html" title="Shrine: history, stats, manual">✦</a> <span class="y"><a class="yr" href="https://web.archive.org/web/20120502033403/http://www.angband.pwp.blueyonder.co.uk:80/easy.html">2001</a> · Andres Zanzani, from GSN2Band 1.0</span></li></ul></li>
         <li data-year="2000"><span class="n">Angband 3.0</span><ul>
-          <li data-year="2003"><a class="n" href="nppangband/">NPPAngband</a><a class="shrine" href="shrine/nppangband.html" title="Shrine: history, stats, manual">✦</a> <span class="y">2003 · Jeff Greene, Diego González; from Angband 3.0.3, 0.5.1 on 3.1.2 code</span><ul>
-            <li data-year="2010"><a class="n" href="quickband/">Quickband</a><a class="shrine" href="shrine/quickband.html" title="Shrine: history, stats, manual">✦</a> <span class="y">2010s</span></li></ul></li>
+          <li data-year="2003"><a class="n" href="nppangband/">NPPAngband</a><a class="shrine" href="shrine/nppangband.html" title="Shrine: history, stats, manual">✦</a> <span class="y"><a class="yr" href="https://www.roguebasin.com/index.php/No_Pet_Peeves_Angband">2003</a> · Jeff Greene, Diego González; from Angband 3.0.3, 0.5.1 on 3.1.2 code</span><ul>
+            <li data-year="2005"><a class="n" href="quickband/">Quickband</a><a class="shrine" href="shrine/quickband.html" title="Shrine: history, stats, manual">✦</a> <span class="y"><a class="yr" href="https://rec.games.roguelike.angband.narkive.com/BdsAv3mZ/quickband-v1-05-released">2005</a></span></li></ul></li>
           <li data-year="2010"><span class="n">Sil</span> <span class="y">2010s</span><ul>
-            <li data-year="2010"><a class="n" href="sil-q/">Sil-Q</a><a class="shrine" href="shrine/sil-q.html" title="Shrine: history, stats, manual">✦</a> <span class="y">2010s · continues Sil</span></li></ul></li></ul></li>
+            <li data-year="2022"><a class="n" href="sil-q/">Sil-Q</a><a class="shrine" href="shrine/sil-q.html" title="Shrine: history, stats, manual">✦</a> <span class="y"><a class="yr" href="https://github.com/sil-quirk/sil-q">2022</a> · continues Sil</span></li></ul></li></ul></li>
         <li data-year="2020"><span class="n">Angband 4.2</span><ul>
-          <li data-year="2020"><a class="n" href="tactical-angband/">Tactical Angband</a><a class="shrine" href="shrine/tactical-angband.html" title="Shrine: history, stats, manual">✦</a> <span class="y">2020s · from 4.2.5</span></li></ul></li>
+          <li data-year="2022"><a class="n" href="tactical-angband/">Tactical Angband</a><a class="shrine" href="shrine/tactical-angband.html" title="Shrine: history, stats, manual">✦</a> <span class="y"><a class="yr" href="https://github.com/tomm/tactical-angband">2022</a> · from 4.2.5</span></li></ul></li>
       </ul></li></ul></li>
-    <li data-year="1991"><a class="n" href="boss/">BOSS: Beyond Moria</a><a class="shrine" href="shrine/boss.html" title="Shrine: history, stats, manual">✦</a> <span class="y">1991 · Gulledge, Black, University of Washington</span></li></ul></li>
+    <li data-year="1992"><a class="n" href="boss/">BOSS: Beyond Moria</a><a class="shrine" href="shrine/boss.html" title="Shrine: history, stats, manual">✦</a> <span class="y"><a class="yr" href="https://github.com/dungeons-of-moria/boss-beyond-moria">1992</a> · Gulledge, Black, University of Washington</span></li></ul></li>
+  <li class="insp" data-year="1985"><a class="n" href="hack/">Hack</a><a class="shrine" href="shrine/hack.html">✦</a> <span class="y"><a class="yr" href="https://nethackwiki.com/wiki/Hack_1.0.3">1985</a> · Andries Brouwer (1.0.3); first Hack 1982 · Jay Fenlason</span><ul>
+    <li data-year="1987"><a class="n" href="nethack13d/">NetHack</a><a class="shrine" href="shrine/nethack13d.html">✦</a> <span class="y"><a class="yr" href="https://github.com/bhaak/NetHack-1.3d/blob/bcec982/README.revived">1987</a> · Mike Stephenson; 1.3d: 1987</span><ul>
+      <li data-year="1997"><a class="n" href="slashem/">SLASH'EM</a><a class="shrine" href="shrine/slashem.html" title="Shrine: history, stats, manual">✦</a> <span class="y"><a class="yr" href="https://nethackwiki.com/wiki/SLASH%27EM">1997</a> · Warren Cheung · SLASH 4.1.2 + Wizard Patch, from NetHack 3.2; 0.0.7E7F3 on NetHack 3.4.3</span></li>
+      <li class="insp" data-year="2003"><a class="n" href="zapm/">ZAPM</a><a class="shrine" href="shrine/zapm.html" title="Shrine: history, stats, manual">✦</a> <span class="y"><a class="yr" href="https://www.roguebasin.com/index.php/ZapM">2003</a> · Cyrus Dolph</span><span class="why">sci-fi parody of NetHack, own C++ code</span><ul>
+        <li data-year="2011"><a class="n" href="prime/">PRIME</a><a class="shrine" href="shrine/prime.html" title="Shrine: history, stats, manual">✦</a> <span class="y"><a class="yr" href="https://github.com/Larzid/PRIME">2011</a> · Psiweapon, Michał Bieliński</span></li></ul></li>
+      <li data-year="2009"><span class="n">UnNetHack</span> <span class="y">2009 · Patric Mueller · from NetHack 3.4.3</span></li>
+      <li data-year="2011"><span class="n">NitroHack</span> <span class="y">2011 · Daniel Thaler · from NetHack 3.4.3</span><ul>
+        <li data-year="2012"><span class="n">NetHack4</span> <span class="y">2012 · Alex Smith, Sean Hunt</span></li>
+        <li data-year="2013"><a class="n" href="dynahack/">DynaHack</a><a class="shrine" href="shrine/dynahack.html" title="Shrine: history, stats, manual">✦</a> <span class="y"><a class="yr" href="https://nethackwiki.com/wiki/DynaHack">2013</a> · Tung Nguyen · NitroHack 4.0.4 with UnNetHack's content merged in</span></li></ul></li>
+      <li data-year="2026"><a class="n" href="nethack50/">NetHack 5.0</a><a class="shrine" href="shrine/nethack50.html" title="Shrine: history, stats, manual">✦</a> <span class="y"><a class="yr" href="https://github.com/NetHack/NetHack/releases/tag/NetHack-5.0.0_Released">2026</a> · NetHack DevTeam · from NetHack 3.6 (via 3.7 dev)</span></li></ul></li></ul></li>
   <li class="insp" data-year="1986"><span class="n">Larn</span> <span class="y">1986 · Noah Morgan</span><ul>
     <li data-year="1986"><span class="n">Larn 12.4</span><ul>
       <li data-year="1986"><a class="n" href="larn/">Larn (RL_M 26.4)</a><a class="shrine" href="shrine/larn.html" title="Shrine: history, stats, manual">✦</a> <span class="y">today · atsb, official maintainer</span></li></ul></li>
-    <li data-year="1987"><a class="n" href="ularn/">uLarn</a><a class="shrine" href="shrine/ularn.html" title="Shrine: history, stats, manual">✦</a> <span class="y">1987 · Phil Cordier · from Larn 12; 1.7.0 by Josh Brandt, Josh Bressers</span></li></ul></li>
-  <li class="insp" data-year="1987"><a class="n" href="omega/">Omega</a><a class="shrine" href="shrine/omega.html" title="Shrine: history, stats, manual">✦</a> <span class="y">1987 · Laurence Brothers</span><span class="why">standalone, no code from other games</span></li>
+    <li data-year="1987"><a class="n" href="ularn/">uLarn</a><a class="shrine" href="shrine/ularn.html" title="Shrine: history, stats, manual">✦</a> <span class="y"><a class="yr" href="https://en.wikipedia.org/wiki/Larn_(video_game)">1987</a> · Phil Cordier · from Larn 12; 1.7.0 by Josh Brandt, Josh Bressers</span></li></ul></li>
+  <li class="insp" data-year="1987"><a class="n" href="omega/">Omega</a><a class="shrine" href="shrine/omega.html" title="Shrine: history, stats, manual">✦</a> <span class="y"><a class="yr" href="https://en.wikipedia.org/wiki/Omega_(video_game)">1987</a> · Laurence Brothers</span><span class="why">standalone, no code from other games</span></li>
   <li class="insp" data-year="1987"><span class="n">Rogue Clone</span> <span class="y">1987 · Tim Stoehr</span><span class="why">rewritten from scratch to play like Rogue 5.3; later shipped as BSD rogue</span></li>
-  <li class="insp" data-year="1988"><a class="n" href="mag/">MAG</a><a class="shrine" href="shrine/mag.html" title="Shrine: history, stats, manual">✦</a> <span class="y">1988 (UNIX version 1985) · Michael J. Teixeira</span><span class="why">Mike's Adventure Game: own DOS C code, between Rogue and Hack</span></li>
+  <li class="insp" data-year="1988"><a class="n" href="mag/">MAG</a><a class="shrine" href="shrine/mag.html" title="Shrine: history, stats, manual">✦</a> <span class="y"><a class="yr" href="http://crpgaddict.blogspot.com/2011/03/game-52-mikes-aventure-game-mag-1988.html">1988</a> (UNIX version 1985) · Michael J. Teixeira</span><span class="why">Mike's Adventure Game: own DOS C code, between Rogue and Hack</span></li>
   <li class="insp" data-year="1993"><span class="n">Fushigi no Dungeon (Mystery Dungeon)</span> <span class="y">1993 · Chunsoft</span><span class="why">Japanese console series built on Rogue's rules</span></li>
   <li class="insp" data-year="1994"><span class="n">ADOM</span> <span class="y">1994 · Thomas Biskup</span><span class="why">own code, drew on Rogue, NetHack and Angband; closed source</span></li>
-  <li class="insp" data-year="1995"><a class="n" href="alphaman/">AlphaMan</a><a class="shrine" href="shrine/alphaman.html" title="Shrine: history, stats, manual">✦</a> <span class="y">1995 · Jeffrey R. Olson</span><span class="why">standalone QuickBASIC game after the Gamma World tabletop game, no code from other roguelikes</span></li>
-  <li class="insp" data-year="1995"><a class="n" href="crawl-linley/">Linley's Dungeon Crawl 4.0b26</a><a class="shrine" href="shrine/crawl-linley.html" title="Shrine: history, stats, manual">✦</a> <span class="y">1995 · Linley Henzell; DevTeam to 2003; tiles by Mitsuhiro Itakura, 2005</span><span class="why">new code; its readme calls it one of the descendants of Rogue</span><ul>
+  <li class="insp" data-year="1995"><a class="n" href="alphaman/">AlphaMan</a><a class="shrine" href="shrine/alphaman.html" title="Shrine: history, stats, manual">✦</a> <span class="y"><a class="yr" href="https://roguebasin.com/index.php/Alphaman">1995</a> · Jeffrey R. Olson</span><span class="why">standalone QuickBASIC game after the Gamma World tabletop game, no code from other roguelikes</span></li>
+  <li class="insp" data-year="1997"><a class="n" href="crawl-linley/">Linley's Dungeon Crawl 4.0b26</a><a class="shrine" href="shrine/crawl-linley.html" title="Shrine: history, stats, manual">✦</a> <span class="y"><a class="yr" href="https://github.com/memmaker/crawl-linley/blob/main/docs/versions.txt">1997</a> · Linley Henzell, begun 1995; DevTeam to 2003; tiles by Mitsuhiro Itakura, 2005</span><span class="why">new code; its readme calls it one of the descendants of Rogue</span><ul>
     <li data-year="2006"><span class="n">Dungeon Crawl Stone Soup</span> <span class="y">2006 · forked from 4.0b26</span></li></ul></li>
-  <li class="insp" data-year="2001"><a class="n" href="decker/">Decker</a><a class="shrine" href="shrine/decker.html" title="Shrine: history, stats, manual">✦</a> <span class="y">2001 · Shawn Overcash</span><span class="why">standalone Windows game inspired by the Shadowrun tabletop game's Matrix rules, no code from other roguelikes</span></li>
+  <li class="insp" data-year="2001"><a class="n" href="decker/">Decker</a><a class="shrine" href="shrine/decker.html" title="Shrine: history, stats, manual">✦</a> <span class="y"><a class="yr" href="https://sourceforge.net/projects/decker/">2001</a> · Shawn Overcash</span><span class="why">standalone Windows game inspired by the Shadowrun tabletop game's Matrix rules, no code from other roguelikes</span></li>
   <li class="insp" data-year="2002"><span class="n">DoomRL</span> <span class="y">2002 · Kornel Kisielewicz</span><span class="why">Doom as a roguelike, own code</span></li>
-  <li class="insp" data-year="2006"><a class="n" href="lambdarogue/">LambdaRogue</a><a class="shrine" href="shrine/lambdarogue.html" title="Shrine: history, stats, manual">✦</a> <span class="y">2006 · Mario Donick</span><span class="why">graphical Free Pascal game, own code, no code from other roguelikes</span></li>
-  <li class="insp" data-year="2009"><a class="n" href="prospector/">Prospector</a><a class="shrine" href="shrine/prospector.html" title="Shrine: history, stats, manual">✦</a> <span class="y">2009 · Matthias Mennel</span><span class="why">original space exploration game in FreeBASIC, own code, no code from other roguelikes</span></li>
+  <li class="insp" data-year="2006"><a class="n" href="lambdarogue/">LambdaRogue</a><a class="shrine" href="shrine/lambdarogue.html" title="Shrine: history, stats, manual">✦</a> <span class="y"><a class="yr" href="https://www.roguebasin.com/index.php/LambdaRogue">2006</a> · Mario Donick</span><span class="why">graphical Free Pascal game, own code, no code from other roguelikes</span></li>
+  <li class="insp" data-year="2009"><a class="n" href="prospector/">Prospector</a><a class="shrine" href="shrine/prospector.html" title="Shrine: history, stats, manual">✦</a> <span class="y"><a class="yr" href="https://www.roguebasin.com/index.php/Prospector">2009</a> · Matthias Mennel</span><span class="why">original space exploration game in FreeBASIC, own code, no code from other roguelikes</span></li>
   <li class="insp" data-year="2009"><span class="n">Brogue</span> <span class="y">2009 · Brian Walker</span><span class="why">own code, a modern take on Rogue; continued as Brogue CE</span></li>
-  <li class="insp" data-year="2012"><a class="n" href="forays/">Forays into Norrendrin</a><a class="shrine" href="shrine/forays.html" title="Shrine: history, stats, manual">✦</a> <span class="y">2012 · Derrick Creamer</span><span class="why">standalone C# game, own code, no code from other roguelikes</span></li>
+  <li class="insp" data-year="2012"><a class="n" href="forays/">Forays into Norrendrin</a><a class="shrine" href="shrine/forays.html" title="Shrine: history, stats, manual">✦</a> <span class="y"><a class="yr" href="https://www.roguebasin.com/index.php/Forays_into_Norrendrin">2012</a> · Derrick Creamer</span><span class="why">standalone C# game, own code, no code from other roguelikes</span></li>
 </ul></li></ul>
 </section>
 <footer>ruzzoli.de · play in your browser, no install</footer>
