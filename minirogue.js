@@ -60,6 +60,7 @@
         'Speak CSS!',
       ],
       bump(g, m) {
+        if (m.falling) return '';
         if (m.hostile) return null;
         if (m.passed) return 'The knight nods.';
         m.bumps = (m.bumps || 0) + 1;
@@ -90,6 +91,7 @@
         return 'Nope';
       },
       act(g, m) {
+        if (m.falling) return;
         if (m.hostile) return g.adjacent(m) ? g.hurt(m, this.dmg) : g.chase(m);
         if (!m.passed) return;  // stands his ground
         if (!m.goal) {  // a spot by a wall of the west room, away from the door row
@@ -103,11 +105,12 @@
 
   // Items are picked up by walking over them. Optional hooks:
   //   onPickup(g) → message (default: msg)   attack → your damage per hit (best one counts)
-  //   defend(dmg, monster) → damage you actually take
+  //   defend(dmg, monster) → damage you actually take   cls → extra CSS class
   const ITEMS = {
     sword: { msg: 'You wield the sword.', attack: 5, glyph: { unix: ')', epyx: '↑' } },
     armour: { msg: 'You put on leather armour.', defend: (dmg) => dmg - 4,
       glyph: { unix: ']', epyx: '◘' } },
+    sandal: { msg: 'You put on the sandal.', cls: 'mr-sandal', glyph: { unix: '[', epyx: '∩' } },
   };
 
   // Each level: start (first level only), setup(g, arrival) fills the fresh map on the
@@ -136,8 +139,7 @@
         g.drop('armour', g.randomFloor());
         g.spawn('snake', g.randomFloor());
         // the switch hides in a wall of the east room, next to its floor
-        const walls = g.tiles((ch, p) => '-|'.includes(ch) && p[1] >= 22 && !!g.floorNextTo(p));
-        g.lv.switchAt = walls[Math.floor(Math.random() * walls.length)];
+        g.lv.switchAt = g.randomWall(([, c]) => c >= 22);
       },
       click(g) {  // the switch opens the stairs up
         if (g.lv.clicked) return '';
@@ -182,12 +184,27 @@
     },
     { // 3: the bridge. You arrive in the west room; the knight stands in the corridor,
       // right outside the door. The corridor is drawn brown: it is a bridge over a gorge.
+      // A lever hides in a wall of the west room: searching next to it throws the knight
+      // into the gorge, and he leaves a sandal behind.
       setup(g) {
         g.spawn('knight', [CORRIDOR.row, CORRIDOR.from]);
         g.stairsDown([2, 26]);
+        g.lv.leverAt = g.randomWall(([, c]) => c < CORRIDOR.from);
+      },
+      onSearch(g) {
+        if (g.lv.pulled || !g.touching(g.lv.leverAt)) return;
+        g.lv.pulled = true;
+        const knight = g.monsters('knight')[0];
+        if (knight) {
+          knight.falling = true;
+          g.monsterFx(knight, 'mr-thrown');
+          g.lock();  // a redraw would restart the fall: hold still and watch
+          g.later(1700, () => { g.remove(knight); g.drop('sandal', knight.pos); g.unlock(); });
+        }
+        return '*click*';
       },
       overlay(g, [r, c], T) {
-        if (g.tileAt([r, c]) === '#') return `<i class="mr-bridge">${T.tile(r, c, '#')}</i>`;
+        if (g.tileAt([r, c]) === '#' && !g.itemAt([r, c])) return `<i class="mr-bridge">${T.tile(r, c, '#')}</i>`;
       },
     },
   ];
@@ -209,11 +226,20 @@
     get playerGlyph() { return THEMES[theme].at; },  // @ or ☺, for speech lines
     memory: MEMORY,
     tileAt: ([r, c]) => at(r, c),
+    itemAt: (p) => itemAt(p),
     ask(question, onAnswer, onCancel) {  // a question in the prompt widget; handlers return a message
       asking = { onAnswer, onCancel };
       emit('ask', question);
     },
-    lock() { s.locked = true; },                   // the player loses control
+    lock() { s.locked = true; },
+    unlock() { s.locked = false; },
+    monsters: (kind) => s.mons.filter((m) => m.kind === kind),
+    remove(m) { s.mons = s.mons.filter((x) => x !== m); },
+    monsterFx(m, cls) { m.fx = cls; },            // extra CSS class on a monster's glyph
+    randomWall(inside) {  // a random wall tile next to floor, with inside(pos) true (hidden things)
+      const walls = g.tiles((ch, p) => '-|'.includes(ch) && inside(p) && !!g.floorNextTo(p));
+      return walls[Math.floor(Math.random() * walls.length)];
+    },                   // the player loses control
     playerFx(cls) { s.playerFx = cls; },           // extra CSS class on the player glyph
     hidePlayer() { s.hidden = true; },
     die(killer) { s.dead = true; s.killer = killer; },
@@ -549,10 +575,10 @@
     const rows = s.map.map((row, r) => [...row].map((ch, c) => {
       const p = [r, c], m = monAt(p), item = itemAt(p);
       if (same(p, s.p) && !s.hidden) return `<b class="mr-at ${s.playerFx || ''}">${T.at}</b>`;
-      if (m) return `<b class="mr-k ${MONSTERS[m.kind].cls || ''}">${MONSTERS[m.kind].glyph[theme]}</b>`;
+      if (m) return `<b class="mr-k ${MONSTERS[m.kind].cls || ''} ${m.fx || ''}">${MONSTERS[m.kind].glyph[theme]}</b>`;
       const extra = L.overlay && L.overlay(g, p, T);
       if (extra) return extra;
-      if (item) return `<b class="mr-it">${ITEMS[item.kind].glyph[theme]}</b>`;
+      if (item) return `<b class="mr-it ${ITEMS[item.kind].cls || ''}">${ITEMS[item.kind].glyph[theme]}</b>`;
       if (same(p, s.down) || same(p, s.up)) return `<b class="mr-st">${T.stairs}</b>`;
       return T.tile(r, c, ch);
     }).join(''));
