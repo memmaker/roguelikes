@@ -338,4 +338,16 @@ def lambdarogue():                                    # own sheet the port shows
         sq.resize((32, 32), Image.LANCZOS).save(os.path.join(d, slug(name.strip()) + '.png'), optimize=True)
     print('lambdarogue', len(os.listdir(d)))
 
-rogue(); hack(); umoria(); urogue(); larn(); ularn(); rogue36(); srogue(); roguepc(); tome2(); tinyangband(); quickband(); arogue58(); arogue77(); xrogue(); boss(); omega(); prime(); dynahack(); silq(); tactical(); crawl(); zapm(); alphaman(); decker(); nethack13d(); nethack50(); slashem(); zangband(); frogcomposband(); forays(); lambdarogue(); hengband()
+def easyband():                                       # Shockbolt 64px (web/tiles.webp, web/mkgraf-shb.py); r_info "N:name" numbered in file order from 0
+    e = G + '/easyband'
+    names = [n.strip() for n in re.findall(r'^N:(.+)$', open(e + '/lib/edit/r_info.txt', encoding='latin-1').read(), re.M)]
+    img, d = Image.open(e + '/web/tiles.webp').convert('RGBA'), os.path.join(HERE, 'easyband')
+    os.makedirs(d, exist_ok=True)
+    for i, a, c in re.findall(r'^R:(\d+):0x(\w\w)/0x(\w\w)', open(e + '/lib/user/graf-shb.prf').read(), re.M):
+        if i == '0' or int(i) >= len(names): continue
+        n = re.sub(r'^(the|The) ', '', names[int(i)])   # main-web.c web_run_end() strips a/an/the
+        x, y = (int(c, 16) & 0x7F) * 64, (int(a, 16) & 0x7F) * 64
+        img.crop((x, y, x + 64, y + 64)).resize((32, 32), Image.LANCZOS).save(os.path.join(d, slug(n) + '.png'), optimize=True)
+    print('easyband', len(os.listdir(d)))
+
+rogue(); hack(); umoria(); urogue(); larn(); ularn(); rogue36(); srogue(); roguepc(); tome2(); tinyangband(); quickband(); arogue58(); arogue77(); xrogue(); boss(); omega(); prime(); dynahack(); silq(); tactical(); crawl(); zapm(); alphaman(); decker(); nethack13d(); nethack50(); slashem(); zangband(); frogcomposband(); forays(); lambdarogue(); hengband(); easyband()
