@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FAangband · Shrine</title>
+<!--og-->
+<meta name="description" content="First Age Angband: Beleriand in the War of the Jewels. Travel a wilderness of forests, mountains and the towns of Men, Elves and Dwarves, learn specialties, set traps, and end at Angband itself. Version 2 is rebuilt on Angband 4.2.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="--More--">
+<meta property="og:title" content="FAangband · Shrine">
+<meta property="og:description" content="First Age Angband: Beleriand in the War of the Jewels. Travel a wilderness of forests, mountains and the towns of Men, Elves and Dwarves, learn specialties, set traps, and end at Angband itself. Version 2 is rebuilt on Angband 4.2.">
+<meta property="og:url" content="https://ruzzoli.de/roguelikes/shrine/faangband.html">
+<meta property="og:image" content="https://ruzzoli.de/roguelikes/faangband.png">
+<meta name="twitter:card" content="summary_large_image">
+<!--/og-->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>FAangband</h1>
+  <p class="epi">First Age Angband · Beleriand in the days of the War of the Jewels</p>
+  <a class="play" href="../faangband/">&gt; Enter the dungeon</a>
+</header>
+<div class="facts"><div><b>Date of birth</b><span>2005</span> 0.1.0 on 28 November 2005; this build 2.0.1 (2021) plus later upstream work</div><div><b>Creator</b><span>Nick McConnell</span> also the current maintainer of Angband</div><div><b>Language</b><span>C</span> ~288,000 lines in 466 files</div><div><b>Platform</b><span>Windows, macOS, Linux</span> earlier also Windows CE; SDL, X11, curses</div></div>
+<nav class="toc"><a href="#lineage">Lineage</a><a href="#credits">Credits</a><a href="#trivia">Trivia</a><a href="#usp">What's unique</a><a href="#code">Code dive</a><a href="#stats">Stats</a><a href="#manual">Manual</a><a href="#start">Getting started</a><a href="#help">Help</a><a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p>Moria → <a href="umoria.html">Umoria</a> → Angband → Oangband → <strong>FAangband</strong>. Nick McConnell announced FAangband 0.1.0 on 28 November 2005 as a variant of Oangband 0.7.0 (Leon Marrick, Bahman Rabii), reworked to put the player in Tolkien’s <em>Silmarillion</em> late in the First Age: new races, a wilderness with towns and several dungeons, and nothing from later ages. The 0.x and 1.x line ran until 1.4.4 (around 2014); 0.3.6 (February 2009) was put together by Si Griffin.</p>
+<p>In 2020 development restarted as a rewrite: <strong>FAangband 2</strong> re-implements the best of 1.4.4 on the current Angband code base (4.2), so its code now descends from vanilla Angband rather than Oangband. 2.0.0 came out on 22 August 2021, 2.0.1 on 30 September 2021; this port is built from upstream’s main branch after 2.0.1.</p>
+<p>See the <a href="../#tree">family tree</a>. Sources: <code>docs/version.rst</code>, <code>lib/screens/news.txt</code>, the <a href="https://rec.games.roguelike.angband.narkive.com/dsEDoL2n/new-variant-faangband-0-1-0">0.1.0 announcement</a>, the archived forum threads for <a href="https://web.archive.org/web/20150407163758/http://angband.oook.cz/forum/archive/index.php/t-737.html">0.3.4</a> and <a href="https://web.archive.org/web/20150408014109/http://angband.oook.cz/forum/archive/index.php/t-1472.html">0.3.6</a>, RogueBasin’s <a href="https://www.roguebasin.com/index.php/FAangband">FAangband</a> page and the <a href="https://github.com/NickMcConnell/FAangband/releases">GitHub releases</a>.</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table><tr><td>McConnell</td><td>Nick McConnell, FAangband 0.1.0–2.0.1 and the 2020 rewrite</td></tr><tr><td>Griffin</td><td>Si Griffin (“Psi”), FAangband 0.3.6, long-time tester</td></tr><tr><td>Oangband</td><td>Leon Marrick, Bahman Rabii</td></tr><tr><td>Borrowed</td><td>Ideas and features from NPPangband (Jeff Greene, Diego Gonzalez) and Unangband (Andrew Doull); Andi Sidwell, Pete Mack</td></tr><tr><td>2.x helpers</td><td>Arralen, backwardsEric, Blinkhog, Cuboideb, David Medley, dhouseholder, EugeneLesnov, Gwarl, HolyRage, Ingwe Ingweron, jevansau, kheldar, Kodiologist, MITZE, Rodent (Sideways, sulkasormi), Sacksquatch, Shaun Lemonds, swim, tg122, Thraalbee, wobbly; Luke McConnell for ideas</td></tr><tr><td>Angband</td><td>Robert Rühlmann, Ben Harrison, Alex Cutler, Andy Astrand, Sean Marsh, Geoff Hill, Charles Teague, Charles Swiger and the 4.x DevTeam</td></tr><tr><td>Moria</td><td>Robert Alan Koeneke (1985); Umoria: James E. Wilson (1989)</td></tr><tr><td>Shockbolt</td><td>Raymond Gaustadnes, the tiles used in this port</td></tr><tr><td>Dubtrain</td><td>the sound effects</td></tr></table>
+<p class="src">From <code>lib/screens/news.txt</code>, <code>docs/thanks.rst</code> and <code>docs/copying.rst</code>.</p>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>The first release had a bug the same day: a player crashed on a mountain level, and a quick fix removed teleport traps from mountains within hours. <span class="src">(<a href="https://rec.games.roguelike.angband.narkive.com/dsEDoL2n/new-variant-faangband-0-1-0">0.1.0 thread</a>)</span></li>
+<li>0.3.4 (April 2008) added a “small device” birth option that halves view and projection distances, for Windows CE handhelds and a planned Nintendo DS port. <span class="src">(<a href="https://web.archive.org/web/20150407163758/http://angband.oook.cz/forum/archive/index.php/t-737.html">forum</a>)</span></li>
+<li>The same release fixed an “amusing bug where thrall mode had multiple players”; thrall mode, a start as an escaped slave on the steps of Angband, is still a birth option. <span class="src">(<a href="https://web.archive.org/web/20150407163758/http://angband.oook.cz/forum/archive/index.php/t-737.html">forum</a>, <a href="https://github.com/memmaker/faangband/blob/main/src/list-options.h">list-options.h</a>)</span></li>
+<li>0.3.6 was not Nick’s: Si Griffin, tired of the author not knowing the endgame, reworked items and archery, and Nick released it for him. <span class="src">(<a href="https://web.archive.org/web/20150408014109/http://angband.oook.cz/forum/archive/index.php/t-1472.html">forum</a>, <code>news.txt</code>)</span></li>
+<li>The author of the variant is also the maintainer of vanilla Angband itself. <span class="src">(<a href="faangband/manual.html#version-rst">version.rst</a>)</span></li>
+<li>The credits thank Luke McConnell “for both coming up with ridiculous ideas and torpedoing my ridiculous ideas”. <span class="src">(<a href="faangband/manual.html#thanks-rst">thanks.rst</a>)</span></li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>A world, not a pit:</strong> the Standard Wilderness is a map of Beleriand with 208 levels (plains, forests, mountains, valleys, rivers, deserts, swamps) and ten towns such as Menegroth, Gondolin, Belegost and Khazad-dûm; paths at the map edges lead on. Each race starts in its own home town.</li>
+<li><strong>Four worlds at birth:</strong> Standard or Extended Wilderness, a Hybrid Dungeon, or a classic single Angband dungeon.</li>
+<li><strong>Five guardians:</strong> Mîm at Amon Rûdh (level 30), Glaurung at Nargothrond (55), Ungoliant at Nan Dungortheb (70), Sauron at Tol-in-Gaurhoth (85) and Morgoth in Angband (100).</li>
+<li><strong>Specialties:</strong> pick a few special abilities as you level (armour and shield mastery, evasion, phasewalking, marksman, unarmed combat, trap setting …).</li>
+<li><strong>Tolkien races and shapes:</strong> Easterlings, Drúadan, Petty-Dwarves, Longbeards, Ents and shape-changing Beornings; 23 forms from fox and bear to power dragon. Artifact sets, player-set traps, a Travelling Merchant.</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li><strong>Language:</strong> C, about 288,000 lines in 466 <code>.c</code>/<code>.h</code> files in <code>src/</code>, Angband 4.2 structure: <code>game-world.c</code>, <code>cmd-*.c</code>, <code>ui-*.c</code>, <code>effects.c</code>, one <code>main-*.c</code> per frontend.</li>
+<li><strong>Data:</strong> 55 text files in <code>lib/gamedata/</code> (about 60,000 lines) parsed at start; the wilderness itself is data: <code>world.txt</code> links every level to its neighbours, per world map.</li>
+<li><strong>History:</strong> the git history starts with Angband 3.0.7s3 (2007), because 2.x grew out of vanilla; the 1.x sources are separate. Weekly pre-release builds on GitHub since 2021.</li>
+<li><strong>This port:</strong> WebAssembly build with a canvas z-term frontend, Shockbolt tiles (96 same-set stand-ins for FAangband’s new things), seven sub-windows, sound and music, auto-explore (<kbd>p</kbd>), an Enter command menu and item menus. Source: <a href="https://github.com/memmaker/faangband">memmaker/faangband</a> (<a href="https://github.com/memmaker/faangband/compare/0d85203a0...main">our changes</a>).</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<table><tr><th>Thing</th><th>Count</th><th>Notable ones</th></tr><tr><td>Races</td><td>13</td><td>Easterling, Green-Elf, Petty-Dwarf, Drúadan, Longbeard, Adan, Ent, Beorning</td></tr><tr><td>Classes</td><td>9</td><td>Warrior, Mage, Druid, Priest, Necromancer, Paladin, Rogue, Ranger, Blackguard</td></tr><tr><td>Spells</td><td>163</td><td>in four realms: arcane, divine, nature, shadow</td></tr><tr><td>Abilities</td><td>79</td><td>race, class and specialty abilities</td></tr><tr><td>Shapes</td><td>23</td><td>Pukel-man, great bear, eagle, warg, vampire, law and chaos dragon</td></tr><tr><td>Monsters</td><td>623</td><td>88 uniques: Tevildo Prince of Cats, Thuringwethil, Draugluin, Carcharoth, Gothmog, Ungoliant</td></tr><tr><td>Object kinds</td><td>359</td><td></td></tr><tr><td>Artifacts</td><td>126</td><td>Angrist, Narthanc, Nimthanc, Dethanc, Grond; 5 artifact sets</td></tr><tr><td>Ego types</td><td>134</td><td></td></tr><tr><td>Vaults</td><td>221</td><td>many for the wilderness</td></tr><tr><td>Traps</td><td>55</td><td>incl. traps the player sets</td></tr><tr><td>Worlds</td><td>4</td><td>Standard Wilderness: 208 levels, 10 towns; Morgoth on Angband 100</td></tr><tr><td>Stores</td><td>9</td><td>incl. the Travelling Merchant</td></tr></table>
+<p class="src">Counted in <code>lib/gamedata/*.txt</code> (without the <code>&lt;player&gt;</code> and <code>&lt;pile&gt;</code>-style placeholder entries).</p>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>The full manual (the Sphinx source <code>docs/*.rst</code>: quick demo, guide, FAQ, birth, the world, attacking, playing, commands, options, customising, version history, licence, credits) plus the in-game help (<kbd>?</kbd>, <code>lib/help/</code>) is here: <a href="faangband/manual.html">manual</a>; the rendered version is at <a href="https://faangband.readthedocs.io/en/latest/">faangband.readthedocs.io</a>. Also the <a href="faangband/changelog.txt">changelog</a> (<code>changes.txt</code>, which starts at 2.0, plus the GitHub release notes; the 0.x/1.x diffs were on <a href="https://web.archive.org/web/2009/http://angband.oook.cz/faangband/">angband.oook.cz</a>) and the <a href="faangband/license.txt">licence</a> (GPL 2 or the Angband licence).</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol><li><a href="../faangband/">Open the game</a> and pick a world: <em>Angband Dungeon</em> plays like classic Angband, <em>Standard Wilderness</em> is the real FAangband.</li>
+<li>Make a character: a Longbeard or Adan Warrior is sturdy; keep the start kit.</li>
+<li>Buy Cure Light Wounds potions, Phase Door scrolls and flasks of oil in your home town.</li>
+<li>Head out: <kbd>&gt;</kbd> walks to the nearest stair or path, <kbd>p</kbd> explores for you in dungeons, Enter lists every command, <kbd>i</kbd> and <kbd>e</kbd> open item menus.</li>
+<li>Read the game’s <a href="../faangband/help.html">help page</a> for keys and saving.</li></ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>We found no walkthrough: the levels are random. The goal is to kill Morgoth on level 100 of Angband. Rules of thumb:</p><ul>
+<li>The wilderness is dangerous early: stay near your home town and its easy paths until you have some levels.</li>
+<li>Always carry an escape (Phase Door, Deep Descent, Teleportation) and Word of Recall; pick specialties that fit your plan.</li>
+<li>Read the <a href="faangband/manual.html#guide-rst">guide</a>, the <a href="faangband/manual.html#world-rst">world</a> chapter and the <a href="faangband/manual.html#faq-rst">FAQ</a>.</li>
+<li>More: RogueBasin’s <a href="https://www.roguebasin.com/index.php/FAangband">FAangband</a> page and the <a href="https://angband.live/forums/">angband.live forums</a> (FAangband has its own threads under Variants).</li></ul>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<p>All in this build, as in Angband 4.2; each one marks the character in the score list.</p>
+<ul><li><strong>Debug mode</strong> <kbd>Ctrl</kbd>+<kbd>A</kbd> (confirm), then a key: create objects and artifacts, summon monsters, jump levels, map the level. Tested in the browser: <kbd>Ctrl</kbd>+<kbd>A</kbd> <kbd>z</kbd> banishes nearby monsters.</li>
+<li><strong>Wizard mode</strong> <kbd>Ctrl</kbd>+<kbd>W</kbd>.</li>
+<li><strong>Cheat options</strong> (<kbd>=</kbd>): peek into monster and dungeon creation, and <code>cheat_live</code> to avoid death.</li>
+<li><strong>Birth options</strong> that make it easier: know all runes and flavours, connected stairs, start kit.</li>
+<li><strong>Save scumming:</strong> <em>Export save</em> / <em>Import save</em> on the game page.</li></ul>
+</section>
+</div></body>
+</html>
