@@ -292,4 +292,10 @@ def nethack13d():                                     # DawnLike (default): tile
 def nethack50(): nhsheet('nethack50', G + '/nethack50/win/share/monsters.txt', G + '/nethack50/web/dist/tiles.png')
 def slashem(): nhsheet('slashem', G + '/slashem/win/share/monsters.txt', G + '/slashem/web/dist/tiles.png')
 
-rogue(); hack(); umoria(); urogue(); larn(); ularn(); rogue36(); srogue(); roguepc(); tome2(); tinyangband(); quickband(); arogue58(); arogue77(); xrogue(); boss(); omega(); prime(); dynahack(); silq(); tactical(); crawl(); zapm(); alphaman(); decker(); nethack13d(); nethack50(); slashem(); zangband()
+def frogcomposband():                                 # Shockbolt 64px (web/tiles.webp, web/mkgraf-shb.py); main-web.c web_run_end() strips "The "
+    angband('frogcomposband', 'frogcomposband', 'r_info.txt', 'N', 'graf-shb.prf', 'web/tiles.webp', 64)
+    d = os.path.join(HERE, 'frogcomposband')
+    for f in os.listdir(d):
+        if f.startswith('the-'): os.replace(os.path.join(d, f), os.path.join(d, f[4:]))
+
+rogue(); hack(); umoria(); urogue(); larn(); ularn(); rogue36(); srogue(); roguepc(); tome2(); tinyangband(); quickband(); arogue58(); arogue77(); xrogue(); boss(); omega(); prime(); dynahack(); silq(); tactical(); crawl(); zapm(); alphaman(); decker(); nethack13d(); nethack50(); slashem(); zangband(); frogcomposband()
