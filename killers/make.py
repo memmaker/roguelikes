@@ -350,4 +350,9 @@ def easyband():                                       # Shockbolt 64px (web/tile
         img.crop((x, y, x + 64, y + 64)).resize((32, 32), Image.LANCZOS).save(os.path.join(d, slug(n) + '.png'), optimize=True)
     print('easyband', len(os.listdir(d)))
 
-rogue(); hack(); umoria(); urogue(); larn(); ularn(); rogue36(); srogue(); roguepc(); tome2(); tinyangband(); quickband(); arogue58(); arogue77(); xrogue(); boss(); omega(); prime(); dynahack(); silq(); tactical(); crawl(); zapm(); alphaman(); decker(); nethack13d(); nethack50(); slashem(); zangband(); frogcomposband(); forays(); lambdarogue(); hengband(); easyband()
+def mag():                                            # DawnLike 16px (port/tiles-dawn.png, port/mkdawn.py): MONSTER.H pmon order -> mon_tile
+    m = G + '/mag'
+    names = re.findall(r'^"([^"]+)",\s*\'.\'', open(m + '/src/MONSTER.H', encoding='latin-1').read().replace('\r', ''), re.M)
+    cut('mag', m + '/port/tiles-dawn.png', 16, zip(names, ints(re.sub(r'mon_tile\[\d+\]', 'mon_tile[]', open(m + '/port/tiles.h').read()), 'mon_tile')))
+
+rogue(); hack(); umoria(); urogue(); larn(); ularn(); rogue36(); srogue(); roguepc(); tome2(); tinyangband(); quickband(); arogue58(); arogue77(); xrogue(); boss(); omega(); prime(); dynahack(); silq(); tactical(); crawl(); zapm(); alphaman(); decker(); nethack13d(); nethack50(); slashem(); zangband(); frogcomposband(); forays(); lambdarogue(); hengband(); easyband(); mag()
