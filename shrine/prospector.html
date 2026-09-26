@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prospector · Shrine</title>
+<!--og-->
+<meta name="description" content="Matthias Mennel's space roguelike: captain a small ship through an unexplored sector, map planets and send your away team down for minerals and alien bio data, trade at the stations, hire and train a crew, fight pirates, and retire rich. The game's own sprites by David Gervais and Deon, and its own sounds.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="--More--">
+<meta property="og:title" content="Prospector · Shrine">
+<meta property="og:description" content="Matthias Mennel's space roguelike: captain a small ship through an unexplored sector, map planets and send your away team down for minerals and alien bio data, trade at the stations, hire and train a crew, fight pirates, and retire rich. The game's own sprites by David Gervais and Deon, and its own sounds.">
+<meta property="og:url" content="https://ruzzoli.de/roguelikes/shrine/prospector.html">
+<meta property="og:image" content="https://ruzzoli.de/roguelikes/prospector.png">
+<meta name="twitter:card" content="summary_large_image">
+<!--/og-->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>Prospector</h1>
+  <p class="epi">A roguelike in space · map planets for the megacorporations, pay off your loan, retire filthy rich</p>
+  <a class="play" href="../prospector/">&gt; Enter the dungeon</a>
+</header>
+<div class="facts"><div><b>Date of birth</b><span>2009</span> 0.1.0 on 18 February 2009 (copyright from 2008); this build R197, svn r197 of 28 December 2014</div><div><b>Creator</b><span>Matthias Mennel</span> “Magellan”; sprites by David Gervais and Deon</div><div><b>Language</b><span>FreeBASIC</span> ~63,900 lines, fbgfx graphics</div><div><b>Platform</b><span>Windows, Linux</span> tiles or ASCII in a graphics window</div></div>
+<nav class="toc"><a href="#lineage">Lineage</a><a href="#credits">Credits</a><a href="#trivia">Trivia</a><a href="#usp">What's unique</a><a href="#code">Code dive</a><a href="#stats">Stats</a><a href="#manual">Manual</a><a href="#start">Getting started</a><a href="#help">Help</a><a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p>No parent: <strong>Prospector</strong> is an original game in its own FreeBASIC code, not a variant of any other roguelike. RogueBasin names Traveller and Starflight as influences. 0.1.0 came out on 18 February 2009 (the README’s copyright starts in 2008, when work began); the 0.1.x and 0.2.x releases followed on Google Code until 0.2.4 in January 2012, then 0.3 and the “R” builds numbered after the svn revision. This port is R197 from December 2014; RogueBasin lists R210 of 29 July 2018 as the last release. A 2014 fan fork on GitHub (<a href="https://github.com/SoPissd/Prospector-RL">SoPissd/Prospector-RL</a>, “ideas for Prospector”) never became a separate game; no other descendants are known.</p>
+<p>See the <a href="../#tree">family tree</a> (among the standalone originals). Sources: <a href="https://www.roguebasin.com/index.php/Prospector">RogueBasin</a> (first release 18 Feb 2009, 0.1.0; last R210), the <a href="https://code.google.com/archive/p/rlprospector/downloads">Google Code archive</a> (downloads from 0.1.0 up; dated from 0.1.15b, 24 Dec 2010, to 0.2.4, 17 Jan 2012), the <a href="prospector/changelog.txt">change log</a> (0.1.2 to R197) and <a href="prospector/license.txt">README.txt</a> (© 2008–2014).</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table><tr><td>Matthias Mennel</td><td>Game, code and manual, 2008–2018 (“Magellan” on RogueBasin and the forums)</td></tr><tr><td>Graphics</td><td>David Gervais and Deon, “used with their expressed permission”</td></tr><tr><td>Libraries</td><td>FBSound by D.J. Peters; zlib by Greg Roelofs and Mark Adler; cards.bi object by RDC</td></tr><tr><td>Web port</td><td>This site: FreeBASIC to WebAssembly, windows, explore and menus (<a href="https://github.com/memmaker/prospector">memmaker/prospector</a>)</td></tr></table>
+<p class="src">From the game’s <a href="prospector/license.txt">README.txt</a> and <a href="https://www.roguebasin.com/index.php/Prospector">RogueBasin</a>.</p>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>Once the project moved to its own site, the Google Code source repository was updated automatically every Monday at 6:00 AM CET, “entirely possible that there are no changes, changes that don’t work”. <span class="src">(<a href="https://code.google.com/archive/p/rlprospector/">Google Code project page</a>)</span></li>
+<li>On the very first start the game asks how to name your ships: standard names, Babylon 5 ship names or Star Trek ship names (“USS Akira”, “Agamemnon”). <span class="src">(<a href="https://github.com/memmaker/prospector/blob/main/main.bas">main.bas</a>, <a href="https://github.com/memmaker/prospector/tree/main/data">data/</a>)</span></li>
+<li>Piracy arrived in 0.1.2: “you can become a pirate now”. Much later, gambling stopped counting as piracy and “Gambler” became a mission type (R196). <span class="src">(<a href="prospector/changelog.txt">change log</a>)</span></li>
+<li>The creature list has a Tribble, and one special planet sends a beacon: “Visit Murchesons Ditch, best Entertainment this side of the coal sack nebula”. <span class="src">(<a href="https://github.com/memmaker/prospector/blob/main/monster.bas">monster.bas</a>, <a href="https://github.com/memmaker/prospector/blob/main/globals.bas">globals.bas</a>)</span></li>
+<li>The manual describes a “loyalty chip” implant that is “not available on the open market”, and artificial nerves that doctors with a conscience do not offer. <span class="src">(<a href="prospector/manual.html#p15">manual</a>)</span></li>
+<li>0.2.2 came with a 22-page PDF manual (May 2011); the 1.1 manual of 2014 has 29 pages. <span class="src">(<a href="https://spacesimcentral.com/viewtopic.php?t=1495">SpaceSimCentral</a>, <a href="https://code.google.com/archive/p/rlprospector/downloads">Google Code archive</a>)</span></li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>Space exploration as the goal:</strong> no dungeon to dive and no amulet: you scan and map planets, sell maps, ore and bio data to four megacorporations, and win by earning enough to retire.</li>
+<li><strong>Three layers:</strong> space travel between star systems, turn-based ship combat (heat, reloading, shields, fleeing at the map edge), and planet surfaces explored by an away team.</li>
+<li><strong>A crew, not a hero:</strong> captain, pilot, gunner, science officer and doctor plus redshirts that level up, learn talents, get implants, catch diseases and quit over low morale.</li>
+<li><strong>A living sector:</strong> pirates, merchant fleets, company patrols and robot ships move and fight on their own; you can join their battles or turn pirate yourself.</li>
+<li><strong>Random worlds with hand-made surprises:</strong> every planet and alien species is generated, among 44 special planets (a casino that cheats, sandworm deserts, a living planet, an invisible labyrinth).</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li><strong>Language:</strong> FreeBASIC, procedural, about 63,900 lines in 39 <code>.bas</code>/<code>.bi</code> files; the biggest are <code>planet.bas</code> (7,700 lines, planet generation), <code>exploreplanet.bas</code>, <code>items.bas</code> and <code>main.bas</code>.</li>
+<li><strong>Graphics:</strong> fbgfx (<code>SCREENRES</code>): the text is drawn with bitmap fonts in a graphics window, tiles from BMP sheets, ASCII mode on a config switch. Sound through FBSound.</li>
+<li><strong>Data:</strong> hulls, ship weapons, ammo, bounty quests and dialogue trees are CSV files in <code>data/</code>; creatures and items are code (<code>makemonster</code>, <code>make_item</code>). Save games are compressed with zlib.</li>
+<li><strong>This port:</strong> FreeBASIC 1.24 compiled with Emscripten; our own gfxlib2 driver hands the framebuffer to a canvas, and the game names its screen regions so the page shows Map, Status, Messages and Inventory windows. Saves in IndexedDB, an Enter command menu, <kbd>#</kbd> explore and <kbd>&gt;</kbd> walk to stations and ways out. Source: <a href="https://github.com/memmaker/prospector">memmaker/prospector</a> (<a href="https://github.com/memmaker/prospector/compare/1b928c0...main">our changes</a>), upstream from the <a href="https://code.google.com/archive/p/rlprospector/">Google Code archive</a>.</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<table><tr><th>Thing</th><th>Count</th><th>Notable ones</th></tr><tr><td>Hulls</td><td>17</td><td>5 starting ships (Light Scout, Long Range Fighter, Light Transport, Troop Transport, Pirate Cruiser), Dropship, Battleship, Generation Ship; plus alien scoutships and probes</td></tr><tr><td>Ship weapons</td><td>15</td><td>Torpedo Tube, Gauss Cannon, Rail Gun, X-Ray and Gammaray Lasers, Particle Cannon, Disintegrator</td></tr><tr><td>Ship modules</td><td>15</td><td>Hydrogen scoop, Radiators, Aux. Shield Gen., Tractor Beam, Crew Quarters</td></tr><tr><td>Talents</td><td>29</td><td>Haggler, Gambler, High grav training, Improvise mines, Linguist, Disease expert, Sniper</td></tr><tr><td>Augments</td><td>10 + 2</td><td>Chameleon skin, Implanted jetpacks, Neurocomputer; the loyalty chip and artificial nerves off the market</td></tr><tr><td>Special planets</td><td>44</td><td>Murchesons Ditch, the blackmarket, the prison of an ancient entity, a world of peaceful cephalopods, intelligent trees</td></tr><tr><td>Creatures</td><td>~74</td><td>fixed types besides the random alien species: Sandworm, Cloudshark, Tribble, living crystal, the four corporations’ security teams, Ted Rofes the ship’s doctor</td></tr><tr><td>Items</td><td>~200</td><td>names in <code>make_item</code>: jetpacks, cages for live aliens, medpacks, stims, space suits, guns and blades</td></tr><tr><td>Crew names</td><td>172</td><td>plus Babylon 5 and Star Trek ship name lists</td></tr></table>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>The game’s own manual: <a href="prospector/Manual.pdf">Manual.pdf</a> (version 1.1, 2014, 29 pages: interface, ship, crew, skills, augments, game world, equipment tables, FAQ, commands) and its <a href="prospector/manual.html">text as a web page</a>. Version 1.0 (2011, 22 pages) is in the source’s <code>doc/</code> folder. Also the <a href="prospector/changelog.txt">change log</a> (0.1.2 to R197) and the <a href="prospector/license.txt">licence</a> (zlib; altered versions must be marked as such).</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol><li><a href="../prospector/">Open the game</a>, start a new game, pick a starting ship (the Light Scout is the all-rounder), talents and a name.</li>
+<li>Fly with the arrow keys or the number keys; <kbd>#</kbd> flies to the nearest unvisited system, <kbd>&gt;</kbd> to the nearest station, <kbd>d</kbd> docks.</li>
+<li>At a star system <kbd>s</kbd> scans a planet and <kbd>l</kbd> lands; on the surface walk the away team, <kbd>#</kbd> explores, <kbd>f</kbd> fires, <kbd>&gt;</kbd> walks back to the ship to launch.</li>
+<li>Sell maps, ore and bio data at the company office of a main station; buy equipment, hire crew and watch fuel and oxygen.</li>
+<li>Enter lists every command; the game’s <a href="../prospector/help.html">help page</a> has keys, saving and the manual.</li></ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>We found no written walkthrough (prospector.at and its forum are gone). Video Let’s Plays: <a href="https://www.youtube.com/watch?v=rREkYs8aAWo">One F Jef (2011)</a> and <a href="https://www.youtube.com/watch?v=9xYjqiafwfM">TheUberHunter (2012)</a>. Rules of thumb from the manual:</p><ul>
+<li>Money comes from four sources: selling maps, bio data and resources, trading between stations, hunting pirates, or becoming one.</li>
+<li>Scan before landing: the science officer reports atmosphere, gravity, temperature and the chance of life, and special planets announce themselves.</li>
+<li>Keep an eye on fuel (scoop gas giants in a pinch) and on oxygen on the surface; gas clouds and anomalies damage the ship.</li>
+<li>Crew level up when you dock at a main station; pay wages and avoid double-bunking, or good people quit.</li>
+<li>Read the <a href="prospector/manual.html#p24">FAQ pages</a> of the manual. More: <a href="https://www.roguebasin.com/index.php/Prospector">RogueBasin</a>, the <a href="https://code.google.com/archive/p/rlprospector/">Google Code archive</a>.</li></ul>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<p>The source has debug code behind a master switch (<code>const _debug=0</code> in <code>debug.bas</code>: test keys, extra shop items, bones testing), compiled out in every release build, this one included. A space-combat key that shows enemies outside sensor range (<code>key_cheat</code>) is still in the key list, but its key character was lost in the source’s encoding, so no key can reach it. No wizard mode.</p>
+<ul><li><strong>Save scumming:</strong> <em>Export save</em> / <em>Import save</em> on the game page.</li></ul>
+</section>
+</div></body>
+</html>

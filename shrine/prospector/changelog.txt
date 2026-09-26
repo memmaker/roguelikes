@@ -1,0 +1,723 @@
+Prospector change log (changelog.txt from the R197 source, newest first; oldest entry 0.1.2).
+Release dates of 0.1.15b to 0.2.4 are in the Google Code archive; see ../prospector.html.
+
+R197
+!Savegames not compatible!
++ you can change map sizes when you start the game. Size will now be saved with the savegame
++ Aliens who can pick up items now also may be able to open doors
++ Balancing: Artifacts and robot ships appear later
++ Certain RNG-extremness in universe creation alleviated
++ Other assorted balancing attempts
++ Planet rotation now accurately maps to day-night cycle
++ Game now knows if it can load a savegame or not
++ minor polishing
+
+R196
++ Orbital splashing finally fixed
++ cage traps didn't empty: fixed
++ Gambling no longer counts as piracy. New mission type: Gambler
++ more attempts at balancing
++ competent talent works differently now (A competent captain gets 1 skill point in a random officer type skill)
++ some more minor bug squishing and quite a bit of polishing
+
+R195
++ fixed empty shops
++ fixed a bugged quest
++ Assigning piles of items works now
++ Dividing fire works again
++ Some attempts at balancing
++ Minor bugsquishing
+
+R194
+!savegames not compatible!
++ No more orbital splash damage
++ changed to hit formula
++ Beefed up robot invasions
++ AIs are now crew members who don't fight, don't take damage and don't need space or oxygen
++ Customizing piles of items works now
++ Minor bug squishing
+
+R193
++ Robot ships no longer attack each other, stranded robot ships now show the correct tile
++ Fixed stim crashes
++ Hospitals now get a planetside menu entry
++ Suffocating no longer damages your suit
++ New ships were not supposed to start cursed (Used ships were)
++ Minor bug fixes
+
+R192
+!Savegames are not compatible!
++ new type of shop
++ Some planetside shops where missing inventory
++ Ordering items works again
++ Fixed another bar-crash bug
++ Creatures in space no longer prevent you from taking over a ship
++ Stations no longer pay for towed ships, but Used Ship Shop does
++ UI improvement: (I)nspecting in space does the same as scanning
++ UI improvement: You can now use arrow keys to choose your landing pad
+
+R191
+!Savegames are not compatible!
++ Quick Bugfix for planetside fire
++ savegame fixed 
++ Fixed a crash bug at the bar
++ Some more minor bugfixes
+
+R190
++ All Shops now have their own inventory
++ New items: Nonlethal weapons
++ New items: Stims
++ teleporters now have different ranges
++ teleporting monsters
++ Drugs now have names
++ UI improvement: Fire on planet and in spacecombat now use the same interface
++ Trees no longer have bios
++ found and fixed an inventory bug
++ more minor bughunting and polishing
+
+R189
++ Ship inspections now may fix structural damage
++ Monsters on high grav worlds have more hps and are slower.
++ Mining stations now have mines again
++ No more unlimited supplies in shops
++ Space is still as dark, but suns are a bit brighter
++ Slight changes in retiring crewmembers
++ Added a list of star trek shipnames with 268 names (and found another B5 name: Ares)
++ minor bugs and continued polishing
++ Savegame versioning
+
+R188
++ Refracturing
+
+R187
++ Changed file layout
+
+R186
++ More types of shops possible in small space stations
++ Ordering Items in shops works now
++ Damage for teams with mixed spacesuit-status works now
++ Fixed a bug causing you to attack creatures after putting them in cages
++ Fixed exit crash
++ Spacecombat sound crash & heal disease crash fixed
++ lamps now do something and space is darker
++ some more polishing
+
+R185
++ New Item: Spacesuit repair kit (Usable by hitting either the (h)eal or (i)nspect key)
++ Removed another trigger for planetside menu  that wasn't supposed to be there.
++ used ships and custom ships work now
++ No more looping maps that shouldn't loop
++ polish: Switched no spacesuit question so you now have to confirm if you want to land without spacesuits."
++ Some crash bugs fixed (Firing grenades towards map border, spacecombat sound version)
+
+R184
++ Spacesuits get holes if you take damage. Corrosion can cause holes too. These holes leak oxygen.
++ Probes fixed
++ Rovers fixed (again)
++ Error handling by sopissd
++ polish: Item stats
++ polish: no more +0 or +-5 when showing skillrolls 
+
+R183
++ Balancing: Lower grade Armor has more oxygen
++ new command: optimize (e)quipment allows you to decide if you want autoequip to go for max oxygen or max armor.
++ Mapsize, number of wormholes and starsystems now can be changed in config.txt
++ Custom hull shop works now
++ Fixed 2 bugs that could cause a crash
+
+R182
++ Goodbye Lag: Optimized internal Item lookup
++ Planet side menu triggers fixed
++ savegames from crashes are now labeled to prevent them from messing up your regular save.
++ Some more minor bug fixes
+
+R181
+
+Savegames not compatible!	
+
++ Balancing: Beefed up ancient alien ships, Bladebots are now slightly slower
++ Balancing: Character build points are worth more in money, talents cost 2 points instead of one
++ Balancing: Stockmarket unbroken
++ Balancing: New formula for weapons prices (Ship, ranged and closecombat)
++ more B5 ship names
++ New system to place pirate bases (It makes sense now)
++ UI: If you know where shops are on a planet/map and there are more than 3, you get a menu, as in the big spacestations.
++ People at the casino now might teach talents
++ Bug fix: Breeding monsters now breed their own sort
++ Rovers fixed
++ Oxygen inconsistency found and fixed. Higher grade armor now also has more oxygen storage
++ new "rooms" for underground caves
++ new starting option: junk ship
++ slightly updated manual
++ some more minor bugfixes
+
+R180
++ Minor changes to goods supply should make price development more interesting
++ Minor and not so minor bugs fixed, one of them concerning apollo interaction
++ Minor UI improvements
+
+R179
++ minor bugfixes
+
+R178
++ mainly fixing minor bugs and cosmetics
++ critters no longer sleepwalk
++ turning in derelicts at spacestations now works, tractor beams don't break down as often anymore.
++ turns are now displayed as days, hours:minutes (If you play more than 8200 years it *will* roll over to 0)
++ Balancing: Snipers take longer to shoot
+
+
+R177
++ Major and minor bugs fixed
++ If your ship has a hot weapon it will be shown in the sidebar on a planet
++ reversed the order of choose weapon and choose target when firing on a planet
++ fixed some rover pathfinding bugs
++ new quest: Patrol
++ Apollo bug fixed and some details improved in apollo interaction
++ Changed shipfire on surface (smaller radius, damage calculated differently, ignores playerarmor now too)
++ releasing a key held down now registers instantly
++ lowered poker game bets
+
+0.3 R165
++ Major and Minor bugs fixed
++ new speed system
++ additional eye candy by david gervais
+
+Main known Issues:
+Rovers are still buggy
+generated quests are still buggy
+
+
+0.3
++ New quests, proceduraly generated
++ New backgroundpics and updated tiles made by David Gervais
++ variable fuel prices open new business opportunities
++ changed formula for biodata yield (Bigger animals pay exponentially more)
++ Robots can carry 2 crewmembers without jetpacks. 2 Crewmembers with jetpacks can carry a 3rd without 
++ closed doors now stop vacuum
++ 2 new artifacts
++ New algorithm for gasclouds & anomalies (anomalies have a link to wormholes now)
++ you can now play poker at the casino
++ Doublebunking allows carrying more personel, but is bad for morale
++ Piracy now includes threats
++ You can escort merchant convoys
++ Space stations have more HPs and fewer weapons
++ Mudd has added appropriate merchandise
++ Use bottom right corner to display commands
++ variate missile damage by changing warhead loadouts, energy weapons heave variable damage
++ New options for stronger shiparmor
++ more "terrain" in spacecombat, and it blocks fire.
++ energy weapons now draw engine power, slowing you down when you fire them. So does shield regeneration
++ Strong engines and explosions in space battle can be detected beyond sensor range
++ New shipweapon: drones
++ weather effects now only happen underneath clouds
++ Fewer predators (Need a number of omni- and herbivoures already on the planet) Omni, herbivoures and scavengers have a chance to run away when they notice awayteams
++ some monsters can now regenerate wounds
+
+
+0.2.4
++ You can now join in NPCs space battles
++ It's harder to make other ships follow you in spacebattles
++ New System type: Rogue gas giant
++ New Item: Hydrogen scoop (Improves gas giant scooping and collects fuel when in gas clouds)
++ Further stacking the deck: very dangerous planets are now always in gasclouds
++ Spaceships now have speed differences
++ Tiles out of sight are now darkend
++ Savegames and Highscore entries now have dates
++ New command \Cs shows the current standing with the factions
++ You can change the spacemap size in config
++ Fixed a bug that overwrote current science officer with Tree
++ Fixed a bug that allowed you to recruit more than your ship could carry
++ Autoexplore now can go around planets
+
+0.2.3a
++ Eris-apollo interaction works now
++ Inspecting the corpse of your opponent in the arena no longer affects your payout
++ Fixed leveling & XP bugs
++ Awayteam members grunt when they take damage
++ some more minor bugs fixed
+
+0.2.3
++ 4 new artifacts
++ Autopilot routefinding is now less reckless
++ Autoexplore for more convenient planet mapping
++ You know can fully customize your crew: No fixed slots anymore for officers and redshirts
++ Additional officers can contribute in certain positions:
+Pilot - This is a one person job, addtitional pilots don't help
+Gunner - Addtional gunners help as long as there are weapons for them to arm
+Science Officer - Addtional SOs help up to the max sensor rating of the ship
+Doctors - No limit
+The final rating is determined as follows:
+Each additonal officer adds his skill divided by his position.
+If you have 3 SOs its SO1/1+SO2/2+SO3/3 Fractions of a skill point get dropped
++ You can now fire crew members or train them (Forcing another leveling roll for half standard wage)
+
+0.2.2c
++ new rumors about special planets
++ you now can save the star-creatures with environmental problems
++ game now actually reads savescumming option
++ some cave entries were invisible in tiles mode
++ special planets now get marked in tiles mode too
++ some balancing
++ Camo (including the artifact) and firing several weapons at once in space combat works now
++ Some minor bugs fixed
+
+0.2.2b
++ New statistics for price development
++ New config option: Savescumming
++ Some bug fixes
+
+0.2.2a
++ Crewmembers express high morale now too
++ New game at the casino
++ Fixed some bugs
+
+0.2.2
++ You can now circumnavigate planets east to west
++ Critters don't blame you anymore if someone else killed their friends
++ 5 Easy Systems close to the starting station should make the early game easier
++ Companies pay bonuses for certain milestones reached
++ New PDF Manual
++ Shouldnt crash anymore on doomed planet & with ship fire
++ Firing weapons on a planets surface now generates heat, and causes reload time
++ New unique planet
++ Dying planet is now a semi special
++ Improved Logbook and Autopilot for more comfy exploration of the universe
++ New Item: Gas Giant Mining probe
++ Some portals that were invisible now have the tiles they need
++ Some bugs and glitches fixed
+
+0.2.1
++ Portals now show
++ Alien spacestation didn't have airlocks
++ System map on bar is now center screen again
++ Some bugs and glitches fixed
+
+0.2
++ Great new Tileset by Deon
++ New events that can happen on small space stations
++ Some bugs fixed
+
+0.1.17
++ 2 New semi-unique planets
++ reading ctrl+ combinations finally works
++ Enemy ships no longer fly into their own plasma streams (as often)
++ And they even go towards you now, when they get you on their sensors!
++ Stations buy undeliverable cargo
++ Some bugs fixed
+
+0.1.16
++ New Items: Deep space probes
++ Each ship gets some specific starting equipment (TT still gets 5 vets, nothing added there)
++ redesigned diseases
++ Intelligent critters now build castles too, not just pyramids
++ Passengers hang around in bars
++ Some UI improvements
++ Some bugs fixed
+
+0.1.15b
++ Fixed some minor to major bugs
++ Grenade launchers can be weak or powerful
++ Some new things can appear in Dungeons
++ Endgame has been beefed up
+
+0.1.15a
++ Fixed some minor to major bugs
++ Groundpenetrating radar now comes in 3 different qualities
+
+0.1.15
++ 3 New types of crewmembers
++ New Items
++ New radio command
++ Ship Designer
++ Crewmembers voice their displeasure at your command
++ Fixed biodata and some other bugs
+
+0.1.14b
++ Some more bugs killed
++ New space combat command: Scan
+
+0.1.14a
++ New building on small space stations
++ Things can happen on small space stations
++ Numerous bugs killed
+
+0.1.14
++ Graphical Tiles (Almost for real this time)
++ PPMMIHTML (Prettier Post Mortems Made in HTML)
++ 3 New grenade types: Flash and 2 for stunning
++ Maneuvering Jets no longer take up weapon turrets, but generate heat
++ New Crew Augments
++ New Item prefixes: Sturdy and Acidproof
++ New Shop: Item Customizer
++ Bones Files make it possible to run into the remnants of your former missions
++ New stuff to sell: ID Tags
++ sleeping critters now get marked with a pink z
++ You can now order items in space station shops
++ It's night in caves now
++ Some minor and major bugs discovered and squished
++ Added a list of babylon 5 ship names to feed to the autonaming routine. Just add the filename as a second line to your register file
+
+0.1.13
++ Random alien spacefaring races
++ Better FOV algorithm
++ changed humans from @ to H to avoid confusion with ships
+
+
+0.1.12a
+Savegames not compatible with 0.1.12
++ prospector now checks for double bound keys in keybindings
++ merchants now have traderoutes avoiding anomalies & gasclouds
++ new possible action for critters
++ fixed bug with generated stranded ships
++ fixed some display glitches
+
+0.1.12
++ customizable tile & textsizes, should fit even the most exotic display now
++ new retirement system
++ redid postmortem
++ a new anomaly type
++ new item: All-terrain landing gear
++ some attempts at balancing
++ some medium to major bugs squished
++ some UI improvements
+
+0.1.11a
++ Anomalies come now in 3 different types
++ Fixed a bug in a radio command
++ Fixed some display glitches
++ Highscore counted pregenerated planets as discovered
+
+0.1.11
++ 3 new unique planets
++ Space-time anomalies
++ Double buffering
++ Fixed a bug causing a crash after solving Omega Bioengineering quest
++ Ted Rofes was paralyzed and respawned!
++ Cephalopods now can swim, robots can fly even when in your awayteam
++ Fixed one more stock market bug
++ added Autofire(F) on planetsurfaces and walk command in space
++ turned off message delay for damaged tile messages
++ Mining station in distress is no longer a unique, but a event that can happen more than once
++ inventory lists are now sorted by type
++ you can now change the color of your awayteam and ship, by setting shipcolor and teamcolor in config.txt
+
+0.1.10a
++ Fixed a bug in saving and loading (Shipweapon shops would not load)
++ Fixed a bug in space combat critical hits
++ Fixed post mortem unique planets list
++ Fixed autoselling
++ Fixed sickbay
++ Fixed resources
++ Buying augments for all now starts with the first redshirt (you need to do officers by hand)
++ Armor is more effective now
++ Fixed several minor bugs and glitches
+
+0.1.10
++ 3 new alien artifacts
++ 2 new ways to die
++ 3 new goods to trade
++ several new modules to add to your ship
++ 1 new unique planet
++ cosmetics: Tiles that require jetpacks or hoverplatforms to pass get a background color
+  Reptiles are now L(izards) to distinguish them from R(obots)
+  Upper case Monsters have more HP, color depends on Armor, Red monsters have weapon>2
+  upped chance for gold/dark yellow monsters(still the strongest standard critters)
++ Balancing: Asteroid mining yields more resources, Wormholes do less damage, Live animals get a bonus
++ Fixed 2 Unique Planets
++ Stock market bugs fixed
++ Pirate refit is now buyable and actually works
++ some item bugs & typos fixed
++ forgot to add descriptions for the 5 new unique planets
++ 4 of the new uniques could cause wierdness on the map. Fixed
++ if your ship lands on critters it hurts them
++ found a bunch of tiles that should have been shootable yet were not
++ managed to fight savegame bloat a little
+
+
+0.1.9
++ 6 Biotech augmentations to buy for your crew
++ added Prefixes for weapons, armor and some misc equipment
++ More resource variation
++ Critters behave minorly more intelligent
++ Random Critters get stored after generation (Allowing to do some neat new things with them)
++ Comments to make the logbook a little more usefull
++ You can now assigne favourite weapons to awayteam members
++ toughness talent works now
++ Fixed some bugs in quests
++ a certain alien scoutship now displayes the correct statbox
++ Fixed a bug in space rescue
++ Audio alerts now work with aux. oxygen tanks too
+
+0.1.8d
++ fixed a bug that made collecting quest rewards impossible
++ fixed a displayglitch
++ fixed a bug with plasma streams
++ fixed comments
++ The wrong ship was landing on the pirate planet
++ fixed a bug that caused a crash when viewing shipstatus with too big an inventory
++ some balancing attempts in space combat
++ added anti ship mines
++ oxygen tanks don't stack anymore as they were supposed to
+
+0.1.8c
++ Fixed a Talent mixup 
++ Fixed Alien naming bug
++ added some saveguards concerning item&monster buffer overflow
++ fixed some pirate problems
++ fixed a bug that could cause a crash when the restart option was on
++ fixed a bug with sensors
++ yes key is now bindable
++ added a flat 500 cr reward for towing in ships that have run out of fuel
++ fixed a unique planet
++ Creatures born on airless worlds are now adapted to their environment
++ E now shows all your stuff, W doesn't exist anymore
++ fixed jetpack fuel
++ added distress beacons
+
+0.1.8b
++ added some saveguards so that you don't stay sick if you aren't
++ finally got visibility+lighting right
++ rewrote FOV, adding an option to mark actually visible squares
++ Crew talents
++ Stations now pay less for goods
++ Fixed some map generation bugs
++ Tries to save the game if encountering an error
++ fixed (yet another) door bug
++ Added teammember overview
++ fixed the black market
++ fixed a bug with shop rerolling
++ fixed an autoequip bug
++ fixed some bugs with catching life monsters
+ 
+
+0.1.8a
++ Added sickbay to station
++ Toning down of Diseases and Quarantine
++ Moved some external files to a data directory
++ added a quest and upped the chance of getting one
++ fixed the black market
++ fixed minor to medium sized bugs
+
+0.1.8
++ new unique planets
++ more quests
++ New things to plunder in space
++ New possible end for pirates
++ New atmosphere type: corrosive
++ New Officer: Ships Doctor
++ Diseases
++ W shows all items you have not equipped and their descr.
++ E does the same with equipped items.
++ O opens/closes the helmet switching from suit air supply to atmosphere and back
++ A lets you chose wich officers join you on the awayteam
++ new item: auxillary jetpack fuel tanks
++ Mining drills ignore damage reduction of walls
++ Added day/night cycle to planets
++ Suffocation damage ignores armor
++ Gasclouds come in different densities (low density is less dangerous than in earlier versions, high density clouds are more dangerous)
++ Pilots can save your life! (financially speaking) (I hope that is cryptic enough)
++ Lowered basedamge & increased to hit for ground combat, making weapons and tactics more important
++ fixed a bug when picking up artifacts
++ fixed a bug that caused locked doors to be harder to open by better science officers
++ fixed a bug with smoking geysers
++ fixed a bug with loading savegames & autorestart option
++ fixed a bug with binoculars and portable sensor sets
++ fixed a bug with finding random points (thanks to xenomorph for the hint to find it)
++ fixed a bug in damage routine
++ fixed a bug in highscore
++ rewrote awayteam HPs
++ slowed monster respawning
++ added double buffering
+
+0.1.7a
++ One planet type was supposed to have alien artifacts on it
++ Asking for number of items to buy should have used plural
++ minor display glitch when landing from scanning screen fixed
++ Display glitch with insect warriors+scout ship rescue fixed
++ "Water" in planet display now counts all liquids &frozen water (And i was wondering why it wasnt snowing ever...)
++ some tweaks to rogue planets discovery/display
++ planetside trading bugs fixed
++ beefed up pirate ships a little
++ vi keybindings included in zip now
+
+Changes in 0.1.7
++ 5 new unique planets (actually 10, but 5 are pretty similiar to each other)
++ Bigger spacemap
++ Wormholes
++ Gas giants
++ selling disabled if you have no cargo
++ UI Improvements: You can land from the scanning screen, System overview shows atmosphere
++ Balance tweaks: Jetpacks need fuel, Firearms have more punch, Lower tier short range weapons are more expensive
++ Fixed some glitches and bugs
++ Fixed some Typos again
+
+Changes in 0.1.6d
++ Some minor to medium glitches and bugs fixed
+
+Changes in 0.1.6c
++ Fixed a bug that lost star systems
++ Fixed a bug that made your ship dissapear if it was in flight while you went down a cave
++ Com sat shouldnt get lost anymore
++ Fixed some typos
+
+Changes in 0.1.6b
++ improved base placement
++ scrolling through manual wasn't working
++ dead science officers caused negative biodata on examining plants
++ drills didn't equip
++ some displayfunkiness solved
++ some typos fixed
++ enemy awayteams are a little slower
++ thugs don't look like trees anymore
+
+Changes in 0.1.6
++ some balancing in the upper grade ship tier
++ some trade balancing: maximum possible price is lower and minimum higher
++ More variation & some random equipment at game start
++ some balancing in ship weapons & new weapons: as a rule missiles have a better range than energy weapons
++ Systems in gasclouds have better resources
++ System types follow the harvard classification (except for F because there have to be green stars!) have an effect on resources found
++ Officers can die on planets and need bunks to sleep in.
++ New (hidden) feature in space stations
++ Tactics command added affecting ground combat
++ close combat weapons (Only effective against monsters, others stuff you still have to shoot)
++ "done" special planets give another description on scanning after they have been "done"
++ one new special planet
++ 2 new quests
++ Unlocked houses stay unlocked
++ New way to generate gasclouds
++ you can't buy the same hull like you already have anymore
++ speed is dependant on max armor of ship instead of current (as it used to be since 0.1.0)
++ Added description to communication sattelite, to better represent it's new features
++ Monsters can have some new stuff, affecting their stats
++ They also have a higher tendency to come in groups with allied members
++ Monsters can attack monsters now
++ Herbivours eat grass, Scavengers eat corpses, predators eat herbivours & scavengers
++ Monsters don't talk in coordinates anymore
++ Monsters build huts like they were supposed to
++ Inspected corpses don't show up anymore
++ Some more cosmetics to planet maps in relation to temperature
++ Keybindings may be altered by editing keybindings.txt
++ abandoned the silly everything is uppercase concept
++ 2 new map types
++ there is a way to mark already examined plants now
++ fixed a bug in shiphull upgrading (engine, sensors and shields above max didnt get reduced)
++ fixed about a gazillion typos
++ fixed a bug that could cause the game to freeze on scanning
++ fixed a bug that caused shops to only get triggered if you moved sideways into them
++ fixed bug: Gifts recieved from aliens are worth money now
++ fixed bug: Double items in shops are gone
++ fixed bug: in item scanning
++ fixed bug: that could lose items
++ fixed bug: fleeing from a fleet doesn't count as a kill anymore
++ that cave was *not* supposed to be green
++ blue and redcaps were supposed to yield biodata, and drop gaussguns instead of rifles
++ fixed a bug in cave generation on the redcap and bluecap planet
++ fixed a bug in cargo selling
+
+Changes in 0.1.5
++ added 15 shiptypes, with scout/explorers being the most general purpose, merchants and fighters specializing in cargo and space combat respectively and troop carriers who are best for transporting big awayteams
++ Fuel and Crewquater module to add to your ship
++ Added more pirates! (Because more is always better, at least as  far as pirates are concerned)
++ And destroying their bases now counts towards pirate kills!
++ Also they really really come after you when you got high price cargo. For real this time. I hope.
++ Docking on first turn doesn'cost money anymore
++ Added a new command for your ship
++ descriptions for shiptypes and items in shops added
++ "That's a weapon too" Ship engines leave a trail. flying into it hurts. 
++ Fleets meet when they are adjacent to each other, used to be when they hit the same square
++ planets above 100° surface temperature don't have open water anymore and planets below 0° as well
++ 2 new monster types
++ 1 new unique planet 
++ intercepting radio messages happens less often
++ warning for earthquakes
++ station shops are better stocked
++ Kills with grenades and shipweapons now yield biodata
++ Fixed a bug in fleeing space combat
++ Fixed a bug with special tiles on planet surface (Couldnt enter shops unless you were dead)
++ Fixed a bug that could cause tiles to be come blocked/unblocked that shouldn't
++ Fixed a bug that could cause starsystems to sit on top of each other
++ Fixed bug: unidentified alien artifacts dissapear again
++ Fixed bug: Teleportation device doesnt dissapear on next landing anymore
++ Fixed a typo, here and ther
++ Tiles changing outside your visual range no longer show up immediately
++ Menu bars remember their former position
++ Config.txt now works with on/off too
++ Unique planet descriptions don't get mangled anymore
++ Added soundeffects
+
+Changes in 0.1.4
++ "C"ommunicating to aliens might be a bit more interesting
++ CTRL+X opens the configuration menu where you can
+    Toggle autopickup
+    Toggle a Beep on low oxygen warnings (may not work on all platforms)
+    Toggle if you want to select items by hand or always want to use the best item
+    Toggle diagonal movement: if you move into a direction and its blocked an diagonal is automatically chosen
+    (This may help those who dont have the luxury of a numpad)
+    Toggle save screenshots (Converts extended ascii characters when making a screenshot)
++ "," Picks up an item when not in autopickup
++ "D" drops an item
++ "O" offers an item to an alien
++ shallow water no longer blocks movement, but uses oxygen
++ oxygen gets replenished in areas where there is enough of it
++ New Items
++ 2 new unique planets
++ Fixed a bug that "lost" unique planets
++ Botany works slightly different
++ New algorithm for making planet maps
++ New plants & "water" for exotic atmosphere planets
++ Fixed a bug in monstergeneration
++ Fixed a bug in a quest
++ Fixed a bug in item equipping
++ Fixed a bug that caused all your officers to retire when visiting the pirate bar
++ Fixed a bug that payed 250 Cr. wage to each missing officer
++ Shop inventorys on planets dont get reset on each entry anymore. 
++ Killing trees doesnt get rewarded with 1.000.000 Credits anymore.
++ Rescuing the scout doesnt make you immortal for the planet anymore, and chances to find people alive are a lot higher
+
+Changes in 0.1.3
+
++ added the amulet of yendor
++ "G" throws grenades
++ "H" uses medpacks on awayteam
++ "R" on planets allows to call your ship by (R)adio. Mountains block contact. Some (on purpose) undocumented commands may be issued to the crew on board. (If you cant tell your crew what you want of them, tell me. I will try to talk to them)
++ "@" displays ship information
++ New type of dungeons
++ New type of planet maps
++ expanded & random shop inventorys 
++ new stuff that can be found on planet surfaces
++ changed chances for acid rain & high winds
++ attacking monsters on impassable terrain is now possible by bumping into them
++ shooting monsters now have visible weapon beams
++ item system rehauled: an awayteam of 10 won't be able to fly with 9 jetpacks, 5 gaussguns are worse than 3, 10 aren't better than 8 when the awayteam consists of 7 people etc.
++ resources are a little more descriptive and variate much more in value
++ visibility is affected by orbit (the farther out, the less light)
++ maps for hard to map planets pay more
++ some new tiles for the new dungeontype
++ Fixed minor teleport bug (Cursor appeared at 0,0 instead of at player position and display didnt refresh)
++ Fixed a bug in LOS calculation 
++ fixed some mistakes in monster generation while rehauling it
++ Changed post mortem files from .flg to .txt
++ minimum visibility reduced (from <=1.5 to <1.5)
+
+
+Changes in 0.1.2
+
++ reworked fleet system
++ reworked tile system
++ you can become a pirate now
++ added 1 item (that doesnt sound very impressive does it?)
++ upped some equipment costs (you are not buying a single gauss gun, you are upgrading your ships armory)
++ added 1 special planet and reworked 5 of the old ones
++ cave systems are less uniform (they variate on "cavyness" and "tunneleyness"
++ consistent warnings on low oxygen levels
++ Jumppacks allow for the daring "emergency jumppack jump" maneuver
++ invisibles are really invisible now
++ Stations now attempt to offer entertainment to their customers
++ pirates really get agressive when you have high price cargo (In 0.1.1 only one pirate got agressive, and always the same one too)
++ another nerf to scanning (your level 5 science officer also needs level 5 sensors)
++ nerf to orbit correction : Its less nagging now, but it also won't kill you
++ warning if you leave the station with an officer missing
++ missing officer now has a skill of -5 instead of just 0
++ docking on a station with a missing officer caused a division by 0. fixed

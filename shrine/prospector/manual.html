@@ -1,0 +1,456 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Prospector · Manual</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shrine.css">
+<style>pre { white-space:pre-wrap; overflow-wrap:anywhere; font-size:13px; background:var(--stone); border:1px solid var(--line); border-radius:6px; padding:12px 14px; overflow-x:auto; }</style></head><body><div class="wrap">
+<nav><a href="../prospector.html">← Prospector shrine</a> · <a href="../../prospector/">Play</a> · <a href="Manual.pdf">PDF</a></nav>
+<h1>Prospector manual 1.1 (2014)</h1>
+<p>The text of the game's own <a href="Manual.pdf">Manual.pdf</a> (version 1.1, 29 pages, shipped with R197), extracted page by page. The PDF is laid out in columns with screenshots and tables: where the text below reads out of order, the <a href="Manual.pdf">PDF</a> is the original. © Matthias Mennel, zlib licence (<a href="license.txt">licence</a>). Some keys changed since: the logbook is <kbd>L</kbd> in R197, not Ctrl-L.</p>
+<nav class="toc"><a href="#p3">Introduction</a><a href="#p4">Interface</a><a href="#p5">Space Combat</a><a href="#p6">Planets</a><a href="#p8">Ship Status Screen</a><a href="#p9">Awayteam Screen</a><a href="#p10">Your Ship</a><a href="#p11">Changing Hulls</a><a href="#p12">Crew</a><a href="#p13">Skills</a><a href="#p14">Augments</a><a href="#p15">Wages, Dangers &amp; Retiring Crew Members</a><a href="#p16">Game World</a><a href="#p17">Star Systems And Planets</a><a href="#p18">Space Combat</a><a href="#p19">Equipment</a><a href="#p20">Ship Modules And Equipment:</a><a href="#p21">Personal Equipment</a><a href="#p22">Ranged Weapons</a><a href="#p23">Miscellaneous</a><a href="#p24">Retirement</a><a href="#p25">Items</a><a href="#p26">Radio Commands</a><a href="#p27">Commands</a><a href="#p28">Planets Surface</a><a href="#p29">Space Combat</a></nav>
+<section id="p3"><h2>Page 1 · Introduction</h2><pre>INTRODUCTION
+Welcome to Prospector
+In an unexplored sector of space humanity is trying to establish a permanent presence. unknown planets for them. The player commands one of those scout ships, trying to become filthy rich as a Prospector.
+Mega corporations employ freelance prospectors to find exploitable resources and map
+In this game your main goal will be to survive long enough to get enough money to retire. There are several ways to get money:
+a) Sell your maps, your biodata and your resources at one of the 3 main stations.
+b) Trade goods between the stations, and stations and planets.
+c) Hunting pirate ships.
+d) Become a pirate.
+There are many dangers in the sector, so be careful.
+One of these dangers might even be an extinct ancient alien race. Their artifacts and ruins of their cities can be found all around the sector. Or maybe they aren‟t as extinct as it
+seems?
+BUG REPORTS AND ONLINE RESOURCES
+There are Bugs in prospector, and I am doing my best to fix them as soon as they pop up. So, please, don&#x27;t hesitate to send in a bug report. You can either send me an email at
+matthias.mennel@gmail.com
+or go to the forum at
+http://www.prospector.at
+and post it there.
+Prospector now has its own site: www.prospector.at</pre></section>
+<section id="p4"><h2>Page 2 · Interface</h2><pre>INTERFACE
+SPACE TRAVEL
+The center window shows
+discovered stars, a space
+station to the far left,
+and gas clouds. There is
+a fuel warning in the
+message window. Above
+it there is the information
+that we have no
+Navigational computer
+installed. If we had one,
+our coordinates would
+show there.</pre></section>
+<section id="p5"><h2>Page 3 · Space Combat</h2><pre>The right bar shows our ship stats:
+The type and name of the ship: LS (Light Scout) NNC-2222
+Hullpoints and shieldpoints of the ship.
+Pilot, gunner and science officer Skills
+Ships doctor, and number of security on board
+Sensor rating of the ship
+Engine (In parenthesis: How many movement points in space combat)
+Weapons: We have a laser bank, it does 2 points of damage and has range brackets of 1 for close, 2 for medium and 3 for far
+Our cargo hold has a size of 1, and is currently empty
+We have 500 credits, have been around for 76 turns, and our fuel is down to 24 from a max of 100
+System map:
+A system map will look like this. It appears when your ship is at a star system. The * represents a star, the boxes are asteroid belts, the orange O is a gas giant, the o are planets.
+The grey color indicates that we haven‟t scanned or visited any of them yet. You can customize this in the options. You can have it pop up under your current ships position or put it
+on the border between space map and text messages. You can also use graphical icons instead of ASCII. This is done via the configurations menu.
+SPACE COMBAT
+Space combat looks very similar to space travel, with some minor differences. Your sensor range is indicated by grey dots. Your (and enemies) ships also draw a trail of hot
+plasma, which you should avoid flying into. You have access to activating sensors, increasing your sensor range, but also making it easier to get hit, toggle maneuvering jets for
+extra speed, fire weapons, drop shields (regenerating shields produce heat – warning: you cannot put your shields back up during combat) and drop mines.
+Firing weapons has various effects: The obvious being that if they hit your opponent, his shields and/or ship will be damaged. After firing a weapon it needs a certain amount of
+time to reload (for ammo using weapons) or recharge (for energy weapons). During this time it can‟t be fired again. Using your weapons also heats them up. The heat will dissipate
+over time. You can still fire it, but if your weapon gets too hot it might shut down or even be permanently damaged.
+To flee from space combat you need to move to the edge of the map and attempt to „r‟un and flee. Your chance of getting away depends on number of enemy ships and your
+pilot‟s skill.</pre></section>
+<section id="p6"><h2>Page 4 · Planets</h2><pre>PLANETS
+Like space exploration the planet exploration screen is divided into a main window and a sidebar and message window below.</pre></section>
+<section id="p7"><h2>Page 5</h2><pre>The first line shows how many members your group has, and how many of them are still alive. The symbols below show their individual status. Green
+means unhurt, yellow hurt, and red X means that crewmember is dead.
+The different symbols show the type of the crewmember:
+C Captain P Pilot
+S Science officer D Doctor
+@ regular security L Squad leader
+N Sniper M Paramedic
+You can change these symbols to individual HPs by pressing ctrl+h
+Below that you see general information about your team. What mode of transport they have, and their armor and weapons value combined.
+Below that are stats about your resources and data collected so far.
+At the bottom of the sidebar you find your current Oxygen level, money and the current turn of the game.
+On the lower bar left hand side, you also find useful information: If you have a satellite in orbit, you can see your coordinates. You can also see if it
+is day or night. Right of that you see what options are on: P means autopickup, I autoinspect, and O means your helmets are open. Right of that you
+see what tactics you use when engaging enemies. You can change them from reckless to defensive.</pre></section>
+<section id="p8"><h2>Page 6 · Ship Status Screen</h2><pre>SHIP STATUS SCREEN
+You can pull up this screen at any time using the @ key. It offers more detailed information about your ship, crew and equipment. Use the arrow keys to scroll through your
+equipment list- You can also filter the list by pressing Ctrl-f, press Esc to exit the screen.</pre></section>
+<section id="p9"><h2>Page 7 · Awayteam Screen</h2><pre>AWAYTEAM SCREEN
+Detailed information about your crew is
+available on the awayteam screen. You can
+look at it at any time pressing „A‟. It shows
+each member of your crew, with HPs,
+equipment, skills, implants, diseases and XP.
+You can assign a crewmember to the
+awayteam or to the ship by highlighting him
+or her and pressing enter. You can also turn
+off autoequip for individual crewmembers, by
+pressing „e‟
+LOGBOOK
+You can access the logbook by pressing Ctrl-l. It provides access to two functions: Information on already explored Star systems, and the Autopilot. To engage the autopilot you
+need to select a destination star, and then press the „w‟alking key. You will be prompted to enter a number between 0 and 5. This number weighs short routes vs save routes. 0 will
+send you in a straight line to your target, ignoring any gas clouds or anomalies. 5 will do the opposite and avoid gas clouds at all costs.</pre></section>
+<section id="p10"><h2>Page 8 · Your Ship</h2><pre>YOUR SHIP
+SHIP STATS
+Ships in Prospector have several Stats:
+HP: Hull points - Once they reach 0, the ship is destroyed. The only way to regain lost Hull points is to repair the ship at one of the stations.
+SP: Shield points - Damage to the ship is first deducted from the shields. Only if the shields reach 0, damage gets transfered to the hull below. Shields regenerate in and outside of
+combat.
+Sensors: Determines visibility range in space, and how well you can scan planets.
+Engine: Determines how fast you can move in space combat, and the chance of anomalies sweeping you away
+Weapon Turrets: This is the maximum number of weapons your ship can carry.
+Cargo Bays: Bays to transport standard Cargo containers in.
+Crew: This determines how many Crewmembers your ship can hold. The first 5 Bunks are always reserved for Officers. (Captain, Pilot, Gunner, Science Officer and Ships Doctor)
+The others can hold up to 2 crewmembers if your crew sleeps in shifts. This is generally not good for the crews morale.
+Fuel: Flying through space needs fuel. You can refuel at space stations, or you can scoop a gas giant.
+THE STARTING SHIPS
+There are 5 starting Ships available to you. Each comes with some standard equipment:
+Light Scout: A jack of all trades. Can hold some cargo, some crew, and has a good range. Is equipped with deep space probes.
+Long Range Fighter: Main advantage over other ships is its hull capacity. Starting equipment is a ship detection system.
+Light Transport: A small cargo ship. You start with some cargo already in the hold.
+Troop Transport: A small ship, its advantage is being able to hold a crew of 15. This makes exploring planets easier. With this ship you start not only with the officers, but 5
+Veteran security members.</pre></section>
+<section id="p11"><h2>Page 9 · Changing Hulls</h2><pre>Pirate Cruiser: If you choose this ship, you also choose the more difficult pirate life. While you will be able to land on pirate planets, space stations will shoot at you, and company
+patrols will attack you.
+CHANGING HULLS
+There are several possibilities to find a Hull better suited to your needs. One is to buy one at one of the 3 main space stations. Ship Hulls come bare bones, without any equipment.
+Equipment from your old Hull gets transferred to the new one (Sensors, engines, shields, weapons and miscellaneous devices)</pre></section>
+<section id="p12"><h2>Page 10 · Crew</h2><pre>CREW
+OFFICERS
+Captain: Pilot: Gunner: Science Officer: Ships Doctor: This basically is you. If one of the other officers is dead you take over.
+Is responsible for identifying space travel hazards, and landing
+Mans ship weapons and also coordinates awayteam attacks
+Responsible for finding data and resources to sell to the megacorps
+Heals the wounded and finds the cure for diseases
+ORDINARY CREW MEMBERS
+Ordinary Crewmembers come in 2 basic varieties: redshirts and specialists.
+Redshirts also go by the name of security, and start out as green, with 2 hitpoints each. If they survive long enough, they can eventually become veterans with 3 hitpoints, or even
+elite with 4.
+Specialists are Sharp shooters, Squad leaders and Paramedics.
+Sharp Shooters: Squad leaders: Paramedics: have a +3 on to hit with ranged weapons
+add a +1 on to hit for up to 5 other crew members
+increase the regeneration rate, if your ships doctor is still alive.
+LEVELING &amp; XP
+Different Crewmembers get an XP for different tasks.
+Captain: Gunner: Pilot: Successful landing
+Each time you dock at a major station
+Successful hit on an enemy ship</pre></section>
+<section id="p13"><h2>Page 11 · Skills</h2><pre>Science Officer: Scanning planets
+Ships Doctor: Redshirts: Each time he heals wounded, or cures a disease.
+Shooting at something and hitting it.
+Every time you dock at one of the main space stations, your crewmembers might level up. There is no fixed XP value, the formula looks like this:
+Random number (From 0 to XP)+ 2(if has a neurocomputer) &gt; 5+ HP^2
+SKILLS
+Some crew members come with skills, or may gain them when leveling up. Not every crewmember can have every skill, some are reserved for certain officers or the captain.
+Captain:
+Comptetent: Haggler: Confident: Gambler: Merchant: Better at taking over dead crewmembers jobs
+Gets better prices at shops
+Better chance go get quests from company offices
+Charming: Better morale for crewmembers
+Better chance to win in the casino
+Gets better prices when buying/selling cargo
+Pilot:
+Evasion High grav training Asteroid miner: Gunner:
+Tactics expert: Leadership: Ship weapons expert: Improvise mines: Has a better chance to get away when fleeing from space battles
+Has a better chance to land successfully
+Finds more ore in asteroids, and catches them easier
+Increases effect from tactics setting
++1 on all to hit rolls from awayteam
++1 on to hit rolls with ship weapons
+Can turn a certain amount of ship fuel into jury rigged mines</pre></section>
+<section id="p14"><h2>Page 12 · Augments</h2><pre>Science Officer:
+Linguist: Biologist: Sensor expert: Better chance to understand aliens
+Better results from scanning plants and recording alien biodata
+Is better at using sensors
+Ships Doctor:
+Disease expert: Increased chance to cure diseases
+First aid expert: Better results from using medpacks
+Field medic: Higher regeneration rate
+General Skills:
+Fast: Increased speed
+Aim: +1 to ranged weapons to hit
+Sharpshooter: +.1 to ranged weapons damage
+Close combat expert: +1 to close combat to hit
+Strong: +.1 to close combat damage
+Tough: +1 to hitpoints
+Defensive: -1 on enemies to hit rolls
+AUGMENTS
+At hospitals you can augment your human crew members with implants. These aid the crewmember in various fields. But installing too many of them can be dangerous. Most doctors
+won‟t put more than 3 in.
+Available Augments are:
+Targeting Computer
+Muscle enhancement
+Improved Lungs
+Speed enhancement
+Exoskeleton
+Improved Metabolism
+Implanted floatation devices
+Implanted jetpacks
+Chameleon skin
+Neurocomputer</pre></section>
+<section id="p15"><h2>Page 13 · Wages, Dangers &amp; Retiring Crew Members</h2><pre>The so called loyalty chip, that prevents the user from making his own decisions, without confirmation by a preprogrammed “Leader” is not available on the open market..
+Another very dangerous implant, that doctors who have a conscience do not offer are artificial nerves. These are better suited to interface with other augments, and increase your
+survival chance when you add a 4th or even 5th implant.
+WAGES, DANGERS &amp; RETIRING CREW MEMBERS
+Your crewmembers are people too! Each has a hidden morale score. A low roll and a low score can lead to valuable personnel leaving your crew when you dock at one of the
+main stations.
+Several things influence your morale score:
+Wages
+seeing other crewmembers die
+visiting nice &amp; peaceful planets
+Doublebunking
+Visiting loved ones</pre></section>
+<section id="p16"><h2>Page 14 · Game World</h2><pre>GAME WORLD
+SPACE STATIONS AND HUMAN SETTLEMENTS:
+The sector you are about to explore does feature some rudimentary human settlements already: There are 3 large space stations, as well as 3 smaller ones. Most explorers coming
+from earth make a last stop at one of the smaller stations. These stations usually offer most basic services, and maybe some other businesses. Their main purpose is to repair and
+refuel merchant fleets.
+The 3 Main Stations are the hubs of commerce in the sector. Each is run by one of the 4 biggest Mega corporations.
+There might also be other planets with humans living on them.
+Company Office: Equipment: Fuel and Ammo: Repair: Hire Crew: Trading: Sick Bay: Casino: Retirement: Services at Space Stations
+Here the megacorp holds court, and buys resources, mapdata and biodata
+Here you can buy upgrades for your ship and gear for your crew
+Here you can reload your ammo bins and refuel.
+Repair your ship for the standard price of 100Cr pre Hull point
+Here you can hire personnel for your ship
+Here you can buy and sell stocks and commodities
+Here you can buy medical supplies and cybernetic implants. You can also let the doctors cure diseases
+Here you can play roulette and have a drink at the bar
+Here you can buy assets to enjoy once you choose to retire
+SPACE</pre></section>
+<section id="p17"><h2>Page 15 · Star Systems And Planets</h2><pre>Gas clouds: Flying through gas clouds can damage your ship.
+Anomalies: Anomalies can damage your ship, and also have various other effects.
+Wormholes: Wormholes connect one part of the sector with another. Flying through one might also damage your ship though.
+STAR SYSTEMS AND PLANETS
+Stars: Stars usually have several planets in orbit around them that you can explore. The two basic things you can do with planets is scan them or land on them.
+Scanning provides some basic information about the planet, and reveals an amount of terrain, depending on sensors, science officer skill and atmosphere density of the planet. You
+also get information about
+ atmosphere type
+ gravity
+ temperature
+ rotational period
+ amount of liquids on the surface
+ probability of life. How accurate this guesstimate is depends on your science officers skill.
+Gas Giants: You can‟t land on gas giants. It is possible though to scoop fuel off of one.
+Asteroid Fields: Likewise you can‟t land in asteroid fields. Though some asteroids contain high amounts of precious minerals, that you can harvest.
+Rogue planets: These are planets drifting through interstellar space without a sun. They are rather rare, and hard to find.
+Special planets: There are some unique planets. Usually you get a message from your science officer when scanning them. Proceed with caution. Some of them can be quite
+dangerous.
+COMBAT
+Often you will come across creatures which you must fight. Sometimes you will meet them toe to toe, on the ground, and sometimes they will try to destroy your ship in space.
+GROUND COMBAT
+If you bump into a hostile creature, your team will attempt to kill it. If the creature is asleep and you have cages with you, you can try to catch it.</pre></section>
+<section id="p18"><h2>Page 16 · Space Combat</h2><pre>Using the (f)ire command allows you to shoot at your enemies from a distance. You have the option to either choose the direction, or fire at a specific target (by pressing 5 when
+asked for direction. Another option is to spread fire (by pressing 0). In this case your team is divided upon any enemy within sight, doing less damage to each, but trying to hit
+everyone.
+SPACE COMBAT
+Space combat is a bit more complex.</pre></section>
+<section id="p19"><h2>Page 17 · Equipment</h2><pre>EQUIPMENT
+SPACE SHIPS
+Here you will find the most important stats for space ship hulls and for equipment you can add to your ship.
+Tier 1 Hulls: Price Hull Crew Cargo Weapons Fuel
+Light Scout 2.000 Cr 5 HP 10 1 1 100
+Long Range Fighter 2.000 Cr 10 HP 5 - 2 80
+Light Transport 2.000 Cr 5 HP 5 2 1 90
+Troop Transport 2.000 Cr 5 HP 15 - 1 80
+Tier 1 Hulls: Price Hull Crew Cargo Weapons Fuel
+Heavy Scout 6.000 Cr 10 HP 15 2 2 115
+Cruiser 8.000 Cr 15 HP 10 - 3 85
+Heavy Transport 7.500 Cr 10 HP 10 3 2 100
+Dropship 5.000 Cr 8 HP 25 - 2 85
+Tier 3 Hulls: Price Hull Crew Cargo Weapons Fuel
+Explorer 15.000 Cr 15 HP 20 2 3 130
+Destroyer 20.000 Cr 35 HP 15 1 4 90
+Merchantman 14.000 Cr 15 HP 10 4 3 110</pre></section>
+<section id="p20"><h2>Page 18 · Ship Modules And Equipment:</h2><pre>Troop Carrier 10.000 Cr 10 HP 35 - 3 100
+Tier 4 Hulls: Price Hull Crew Cargo Weapons Fuel
+Heavy Explorer 25.000 Cr 20 HP 25 3 4 150
+Battleship 35.000 Cr 40 HP 20 2 5 100
+Armed Merchantman 30.000 Cr 20 HP 15 5 3 120
+Heavy Troop Carrier 20.000 Cr 15 HP 50 - 4 120
+SHIP MODULES AND EQUIPMENT:
+Sensors MK I to V: Increases your range in space, and allows you to more easily scan planets.
+Engines MK I to V: Increase your speed in space combat and also makes it easier for you to navigate anomalies
+Shield generators MK I to V: Provide 1-5 regenerating shieldpoints to protect your ship.
+Cargo Shielding: Makes it harder to scan your cargo hold
+Navigational Computer: Records already explored parts of space, and shows ships coordinates
+Ship detection system: Enables the ships sensors to pick up other ships in space
+Maneuvering Jets: Increase your speed in Space combat
+All terrain landing gear: Makes it easier to land the ship in difficult terrain
+Deep space probes: Probes you can use to explore the sector remotely
+Cargo Module: Converts one of your weapons turrets into cargo space
+Fuel Module: Converts one of your weapons turrets into a fuel tank
+Crew Module: Converts one of your weapons turrets into living space</pre></section>
+<section id="p21"><h2>Page 19 · Personal Equipment</h2><pre>Tractor Beam: Makes it easier to harvest asteroids and enables you to tow drifting ships
+Heat radiators: Your weapons cool down faster with heat radiators installed
+ECM System: Jams missile targeting systems.
+PERSONAL EQUIPMENT
+This section contains description of some of the usual things you will find at shops. It is by no means complete.
+TRANSPORT
+Hover Platform: Allows you to cross water. One carries usually 5 crewmembers
+Jetpack: Allows you to cross liquids and mountains. You need one for each crewmember
+ARMOR
+Name Protective Value Price Description
+Ballistic suit 3 50 Your standard spacesuit. Made combatworthy with ballistic cloth around vital areas.
+Full ballistic suit 4 100 Your standard spacesuit, but completely covered in ballistic cloth.
+Protective suit 5 150 Your standard spacesuit. Made combatworthy with hardened shells around vital areas.
+Full protective suit 6 200 Your standard spacesuit, covered with hardened shells
+Fullerene suit 7 400 Your standard spacesuit made out of carbon fullerenes. (Fullerene: an expensive word for &quot;diamond.&quot;)
+Combat armor 8 600 A spacesuit covered in ablative plates.
+Heavy combat armor 9 800 A spacesuit covered in ablative plates. Built in hydraulics increase the strength and speed of the wearer.
+Personal forcefield 11 1.000 A small forcefield surrounds the wearer
+Layered personal forcefield 13 1.200 The ultimate in protective equipment. Several layered forcefields surround the wearer</pre></section>
+<section id="p22"><h2>Page 20 · Ranged Weapons</h2><pre>RANGED WEAPONS
+Name Damage Accuracy Range Price Description
+Gun 0.4 1 2 25 A small handheld weapon. An explosion propels a projectile.
+Rifle 0.6 0 2 75 a handheld weapon with a 60cm long barrel. An explosion propels a projectile.
+Gyro jet
+0.8 0 3 150 A small handheld weapon. Recoilless because the projectiles carry their own rocket.
+gun
+Gyro jet
+rifle 1 0 3 250 A handheld weapon with several short barrels. Recoilless because the projectiles carry their own rocket.
+Gauss gun 1.2 1 4 375 A small handheld weapon. It fires needlelike projectiles using magnetic fields to accelerate them. It makes up for what it
+lacks in punch in accuracy.
+Gauss rifle 1.4 0 4 525 A handheld weapon with several short barrels. It fires a volley of needlelike projectiles using magnetic fields to accelerate
+them. It makes up for what it lacks in punch in accuracy.
+Laser gun 1.6 1 5 700 A energy source that can be attached to a girdle is connected to a small pistol grip. The laser beam emitted by it causes a
+lot of damage.
+Laser rifle 1.8 0 5 900 A tornister houses the energy source, connected to a pistol grip with 3 short barrels. The laser beams cause a lot of damage.
+Plasma
+rifle 2 0 6 1125 A tornister houses the energy source, connected to a rifle. It emits a beam of superheated plasma.
+CLOSE COMBAT WEAPONS
+Name Damage Price Description
+Combat knife 0.2 25 A short blade to stick into enemies.
+Combat blade 0.3 50 A long blade for piercing and slashing.
+Vibro knife 0.4 100 A blade for slashing and piercing. Sawing motions increase damage.
+Vibro blade 0.5 200
+Vibro sword 0.6 300 A long blade connected to a gauntlet. Sawing motions increase damage.</pre></section>
+<section id="p23"><h2>Page 21 · Miscellaneous</h2><pre>Mono blade 0.7 400
+Mono sword 0.8 500 A gauntlet with a long blade attached. It is a single molecule wide and heated to increase damage.
+Combat
+gloves 0.9 650 A sturdy gauntlet, connected to plastic sleeves going up to the shoulders. Servos increase the wearer&#x27;s strength. Mono blades connected to the
+fingers hurt opponents.
+MISCELLANEOUS
+Grenades: Come in two basic variants: the conventional grenade, and the more powerful fusion grenade.
+Grenade launcher, 500 Cr.: extends your grenade range
+Mines: These infernal devices explode when something comes close to them. Just drop them on a planets surface
+Mining Drills: these allow you to damage walls and structures more efficiently. Just stand next to them and Fire at them.
+Rovers: you can drop these on planets and have them explore automatically. Collect them at a later point to gather the map data
+Mining Robots: These stationary machines collect traces of minerals in the surrounding soil and atmosphere. Leave them on a planets surface for a while and collect the gathered
+resources later.
+Communication satellite: This device serves 3 functions: It allows you to contact your ship by radio, regardless of intervening terrain, serves as a triangulation point to supply you
+with coordinates, and can perform various scans from orbit.
+Lamps: These increase your visual range in dark places. Floodlights are more powerful than simple helmet lamps. You only need one.
+Binoculars &amp; Sensor sets: these increase your visual range. Sensor sets are better than binoculars, and binoculars are better than nothing at all. You only need one.
+Auxiliary fuel and oxygen tanks: Each crew member can carry one of these, increasing your jetpack fuel or oxygen supply respectively.
+Seismograph: Warns you about impending earthquakes</pre></section>
+<section id="p24"><h2>Page 22 · Retirement</h2><pre>RETIREMENT
+In the main station and in some of the smaller stations you will find a retirement office. There you can buy retirement perks, and retire. Retiring ends the game. The end story and
+your score depend on what you have achieved in the game and which retirement assets you have purchased earlier.
+FAQ
+GENERAL
+Q: What are the system requirements
+A: Being a roguelike, Prospector isn‟t using lots of resources. Current and not very old computers should be able to handle it without any problems.
+BASIC HOWTOS
+Q: What are the o o o thingies under my ship supposed to mean?
+A: It&#x27;s the systems map. You can see the star, o are planets. ░ are asteroid fields. Once you decide to scan or land a cursor appears there that lets you chose the planet. You can
+also put the systems map in an alternate position on the bar in options.
+Q: How do I get money?
+A: Explore stuff, and then walk into the company office at a space station, and sell the stuff
+Q: How do I get more air?
+A: Walk onto your ship.
+Q: How do I get biodata?
+A: (I)nspect plants and corpses. Not all plants and corpses yield results though
+PLANETS
+Q: I landed on this planet that is obviously bugged. Every tile is random and the crew speaks gibberish. Shall I report this bug?
+A: In this case actually no. It&#x27;s supposed to be this way. All other bugs of course please do report! Fixing them is so much easier when you know where they are!</pre></section>
+<section id="p25"><h2>Page 23 · Items</h2><pre>ITEMS
+Q: How do i equip stuff?
+A: Your awayteam always uses the best equipment they can have and redistributes it to the living when someone should die.
+Q: Why does that gun/armor/knife have a * in front of it?
+A: That item is tied to that crew member. Unless he is dead he grabs it before any normal Item distribution takes place. You can set and clear it in the (A)wayteam screen. Possible
+uses would be to give your best gun to the sharp shooter, or your weakest armor to the guy with the most hitpoints. NOTE The item selection doesnt distinguish if an item is bound to
+another crewmember already. If you assign the weapon again it will override the old assignment
+Q: What does a mining and laser drill do?
+A: Both add a bonus to damage vs walls. To damage walls use the Fire command.
+Q: What are cryo chambers good for?
+A: cryogenic chambers provide easy storage for people, just hire the additional crewmen to fill them.
+Q: What do portable sensor sets do?
+A: Increase viewing range on planets
+Q: How do I deploy rovers?
+A: Just drop them when you are on a planet. Collect them later for the Map data.
+Q: I just bought 15 binoculars and 3 Helmet lamps and i still don&#x27;t see any better
+A: They don&#x27;t stack, you only need one
+Q: I bought a jetpack, yet i can&#x27;t fly
+A: You need one jetpack for every member of your awayteam. Hoverplattforms you need one for every 5 awayteam members
+Q: I bought 3 aux oxygen tanks /12 aux jetpackfuel tanks, and i still only have 200 Oxygen/50 Jetpackfuel
+A: As of 0.1.9 They do stack, but each crew member can only carry one.</pre></section>
+<section id="p26"><h2>Page 24 · Radio Commands</h2><pre>RADIO COMMANDS
+Q: What are the commands for (R)adioing the ship
+A: One is &quot;Hello&quot; which is answered with &quot;Yes?&quot; And more I will not tell you. Except that there are currently 10 (including the above).
+Q: Any hints?
+A: Your communications satellite can do more than just relay messages. 2 Commands are a bit redundant, one is suicidal and the remaining too aren&#x27;t too practical, though they can
+be fun.
+Q: Anything else on radio commands?
+A: There are 3 commands if you got a rover on the planet: rover start, rover stop and rover target.
+OTHER THINGS
+Q: The stations don&#x27;t let me dock and shoot at me! What shall I do?
+A: Kill some pirates until they like you again. Or try to find a pirate base. They might be friendly if they see you as a fellow pirate.
+Q: What does start easy do?
+A: If the start easy option is activated Pirates won&#x27;t start any fleets for the first 100 turns, also monsters will have fewer hitpoints, their hitpoints will get divided by 500/turncount,
+letting them have their normal HPs by turn 500.
+Q: How can we contact you?
+A: comments, questions, ideas, feedback, bugreports, praise, criticism etc you can send to matthias.mennel@gmail.com Prospectors very own site and forum is at www.prospector.at
+There is also a considerable chance that if you found this thing on a forum that i will be hanging out there now and then, magellan is the nick.</pre></section>
+<section id="p27"><h2>Page 25 · Commands</h2><pre>COMMANDS
+Anytime in the game you can see, and change key settings by pressing &#x27;?&#x27; and choosing the entry
+keybindings in the menu.
+GENERAL COMMANDS:
+Movement:
+Moving your ship and awayteam is done by using the arrow keys, or the numpad. If you don&#x27;t have a numpad you can either reassign the movement keys or try turning on the
+option &quot;Automaticallychoose diagonals&quot;. If your character can&#x27;t move in the direction you are indicating, and you have this option enabled it will automatically try the
+corresponding diagonals.
+At any point in the game you can use the following commands:
+&#x27;@&#x27; shows information on your equipment and your ship, as well as your crew
+&#x27;A&#x27; Displays the crew roster, what they have equipped, their status, and also allows to assign individual items to certain crew members.
+„T‟ sets tactics for ground combat, from very aggressive to coward. Settings increase damage and to hit and decrease Armor value, and vice versa.
+&#x27;q&#x27; Quits the game without saving
+&#x27;S&#x27; saves the game and then quits. (This is a roguelike, it is supposed to work this way)
+SPACE
+d - Dock (if at a station)
+s - Scan Planet (if in a solar system with planets)</pre></section>
+<section id="p28"><h2>Page 26 · Planets Surface</h2><pre>l - Land on Planet (see above)
+c - Leave a comment on the map, move cursor to the desired position and start typing, or esc to abort
+r - Rename your ship
+t - tow another ship
+PLANETS SURFACE
+,
+- Pick up an item
+d - Drop an item
+o - Offer an item to a nearby alien
+O - switch to suit oxygen supply/open helmet
+i - Inspect the area you are in closely (Record biodata and try to repair stranded ships)
+l - Launch (if at ship)
+w - continuous walking, walks into direction specified until key is pressed, mapedge is reached or &quot;something&quot; happens
+f - Fire weapon, followed by direction
+g - Throw Grenade
+h - Use medpack
+j - Jumppack emergency Jump
+x - eXamine
+c - communicate with nearby creatures
+r - Call your ship by (R)adio
+C - close door</pre></section>
+<section id="p29"><h2>Page 27 · Space Combat</h2><pre>E - show equipment
+&gt; - use stairs/tunnel (inspect does the same thing)
+SPACE COMBAT
+a - toggle between active and inactive sensors
+s - drop shields
+m – toggle maneuvering jets
+r - run and flee (if at the edge of a map)</pre></section>
+</div></body></html>
