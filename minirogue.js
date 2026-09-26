@@ -47,7 +47,7 @@
     // MEMORY); a walk-away (Esc, or clicking the map) ends them. The third bump is an
     // attack, and from then on he fights: 100 hp, 10 per hit. Answer all three and he
     // walks into the west room to wait by a wall, as soon as you let him past. The
-    // colour must be HTML hex (#fcba03); the third wrong colour sends you into the gorge.
+    // colour must be HTML hex (#fcba03); a second wrong colour sends you into the gorge.
     knight: { hp: 100, dmg: 10, glyph: { unix: '@', epyx: '☻' }, cls: 'mr-knight',
       questions: [['name', 'What is your name?'], ['quest', 'What is your quest?'],
         ['color', 'What is your favorite color?']],
@@ -71,7 +71,7 @@
         g.ask(question, (answer) => {
           if (key === 'color' && !/^#([0-9a-f]{3}){1,2}$/i.test(answer)) {
             m.wrong = (m.wrong || 0) + 1;
-            if (m.wrong >= 3) return this.throwOff(g);
+            if (m.wrong >= 2) return this.throwOff(g);  // one second try only
             this.ask(g, m, i);
             return this.wrong[Math.floor(Math.random() * this.wrong.length)];
           }
