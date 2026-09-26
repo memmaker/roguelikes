@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FrogComposband · Shrine</title>
+<!--og-->
+<meta name="description" content="The biggest of the Hengband/PosChengband line: dozens of races and classes, monster races that grow up or possess what they kill, a wilderness full of towns and quests, and a fast coffee-break mode.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="--More--">
+<meta property="og:title" content="FrogComposband · Shrine">
+<meta property="og:description" content="The biggest of the Hengband/PosChengband line: dozens of races and classes, monster races that grow up or possess what they kill, a wilderness full of towns and quests, and a fast coffee-break mode.">
+<meta property="og:url" content="https://ruzzoli.de/roguelikes/shrine/frogcomposband.html">
+<meta property="og:image" content="https://ruzzoli.de/roguelikes/frogcomposband.png">
+<meta name="twitter:card" content="summary_large_image">
+<!--/og-->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>FrogComposband</h1>
+  <p class="epi">More stuff, more humour, fewer bugs · the last and largest branch of the Hengband tree</p>
+  <a class="play" href="../frogcomposband/">&gt; Enter the dungeon</a>
+</header>
+<div class="facts"><div><b>Date of birth</b><span>2018</span> first beta 9 March 2018; this build 7.1.salmiak.6</div><div><b>Creator</b><span>Antero Sulka</span> (sulkasormi) on Gwilim Owen’s ComPosband</div><div><b>Language</b><span>C</span> ~365,000 lines</div><div><b>Platform</b><span>Windows, Linux, Mac</span> curses, X11, SDL, Win32</div></div>
+<nav class="toc"><a href="#lineage">Lineage</a><a href="#credits">Credits</a><a href="#trivia">Trivia</a><a href="#usp">What's unique</a><a href="#code">Code dive</a><a href="#stats">Stats</a><a href="#manual">Manual</a><a href="#start">Getting started</a><a href="#help">Help</a><a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p>Moria → <a href="umoria.html">Umoria</a> → Angband → <a href="zangband.html">Zangband</a> → Hengband → Chengband → PosChengband → ComPosband → <strong>FrogComposband</strong>. Hengband is the Japanese Zangband variant; Chris Kousky, Dave Zhang and Andrew Levy forked it as Chengband (betas from 2010). Chris Kousky then rebuilt it as PosChengband (born December 2012, 1.0.0 in January 2013), merging in ideas from Posband: play as a monster race. Gwilim Owen (Gwarl, who runs angband.live) made ComPosband from it in late 2017, with new races, classes, quests and towns; Antero Sulka forked that as FrogComposband in March 2018, and the two went separate ways.</p>
+<p>See the <a href="../#tree">family tree</a>. Sources: <code>lib/file/credits.txt</code> (<a href="frogcomposband/credits.txt">credits</a>), the <a href="https://sites.google.com/site/poschengband/project-updates/poschengbandisborn">“PosChengband is born”</a> post, the <a href="https://groups.google.com/g/chengband-discussion/c/u95XRUNvah4">Chengband mailing list</a>, <a href="https://www.roguebasin.com/index.php/Chengband">RogueBasin</a>, the <a href="https://tangaria.com/variants/">Angband variants table</a> and the <a href="https://angband.live/forums/forum/angband/variants/8759-announce-composband-7-1-0-released">Composband 7.1.0 announcement</a>.</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table><tr><td>Antero Sulka</td><td>FrogComposband (sulkasormi), 2018 on</td></tr><tr><td>Gwilim Owen</td><td>ComPosband (Gwarl, angband.live)</td></tr><tr><td>Chris Kousky</td><td>PosChengband; with Dave Zhang and Andrew Levy, Chengband</td></tr><tr><td>Posband</td><td>Ideas from Alexander Ulyanov and Graham Philips</td></tr><tr><td>Hengband</td><td>Mr.Hoge and many others; Japanese versions by Sitoshin, sayu, FIRST, TeO, Mitsuhiro Itakura</td></tr><tr><td>Zangband</td><td>Topi Ylinen, Robert Rühlmann and the Zangband DevTeam</td></tr><tr><td>Angband</td><td>Ben Harrison (2.7–2.9), on Moria (Robert Alan Koeneke) and Umoria (James E. Wilson)</td></tr><tr><td>Shockbolt</td><td>The tiles used in this port (from Angband 4.2)</td></tr></table>
+<p class="src">From <a href="frogcomposband/credits.txt">lib/file/credits.txt</a>.</p>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>Chengband’s beta 0.0.12 came out in November 2010 with “a handful of new monsters”. <span class="src">(<a href="https://groups.google.com/g/chengband-discussion/c/u95XRUNvah4">Chengband mailing list</a>)</span></li>
+<li>Chris Kousky called PosChengband “basically a complete overhaul of Chengband”. <span class="src">(<a href="https://sites.google.com/site/poschengband/project-updates/poschengbandisborn">PosChengband site</a>, 26 Dec 2012)</span></li>
+<li>Frog’s first release was an “initial unofficial beta” on 9 March 2018; the repo still carries PosChengband’s history back to 2013. <span class="src">(<a href="https://github.com/sulkasormi/frogcomposband">sulkasormi/frogcomposband</a> history)</span></li>
+<li>When Frog appeared, Gwarl kept most of its changes but steered ComPosband “in its own direction”. <span class="src">(<a href="https://angband.live/forums/forum/angband/variants/8759-announce-composband-7-1-0-released">Composband 7.1.0 announcement</a>)</span></li>
+<li>The newbie guide says one would-be hero was slain by a sheep. <span class="src">(<a href="frogcomposband/manual.html#tang">Newbie Guide</a>)</span></li>
+<li>7.1.salmiak brought back the Greater Cyber Wyrm Angel Daemon Lich, now as a postgame-only monster. <span class="src">(<a href="frogcomposband/changelog.txt">changelog</a>)</span></li>
+<li>The readme’s disclaimer refuses to owe you a new keyboard. <span class="src">(<a href="https://github.com/sulkasormi/frogcomposband/blob/master/readme.txt">readme.txt</a>)</span></li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>Monster mode:</strong> 27 monster races that evolve as they level (hound, hydra, dragon, lich …), possessors that take over the bodies of what they kill, living swords, rings and armour that eat items to grow.</li>
+<li><strong>Sheer choice:</strong> 74 races, 52 classes and 21 personalities, from Lawyer and Ninja-Lawyer to Politician, Alchemist and Time Lord, plus 18 magic realms.</li>
+<li><strong>Coffee-break mode:</strong> Beginner mode gives a shorter game with faster levelling and no wilderness; Normal mode keeps the Zangband-style wilderness with many towns.</li>
+<li><strong>Randomised world:</strong> since 7.1 the set of side dungeons changes from game to game; many quests and towns came with ComPosband.</li>
+<li><strong>Frog’s polish:</strong> 32-colour palette, many bug fixes, and help files full of dry jokes.</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li><strong>Language:</strong> C, about 365,000 lines in 265 files under <code>src/</code>. Each class has its own file (<code>paladin.c</code>, <code>rogue.c</code> …) and each monster race too (<code>r_dragon.c</code>, <code>r_poss.c</code>, <code>r_pump.c</code> …), a PosChengband refactor.</li>
+<li><strong>Data:</strong> text files in <code>lib/edit/</code>: monsters (<code>r_info</code>), objects (<code>k_info</code>), artifacts, egos, dungeons (<code>d_info</code>), 85 quest files (<code>q_*.txt</code>), rooms and vaults.</li>
+<li><strong>Help:</strong> <code>lib/help/*.txt</code> with its own markup (<code>&lt;topic:…&gt;</code>, <code>&lt;color:…&gt;</code>, <code>&lt;link:…&gt;</code>).</li>
+<li><strong>This port:</strong> a WebAssembly build with a canvas z-term frontend, Shockbolt tiles, eight sub-windows, sound, auto-explore (<kbd>X</kbd>), an Enter command menu and item menus. Source: <a href="https://github.com/memmaker/frogcomposband">memmaker/frogcomposband</a>, upstream <a href="https://github.com/sulkasormi/frogcomposband">sulkasormi/frogcomposband</a>.</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<table><tr><th>Thing</th><th>Count</th><th>Notable ones</th></tr><tr><td>Races</td><td>74</td><td>27 monster races (Possessor, Mimic, Sword, Ring, Pumpkin, Mummy, Beholder), plus Tonberry, Snotling, Kutar, Boit, Tomte, Igor, Werewolf, Beorning</td></tr><tr><td>Classes</td><td>52</td><td>Lawyer, Ninja-Lawyer, Politician, Alchemist, Time Lord, Blood Knight, Skillmaster, Disciple, Mirror Master</td></tr><tr><td>Personalities</td><td>21</td><td>Munchkin, Split, Lazy, Fragile, Sexy</td></tr><tr><td>Magic realms</td><td>18</td><td>Burglary, Armageddon, Hex, Rage, Hissatsu, Necromancy</td></tr><tr><td>Mutations</td><td>152</td><td></td></tr><tr><td>Monsters</td><td>1,395</td><td>A Hindu pantheon (Shiva, Vishnu, Kali, Ganesha); Justshorn, Sorcerer-King of the Sheeple; Oberon; the Serpent of Chaos</td></tr><tr><td>Object kinds</td><td>537</td><td>plus 392 artifacts and 160 ego types</td></tr><tr><td>Dungeons</td><td>44</td><td>Camelot, R’lyeh, Mount Olympus, the Plains of Oz, Atlantis, Asgard, Heaven and Hell</td></tr><tr><td>Quests</td><td>85</td><td>quest files in <code>lib/edit/</code></td></tr></table>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>The full in-game help (<kbd>?</kbd>, all of <code>lib/help/*.txt</code>, colours kept) is here: <a href="frogcomposband/manual.html">manual</a>, including the Newbie Guide and the FAQ. Also: the <a href="frogcomposband/changelog.txt">changelog</a> (<code>version.txt</code> for FrogComposband, <code>vers_old.txt</code> for PosChengband and Hengband), the <a href="frogcomposband/credits.txt">credits</a> and the <a href="frogcomposband/license.txt">licence</a> (the Angband/Moria “not for profit” notice; a few newer files are dual GPL 2 / Angband).</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol><li><a href="../frogcomposband/">Open the game</a> and pick <kbd>b</kbd> Beginner: a short coffee-break game without wilderness. Klackon or Half-Troll Warrior, or a Rogue with Burglary, are easy starts.</li>
+<li>Wear and wield your gear (<kbd>w</kbd>), then shop in town: Cure Light Wounds potions, Phase Door scrolls, flasks of oil to throw.</li>
+<li>Walk into the dungeon (<kbd>&gt;</kbd> walks to known stairs); <kbd>X</kbd> explores for you.</li>
+<li>The Enter key lists every command; <kbd>i</kbd> and <kbd>e</kbd> open item menus; <kbd>C</kbd> shows your character.</li>
+<li>Read the game’s <a href="../frogcomposband/help.html">help page</a> for keys and saving.</li></ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>We found no walkthrough: the dungeons are random. The goal is to kill Oberon and then the Serpent of Chaos. Rules of thumb:</p><ul>
+<li>Get Free Action, See Invisible and resist confusion and poison early; new players die to confusion a lot.</li>
+<li>Always carry an escape (Phase Door, Teleportation) and Word of Recall; do not fight what you do not know.</li>
+<li>Read the in-game <a href="frogcomposband/manual.html#tang">Newbie Guide</a>, the <a href="frogcomposband/manual.html#avoid">common mistakes</a> and the <a href="frogcomposband/manual.html#faq">FAQ</a>.</li>
+<li>More: the <a href="https://angband.live/forums/forum/angband/variants/10142-frogcomposband-newbie-assistance">newbie assistance thread</a> and the rest of the <a href="https://angband.live/">angband.live</a> forums, the <a href="https://yasd.fans/frogcomposbandhelpfile/general">help files online</a>, and <a href="https://angband.live/ladder/ladder-browse.php?v=FrogComposband">winners’ dumps on the ladder</a>.</li></ul>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<p>Both modes are built into this port (<code>ALLOW_WIZARD</code> in <code>src/z-config.h</code>) but locked by an option: first turn on <em>allow_debug_opts</em> (<kbd>=</kbd> options, or <kbd>!</kbd> then <code>Y:allow_debug_opts</code>). Either mode marks the savefile: no score.</p>
+<ul><li><strong>Wizard mode</strong> <kbd>Ctrl</kbd>+<kbd>W</kbd>: asks once, then shows “Wizard” on the sidebar; on death the game asks “Die?”.</li>
+<li><strong>Debug mode</strong> <kbd>Ctrl</kbd>+<kbd>A</kbd>, then a key: <kbd>c</kbd> create object, <kbd>j</kbd> jump to a dungeon and level, <kbd>e</kbd> edit stats, <kbd>a</kbd> cure all, <kbd>m</kbd> map the level, <kbd>"</kbd> write spoiler files. Tested in the browser: both work.</li>
+<li><strong>Cheat options</strong> (with <em>allow_debug_opts</em>): peek into object, monster and dungeon creation (<code>cheat_peek</code>, <code>cheat_hear</code>, <code>cheat_room</code>), avoid death (<code>cheat_live</code>).</li>
+<li><strong>Save scumming:</strong> <em>Export save</em> / <em>Import save</em> on the game page.</li></ul>
+</section>
+</div></body>
+</html>
