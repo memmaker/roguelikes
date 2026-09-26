@@ -6,6 +6,7 @@ from datetime import datetime, timedelta, timezone
 from urllib.parse import urlsplit, parse_qsl
 
 LOGS = "/var/log/nginx/access.log*"
+BEACON_LOG = "/var/lib/roguelikes-stats/beacon.log"  # never rotated; read on every run
 OUT = "/var/www/ruzzoli.de/roguelikes/data"
 STATE = "/var/lib/roguelikes-stats/state.json"
 WINS = "/var/lib/roguelikes-stats/wins"  # GOLDEN RULE: one write-once file per win, never overwritten or deleted
@@ -16,7 +17,7 @@ INTS = ("depth", "score", "turns", "lvl")
 
 
 def lines(pattern):
-    for f in sorted(glob.glob(pattern)):
+    for f in sorted(glob.glob(pattern)) + ([BEACON_LOG] if pattern == LOGS and os.path.exists(BEACON_LOG) else []):
         if f.endswith(".gz"):
             with gzip.open(f, "rt", errors="replace") as fh: yield from fh
         else:
@@ -65,7 +66,7 @@ def load_wins(wins):
     return out
 
 
-def update(state, pattern, wins=WINS):
+def update(state, pattern, wins=WINS, games=None):
     salt = state.setdefault("salt", secrets.token_hex(16))
     days, runs = state.setdefault("days", {}), state.setdefault("runs", [])
     P = lambda iso: datetime.strptime(iso, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
@@ -86,6 +87,7 @@ def update(state, pattern, wins=WINS):
         if u.path == "/roguelikes/beacon":
             q = dict(parse_qsl(u.query))
             if not q.get("g") or q.get("ev") not in ("death", "win", "quit"): continue
+            if games is not None and q["g"] not in games: continue  # not a game on the site (spam/probe); wins are on disk anyway
             k = hashlib.sha256((who + u.query).encode()).hexdigest()[:16]
             iso = t.strftime("%Y-%m-%dT%H:%M:%SZ")
             if (k, iso) in seen: continue  # already ingested on a previous run
@@ -133,7 +135,9 @@ def write(path, obj):
 
 def main(logs, out, statef, wins=WINS):
     state = json.load(open(statef)) if os.path.exists(statef) else {}
-    update(state, logs, wins)
+    site = os.path.dirname(out)  # web root: one folder per game
+    games = {d for d in os.listdir(site) if os.path.isdir(os.path.join(site, d))} if os.path.isdir(site) else None
+    update(state, logs, wins, games)
     vis, runs = build(state, datetime.now(timezone.utc), wins)
     write(statef, state)
     write(os.path.join(out, "visitors.json"), vis)
