@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Rule: game cards and every level of the family tree in index.html are sorted
 by release year, earliest first. Each .card <div> and each tree <li> carries
-data-year (release of the version played here; decade-only dates use the decade's first
+data-year (release of the historical version the played build is based on; decade-only dates use the decade's first
 year). Ties keep their current order.
 
 Release years live in years.json only (slug -> {year, src}): --fix writes each
