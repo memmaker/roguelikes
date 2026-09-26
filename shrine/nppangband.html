@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NPPAngband · Shrine</title>
+<!--og-->
+<meta name="description" content="No Pet Peeves Angband: terrain that changes every fight (lava, deep water, ice, forests and monsters native to them), quests from the Adventurer's Guild, themed levels, monster traps and stealing, on the classic dive to Morgoth.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="--More--">
+<meta property="og:title" content="NPPAngband · Shrine">
+<meta property="og:description" content="No Pet Peeves Angband: terrain that changes every fight (lava, deep water, ice, forests and monsters native to them), quests from the Adventurer's Guild, themed levels, monster traps and stealing, on the classic dive to Morgoth.">
+<meta property="og:url" content="https://ruzzoli.de/roguelikes/shrine/nppangband.html">
+<meta property="og:image" content="https://ruzzoli.de/roguelikes/nppangband.png">
+<meta name="twitter:card" content="summary_large_image">
+<!--/og-->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>NPPAngband</h1>
+  <p class="epi">No Pet Peeves Angband · the best ideas of the variants, rebalanced for vanilla</p>
+  <a class="play" href="../nppangband/">&gt; Enter the dungeon</a>
+</header>
+<div class="facts"><div><b>Date of birth</b><span>2003</span> 0.1.0 on 24 April 2003; this build 0.5.1 (March 2011)</div><div><b>Creators</b><span>Jeff Greene, Diego González</span> Greene from 0.1.0, González co-maintainer from 0.4.1</div><div><b>Language</b><span>C</span> ~203,000 lines in 128 files</div><div><b>Platform</b><span>Windows, Mac, Unix, Nintendo DS</span> Win32, Carbon, X11, SDL, curses, RISC OS, NDS</div></div>
+<nav class="toc"><a href="#lineage">Lineage</a><a href="#credits">Credits</a><a href="#trivia">Trivia</a><a href="#usp">What's unique</a><a href="#code">Code dive</a><a href="#stats">Stats</a><a href="#manual">Manual</a><a href="#start">Getting started</a><a href="#help">Help</a><a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p>Moria → <a href="umoria.html">Umoria</a> → Angband 2.x → Angband 3.0 → <strong>NPPAngband</strong>. Jeff Greene released 0.1.0 on 24 April 2003 as Angband 3.0.3 with patches (rod and wand stacking, screen dumps, auto-squelch, notes, new pits and vaults) and deliberately almost no changes to the edit files. From 0.3.0 it took in Leon Marrick’s Sangband/Demoband “4GAI” monster AI, later EyAngband-style quests, UnAngband’s terrain system (0.5.0) and a Druid class. 0.5.1 (2011, this build) moved the code base from Angband 3.0.6 to 3.1.2v2. <a href="quickband.html">Quickband</a> is built on NPPAngband.</p>
+<p>Development went on after 0.5.1: 0.5.x, then 6.x and 7.x, and a Qt version (last release 8.0.5, May 2016, per RogueBasin).</p>
+<p>See the <a href="../#tree">family tree</a>. Sources: <code>AUTHORS</code>, <code>lib/file/news.txt</code>, the <a href="nppangband/changelog.txt">changelog</a>, RogueBasin’s <a href="https://www.roguebasin.com/index.php/No_Pet_Peeves_Angband">No Pet Peeves Angband</a> (released Apr 24 2003, 0.1.0), the <a href="https://rec.games.roguelike.angband.narkive.com/mZuWOxOX/announce-nppangband-0-2-0">0.2.0 announcement</a> (September 2003, “based on Angband 3.0.3”), <a href="https://github.com/nppangband/NPPAngband">nppangband/NPPAngband</a> (tag <code>v0.5.1</code>, 20 March 2011).</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table><tr><td>Greene</td><td>Jeff Greene, author (0.1.0 on) and co-maintainer</td></tr><tr><td>González</td><td>Diego González, source contributor in 0.4.0, co-maintainer from 0.4.1</td></tr><tr><td>Ramela</td><td>Anssi Ramela, gameplay and source changes, the 0.5.0 Mage spell set</td></tr><tr><td>Borrowed</td><td>Leon Marrick and Bahman Rabii (Oangband, Sangband, Demoband), Eytan Zweig (EyAngband), Andrew Doull (UnAngband)</td></tr><tr><td>Angband</td><td>Andrew Sidwell (3.0.7–3.1.2v2), Robert Rühlmann (2.8.6–3.0.6), Ben Harrison (2.7.0–2.8.5), Alex Cutler, Andy Astrand, Sean Marsh, Geoff Hill, Charles Teague, Charles Swiger (2.0–2.6.2)</td></tr><tr><td>Moria</td><td>Robert Alan Koeneke, Jimmey Wayne Todd Jr. (1985); Umoria: James E. Wilson (1989)</td></tr><tr><td>Shockbolt</td><td>Raymond Gaustadnes, the tiles used in this port</td></tr></table>
+<p class="src">From <code>AUTHORS</code>, <code>THANKS</code>, <code>lib/file/news.txt</code> and the <a href="nppangband/changelog.txt">changelog</a>.</p>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>The name: RogueBasin files it as “No Pet Peeves Angband”; the game’s own files only ever say NPP. <span class="src">(<a href="https://www.roguebasin.com/index.php/No_Pet_Peeves_Angband">RogueBasin</a>)</span></li>
+<li>Greene announced it as a look at what Angband might have become had it “evolved creatively over the last 10 years”. <span class="src">(<a href="https://rec.games.roguelike.angband.narkive.com/mZuWOxOX/announce-nppangband-0-2-0">0.2.0 announcement</a>)</span></li>
+<li>0.4.0 was called “Ghost on the Road” and added player ghosts; <code>lib/bone/</code> holds 20 permanent ghost templates of Angband and NPP people, from Robert Alan Koeneke and Ben Harrison to Jeff Greene himself. <span class="src">(<a href="https://groups.google.com/g/rec.games.roguelike.angband/c/loxMuPAgf0k/m/LFh3VFLjTu4J">announcement</a>, <a href="nppangband/changelog.txt">changelog</a>, <a href="https://github.com/memmaker/nppangband/tree/main/lib/bone">lib/bone</a>)</span></li>
+<li>Brother Steadfast, the first winner of NPP 0.3.x (Anssi Ramela’s), became a temple shopkeeper. <span class="src">(<a href="nppangband/changelog.txt">changelog</a>)</span></li>
+<li>Azathoth, Master of Darkness (level 64), changed in 0.5.0 from a demon <code>U</code> into a jelly <code>J</code>. <span class="src">(<a href="nppangband/changelog.txt">changelog</a>)</span></li>
+<li>The first version on purpose played almost exactly like Angband 3.0.3; the ogre pits were left “a little bland” for the next one. <span class="src">(<a href="nppangband/changelog.txt">changelog</a>)</span></li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>Terrain that fights back:</strong> UnAngband’s feature system with 198 terrain kinds: lava, deep water, mud, ice, forests, burning oil, clouds that linger, runes, and monsters (and races) native to them.</li>
+<li><strong>Quests:</strong> the Adventurer’s Guild in town hands out monster, pit/nest, level, vault and themed-level quests for gold, fame and tailored rewards.</li>
+<li><strong>Themed levels</strong> (27 themes: dragons by breath, demons, undead, animals, “creeping coins” …) and wilderness and stronghold levels.</li>
+<li><strong>New classes:</strong> the Brigand (steals with <kbd>P</kbd>, sets monster traps with <kbd>O</kbd>, sling master) and the Druid (nature realm, weakest fighter); Rangers cast from druid books.</li>
+<li><strong>Smarter monsters:</strong> Sangband’s 4GAI (ranges, learning, evasion, arc breaths), true mimics, player ghosts, randarts, rod/wand stacking and auto-squelch.</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li><strong>Language:</strong> C, 203,333 lines in 128 <code>.c</code>/<code>.h</code> files in <code>src/</code> (tag <code>v0.5.1</code>), Angband 3.1 structure: <code>game-cmd.c</code>, <code>ui-menu.c</code>, <code>cmd-obj.c</code>; spells as code in <code>x-spell.c</code>, the huge <code>generate.c</code> for terrain and themed levels.</li>
+<li><strong>Data:</strong> text files in <code>lib/edit/</code> (<code>monster.txt</code>, <code>terrain.txt</code>, <code>quest.txt</code>, <code>limits.txt</code>…) parsed at start; player ghost templates in <code>lib/bone/</code>.</li>
+<li><strong>Frontends:</strong> Windows, Mac Carbon, X11, SDL, curses, RISC OS and a Nintendo DS port (<code>nds/</code>).</li>
+<li><strong>History:</strong> upstream git on GitHub (tags <code>v0.5.1</code> … <code>v7.1.0</code>); the changelog <code>NPPchanges.txt</code> goes back to 0.1.0.</li>
+<li><strong>This port:</strong> WebAssembly build with a canvas z-term frontend, Shockbolt tiles, sub-windows, sound and music, auto-explore (<kbd>H</kbd>), an Enter command menu and item menus. Source: <a href="https://github.com/memmaker/nppangband">memmaker/nppangband</a> (<a href="https://github.com/memmaker/nppangband/compare/b1d1d85...main">our changes</a>).</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<table><tr><th>Thing</th><th>Count</th><th>Notable ones</th></tr><tr><td>Races</td><td>11</td><td>the eleven of Angband 3.0, Kobold included</td></tr><tr><td>Classes</td><td>8</td><td>Brigand, Druid, plus Warrior, Mage, Priest, Rogue, Ranger, Paladin</td></tr><tr><td>Spells</td><td>184</td><td>three realms (mage, priest, druid); Druid: Sterilize, Lava Nativity, Call Huorns, Ulmo’s Wrath</td></tr><tr><td>Monsters</td><td>686</td><td>116 uniques; Azathoth, Master of Darkness; the Greater Servants of the Valar</td></tr><tr><td>Object kinds</td><td>450</td><td></td></tr><tr><td>Artifacts</td><td>136</td><td>plus random artifacts</td></tr><tr><td>Ego types</td><td>116</td><td></td></tr><tr><td>Terrain</td><td>198</td><td>crest of a wave over water, cracked wall over lava, inertia cloud, shimmering violet rune</td></tr><tr><td>Vaults</td><td>58</td><td></td></tr><tr><td>Quests</td><td>2 fixed</td><td>Sauron and Morgoth; the Guild’s quests are random</td></tr><tr><td>Levels</td><td>127</td><td>Morgoth on 100 (5000 ft)</td></tr></table>
+<p class="src">Counted in <code>lib/edit/*.txt</code> (without index-0 entries), <code>src/x-spell.c</code>, <code>src/defines.h</code> (<code>MAX_DEPTH</code> 128).</p>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>The full in-game help (<kbd>?</kbd>, all 29 files of <code>lib/help/</code>: basics, tutorial, character, races and classes, town, dungeon, quests, commands, options, combat and magic) is here: <a href="nppangband/manual.html">manual</a>. Also the <a href="nppangband/changelog.txt">changelog</a> (<code>NPPchanges.txt</code>: 0.5.1 back to 0.1.0) and the <a href="nppangband/license.txt">licence</a> (<code>COPYING</code>: GPL 2 or the Angband licence).</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol><li><a href="../nppangband/">Open the game</a> and make a character: a Dwarf or Half-Troll Warrior is forgiving; a Brigand is the stealthy option.</li>
+<li>Your torch is already wielded; wear the rest of your kit and buy Cure Light Wounds potions and Phase Door scrolls.</li>
+<li>Visit the Adventurer’s Guild once you have gone a bit deeper: quests pay in gold and fame.</li>
+<li>Go down: <kbd>&gt;</kbd> walks to known stairs, <kbd>H</kbd> explores for you, Enter lists every command, <kbd>i</kbd> and <kbd>e</kbd> open item menus.</li>
+<li>Read the game’s <a href="../nppangband/help.html">help page</a> for keys and saving.</li></ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>We found no walkthrough: the dungeon is random. The goal is to kill Sauron at 4950 ft and Morgoth at 5000 ft. Rules of thumb:</p><ul>
+<li>Terrain matters: don’t fight in deep water or next to lava you are not native to; burning a forest is a weapon.</li>
+<li>Always carry an escape (Phase Door, Teleportation) and Word of Recall; take quests only a few levels below your comfort depth.</li>
+<li>Read the <a href="nppangband/manual.html#tutorial-txt">tutorial</a> and <a href="nppangband/manual.html#quests-txt">quests</a> in the manual.</li>
+<li>More: RogueBasin’s <a href="https://www.roguebasin.com/index.php/No_Pet_Peeves_Angband">NPPAngband</a> page, the <a href="http://angband.oook.cz/ladder-browse.php?v=NPPAngband">NPPAngband ladder</a> and the <a href="https://angband.live/forums/">angband.live forums</a>.</li></ul>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<p>All in this build; each marks the character, and marked characters get no high score.</p>
+<ul><li><strong>Wizard mode</strong> <kbd>Ctrl</kbd>+<kbd>W</kbd>: asks for confirmation first.</li>
+<li><strong>Debug mode</strong> <kbd>Ctrl</kbd>+<kbd>A</kbd>, then a key: create objects, summon monsters, jump levels, map the level (tested: <kbd>Ctrl</kbd>+<kbd>A</kbd> <kbd>z</kbd>).</li>
+<li><strong>Cheat options</strong> (<kbd>=</kbd>): peek into object and monster creation, know all lore, and “cheat death” (<code>cheat_live</code>), which counts your deaths in your age.</li>
+<li><strong>Save scumming:</strong> <em>Export save</em> / <em>Import save</em> on the game page.</li></ul>
+</section>
+</div></body>
+</html>
