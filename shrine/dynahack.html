@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DynaHack · Shrine</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>DynaHack</h1>
+  <p class="epi">NitroHack's engine, UnNetHack's dungeon · less tedium, more variety</p>
+  <a class="play" href="../dynahack/">&gt; Enter the dungeon</a>
+</header>
+<div class="facts">
+  <div><b>Date of birth</b><span>18 September 2013</span> first public release 0.5.0 (work in git from March 2012); this version 0.6.0: 17 February 2016</div>
+  <div><b>Creators</b><span>Tung Nguyen (tungtn)</span> on Daniel Thaler's NitroHack, with UnNetHack's content (Patric Müller et al.)</div>
+  <div><b>Language</b><span>C</span> ~147,500 lines in 166 <code>libnitrohack/src/*.c</code>/<code>include/*.h</code> files</div>
+  <div><b>Platform</b><span>Linux, Windows, OS X</span> curses terminal client; here: the browser</div>
+</div>
+<nav class="toc"><a href="#lineage">Lineage</a><a href="#credits">Credits</a><a href="#trivia">Trivia</a><a href="#usp">What's unique</a><a href="#code">Code dive</a><a href="#stats">Stats</a><a href="#manual">Manual</a><a href="#start">Getting started</a><a href="#help">Help</a><a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p>DynaHack sits on <em>NitroHack</em>, Daniel Thaler's 2011 rewrite of NetHack 3.4.3 into a game library (<code>libnitrohack</code>) plus a separate curses client, with a new save format, key remapping and in-game options. Tung Nguyen started in March 2012 by porting <em>UnNetHack</em> (Patric Müller's NetHack 3.4.3 variant) onto NitroHack 4.0.4; the working name was “UnNitroHack”, never released under that name. By 0.5.0 it had its own name and had picked up changes from NetHack4, GruntHack (magical equipment), UnNetHackPlus (monster descriptions) and K-Mod, plus its own.</p>
+<p><em>NetHack4</em> is a sibling, not a parent: it also grew out of NitroHack, and DynaHack ported selected changes from it. Sources: <code>doc/changelog.txt</code> (0.5.0 entry), <code>doc/unnitrohack.txt</code>, <code>doc/nitrohack.txt</code> and the git history. See the <a href="../#tree">family tree</a>, under NitroHack.</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table>
+<tr><td>Tung Nguyen (tungtn)</td><td>Created and maintained DynaHack, 2012–2016 (1,268 commits)</td></tr>
+<tr><td>Daniel Thaler</td><td>NitroHack: library/client split, log-based saves, the curses interface (748 commits in the shared history)</td></tr>
+<tr><td>Patric Müller and the UnNetHack contributors</td><td>UnNetHack 4.1.1, the source of most new levels, branches, items and monsters</td></tr>
+<tr><td>Alex Smith, Sean Hunt</td><td>NetHack4, source of ported interface and reliability changes (<code>[NH4]</code> in the changelog)</td></tr>
+<tr><td>GruntHack, UnNetHackPlus, K-Mod authors</td><td>Random magical equipment, monster spoiler info and other ported changes (<code>[Gr]</code>, <code>[UnP]</code>, <code>[KMd]</code>)</td></tr>
+<tr><td>The NetHack DevTeam</td><td>NetHack 3.4.3, the code underneath</td></tr>
+<tr><td>This port</td><td>Browser client and build, tiles from the NetHack 3.4.3 set (<a href="https://github.com/memmaker/dynahack">memmaker/dynahack</a>)</td></tr>
+</table>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>Its working name was “UnNitroHack”: the plan was UnNetHack on a NitroHack base. <span class="src">(<a href="https://nethackwiki.com/wiki/DynaHack">NetHackWiki</a>)</span></li>
+<li>It is based on NitroHack 4.0.4 of 19 February 2012. <span class="src">(<a href="https://nethackwiki.com/wiki/DynaHack">NetHackWiki</a>)</span></li>
+<li>The release dates disagree by a few days: NetHackWiki and the changelog give 18 September 2013 for 0.5.0, RogueBasin 22 September 2013 (and 18 February 2016 for 0.6.0). <span class="src">(<a href="https://www.roguebasin.com/index.php/DynaHack">RogueBasin</a>)</span></li>
+<li>0.6.0 was the last release: the author wrote he would no longer work on DynaHack and asked for bug reports as GitHub issues instead of email. <span class="src">(<a href="https://github.com/tung/DynaHack">GitHub README</a>)</span></li>
+<li>It can still be played online on hardfought.org. <span class="src">(<a href="https://nethackwiki.com/wiki/DynaHack">NetHackWiki</a>)</span></li>
+<li>RogueBasin lists it as a “Beta Project” and puts a game at 8+ hours. <span class="src">(<a href="https://www.roguebasin.com/index.php/DynaHack">RogueBasin</a>)</span></li>
+<li>Dragons are shuffled every game: a red dragon may be a tatzelworm breathing ice in one game and a draken breathing disintegration in the next. <span class="src">(<a href="https://github.com/tung/DynaHack">GitHub README</a>)</span></li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>The NitroHack interface</strong> (the README's “advanced ASCII interface”): resizing, a multi-line message box, an inventory sidebar, HP/Pw bars, item action menus, remappable keys and options set in-game. <kbd>Ctrl-O</kbd> shows the dungeon overview, <kbd>Ctrl-X</kbd> your resistances, <kbd>Ctrl-E</kbd> engraves Elbereth, <kbd>v</kbd> auto-explores and <kbd>_</kbd> travels (it routes around peacefuls and works in Sokoban). All are commands in <code>cmd.c</code>.</li>
+<li><strong>Magic chests</strong>: whatever you put in one can be taken out of any other, at fixed spots (e.g. next to the Mines altars in <code>mines.des</code>), so no stash trips.</li>
+<li><strong>Random magical equipment</strong> from GruntHack: any weapon, armour, ring or amulet can carry properties such as fire, frost, drain life, vorpal, reflection, speed, stealth or <em>detonations</em> (<code>ITEM_*</code> in <code>obj.h</code>). The starting kit itself follows NetHack's role lists.</li>
+<li><strong>UnNetHack's dungeon</strong>: over 80 new special levels, Gehennom without mazes, new branches Town, One-eyed Sam's Market, the Dragon Caves and the Advent Calendar; tin shops, instrument shops, pet stores; iron safes, tinfoil hats, the scroll of flood; the Convict role and the vampire race.</li>
+<li><strong>Rule changes</strong>: color alchemy (potions mix by colour), wishes for magical items only from a wand of wishing, partial resistances from corpses, delayed instead of instant petrification, poison drains max HP instead of killing, armour and shield skills, cross-training weapon skills and “heavyshot” for crossbows and thrown spears.</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li><strong>Language:</strong> C (gnu99-ish, K&amp;R roots): 147,539 lines in 166 files under <code>libnitrohack/src</code> and <code>libnitrohack/include</code> at upstream commit <code>25aaf2a</code>; built with CMake.</li>
+<li><strong>Platforms:</strong> Linux and OS X natively, Windows with MinGW or Cygwin (<code>doc/build-*.md</code>); a <code>dgamelaunch</code> guide for servers.</li>
+<li><strong>Library and client:</strong> the game is a library with a small API (<code>include/nitrohack.h</code>): the client passes in a <code>struct nh_window_procs</code> (display callbacks) and drives the game with <code>nh_command()</code>. Commands and item actions come from the library (<code>nh_get_commands()</code>, <code>nh_get_object_commands()</code>), so a client needs no command table of its own.</li>
+<li><strong>The save is a log</strong>: the <code>.nhgame</code> file holds the random seed and every command, written as you play, plus a binary snapshot. A crashed game is restored by replaying the log (<code>logreplay.c</code>); finished games stay viewable as replays.</li>
+<li><strong>Data tables:</strong> monsters in <code>monst.c</code>, objects in <code>objects.c</code>, artifacts in <code>artilist.h</code>, roles and races in <code>role.c</code>; levels in <code>dat/*.des</code> (lev_comp) and the layout in <code>dat/dungeon.def</code> (dgn_comp).</li>
+<li><strong>Our port:</strong> a browser client <code>web/webwin.c</code> (~1,300 lines) replaces the curses client; the library is almost untouched (auto-explore stops on new messages and avoids boulders, <kbd>&lt;</kbd>/<kbd>&gt;</kbd> walk to stairs). The data tools run as wasm under node because wasm32's 4-byte <code>long</code> changes the file headers. The log save lives in IndexedDB, so a closed tab is replayed to the same turn.</li>
+<li><strong>Source:</strong> <a href="https://github.com/memmaker/dynahack">memmaker/dynahack</a>; upstream <a href="https://github.com/tung/DynaHack/tree/25aaf2a">tung/DynaHack @ 25aaf2a</a>; <a href="https://github.com/memmaker/dynahack/compare/25aaf2a...unnethack">our changes</a>.</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<p>Counted in the source at <code>25aaf2a</code> (objects: named entries per class from the object table, 538 slots in all).</p>
+<table>
+<tr><th>Thing</th><th>Count</th><th>Notable ones</th></tr>
+<tr><td>Roles</td><td>14</td><td>NetHack's 13 plus the <em>Convict</em>, who starts in a striped shirt with a rock, nearly hungry and hated by their own race; the quest leader is <em>Robert the Lifer</em>, against <em>Warden Arianna</em>.</td></tr>
+<tr><td>Races</td><td>6</td><td>Human, elf, dwarf, gnome, orc and vampire.</td></tr>
+<tr><td>Monsters</td><td>403</td><td>Eleven dragon kinds with shuffled names (tatzelworm, draken, guivre…), the gold dragon, the <em>vorpal jabberwock</em>, the <em>rodent of unusual size</em>, the disintegrator, the wax golem, the black marketeer, <em>Cthulhu</em>, and Death, Pestilence and Famine.</td></tr>
+<tr><td>Artifacts</td><td>36</td><td>Thiefbane and the Luck Blade (from UnNetHack), Stormbringer, Vorpal Blade, the Iron Ball of Liberation (the Convict's quest artifact).</td></tr>
+<tr><td>Spells</td><td>40</td><td>Create familiar, stone to flesh, jumping.</td></tr>
+<tr><td>Weapons / Armour</td><td>71 / 85</td><td>Chromatic and magic dragon scale mail, crystal and bronze plate mail, the striped shirt, the tinfoil hat.</td></tr>
+<tr><td>Rings / Amulets</td><td>31 / 11</td><td>Rings of gain intelligence, wisdom and dexterity.</td></tr>
+<tr><td>Tools</td><td>51</td><td>Iron safe, ice box, oilskin sack; land mine and beartrap as items. (The magic chest is a map feature, not an item.)</td></tr>
+<tr><td>Potions / Scrolls / Wands</td><td>28 / 22 / 24</td><td>Potions of blood and vampire blood; the scroll of flood replaces amnesia.</td></tr>
+<tr><td>Food / Gems</td><td>29 / 36</td><td></td></tr>
+<tr><td>Traps</td><td>24</td><td>Shuriken trap; the vibrating square counts as one.</td></tr>
+<tr><td>Dungeon</td><td>12 dungeons</td><td>Dungeons of Doom and Gehennom 25–29 levels each, Gnomish Mines 8–9 (8 Minetown variants), the Quest 5–6, Sokoban 3, Town 3 (with the nymph level), the Dragon Caves 4 (75% chance), Vlad's Tower 4, Elemental Planes 6, Fort Ludios, One-eyed Sam's Market and the Advent Calendar 1 each; 184 level maps in <code>dat/*.des</code>.</td></tr>
+</table>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>DynaHack ships NetHack's own <a href="dynahack/Guidebook.txt">Guidebook (NetHack 3.4.3 edition, text, converted from <code>doc/Guidebook.tex</code>)</a>, never updated for DynaHack. What DynaHack changes is in its <a href="dynahack/changelog.txt">changelog (0.5.0 to 0.6.0)</a>. Both under the <a href="dynahack/license.txt">NetHack General Public License</a>. The in-game <kbd>??</kbd> command reference and the <a href="../dynahack/help.html">port's help page</a> cover the keys.</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol>
+<li><a href="../dynahack/">Open the game</a>, pick role, race, gender and alignment from the menus (or Random) and type a name. A Valkyrie or Samurai forgives mistakes.</li>
+<li>Move with the arrow keys or <kbd>h</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd><kbd>y</kbd><kbd>u</kbd><kbd>b</kbd><kbd>n</kbd>; walk into a monster to attack.</li>
+<li>Press <kbd>v</kbd> (or <kbd>~</kbd>) to explore, again after each stop; when the level is done, <kbd>&gt;</kbd> walks to the down stairs.</li>
+<li><kbd>Enter</kbd> opens a menu of every command, <kbd>i</kbd> the inventory with an action menu per item; <kbd>Ctrl-O</kbd> shows the dungeon overview.</li>
+<li>In trouble, <kbd>Ctrl-E</kbd> writes Elbereth or <kbd>#pray</kbd>s if you haven't lately; the full key list is in the <a href="../dynahack/help.html">in-game guide</a>.</li>
+</ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>There is no walkthrough for DynaHack. NetHackWiki's <a href="https://nethackwiki.com/wiki/DynaHack">DynaHack</a> page lists its differences, and the vanilla <a href="https://nethackwiki.com/wiki/Standard_strategy">Standard strategy</a> mostly applies. Rules of thumb from the README:</p>
+<ul>
+<li>Level difficulty depends on depth only, not your experience level: don't dive faster than your gear allows.</li>
+<li>Don't count on a dragon scale wish: dragon names and breath are shuffled, and only a wand of wishing grants magical items.</li>
+<li>Elbereth doesn't scare quest nemeses, unique demons or Vlad.</li>
+<li>Look for magical properties on ordinary gear; it can fill an ascension-kit slot.</li>
+<li>Use magic chests instead of carrying things back to a stash.</li>
+<li>More: <a href="https://nethackwiki.com/wiki/UnNetHack">NetHackWiki: UnNetHack</a> (most of the content), <a href="https://www.roguebasin.com/index.php/DynaHack">RogueBasin</a>, the <a href="https://tung.github.io/DynaHack/">DynaHack home page</a>.</li>
+</ul>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<ul>
+<li><strong>Wizard, explore and tutorial mode</strong> are start modes of the library (<code>nh_start_game(…, MODE_WIZARD)</code>), picked in the curses client. Our browser client always starts <code>MODE_NORMAL</code>, so none of them is reachable here, and there is no in-game <kbd>#explore</kbd>.</li>
+<li><strong>Save scumming</strong> works: <em>Export save</em> downloads the game log; <em>Import save</em> loads it back. Since the save is a replayed log, importing an older export rewinds the game to that point.</li>
+<li>No exploits are listed here: none were checked on a fetched page.</li>
+</ul>
+</section>
+</div></body>
+</html>
