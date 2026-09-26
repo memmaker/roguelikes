@@ -25,8 +25,17 @@ def name(chunk):
     m = re.search(r'<h2>(.*?)</h2>|class="n"[^>]*>(.*?)</', chunk)
     return (m.group(1) or m.group(2)) if m else chunk[:40]
 
+def shown_year(chunk):
+    """A card's tag must show its data-year (or its decade, e.g. 2010s)."""
+    m = re.search(r'<div class="tag">[^<]*· (\d{4})(s?)</div>', chunk)
+    y = year(chunk, 'cards')
+    if not m or (int(m.group(1)) != y if not m.group(2) else y // 10 != int(m.group(1)) // 10):
+        errors.append(f'cards: {name(chunk)} tag year does not match data-year {y}')
+
 def sort_items(items, what):
     """items: list of raw chunks; returns sorted list, records disorder."""
+    if what == 'cards':
+        for c in items: shown_year(c)
     keyed = [(year(c, what), c) for c in items]
     for (a, ca), (b, cb) in zip(keyed, keyed[1:]):
         if b < a:
