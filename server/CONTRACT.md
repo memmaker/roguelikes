@@ -19,5 +19,6 @@ GOLDEN RULE: wins are never lost.
   /var/lib/roguelikes-stats/wins/<g>/<date>-<id>.json: write-once (O_EXCL), mode 0444, fsynced, chattr +i.
   File name = <at>-<name>-<id> from the report itself. Only an identical resend (same id) maps to an existing
   file; every distinct win gets its own file. Reports without id: one file per beacon.log line (line hash + occurrence).
+  Backup: server/backup-wins.sh (cron, every 10 min) copies them to github.com/memmaker/roguelikes-wins (private, write deploy key).
   Nothing may overwrite or delete these files. Leaderboard wins in runs.json come only from them
   (bot-flagged files are kept but not shown); they survive loss of state.json and rotated logs.
