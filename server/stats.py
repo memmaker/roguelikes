@@ -168,6 +168,7 @@ def test():
         L("3.3.3.4", ts(minutes=2), "/roguelikes/beacon?g=hack&ev=win&name=Bot", ua="Claude/1.0"),  # kept on disk, not on board
         "garbage line\n"])
     st, out = f"{d}/state.json", f"{d}/data"
+    for g in ("rogue54", "hack"): os.makedirs(f"{d}/{g}")  # game folders next to data/, like the web root
     W = f"{d}/wins"
     vis, runs = main(f"{d}/access.log*", out, st, W)
     a = vis["areas"]
