@@ -30,6 +30,7 @@ header { text-align:center; padding:56px 16px 24px; }
 @media (max-width:600px){ header { padding-top:72px; } }
 h1 { font:800 clamp(34px,7vw,64px)/1 Cinzel,serif; margin:0; letter-spacing:.08em; color:var(--gold);
   text-shadow:0 0 18px rgba(255,150,40,.45), 0 2px 0 #000; }
+h1 .more { font:600 .8em/1 "IBM Plex Mono",monospace; letter-spacing:0; background:var(--gold); color:var(--bg); padding:0 .15em; text-shadow:none; }
 .sub { color:var(--dim); margin:12px 0 0; }
 /* a tiny ASCII corridor: @ walks, a monster waits */
 .corridor { font-size:18px; margin:26px auto 0; width:min(560px,100%); white-space:pre; overflow:hidden;
@@ -89,7 +90,7 @@ body.tree main { display:none; } body:not(.tree) #tree { display:none; }
 </head>
 <body>
 <header>
-  <h1><span class="torch">&#x1F525;</span> --More-- <span class="torch">&#x1F525;</span></h1>
+  <h1><span class="torch">&#x1F525;</span> <span class="more">--More--</span> <span class="torch">&#x1F525;</span></h1>
   <p class="sub">Descend into a dungeon. Choose your stairs.</p>
   <div class="corridor" aria-hidden="true">#######################################<span class="at">@</span><span class="g">k</span></div>
   <div class="views" role="group" aria-label="View">
