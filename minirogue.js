@@ -99,7 +99,7 @@
         }
         const d = lv.double;
         if (!d || d.phase === 'gone') return;
-        if (d.phase === 'appear') { d.phase = 'walk'; return 'So it begins..'; }  // after the fade-in
+        if (d.phase === 'appear') { d.phase = 'walk'; return '@: "So it begins.."'; }  // after the fade-in
         if (d.phase === 'leave') { d.phase = 'gone'; return; }
         const goal = lv.clicked ? lv.upAt : g.floorNextTo(lv.switchAt);
         if (!same(d.pos, goal)) {
