@@ -40,7 +40,6 @@ h1 .more { font:600 .8em/1 "IBM Plex Mono",monospace; letter-spacing:0; }
 #minirogue b { font-weight:normal; } .mr-at { color:var(--gold); } .mr-k { color:#6fd36f; } .mr-it { color:#6fc7d3; }
 .mr-msg { color:var(--text); } .mr-tomb { color:var(--dim); }
 @media (max-width:520px){ #minirogue { font-size:min(12px,3.1vw); } }
-.mr-hint { color:#4f4957; font-size:11px; margin:6px 0 0; }
 .torch { display:inline-block; color:var(--ember); animation:flick .35s infinite alternate; }
 @keyframes flick { from{opacity:.65; transform:scale(.92)} to{opacity:1; transform:scale(1.06)} }
 main { max-width:1100px; margin:0 auto; padding:16px 16px 64px; display:grid; gap:24px;
@@ -100,7 +99,6 @@ body.tree main { display:none; } body:not(.tree) #tree { display:none; }
   <h1><span class="torch">&#x1F525;</span> <span class="more">--more--</span> <span class="torch">&#x1F525;</span></h1>
   <p class="sub">Descend into a dungeon. Choose your stairs.</p>
   <pre id="minirogue" tabindex="0" aria-label="A tiny playable roguelike: arrow keys or hjkl to move, click to step"></pre>
-  <p class="mr-hint">click, then arrows / hjkl</p>
   <div class="views" role="group" aria-label="View">
     <button type="button" data-v="" aria-pressed="true">▦ Game cards</button><button type="button" data-v="tree" aria-pressed="false">⑂ Family tree</button>
   </div>
