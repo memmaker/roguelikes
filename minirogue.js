@@ -87,6 +87,28 @@
     ].join('\n');
   }
 
+  // Themes: Unix Rogue (plain ASCII) and IBM PC Epyx Rogue (CP437 glyphs, CGA colours).
+  // Picked at random per page load; hidden hotkey: t (while the map has focus).
+  const THEMES = {
+    unix: { at: '@', k: 'k', sword: ')', tile: (r, c, ch) => esc(ch) },
+    epyx: { at: '\u263A', k: 'K', sword: '\u2191', tile: (r, c, ch) => {
+      if (ch === '-') {  // corners: a wall below or above makes this a corner
+        const down = at(r + 1, c) === '|', up = at(r - 1, c) === '|';
+        const left = at(r, c + 1) === '-';  // wall continues right → left-hand corner
+        ch = down ? (left ? '\u2554' : '\u2557') : up ? (left ? '\u255A' : '\u255D') : '\u2550';
+        return `<i class="mr-w">${ch}</i>`;
+      }
+      if (ch === '|') return '<i class="mr-w">\u2551</i>';
+      if (ch === '+') return '<i class="mr-w">\u256C</i>';
+      if (ch === '#') return '<i class="mr-c">\u2592</i>';
+      if (ch === '.') return '<i class="mr-f">\u00B7</i>';
+      return esc(ch);
+    } },
+  };
+  let theme = Math.random() < 0.5 ? 'unix' : 'epyx';
+  function setTheme(t) { theme = t; el.dataset.theme = t; }
+  setTheme(theme);
+
   // messages replace the page title (--more--) for 5 seconds
   const title = document.querySelector('h1 .more'), TITLE = title && title.textContent;
   let titleTimer;
@@ -104,11 +126,11 @@
       return;
     }
     const rows = MAP.map((row, r) => [...row].map((ch, c) => {
-      const p = [r, c];
-      if (same(p, s.p)) return '<b class="mr-at">@</b>';
-      if (!s.won && same(p, s.k)) return '<b class="mr-k">k</b>';
-      if (s.swordAt && same(p, s.swordAt)) return '<b class="mr-it">)</b>';
-      return esc(ch);
+      const p = [r, c], T = THEMES[theme];
+      if (same(p, s.p)) return `<b class="mr-at">${T.at}</b>`;
+      if (!s.won && same(p, s.k)) return `<b class="mr-k">${T.k}</b>`;
+      if (s.swordAt && same(p, s.swordAt)) return `<b class="mr-it">${T.sword}</b>`;
+      return T.tile(r, c, ch);
     }).join(''));
     say(s.msg);
     el.innerHTML = rows.join('\n');
@@ -119,6 +141,9 @@
     Home:[-1,-1], PageUp:[-1,1], End:[1,-1], PageDown:[1,1], '.':[0,0] };
   el.addEventListener('keydown', (e) => {
     if (e.ctrlKey || e.metaKey || e.altKey) return;
+    if (e.key === 't' || e.key === 'T') {  // hidden: switch theme, costs no turn
+      e.preventDefault(); setTheme(theme === 'unix' ? 'epyx' : 'unix'); draw(); return;
+    }
     const d = KEYS[e.key];
     if (s.dead || s.won) { if (e.key.length === 1 || d) { e.preventDefault(); reset(); } return; }
     if (!d) return;
