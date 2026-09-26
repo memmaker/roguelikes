@@ -80,6 +80,18 @@ def larn():
     print('larn', len(os.listdir(d)))
 
 
+def ularn():                                          # same Amiga set, loose files; ULarn art as port/mktiles.py MON_REMAP
+    u = G + '/ularn'
+    tab = open(u + '/src/data.c', encoding='latin-1').read().split('struct monst monster[]')[1].split('\n};')[0]
+    names = re.findall(r'^\{\s*"([^"]*)"', tab, re.M)
+    remap = {1: 'm1u', 19: 'm19u', 34: 'm34u', 39: 'm39v', **{i: 'm%dv' % i for i in range(57, 66)}}
+    d = os.path.join(HERE, 'ularn'); os.makedirs(d, exist_ok=True)
+    for i, name in enumerate(names):
+        if not name.strip(): continue
+        sq = Image.new('RGBA', (16, 16)); sq.paste(Image.open('%s/port/amiga/%s.png' % (u, remap.get(i, 'm%d' % i))).convert('RGBA'), (4, 0))
+        sq.resize((32, 32), Image.NEAREST).save(os.path.join(d, slug(name) + '.png'), optimize=True)
+    print('ularn', len(os.listdir(d)))
+
 def angband(g, game, rinfo, tag, prf, sheet, size):
     """Angband family: R:<idx>:0xAA/0xCC in the graf prf -> tile row AA&0x7F, col CC&0x7F."""
     src = open(G + '/' + game + '/lib/edit/' + rinfo, encoding='latin-1').read()
@@ -275,4 +287,4 @@ def nethack13d():                                     # DawnLike (default): tile
 def nethack50(): nhsheet('nethack50', G + '/nethack50/win/share/monsters.txt', G + '/nethack50/web/dist/tiles.png')
 def slashem(): nhsheet('slashem', G + '/slashem/win/share/monsters.txt', G + '/slashem/web/dist/tiles.png')
 
-rogue(); hack(); umoria(); urogue(); larn(); rogue36(); srogue(); roguepc(); tome2(); tinyangband(); quickband(); arogue58(); arogue77(); xrogue(); boss(); omega(); prime(); dynahack(); silq(); tactical(); crawl(); zapm(); alphaman(); decker(); nethack13d(); nethack50(); slashem()
+rogue(); hack(); umoria(); urogue(); larn(); ularn(); rogue36(); srogue(); roguepc(); tome2(); tinyangband(); quickband(); arogue58(); arogue77(); xrogue(); boss(); omega(); prime(); dynahack(); silq(); tactical(); crawl(); zapm(); alphaman(); decker(); nethack13d(); nethack50(); slashem()
