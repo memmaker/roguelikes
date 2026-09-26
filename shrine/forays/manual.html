@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Forays into Norrendrin · Manual</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shrine.css">
+<style>pre { white-space:pre-wrap; overflow-wrap:anywhere; font-size:13px; background:var(--stone); border:1px solid var(--line); border-radius:6px; padding:12px 14px; overflow-x:auto; } h2 small { font-size:12px; }</style>
+</head><body><div class="wrap">
+<nav><a href="../forays.html">← Forays shrine</a> · <a href="../../forays/">Play Forays into Norrendrin</a></nav>
+<header><h1>Forays into Norrendrin manual</h1><p class="epi">The five help files shipped with 0.8.4 (<code>Forays/ForaysHelp/*.txt</code>, also under <kbd>?</kbd> in the game) and the upstream README, unchanged</p></header>
+<nav class="toc"><a href="#readme">README</a><a href="#help">How to play and commands</a><a href="#advanced">Tips and advanced topics</a><a href="#feats">Skills and feats</a><a href="#spells">Spells</a><a href="#items">Items</a></nav>
+<section id="readme"><h2>README <small><code>README.md</code></small></h2><pre>Forays into Norrendrin
+======================
+
+A streamlined roguelike with deeply tactical combat.
+
+&lt;br&gt;
+
+[Read more about the game here.](http://forays.github.io/)
+
+&lt;br&gt;
+
+#### How to build the console version:
+
+By default, the project will run in its own window, using
+OpenTK. To make it run in a terminal, follow these steps:
+
+1. Open ConsoleForays.sln instead of Forays.sln.
+2. Change the first line of the Main method (in Main.cs)
+   by uncommenting &quot;Screen.GLMode = false;&quot;.
+3. Compile in Debug mode! Then run ConsoleForays.exe.
+
+</pre></section>
+<section id="help"><h2>How to play and commands <small><code>help.txt</code></small></h2><pre>(Forays into Norrendrin is a roguelike game. Don&#x27;t know what a
+ roguelike is? Visit www.roguebasin.com for more info.)
+
+
+How to play:
+
+(Forays has in-game help in the form of tutorial tips that pop
+ up to explain each new concept the first time you encounter it,
+ so feel free to exit Help and jump right in!)
+
+
+Important commands to remember are [e] to examine and change
+your equipment, and [a] to use your consumable items.
+If your health drops, press [r] to rest - but only once per
+level!
+
+
+Your torch illuminates your surroundings, but also gives away
+your position. If you wish to avoid notice, put away your
+torch with [t]. ([t] will also bring it back out again.)
+
+
+Press Tab to look at your surroundings. (Pressing Escape or
+Space will exit most menus and selections.)
+
+
+If you&#x27;ve learned a spell, you can cast it by pressing [z].
+
+
+You can view and activate feats from the character screen [c].
+(Some feats are activated, while some are entirely passive.)
+
+
+Try switching to your bow and firing some arrows([e] to switch,
+[s] to shoot). You always have access to five different weapons
+and three different armors. 
+
+
+Remember that you don&#x27;t need to kill every enemy you encounter.
+Some enemies - mostly humanoids - can carry consumable items,
+though.
+
+
+When you find stairs, you can walk down them with [&gt;]. (It&#x27;s a
+one-way trip, so don&#x27;t leave anything behind!)
+
+
+The full command list can be accessed in-game by pressing [-].
+
+
+Command list:
+
+Tab : Look around   (Tab again to cycle between targets)
+r : Rest to recover health/mana/exhaustion &amp; repair equipment
+t : Turn your torch on/off                  z : Cast a spell
+e : View and change equipment               s : Fire an arrow
+
+i : View your inventory
+a : Use a consumable item                   f : Fling an item
+g : Pick up an item                         d : Drop an item
+
+x : Explore automatically until something happens
+X : Travel to a specific location           . : Wait one turn
+&gt; : Take stairs to next level               o : Operate terrain
+w : Walk automatically in a direction       m : View dungeon map
+
+p : View previous messages                  \ : View known items
+c : View character info, including feats/other active abilities
+
+q : Quit or save                      = : Change options
+? : View the help screen              - : View this command list
+Alt+Enter : Fullscreen
+
+(You can also switch weapons without using the equipment screen
+ with 1-5 on the top row of the keyboard, &amp; with 8-0 for armor.)
+</pre></section>
+<section id="advanced"><h2>Tips and advanced topics <small><code>advanced_help.txt</code></small></h2><pre>Tips and advanced topics:
+
+Damage:
+
+Damage values are described as die rolls. For instance, a 2d6
+attack will deal damage equal to two dice with six sides each,
+added together.
+
+
+
+Stealth:
+
+Several factors determine whether you&#x27;ll be spotted on a given
+turn: Your stealth skill, your distance from enemies, whether
+you&#x27;re in darkness or light, and how long you&#x27;ve been within
+the sight range of enemies. 
+
+Here&#x27;s the formula:
+
+Skill * Distance * 10  -  TurnsVisible * 5
+
+The result is your chance to remain unnoticed, in percentage.
+(100 and above will always succeed.)
+Darkness gives a +2 bonus to stealth skill in this calculation.
+Animals and some other foes are harder to sneak past - they use
+a 5 instead of a 10 in the formula.
+
+Because of this, you&#x27;re much more likely to remain unseen
+if you stay two or more spaces away. Enemies automatically see
+you if you&#x27;re carrying a light source, or if you&#x27;re wearing
+plate mail and simply standing in the light. Making a noise
+while in plain sight will also get you spotted.
+
+
+
+Noise volumes:
+
+The volume of a noise is how far away it can be heard. The
+sound doesn&#x27;t pass through solid tiles, but does travel around
+corners - basically, wherever you could walk to in that many
+steps.
+
+Explosions, alarm traps, and scrolls of thunderclap:  12
+Combat:  8 (from both parties)
+Collapse spell:  8 (from target)
+Words of magic (spells &amp; scrolls):  6
+All monster noises (growls, yells, etc.):  6
+Items shattering (potions &amp; orbs):  4
+Walking on gravel:  3
+Any action (except standing still) in full plate:  3
+Changing armor:  3
+Items landing after being thrown:  2
+Switching weapons:  1
+Trap activation:  1
+Using an item:  1
+
+
+
+
+With special thanks to the people of #forays, #rgrd and -ot.
+</pre></section>
+<section id="feats"><h2>Skills and feats <small><code>feat_help.txt</code></small></h2><pre>Skills:
+
+Combat:   Measures your deadliness with blade and bow.
+          Each level grants +1 damage and +1% to hit with all
+          weapons.
+
+
+Defense:  Measures your ability to avoid physical harm.
+          Each level adds 3% to your chance to avoid attacks.
+
+
+Magic:    Measures your ability to cast spells.
+          Each level grants another spell and increases your
+          mana by 5.
+
+
+Spirit:   Measures your willpower and ability to tap into your
+          emotions, whether devotion or rage.
+          Each level increases your chance to ignore certain
+          status effects by 8%.
+
+
+Stealth:  Measures your ability to avoid notice.
+          Each level increases your chance to remain unseen by
+          enemies.
+
+
+Combat feats:
+
+Quick draw - Switch from a melee weapon to another weapon
+             instantly. (You can fire arrows without first
+             switching to your bow. However, putting your bow
+             away still takes time.)
+
+Whirlwind style - When you take a step, you automatically
+                  attack every enemy still adjacent to you.
+
+Lunge - Leap from one space away and attack your target with
+        perfect accuracy. The intervening space must be
+        unoccupied.
+
+Drive back - Enemies must yield ground in order to avoid your
+             attacks, and cornered enemies are more vulnerable
+             to critical hits. (When your target has nowhere
+             to run, your attacks won&#x27;t miss.)
+
+
+
+Defense feats:
+
+Armor mastery - When your armor blocks an enemy&#x27;s attack,
+                you&#x27;re twice as likely to score a critical hit
+                on it next turn. The exhaustion total at which
+                armor becomes too heavy is increased by 25%.
+
+Cunning dodge - Relying on mobility and tricks, you can
+                entirely avoid the first attack of each foe
+                you face.
+
+Deflect attack - When an enemy attacks you, you might deflect
+                 the attack to any other enemy next to you.
+                 (The two enemies don&#x27;t need to be adjacent to
+                 one another.)
+
+Tumble - Move up to two spaces while avoiding arrows. Takes two
+         turns to perform.
+
+
+
+Magic feats:
+
+Master&#x27;s edge - The first offensive spell you&#x27;ve learned is
+                empowered - it&#x27;ll deal 1d6 extra damage.
+                (Affects the first spell in the list that
+                deals damage directly.)
+
+Arcane interference - When you cast a spell, nearby enemy
+                      spellcasters are stunned for a short
+                      time. Additionally, they permanently
+                      lose their ability to cast the spell
+                      you just cast.
+
+Chain casting - The mana cost of your spells is reduced by one
+                if you cast a spell last turn. (This doesn&#x27;t
+                ever reduce mana costs to zero.)
+
+Force of will - Exhaustion will never make you fail an attempt
+                at casting. (Casting without mana still
+                increases your exhaustion, and you can&#x27;t cast
+                if your exhaustion would exceed 100%.)
+
+
+
+Spirit feats:
+
+Conviction - Each turn you&#x27;re engaged in combat (attacking or
+             being attacked) you gain 1 bonus Spirit, and
+             bonus Combat skill equal to half that, rounded up.
+
+Enduring soul - Your health recovers over time. You&#x27;ll regain
+                one HP every five turns until your total health
+                is a multiple of 10.
+
+Feel no pain - When your health becomes very low (less than
+               20%), you briefly enter a state of
+               invulnerability. (For about 5 turns, you&#x27;ll be
+               immune to damage, but not other effects.)
+
+Boiling blood - Taking damage briefly increases your movement
+                speed. (This effect can stack up to 5 times.
+                At 5 stacks, your speed is doubled and you are
+                immune to fire damage.)
+
+
+
+Stealth feats:
+
+Neck snap - Automatically perform a stealth kill when attacking
+            an unaware medium humanoid. (Living enemies of
+            approximately human size.)
+
+Disarm trap - Alter a trap so that you can walk past it safely
+              (but enemies still trigger it). You can use this
+              feat again to disable it entirely.
+
+Corner climb - If you&#x27;re in a corner (and in the dark), enemies
+               can&#x27;t see you unless they&#x27;re adjacent to you.
+
+Danger sense - Once you&#x27;ve seen or detected an enemy, you can
+               sense where it&#x27;s safe and where that enemy might
+               detect you. Your torch must be extinguished
+               while you&#x27;re sneaking.
+
+
+</pre></section>
+<section id="spells"><h2>Spells <small><code>spell_help.txt</code></small></h2><pre>Spell tier 1:
+
+Radiance -- Increases your target&#x27;s light radius by 2, then
+            deals 1d6 damage to enemies within its new radius.
+
+Force palm -- Deals 1d6 magic damage to an adjacent target
+              and knocks it backward 1 space.
+
+Detect movement -- Enemy movement will be indicated on the map.
+
+Flying leap -- Fly and move at double speed for a few turns.
+
+
+
+Spell tier 2:
+
+Mercurial sphere -- Deals 2d6 magic damage at range, and
+                    bounces 3 times (within 3 spaces).
+
+Grease -- Covers the target and adjacent tiles with oil.
+
+Blink -- Teleports you up to 8 spaces away (and at least
+         3 spaces away).
+
+Freeze -- Encases your target in ice until they can break out.
+
+
+
+Spell tier 3:
+
+Scorch -- Sets your target on fire. (Burning lasts for several
+          turns and deals 2 or 3 damage each turn.)
+
+Lightning bolt -- A bolt leaps between foes (and some types of
+                  terrain), dealing 3d6 damage.
+
+Magic hammer -- Deals 4d6 magic damage to an adjacent target,
+                stunning it for 2 turns.
+
+Portal -- Creates a portal. The first one won&#x27;t be active until
+          you create a second one. Each new portal will be
+          linked with the previous ones.
+
+
+
+Spell tier 4:
+
+Passage -- Travel all the way through an adjacent wall.
+
+Amnesia -- Causes an adjacent enemy to forget your presence
+           and do nothing for 4-5 turns.
+
+Stone spikes -- Radius 2. Stalagmites appear, dealing 4d6
+                damage to enemies in their area.
+
+Shadowsight -- Grants low-light vision and increases
+               perception in darkness.
+
+
+
+Spell tier 5:
+
+Blizzard -- A freezing storm deals 5d6 cold damage to each
+            enemy within 5 spaces and slows them for
+            several turns.
+
+Collapse -- Part of the dungeon crashes down on the chosen
+            spot, dealing 3d6 damage to adjacent enemies.
+            Adjacent walls will crack or break into rubble
+            or gravel. A wall targeted directly will always
+            be turned to gravel.
+            
+Doom -- Deals 4d6 magic damage and leaves the target vulnerable
+        for several turns.
+
+Telekinesis -- Target and throw enemies, items, many terrain
+               features, or yourself. Most objects (except for
+               items) will deal 3d6 damage on impact.
+
+
+
+Spell failure:
+
+The chance for a spell to fail depends upon your exhaustion and
+the spell&#x27;s tier. The percentage is equal to:
+
+Exhaustion - 20 * (6 - Tier)
+
+Therefore:
+Every point of exhaustion above 20% adds to the failure rate of
+tier 5 spells.
+Every point of exhaustion above 40% adds to the failure rate of
+tier 4 spells.
+Every point of exhaustion above 60% adds to the failure rate of
+tier 3 spells.
+Every point of exhaustion above 80% adds to the failure rate of
+tier 2 spells.
+And tier 1 spells never fail, even at 100% exhaustion.
+
+</pre></section>
+<section id="items"><h2>Items <small><code>item_help.txt</code></small></h2><pre>Potions:
+
+Potion of healing - This invaluable elixir will instantly
+  restore you to full health.
+
+Potion of regeneration - The potent healing magic in this
+  potion will steadily grant you health for 100 turns.
+
+Potion of stoneform - This potion will change you temporarily
+  to unliving stone, granting a slight resistance to all
+  damage. You&#x27;ll no longer be able to catch fire,
+  and no toxin, gas, or potion will affect you.
+
+Potion of vampirism - Consuming this potion will grant many of
+  the powers of a true vampire. You&#x27;ll fly and drain life from
+  living enemies, but light will leave you vulnerable.
+
+Potion of brutish strength - Drinking this potion grants the
+  strength of a juggernaut. For a short time you&#x27;ll be able to
+  smash through various dungeon features. Additionally, your
+  attacks will deal maximum damage and knock foes back 5
+  spaces, and you&#x27;ll keep moving afterward if possible.
+
+Potion of roots - Drinking this potion will cause thick roots
+  to grow from you, holding you tightly to the ground and
+  providing defense against attacks.
+
+Potion of haste - Drinking this potion will double your
+  movement speed and greatly enhance your reflexes. You&#x27;ll
+  sometimes dodge an attack by leaping to a nearby space.
+  You&#x27;re more likely to dodge in an open area, but be careful
+  around dangerous terrain.
+
+Potion of silence - This potion will cause you to radiate an
+  aura of silence, preventing all sounds within 2 spaces. This
+  can help you remain stealthy, but leaves you unable to speak
+  words of magic.
+
+Potion of cloaking - This potion will cover you in shadows, 
+  causing you to fade to invisibility while in darkness.
+
+Potion of mystic mind - This potion will expand your mind,
+  allowing you to sense foes no matter where they are, and
+  granting immunity to stuns, sleep, rage, confusion, and fear.
+
+
+Scrolls:
+
+Scroll of blinking - This scroll will teleport you a short
+  distance randomly.
+
+Scroll of passage - This scroll will move you to the other side
+  of an adjacent wall (but not diagonally).
+
+Scroll of time - Reading this scroll will halt the flow of time
+  for a single turn, allowing you to take an extra action.
+
+Scroll of knowledge - Reading this scroll will grant knowledge
+  of the items in your pack, and of the current level,
+  including secret doors and traps.
+
+Scroll of sunlight - This scroll fills the level with sunlight,
+  illuminating every corner of the dungeon.
+
+Scroll of darkness - This scroll covers the dungeon in a
+  blanket of darkness that suppresses all light.
+
+Scroll of renewal - This scroll&#x27;s magic will strip negative
+  effects from your weapons &amp; armor, charge any wands in your
+  possession, and remove any slime or oil covering you.
+
+Scroll of calling - This scroll&#x27;s magic will find the nearest
+  foe and transport it next to you. Immobile creatures are
+  immune to this effect.
+
+Scroll of trap clearing - This scroll will cause all traps
+  within 12 spaces to be triggered simultaneously.
+
+Scroll of enchantment - This potent scroll will impart a
+  permanent magical effect on the weapon you&#x27;re holding.
+
+Scroll of thunderclap - When this scroll is read, a cacophonous
+  crash of thunder sweeps outward, shattering fragile objects
+  like potions &amp; cracked walls, and damaging &amp; stunning foes.
+
+Scroll of fire ring - This scroll will surround you with a ring
+  of fire, just far enough to avoid its heat...if you stand
+  still.
+
+Scroll of rage - When read, this scroll radiates a wave of fury
+  over those nearby. Those affected will attack anything
+  nearest to them, friend or foe.
+
+
+Orbs:
+
+Orb of freezing - Breaking this orb will encase nearby entities
+  in ice.
+
+Orb of flames - Leaping flames will pour from this orb when it
+  shatters.
+
+Orb of fog - Thick fog will expand from this orb when it
+  breaks, blocking sight and reducing accuracy.
+
+Orb of detonation - On impact, this orb will explode violently,
+  inflicting great damage on its surroundings.
+
+Orb of breaching - This orb will temporarily lower nearby
+  walls, which will slowly return to their original state.
+
+Orb of shielding - This orb will create a zone of protection,
+  shielding entities within for several turns.
+
+Orb of teleportal - Releasing this orb&#x27;s energy will create an
+  unstable rift. Creatures stepping into the rift will be
+  transported elsewhere in the dungeon.
+
+Orb of pain - Anything caught in this orb&#x27;s area of effect will
+  become vulnerable to extra damage.
+
+Orb of blades - This orb&#x27;s magic manifests in the form of
+  several flying blades. These animated weapons fly quickly and
+  attack anything nearby.
+
+Orb of confusion - Breaking this orb will release a befuddling
+  gas, causing those affected to move and attack in random
+  directions.
+
+
+Wands:
+
+Wand of dust storm - When zapped, this wand creates a billowing
+  cloud of thick blinding dust, so heavy that it can extinguish
+  flames.
+
+Wand of invisibility - This wand will render its target
+  invisible. Carrying a light source (or being on fire) will
+  still reveal an invisible being&#x27;s location.
+
+Wand of flesh to fire - The target of this wand undergoes a
+  grisly transfiguration as part of its substance turns to
+  fire! It&#x27;ll lose half of its current health and burst into
+  flames.
+
+Wand of webs - This wand will create a line of sticky webs,
+  stretching between you and the targeted space.
+
+Wand of slumber - The target of this wand will fall asleep (or
+  become dormant, in the case of nonliving creatures) for a
+  while. Sleepers will awaken upon taking damage as usual.
+
+Wand of reach - By zapping this wand, you can make a melee
+  attack at range (with your current weapon) against your
+  chosen target.
+
+Wand of telekinesis - After zapping this wand at your target,
+  you can throw it forcefully. You can throw items, monsters,
+  terrain features, and even yourself.
+
+
+</pre></section>
+</div></body>
+</html>

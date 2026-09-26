@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Forays into Norrendrin · Shrine</title>
+<!--og-->
+<meta name="description" content="Derrick Creamer's lean, tactical descent: no classes and no experience, only shrines that grant skills and feats, five weapons and three armors you always carry, and light and terrain that decide every fight. Text only, in the game's own colours.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="--More--">
+<meta property="og:title" content="Forays into Norrendrin · Shrine">
+<meta property="og:description" content="Derrick Creamer's lean, tactical descent: no classes and no experience, only shrines that grant skills and feats, five weapons and three armors you always carry, and light and terrain that decide every fight. Text only, in the game's own colours.">
+<meta property="og:url" content="https://ruzzoli.de/roguelikes/shrine/forays.html">
+<meta property="og:image" content="https://ruzzoli.de/roguelikes/forays.png">
+<meta name="twitter:card" content="summary_large_image">
+<!--/og-->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>Forays into Norrendrin</h1>
+  <p class="epi">A streamlined roguelike with deeply tactical combat · no classes, no experience points, only shrines</p>
+  <a class="play" href="../forays/">&gt; Enter the dungeon</a>
+</header>
+<div class="facts"><div><b>Date of birth</b><span>2012</span> 0.5.0 on 28 January 2012 (work began October 2011); this build 0.8.4, 6 November 2015</div><div><b>Creator</b><span>Derrick Creamer</span> with Tommy Ettinger</div><div><b>Language</b><span>C#</span> ~49,000 lines</div><div><b>Platform</b><span>Windows, Linux, Mac</span> .NET/Mono, console or OpenTK window</div></div>
+<nav class="toc"><a href="#lineage">Lineage</a><a href="#credits">Credits</a><a href="#trivia">Trivia</a><a href="#usp">What's unique</a><a href="#code">Code dive</a><a href="#stats">Stats</a><a href="#manual">Manual</a><a href="#start">Getting started</a><a href="#help">Help</a><a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p>No parent: <strong>Forays into Norrendrin</strong> is an original game in its own C# code, not a variant of any other roguelike. RogueBasin names ADOM, DoomRL, Angband and Brogue as influences. Development began in October 2011; 0.5.0 came out on 28 January 2012 and 0.8.4, the last release, on 6 November 2015. Work stopped in 2016. It has no known descendants.</p>
+<p>See the <a href="../#tree">family tree</a> (among the standalone originals). Sources: <a href="https://www.roguebasin.com/index.php/Forays_into_Norrendrin">RogueBasin</a>, the <a href="https://forays.github.io/">game’s site</a>, the <a href="https://github.com/Forays/ForaysIntoNorrendrin/releases">GitHub releases</a> and <code>LICENSE.txt</code> (© 2011–2015).</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table><tr><td>Derrick Creamer</td><td>Design and code, 2011–2016</td></tr><tr><td>Tommy Ettinger</td><td>(notostraca) the GitHub repo, the website, the console build fixes</td></tr><tr><td>L.C. Smith</td><td>(Soundlust) the logo</td></tr><tr><td>Community</td><td>Testers on IRC: “the people of #forays, #rgrd and -ot”, thanked in the help</td></tr></table>
+<p class="src">From the <a href="https://forays.github.io/">game’s site</a>, <a href="forays/manual.html#advanced">advanced_help.txt</a> and the <a href="forays/changelog.txt">commit log</a>.</p>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>You go down “for reasons unknown”; the site’s tagline: a stone staircase in the mountain pass “where travelers vanish”. <span class="src">(<a href="https://forays.github.io/">forays.github.io</a>)</span></li>
+<li>The author paused the game now and then for the annual 7-Day Roguelike Challenge. <span class="src">(<a href="https://forays.github.io/">forays.github.io</a>)</span></li>
+<li>0.8.3 was the first release with both a real console build and a resizable fake-console window; its balance was “tweaked relentlessly”. <span class="src">(<a href="https://github.com/Forays/ForaysIntoNorrendrin/releases">release notes</a>)</span></li>
+<li>0.8.4 added health and status bars for you and your enemies, and flavour text describing your surroundings. <span class="src">(<a href="forays/changelog.txt">changelog</a>)</span></li>
+<li>Plans for 0.9 (minibosses, leader monsters, more activated abilities) never shipped. <span class="src">(<a href="https://www.roguebasin.com/index.php/Forays_into_Norrendrin">RogueBasin</a>)</span></li>
+<li>The help prints the stealth formula outright: skill × distance × 10 − turns seen × 5. <span class="src">(<a href="forays/manual.html#advanced">advanced_help.txt</a>)</span></li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>No classes, no XP:</strong> you grow only at shrines (Combat, Defense, Magic, Spirit, Stealth); a full set on a floor pair gives a feat.</li>
+<li><strong>Fixed kit:</strong> everyone carries the same five weapons and three armors and swaps them with <kbd>1</kbd>–<kbd>5</kbd> and <kbd>8</kbd>–<kbd>0</kbd>; each weapon has its own trick (the mace knocks back, the dagger always hits in darkness).</li>
+<li><strong>Light and noise:</strong> your torch shows traps but gives you away; plate armour clanks; every noise has a published range.</li>
+<li><strong>One rest per level</strong> and one-way stairs: no grinding, no going back.</li>
+<li><strong>Terrain that reacts:</strong> oil burns, water freezes, brush catches fire, fungus explodes.</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li><strong>Language:</strong> C#, about 49,000 lines in 24 files under <code>Forays/</code> at upstream <code>3ed1559</code>. <code>Actor.cs</code> alone is 16,000 lines: the player, every monster’s AI and all feats and spells.</li>
+<li><strong>Data in code:</strong> monsters, items and tiles are C# enums and <code>Define(…)</code> calls, not data files; the help text is five plain <code>.txt</code> files.</li>
+<li><strong>Two frontends:</strong> <code>System.Console</code> (<code>ConsoleForays</code>) or an OpenTK/OpenGL window drawing font sheets, 88×28 cells since 2015.</li>
+<li><strong>This port:</strong> the console build on .NET WebAssembly in a Web Worker; keys arrive through a SharedArrayBuffer so the game loop stays unchanged. Saves in IndexedDB, extra windows, an Enter command menu, an item cursor, <kbd>&gt;</kbd> walks to the stairs. Upstream save/load was broken and is fixed here. Source: <a href="https://github.com/memmaker/forays">memmaker/forays</a>, upstream <a href="https://github.com/Forays/ForaysIntoNorrendrin">Forays/ForaysIntoNorrendrin</a>.</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<table><tr><th>Thing</th><th>Count</th><th>Notable ones</th></tr><tr><td>Levels</td><td>20 + 1</td><td>then the final level, where cultists try to summon the demon king Kersai; 9 level types (cave, hive, mine, fortress, sewer, garden, crypt, hellish …)</td></tr><tr><td>Monsters</td><td>71</td><td>plus summons, phantoms and demons: Impossible Nightmare, Corpsetower Behemoth, Machine of War, Spellmuddle Pixie, Marble Horror, Forasect</td></tr><tr><td>Skills</td><td>5</td><td>Combat, Defense, Magic, Spirit, Stealth</td></tr><tr><td>Feats</td><td>20</td><td>Neck Snap, Whirlwind Style, Boiling Blood, Corner Climb, Danger Sense</td></tr><tr><td>Spells</td><td>20</td><td>Mercurial Sphere, Flying Leap, Grease, Amnesia, Collapse, Doom</td></tr><tr><td>Consumables</td><td>40</td><td>10 potions, 13 scrolls, 10 orbs, 7 wands, plus bandages, flint and steel, blast fungus</td></tr><tr><td>Gear</td><td>5 + 3</td><td>weapons and armors, 5 enchantments, 9 magic trinkets (Pendant of Life, Lens of Scrying)</td></tr><tr><td>Traps</td><td>15</td><td>scalding oil, fling, stone rain, phantom, sliding wall</td></tr></table>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>The game’s own help (the five <code>ForaysHelp/*.txt</code> files, also under <kbd>?</kbd>) and the upstream README: <a href="forays/manual.html">manual</a>. Also the <a href="forays/changelog.txt">version history</a> (no changelog ships with the game: RogueBasin dates, the GitHub release notes and the commit log) and the <a href="forays/license.txt">licence</a> (MIT, plus OpenTK’s licences).</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol><li><a href="../forays/">Open the game</a>, name your hero and go: there is no class to pick. Tutorial tips pop up the first time you meet each thing.</li>
+<li>Look with <kbd>Tab</kbd>, explore with <kbd>x</kbd>; <kbd>&gt;</kbd> walks to the stairs you have seen (a one-way trip).</li>
+<li>Switch weapons with <kbd>1</kbd>–<kbd>5</kbd> (the bow for range, <kbd>s</kbd> shoots) and armor with <kbd>8</kbd>–<kbd>0</kbd>; <kbd>t</kbd> hides your torch to sneak.</li>
+<li>Use shrines when you find them; feats are on the character screen <kbd>c</kbd>. <kbd>r</kbd> rests, once per level.</li>
+<li>The Enter key lists every command; read the game’s <a href="../forays/help.html">help page</a> for keys and saving.</li></ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>We found no walkthrough or strategy guide: the dungeon is random, and players talked on IRC (#forays on QuakeNet). Rules of thumb from the game’s own help:</p><ul>
+<li>You need not kill everything; sneaking past (torch off, leather armour, two or more squares away) is often better.</li>
+<li>Save your one rest per level for when you need it; rest also repairs equipment.</li>
+<li>Find every shrine: a full set on each pair of depths guarantees a feat.</li>
+<li>Read the <a href="forays/manual.html#advanced">advanced help</a> (stealth formula, noise ranges) and the <a href="forays/manual.html#feats">feat</a>, <a href="forays/manual.html#spells">spell</a> and <a href="forays/manual.html#items">item</a> lists.</li>
+<li>More: <a href="https://www.roguebasin.com/index.php/Forays_into_Norrendrin">RogueBasin</a> and the <a href="https://forays.github.io/">game’s site</a>.</li></ul>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<p>The source has a debug menu on <kbd>~</kbd> (“Activate which cheat?”: spawn monster, heal to full, become invulnerable, see the entire level, generate new level …), but it sits behind <code>if(false)</code> in <code>Actor.cs</code>, so no build, including this one, can reach it. No wizard mode, no cheat options.</p>
+<ul><li><strong>Save scumming:</strong> <em>Export save</em> / <em>Import save</em> on the game page.</li></ul>
+</section>
+</div></body>
+</html>

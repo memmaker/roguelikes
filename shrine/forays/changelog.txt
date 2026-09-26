@@ -1,0 +1,60 @@
+Forays into Norrendrin: version history
+=======================================
+
+No changelog file ships with the game. This page collects what exists:
+the RogueBasin dates, the GitHub release notes and the upstream commit log
+(github.com/Forays/ForaysIntoNorrendrin; the public repo starts at 0.8.3).
+
+Oct 2011     Development starts (RogueBasin).
+2012-01-28   0.5.0, first public release (RogueBasin).
+2014-10-03   0.8.3 (GitHub release). Release notes:
+    This version contains both a console-mode ConsoleForays.exe and a 
+    fake-console-mode Forays.exe that can have the window resized.  As in 
+    previous versions, the game balance has been tweaked relentlessly.  Of 
+    note to players of earlier releases, shrines have been reworked and you 
+    will be guaranteed one feat per floor if you find all the shrines on 
+    that level.  It should be compatible with Mono (uncertain of the 
+    version, but the requirement is not steep) and .NET as low as version 
+    3.5.
+    
+2015-11-06   0.8.4, the last release (GitHub release 2015-11-07 UTC). Release notes:
+    Here's a quick summary of the big changes:
+    - Health and status bars! You can now see health & status effect 
+    durations for both you and enemies.
+    - Dungeon descriptions! Flavor text for your surroundings now appears 
+    at the bottom of the screen.
+    - Shrines can now appear at any depth, not just odd-numbered depths. A 
+    full set of 5 will still exist on each pair of depths. (1 and 2,  3 and 
+    4,  etc.)
+    - Monsters now tend to have slightly less health, but slightly more of 
+    them will appear.
+    - Added 2 new level types, and changed level type rarities - some are 
+    now more common than others.
+    - More font sizes, to better fit common screen resolutions while 
+    fullscreened.
+    
+2016         Development stops (RogueBasin); last upstream commit 2016-11-13.
+
+Upstream commit log (newest first)
+----------------------------------
+2016-11-13  3ed1559  Tommy Ettinger: Slight change to Main.cs to use conditionals
+2016-11-13  2ce48cb  Tommy Ettinger: Fix ConsoleForays configuration; it builds now.
+2016-03-27  bb499ae  derrickcreamer: Simplify name code for all game objects
+2016-03-04  59e1ac4  derrickcreamer: Simplify cursor visibility
+2016-03-04  087cf92  derrickcreamer: Replace old message buffer
+2016-02-24  46d1059  derrickcreamer: Add unit test project to solution. Add new utility file.
+2016-02-20  fd29da5  derrickcreamer: Rearrange the project files a bit
+2015-11-06  4c9f13b  derrickcreamer: Version 0.8.4. Logo added. Monster balance changes.
+2015-10-28  3c79fa4  derrickcreamer: Change noise system. Add messages for item use.
+2015-10-27  265a4bf  derrickcreamer: Change GL and resizing code. Add new level types & change distribution. Improve map screen.
+2015-09-27  5631dd8  derrickcreamer: Change shrine distribution. Add first attempt at environmental descriptions.
+2015-09-15  b79db5c  derrickcreamer: Resize remaining screens. Clean up Equipment code.
+2015-09-01  f2ebe5c  derrickcreamer: Improve status bar and mouse interface.
+2015-08-21  84674cc  derrickcreamer: Unify keyboard and mouse cursor position with MapCursor. Add Color.cs. Improve status bar behavior.
+2015-08-20  b7e264a  derrickcreamer: Add status bar object list. Add MouseUI.cs.
+2015-08-18  0764dfd  derrickcreamer: Change game size to 88x28. Add UI.cs.
+2015-08-15  e257ab0  derrickcreamer: Add Input.cs. Implement key rebinding.
+2015-08-13  b6f356e  derrickcreamer: Add missing PosArray.cs. Change CritEffect to AttackEffect. New mouse pathing.
+2015-08-12  19b5321  derrickcreamer: Use NuGet for OpenTK. Add project file for building terminal version.
+2014-10-02  d1ae012  Tommy Ettinger: Added .sln build file to the v083 source.
+2014-10-02  19bc119  Tommy Ettinger: Initial commit
