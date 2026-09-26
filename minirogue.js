@@ -51,13 +51,13 @@
     knight: { hp: 100, dmg: 10, glyph: { unix: '@', epyx: '☻' }, cls: 'mr-knight',
       questions: [['name', 'What is your name?'], ['quest', 'What is your quest?'],
         ['color', 'What is your favorite color?']],
-      wrong: [
-        'That is not a colour. That is a mood.',
-        'Hex, peasant! A hash and six digits.',
-        'My horse knows more colours than you, and it is a coconut.',
-        'Wrong! This bridge only speaks CSS.',
-        'Did you sneeze on the keyboard?',
-        'Blue? No! #0000ff!',
+      wrong: [  // short: one line in the title (the question stays in the prompt)
+        'Hex, peasant!',
+        'Not a colour.',
+        'Wrong. #RRGGBB!',
+        'Nice try.',
+        'Blue? #0000ff!',
+        'Speak CSS!',
       ],
       bump(g, m) {
         if (m.hostile) return null;
@@ -72,7 +72,8 @@
           if (key === 'color' && !/^#([0-9a-f]{3}){1,2}$/i.test(answer)) {
             m.wrong = (m.wrong || 0) + 1;
             if (m.wrong >= 3) return this.throwOff(g);
-            return `${this.wrong[Math.floor(Math.random() * this.wrong.length)]} ${this.ask(g, m, i)}`;
+            this.ask(g, m, i);
+            return this.wrong[Math.floor(Math.random() * this.wrong.length)];
           }
           g.memory[key] = answer;
           if (i + 1 < this.questions.length) return this.ask(g, m, i + 1);
@@ -155,7 +156,7 @@
             g.setTile([r, wc], '|');
             lv.sealed = true;
             lv.double = { pos: [r, wc + 1], phase: 'appear' };
-            return 'A stone wall grinds shut behind you.';
+            return 'A stone wall slams shut!';
           }
         }
         const d = lv.double;
@@ -471,12 +472,24 @@
     // Messages replace the page title (--more--) for 5 seconds. Once you have played,
     // the title quietly becomes a link (same look) that toggles the message log.
     title: {
-      init(ui) { this.el = document.querySelector('h1 .more'); this.text = this.el && this.el.textContent; },
+      init(ui) {
+        this.el = document.querySelector('h1 .more'); this.text = this.el && this.el.textContent;
+        this.h1 = this.el && this.el.closest('h1');
+        this.oneLine = this.h1 && this.h1.offsetHeight;  // height of the title on one line
+      },
       message(ui, text) {
         if (!this.el) return;
         this.el.textContent = text; this.el.classList.add('log');
+        this.fit();
         clearTimeout(this.timer);
-        this.timer = setTimeout(() => { this.el.textContent = this.text; this.el.classList.remove('log'); }, 5000);
+        this.timer = setTimeout(() => {
+          this.el.textContent = this.text; this.el.classList.remove('log'); this.el.style.fontSize = '';
+        }, 5000);
+      },
+      fit() {  // never wrap (the torches would jump): shrink the text until it fits one line
+        this.el.style.fontSize = '';
+        let size = parseFloat(getComputedStyle(this.el).fontSize);
+        while (this.h1.offsetHeight > this.oneLine * 1.2 && size > 8) this.el.style.fontSize = `${--size}px`;
       },
       played(ui) {
         if (!this.el) return;
