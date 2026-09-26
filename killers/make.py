@@ -298,4 +298,19 @@ def frogcomposband():                                 # Shockbolt 64px (web/tile
     for f in os.listdir(d):
         if f.startswith('the-'): os.replace(os.path.join(d, f), os.path.join(d, f[4:]))
 
-rogue(); hack(); umoria(); urogue(); larn(); ularn(); rogue36(); srogue(); roguepc(); tome2(); tinyangband(); quickband(); arogue58(); arogue77(); xrogue(); boss(); omega(); prime(); dynahack(); silq(); tactical(); crawl(); zapm(); alphaman(); decker(); nethack13d(); nethack50(); slashem(); zangband(); frogcomposband()
+def forays():                                         # text only: Actor.cs Define() glyph from ForaysImages/font8x16.png (as the card), GL palette (Color.cs ConvertColor), 2x
+    f = G + '/forays/Forays'
+    pal = {'Blue': (35, 35, 255), 'Cyan': (0, 255, 255), 'DarkBlue': (15, 15, 149), 'DarkCyan': (0, 139, 139), 'DarkGray': (105, 105, 105),
+           'DarkGreen': (0, 100, 0), 'DarkMagenta': (139, 0, 139), 'DarkRed': (139, 0, 0), 'DarkYellow': (184, 134, 11), 'Gray': (211, 211, 211),
+           'Green': (0, 255, 0), 'Magenta': (255, 0, 255), 'Red': (255, 0, 0), 'White': (255, 255, 255), 'Yellow': (255, 248, 0),
+           'RandomLightning': (255, 248, 0), 'RandomDark': (139, 0, 139), 'RandomBright': (255, 0, 255), 'RandomDoom': (139, 0, 139), 'RandomIce': (0, 255, 255)}
+    sheet, d = Image.open(f + '/ForaysImages/font8x16.png').convert('RGBA'), os.path.join(HERE, 'forays')   # 128 glyphs, 8px + 1px gap, alpha mask
+    os.makedirs(d, exist_ok=True)
+    for name, ch, c in re.findall(r'Define\(ActorType\.\w+,"([^"]+)",\'(.)\',Color\.(\w+)', open(f + '/Actor.cs').read()):
+        a = sheet.crop((ord(ch) * 9, 0, ord(ch) * 9 + 8, 16)).getchannel('A')
+        img = Image.new('RGBA', (8, 16), '#000'); img.paste(pal[c], mask=a)
+        sq = Image.new('RGBA', (32, 32), '#000'); sq.paste(img.resize((16, 32), Image.NEAREST), (8, 0))
+        sq.save(os.path.join(d, slug(name) + '.png'), optimize=True)
+    print('forays', len(os.listdir(d)))
+
+rogue(); hack(); umoria(); urogue(); larn(); ularn(); rogue36(); srogue(); roguepc(); tome2(); tinyangband(); quickband(); arogue58(); arogue77(); xrogue(); boss(); omega(); prime(); dynahack(); silq(); tactical(); crawl(); zapm(); alphaman(); decker(); nethack13d(); nethack50(); slashem(); zangband(); frogcomposband(); forays()
