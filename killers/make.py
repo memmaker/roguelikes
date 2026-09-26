@@ -103,7 +103,7 @@ def angband(g, game, rinfo, tag, prf, sheet, size):
         n = names.get(int(i))
         if not n or i == '0': continue
         x, y = (int(c, 16) & 0x7F) * size, (int(a, 16) & 0x7F) * size
-        img.crop((x, y, x + size, y + size)).resize((32, 32), Image.NEAREST) \
+        img.crop((x, y, x + size, y + size)).resize((32, 32), Image.NEAREST if size <= 32 else Image.LANCZOS) \
            .save(os.path.join(d, slug(n.strip()) + '.png'), optimize=True)
     print(g, len(os.listdir(d)))
 
@@ -185,6 +185,11 @@ def dynahack():                                       # web/gen (build.sh): symb
     print('dynahack', len(os.listdir(d)))
 
 
+def zangband():                                       # Shockbolt 64px (web/tiles.webp, web/mkgraf-shb.py)
+    angband('zangband', 'zangband', 'r_info.txt', 'N', 'graf-shb.prf', 'web/tiles.webp', 64)
+    d = os.path.join(HERE, 'zangband')                # main-web.c web_run_end() strips "The " from killers
+    for f in os.listdir(d):
+        if f.startswith('the-'): os.replace(os.path.join(d, f), os.path.join(d, f[4:]))
 def silq():                                           # N:1-3 are more <player> entries
     angband('sil-q', 'sil-q-1.5.0', 'monster.txt', 'N', 'graf-new.prf', 'lib/xtra/graf/16x16_microchasm.png', 16)
     os.remove(os.path.join(HERE, 'sil-q', '-player-.png'))
@@ -287,4 +292,4 @@ def nethack13d():                                     # DawnLike (default): tile
 def nethack50(): nhsheet('nethack50', G + '/nethack50/win/share/monsters.txt', G + '/nethack50/web/dist/tiles.png')
 def slashem(): nhsheet('slashem', G + '/slashem/win/share/monsters.txt', G + '/slashem/web/dist/tiles.png')
 
-rogue(); hack(); umoria(); urogue(); larn(); ularn(); rogue36(); srogue(); roguepc(); tome2(); tinyangband(); quickband(); arogue58(); arogue77(); xrogue(); boss(); omega(); prime(); dynahack(); silq(); tactical(); crawl(); zapm(); alphaman(); decker(); nethack13d(); nethack50(); slashem()
+rogue(); hack(); umoria(); urogue(); larn(); ularn(); rogue36(); srogue(); roguepc(); tome2(); tinyangband(); quickband(); arogue58(); arogue77(); xrogue(); boss(); omega(); prime(); dynahack(); silq(); tactical(); crawl(); zapm(); alphaman(); decker(); nethack13d(); nethack50(); slashem(); zangband()
