@@ -32,7 +32,7 @@ h1 { font:800 clamp(34px,7vw,64px)/1 Cinzel,serif; margin:0; letter-spacing:.08e
   text-shadow:0 0 18px rgba(255,150,40,.45), 0 2px 0 #000; }
 h1 .more { font:600 .8em/1 "IBM Plex Mono",monospace; letter-spacing:0; }
 h1 .more.log { font-size:.45em; vertical-align:middle; } /* header game messages */
-.sub { color:var(--dim); margin:12px 0 0; }
+.sub { color:var(--dim); margin:12px 0 0; white-space:pre-wrap; }  /* pre-wrap: the status line's double spaces */
 /* header mini-roguelike (minirogue.js); font: Web437 IBM CGA, Oldschool PC Font Pack by VileR, CC BY-SA 4.0 */
 @font-face { font-family:"IBM CGA"; src:url(fonts/Web437_IBM_CGA.woff) format("woff"); font-display:swap; }
 #minirogue { font:16px/1 "IBM CGA",monospace; width:30ch; overflow:hidden; margin:22px auto 0;

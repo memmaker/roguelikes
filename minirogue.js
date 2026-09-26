@@ -310,6 +310,15 @@
       !((a[0] !== b[0] && a[1] !== b[1]) && (at(...a) === '+' || at(...b) === '+'));
   }
 
+  function stats() {  // for the status widget
+    const held = Object.keys(s.has).map((k) => ITEMS[k]);
+    return {
+      level: s.depth, hp: Math.max(0, s.hp), maxHp: PLAYER_HP, str: 16,
+      arm: held.reduce((a, i) => a + (i.defend ? 10 - i.defend(10) : 0), 0),  // damage armour takes off a hit
+      dmg: Math.max(FISTS, ...held.map((i) => i.attack || 0)),
+    };
+  }
+
   const bump = (m) => (MONSTERS[m.kind].bump ? MONSTERS[m.kind].bump(g, m) : null);
 
   // one player action: a step/attack in direction (dr, dc), or a search
@@ -395,8 +404,26 @@
   //   message(ui, text) every message the game emits
   //   played(ui)        once, on the player's first action
   //   theme(ui, name)   when the theme changes
+  //   status(ui, stats) after every redraw: { level, hp, maxHp, str, arm, dmg }
   // `ui.widget(name)` reaches another widget; `ui.map` is the map element.
   const WIDGETS = {
+    // Once you have played, the subtitle quietly becomes clickable (same look) and
+    // toggles between itself and a Rogue-style status line.
+    status: {
+      init() { this.el = document.querySelector('header .sub'); this.text = this.el && this.el.textContent; },
+      played() {
+        if (!this.el) return;
+        this.el.addEventListener('click', () => { this.on = !this.on; this.show(); });
+      },
+      status(ui, stats) { this.stats = stats; if (this.on) this.show(); },
+      show() {
+        const t = this.stats;
+        this.el.textContent = this.on && t
+          ? `Level: ${t.level}  Hp: ${t.hp}(${t.maxHp})  Str: ${t.str}(${t.str})  Arm: ${t.arm}  Dmg: ${t.dmg}`
+          : this.text;
+      },
+    },
+
     // Questions: while the game asks something (ask), the two view buttons below the
     // map turn into the question (left) and an input with a blinking cursor (right).
     // Enter on a non-empty answer replies, Esc walks away; askDone puts the buttons back.
@@ -517,6 +544,7 @@
       return T.tile(r, c, ch);
     }).join(''));
     say(s.msg);
+    emit('status', stats());
     s.msg = '';
     el.innerHTML = rows.join('\n');
   }
