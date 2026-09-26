@@ -99,7 +99,7 @@
         }
         const d = lv.double;
         if (!d || d.phase === 'gone') return;
-        if (d.phase === 'appear') { d.phase = 'walk'; return '@: "So it begins.."'; }  // after the fade-in
+        if (d.phase === 'appear') { d.phase = 'walk'; return `${g.playerGlyph}: "So it begins.."`; }  // after the fade-in
         if (d.phase === 'leave') { d.phase = 'gone'; return; }
         const goal = lv.clicked ? lv.upAt : g.floorNextTo(lv.switchAt);
         if (!same(d.pos, goal)) {
@@ -134,6 +134,7 @@
   const g = {
     get lv() { return s.lv; },
     get player() { return s.p; },
+    get playerGlyph() { return THEMES[theme].at; },  // @ or ☺, for speech lines
     has: (kind) => !!s.has[kind],
     adjacent: (m) => adjacent(m.pos, s.p),
     chase(m) { m.pos = stepTowards(m.pos, s.p); },
