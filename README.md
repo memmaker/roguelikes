@@ -13,5 +13,6 @@ and deploy refuses otherwise. Tree entries
 without a game of their own take their year (and optional label such as
 "1990s") from the `tree` section of years.json.
 
-Header mini-roguelike: `minirogue.js`. Font `fonts/Web437_IBM_CGA.woff` is from
+Header mini-roguelike: `minirogue.js` (deploy ships it minified with terser via npx,
+so comments and names do not spoil it). Font `fonts/Web437_IBM_CGA.woff` is from
 VileR's Oldschool PC Font Pack (int10h.org), CC BY-SA 4.0.
