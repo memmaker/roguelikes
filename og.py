@@ -10,11 +10,11 @@ index = (here / 'index.html').read_text()
 n = index.count('class="play" href=')
 
 pages = {  # file: (title, description[, image]); no image = screenshot of the live page
-    'index.html': ('Roguelikes · play the classics in your browser',
+    'index.html': ('--More-- · classic roguelikes in your browser',
                    f'{n} classic roguelikes, from Rogue and Hack to NetHack, Angband and Crawl, playable in your browser with tiles, sound and auto-explore. Plus a family tree of the genre.'),
-    'stats.html': ('Visitors · Roguelikes', 'How many adventurers found their way into the dungeons, the shrines and the family tree.'),
-    'graveyard.html': ('Graveyard · Roguelikes', 'Fallen heroes of every game and the ten deadliest monsters of the roguelike world, ranked by kills.'),
-    'leaderboard.html': ('Leaderboards · Roguelikes', 'Top ten per game: highest scores, deepest dives and quickest wins.'),
+    'stats.html': ('Visitors · --More--', 'How many adventurers found their way into the dungeons, the shrines and the family tree.'),
+    'graveyard.html': ('Graveyard · --More--', 'Fallen heroes of every game and the ten deadliest monsters of the roguelike world, ranked by kills.'),
+    'leaderboard.html': ('Leaderboards · --More--', 'Top ten per game: highest scores, deepest dives and quickest wins.'),
 }
 # Shrines: title from <title>, description from the game's card text on the index page.
 for card in re.findall(r'<div class="card">.*?</div></div>', index, re.S):
@@ -38,7 +38,7 @@ for f, (title, desc, *card) in pages.items():
         assert (here / img).exists(), f'no screenshot for {url}'
     e = lambda s: html.escape(s, quote=True)
     tags = (f'<!--og-->\n<meta name="description" content="{e(desc)}">\n'
-            f'<meta property="og:type" content="website">\n<meta property="og:site_name" content="Roguelikes">\n'
+            f'<meta property="og:type" content="website">\n<meta property="og:site_name" content="--More--">\n'
             f'<meta property="og:title" content="{e(title)}">\n<meta property="og:description" content="{e(desc)}">\n'
             f'<meta property="og:url" content="{url}">\n<meta property="og:image" content="{BASE}{img}">\n'
             + (f'<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n' if not card else '')
@@ -58,7 +58,7 @@ for card in re.findall(r'<div class="card">.*?</div></div>', index, re.S):
     desc = f'Play {name} in your browser. ' + html.unescape(re.sub('<[^>]+>', '', re.search(r'<p>(.*?)</p>', card, re.S)[1])).strip()
     e = lambda s: html.escape(s, quote=True)
     tags = (f'<!--og-->\n<meta name="description" content="{e(desc)}">\n<meta property="og:type" content="website">\n'
-            f'<meta property="og:site_name" content="Roguelikes">\n<meta property="og:title" content="{e(name)} · Roguelikes">\n'
+            f'<meta property="og:site_name" content="--More--">\n<meta property="og:title" content="{e(name)} · --More--">\n'
             f'<meta property="og:description" content="{e(desc)}">\n<meta property="og:url" content="{BASE}{g[1]}/">\n'
             f'<meta property="og:image" content="{BASE}{re.search(chr(60)+"img src=\"([^\"]+)\"", card)[1]}">\n'
             f'<meta name="twitter:card" content="summary_large_image">\n<!--/og-->\n')
