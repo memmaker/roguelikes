@@ -49,7 +49,28 @@ h1 .more.log { font-size:.45em; vertical-align:middle; } /* header game messages
 #minirogue[data-theme=epyx] .mr-c { color:#aaaaaa; } #minirogue[data-theme=epyx] .mr-at { color:#ffff55; }
 #minirogue[data-theme=epyx] .mr-k { color:#ff55ff; } #minirogue[data-theme=epyx] .mr-it { color:#55ffff; } #minirogue[data-theme=epyx] .mr-st { color:#55ff55; }
 #minirogue[data-theme=epyx] .mr-tomb { color:#aaaaaa; }
-@media (max-width:520px){ #minirogue { font-size:min(12px,3.1vw); } }
+/* message log (opens from the title link once you have played) */
+h1 a.more { color:inherit; text-decoration:none; cursor:inherit; }
+#mr-log { font:16px/1.25 "IBM CGA",monospace; width:30ch; height:calc(6 * 1.25em + 10px); margin:10px auto 0;
+  background:#000; border:1px solid #6b6474; box-sizing:border-box; overflow:hidden; text-align:left;
+  animation:mr-log-open .9s ease-out both; }
+#mr-log.mr-closing { animation:mr-log-close .6s ease-in both; }
+#mr-log .mr-lines { height:100%; overflow-y:auto; padding:4px 6px; box-sizing:border-box; color:#b8b2a6;
+  animation:mr-log-text .4s .9s both; scrollbar-width:thin; }
+#mr-log.mr-closing .mr-lines { animation:none; opacity:0; }
+#mr-log[data-theme=epyx] { border-color:#aa5500; } #mr-log[data-theme=epyx] .mr-lines { color:#aaaaaa; }
+@keyframes mr-log-open {
+  0% { width:4px; height:4px; border-radius:50%; }
+  15% { width:4px; height:4px; border-radius:50%; }
+  50% { width:30ch; height:4px; border-radius:0; }
+  100% { width:30ch; height:calc(6 * 1.25em + 10px); } }
+@keyframes mr-log-close {  /* mr-log-open backwards; a new name so animationend fires */
+  0% { width:30ch; height:calc(6 * 1.25em + 10px); }
+  50% { width:30ch; height:4px; border-radius:0; }
+  85% { width:4px; height:4px; border-radius:50%; }
+  100% { width:4px; height:4px; border-radius:50%; opacity:0; } }
+@keyframes mr-log-text { from { opacity:0; } to { opacity:1; } }
+@media (max-width:520px){ #minirogue, #mr-log { font-size:min(12px,3.1vw); } }
 .torch { display:inline-block; color:var(--ember); animation:flick .35s infinite alternate; }
 @keyframes flick { from{opacity:.65; transform:scale(.92)} to{opacity:1; transform:scale(1.06)} }
 main { max-width:1100px; margin:0 auto; padding:16px 16px 64px; display:grid; gap:24px;

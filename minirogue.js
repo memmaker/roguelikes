@@ -218,6 +218,7 @@
 
   // one player action: a step/attack in direction (dr, dc), or a search
   function turn(dr, dc, search = false) {
+    emit('played');
     if (s.dead) { reset(); return; }
     const L = LEVELS[s.depth - 1];
     const n = [s.p[0] + dr, s.p[1] + dc];
@@ -286,18 +287,73 @@
     } },
   };
   let theme = Math.random() < 0.5 ? 'unix' : 'epyx';
-  function setTheme(t) { theme = t; el.dataset.theme = t; }
-  setTheme(theme);
+  function setTheme(t) { theme = t; el.dataset.theme = t; emit('theme', t); }
 
-  // messages replace the page title (--more--) for 5 seconds
-  const title = document.querySelector('h1 .more'), TITLE = title && title.textContent;
-  let titleTimer;
-  function say(msg) {
-    if (!title || !msg) return;
-    title.textContent = msg; title.classList.add('log');
-    clearTimeout(titleTimer);
-    titleTimer = setTimeout(() => { title.textContent = TITLE; title.classList.remove('log'); }, 5000);
+  // ---------------------------------------------------------------- UI widgets
+  // Everything around the map lives here, apart from the game. Each widget is a
+  // self-contained entry with optional hooks the engine calls through `emit`:
+  //   init(ui)          once, at start
+  //   message(ui, text) every message the game emits
+  //   played(ui)        once, on the player's first action
+  //   theme(ui, name)   when the theme changes
+  // `ui.widget(name)` reaches another widget; `ui.map` is the map element.
+  const WIDGETS = {
+    // Messages replace the page title (--more--) for 5 seconds. Once you have played,
+    // the title quietly becomes a link (same look) that toggles the message log.
+    title: {
+      init(ui) { this.el = document.querySelector('h1 .more'); this.text = this.el && this.el.textContent; },
+      message(ui, text) {
+        if (!this.el) return;
+        this.el.textContent = text; this.el.classList.add('log');
+        clearTimeout(this.timer);
+        this.timer = setTimeout(() => { this.el.textContent = this.text; this.el.classList.remove('log'); }, 5000);
+      },
+      played(ui) {
+        if (!this.el) return;
+        const a = document.createElement('a');
+        a.className = this.el.className; a.href = '#'; a.textContent = this.el.textContent;
+        a.addEventListener('click', (e) => { e.preventDefault(); ui.widget('log').toggle(ui); });
+        this.el.replaceWith(a); this.el = a;
+      },
+    },
+
+    // Every message, kept for the page's lifetime; opens below the map as a small
+    // terminal: a dot grows into a line as wide as the map, opens downwards, and the
+    // text fades in. Its first line is never shown in the title.
+    log: {
+      init() { this.lines = ['Nova Rogue V1']; },
+      message(ui, text) {
+        this.lines.push(text);
+        if (this.box) { this.list.append(this.line(text)); this.list.scrollTop = 1e9; }
+      },
+      theme(ui, name) { if (this.box) this.box.dataset.theme = name; },
+      line(text) { const d = document.createElement('div'); d.textContent = text; return d; },
+      toggle(ui) {
+        if (this.box) {  // close: the opening animation, backwards
+          const box = this.box;
+          this.box = null;
+          box.classList.add('mr-closing');
+          box.addEventListener('animationend', () => box.remove(), { once: true });
+          return;
+        }
+        this.box = document.createElement('div');
+        this.list = document.createElement('div');
+        this.box.id = 'mr-log'; this.box.dataset.theme = ui.theme;
+        this.list.className = 'mr-lines';
+        this.list.append(...this.lines.map((t) => this.line(t)));
+        this.box.append(this.list);
+        ui.map.after(this.box);
+        this.list.scrollTop = 1e9;
+      },
+    },
+  };
+  const ui = { map: el, get theme() { return theme; }, widget: (name) => WIDGETS[name] };
+  let played = false;
+  function emit(hook, ...args) {
+    if (hook === 'played') { if (played) return; played = true; }
+    for (const w of Object.values(WIDGETS)) if (w[hook]) w[hook](ui, ...args);
   }
+  const say = (msg) => { if (msg) emit('message', msg); };
 
   function draw() {
     if (s.dead) {
@@ -347,5 +403,7 @@
     const dr = Math.sign(row - s.p[0]), dc = Math.sign(col - s.p[1]);
     turn(dr, dc, !dr && !dc);
   });
+  emit('init');
+  setTheme(theme);
   reset();
 })();
