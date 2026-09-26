@@ -26,8 +26,13 @@
   const CORRIDOR = { row: 2, from: 7, to: 21 };  // row 2, doors at cols 6 and 22
   const PLAYER_HP = 45, FISTS = 2;  // hp is restored on each new level
 
-  // Monsters: hp, dmg (per hit on you), glyph per theme. Optional act(g, m) replaces the
-  // default turn (hit if adjacent, else close in). Numbers give exact hit counts:
+  // Game memory: what the game has learned about the player, kept for the page's
+  // lifetime (across deaths). Levels, monsters and items reach it as g.memory.
+  const MEMORY = { name: null, quest: null, color: null };
+
+  // Monsters: hp, dmg (per hit on you), glyph per theme, optional cls (extra CSS class). Optional act(g, m) replaces the
+  // default turn (hit if adjacent, else close in); optional bump(g, m) runs when you walk
+  // into it and returns a message, or null to attack as usual. Numbers give exact hit counts:
   // you have 45 hp, fists do 2, the sword 5, armour takes 4 off every hit.
   const MONSTERS = {
     bat: { hp: 10, dmg: 9, glyph: { unix: 'B', epyx: 'B' },  // 5 fists / 2 sword; kills in 5
@@ -37,6 +42,62 @@
         return g.adjacent(m) ? g.hurt(m, this.dmg) : g.chase(m);
       } },
     snake: { hp: 20, dmg: 9, glyph: { unix: 's', epyx: 's' } },  // 4 sword; kills in 5, in 9 vs armour
+
+    // Guards the bridge. Walking into him starts his three questions (answers go to
+    // MEMORY); a walk-away (Esc, or clicking the map) ends them. The third bump is an
+    // attack, and from then on he fights: 100 hp, 10 per hit. Answer all three and he
+    // walks into the west room to wait by a wall, as soon as you let him past. The
+    // colour must be HTML hex (#fcba03); the third wrong colour sends you into the gorge.
+    knight: { hp: 100, dmg: 10, glyph: { unix: '@', epyx: '☻' }, cls: 'mr-knight',
+      questions: [['name', 'What is your name?'], ['quest', 'What is your quest?'],
+        ['color', 'What is your favorite color?']],
+      wrong: [
+        'That is not a colour. That is a mood.',
+        'Hex, peasant! A hash and six digits.',
+        'My horse knows more colours than you, and it is a coconut.',
+        'Wrong! This bridge only speaks CSS.',
+        'Did you sneeze on the keyboard?',
+        'Blue? No! #0000ff!',
+      ],
+      bump(g, m) {
+        if (m.hostile) return null;
+        if (m.passed) return 'The knight nods.';
+        m.bumps = (m.bumps || 0) + 1;
+        if (m.bumps >= 3) { m.hostile = true; return null; }
+        return this.ask(g, m, 0);
+      },
+      ask(g, m, i) {  // asks question i; returns its text as the message
+        const [key, question] = this.questions[i];
+        g.ask(question, (answer) => {
+          if (key === 'color' && !/^#([0-9a-f]{3}){1,2}$/i.test(answer)) {
+            m.wrong = (m.wrong || 0) + 1;
+            if (m.wrong >= 3) return this.throwOff(g);
+            return `${this.wrong[Math.floor(Math.random() * this.wrong.length)]} ${this.ask(g, m, i)}`;
+          }
+          g.memory[key] = answer;
+          if (i + 1 < this.questions.length) return this.ask(g, m, i + 1);
+          m.passed = true;
+          return 'Right. Off you go.';
+        }, () => 'The knight waits.');
+        return question;
+      },
+      throwOff(g) {  // up, spinning, then down into the gorge
+        g.lock();
+        g.playerFx('mr-thrown');
+        g.later(1700, () => g.hidePlayer());
+        g.later(2300, () => g.die('knight'));
+        return 'Nope';
+      },
+      act(g, m) {
+        if (m.hostile) return g.adjacent(m) ? g.hurt(m, this.dmg) : g.chase(m);
+        if (!m.passed) return;  // stands his ground
+        if (!m.goal) {  // a spot by a wall of the west room, away from the door row
+          const spots = g.tiles((ch, [r, c]) => ch === '.' && c < CORRIDOR.from && r !== CORRIDOR.row);
+          m.goal = spots[Math.floor(Math.random() * spots.length)];
+        }
+        const step = g.stepTowards(m.pos, m.goal);
+        if (!same(step, g.player)) m.pos = step;  // you are in the way: he waits
+      } },
   };
 
   // Items are picked up by walking over them. Optional hooks:
@@ -118,6 +179,16 @@
         return `<b class="mr-ghost${fade}">${T.at}</b>`;
       },
     },
+    { // 3: the bridge. You arrive in the west room; the knight stands in the corridor,
+      // right outside the door. The corridor is drawn brown: it is a bridge over a gorge.
+      setup(g) {
+        g.spawn('knight', [CORRIDOR.row, CORRIDOR.from]);
+        g.stairsDown([2, 26]);
+      },
+      overlay(g, [r, c], T) {
+        if (g.tileAt([r, c]) === '#') return `<i class="mr-bridge">${T.tile(r, c, '#')}</i>`;
+      },
+    },
   ];
 
   // ---------------------------------------------------------------- engine
@@ -135,6 +206,16 @@
     get lv() { return s.lv; },
     get player() { return s.p; },
     get playerGlyph() { return THEMES[theme].at; },  // @ or ☺, for speech lines
+    memory: MEMORY,
+    tileAt: ([r, c]) => at(r, c),
+    ask(question, onAnswer, onCancel) {  // a question in the prompt widget; handlers return a message
+      asking = { onAnswer, onCancel };
+      emit('ask', question);
+    },
+    lock() { s.locked = true; },                   // the player loses control
+    playerFx(cls) { s.playerFx = cls; },           // extra CSS class on the player glyph
+    hidePlayer() { s.hidden = true; },
+    die(killer) { s.dead = true; s.killer = killer; },
     has: (kind) => !!s.has[kind],
     adjacent: (m) => adjacent(m.pos, s.p),
     chase(m) { m.pos = stepTowards(m.pos, s.p); },
@@ -186,13 +267,25 @@
     return `Level ${depth}`;
   }
 
+  let asking = null;  // the open question: { onAnswer, onCancel }
+  function answer(text, cancelled) {  // from the prompt widget
+    const q = asking;
+    asking = null;
+    const msg = cancelled ? q.onCancel && q.onCancel() : q.onAnswer(text);
+    if (!asking) emit('askDone');
+    s.msg = msg || '';
+    draw();
+  }
+
   function reset() {
+    if (asking) { asking = null; emit('askDone'); }
     s = { has: {}, dead: false, msg: '', saved: {} };
     enter(1);
     draw();
   }
 
   function stepTowards(from, to, { throughMonsters = false } = {}) {
+    if (same(from, to)) return from;
     // BFS over walkable tiles; monsters block the way unless throughMonsters
     const key = ([r, c]) => r * 100 + c, prev = new Map([[key(from), null]]), q = [from];
     while (q.length) {
@@ -217,6 +310,8 @@
       !((a[0] !== b[0] && a[1] !== b[1]) && (at(...a) === '+' || at(...b) === '+'));
   }
 
+  const bump = (m) => (MONSTERS[m.kind].bump ? MONSTERS[m.kind].bump(g, m) : null);
+
   // one player action: a step/attack in direction (dr, dc), or a search
   function turn(dr, dc, search = false) {
     emit('played');
@@ -225,8 +320,11 @@
     const n = [s.p[0] + dr, s.p[1] + dc];
     if (!search && dr && dc && (at(...s.p) === '+' || at(...n) === '+')) { draw(); return; }
     const log = [], target = !search && monAt(n);
+    let bumped;
     if (search) {
       if (L.onSearch) log.push(L.onSearch(g));
+    } else if (target && (bumped = bump(target)) != null) {
+      log.push(bumped);  // the monster handled being walked into
     } else if (target) {
       target.hp -= Math.max(FISTS, ...Object.keys(s.has).map((k) => ITEMS[k].attack || 0));
       if (target.hp > 0) log.push('You hit.');
@@ -299,6 +397,50 @@
   //   theme(ui, name)   when the theme changes
   // `ui.widget(name)` reaches another widget; `ui.map` is the map element.
   const WIDGETS = {
+    // Questions: while the game asks something (ask), the two view buttons below the
+    // map turn into the question (left) and an input with a blinking cursor (right).
+    // Enter on a non-empty answer replies, Esc walks away; askDone puts the buttons back.
+    // Answers are only ever shown as text (textContent / input value), never as HTML.
+    prompt: {
+      init() { this.buttons = [...document.querySelectorAll('.views button')]; },
+      ask(ui, question) {
+        const [left, right] = this.buttons;
+        if (!left || !right) return;
+        if (!this.input) {
+          this.saved = left.innerHTML;
+          left.dataset.prompt = '';
+          right.hidden = true;
+          this.input = document.createElement('input');
+          this.input.className = 'mr-answer';
+          this.input.maxLength = 40;
+          this.input.autocomplete = 'off'; this.input.spellcheck = false;
+          this.input.addEventListener('keydown', (e) => {
+            e.stopPropagation();
+            if (e.key === 'Escape') { e.preventDefault(); ui.cancel(); }
+            if (e.key === 'Enter' && this.input.value.trim()) {
+              e.preventDefault();
+              const text = this.input.value.trim();
+              this.input.value = '';
+              ui.answer(text);
+            }
+          });
+          right.after(this.input);
+        }
+        left.textContent = question;
+        this.input.setAttribute('aria-label', question);
+        this.input.value = '';
+        this.input.focus();
+      },
+      askDone(ui) {
+        if (!this.input) return;
+        const [left, right] = this.buttons;
+        left.innerHTML = this.saved; delete left.dataset.prompt;
+        this.input.remove(); this.input = null;
+        right.hidden = false;
+        ui.map.focus();
+      },
+    },
+
     // Messages replace the page title (--more--) for 5 seconds. Once you have played,
     // the title quietly becomes a link (same look) that toggles the message log.
     title: {
@@ -348,7 +490,8 @@
       },
     },
   };
-  const ui = { map: el, get theme() { return theme; }, widget: (name) => WIDGETS[name] };
+  const ui = { map: el, get theme() { return theme; }, widget: (name) => WIDGETS[name],
+    answer: (text) => answer(text), cancel: () => answer('', true) };
   let played = false;
   function emit(hook, ...args) {
     if (hook === 'played') { if (played) return; played = true; }
@@ -365,8 +508,8 @@
     const T = THEMES[theme], L = LEVELS[s.depth - 1];
     const rows = s.map.map((row, r) => [...row].map((ch, c) => {
       const p = [r, c], m = monAt(p), item = itemAt(p);
-      if (same(p, s.p)) return `<b class="mr-at">${T.at}</b>`;
-      if (m) return `<b class="mr-k">${MONSTERS[m.kind].glyph[theme]}</b>`;
+      if (same(p, s.p) && !s.hidden) return `<b class="mr-at ${s.playerFx || ''}">${T.at}</b>`;
+      if (m) return `<b class="mr-k ${MONSTERS[m.kind].cls || ''}">${MONSTERS[m.kind].glyph[theme]}</b>`;
       const extra = L.overlay && L.overlay(g, p, T);
       if (extra) return extra;
       if (item) return `<b class="mr-it">${ITEMS[item.kind].glyph[theme]}</b>`;
@@ -389,6 +532,8 @@
     }
     const d = KEYS[e.key];
     if (s.dead) { if (e.key.length === 1 || d) { e.preventDefault(); reset(); } return; }
+    if (s.locked) { e.preventDefault(); return; }
+    if (asking) { if (d || e.key === 's') { e.preventDefault(); answer('', true); } return; }  // walk away
     if (e.key === 's') { e.preventDefault(); turn(0, 0, true); return; }  // search, as in Rogue
     if (!d) return;
     e.preventDefault();
@@ -397,6 +542,8 @@
   // tap/click: one step towards the clicked cell; on yourself: search
   el.addEventListener('click', (e) => {
     if (s.dead) { reset(); return; }
+    if (s.locked) return;
+    if (asking) { answer('', true); return; }  // walk away from the question
     const r = el.getBoundingClientRect();
     const row = Math.floor((e.clientY - r.top) / (r.height / MAP.length));
     const col = Math.floor((e.clientX - r.left) / (r.width / MAP[0].length));
