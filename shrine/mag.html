@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MAG · Shrine</title>
+<!--og-->
+<meta name="description" content="Mike's Adventure Game by Michael J. Teixeira, between Rogue and Hack in size: find the Sudbury Sapphire, held by the Imperial Dragons, and bring it back up. Locked doors and keys, dark rooms lit by wall torches, a bow at your side. DawnLike tiles or the original PC text screen.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="--More--">
+<meta property="og:title" content="MAG · Shrine">
+<meta property="og:description" content="Mike's Adventure Game by Michael J. Teixeira, between Rogue and Hack in size: find the Sudbury Sapphire, held by the Imperial Dragons, and bring it back up. Locked doors and keys, dark rooms lit by wall torches, a bow at your side. DawnLike tiles or the original PC text screen.">
+<meta property="og:url" content="https://ruzzoli.de/roguelikes/shrine/mag.html">
+<meta property="og:image" content="https://ruzzoli.de/roguelikes/mag.png">
+<meta name="twitter:card" content="summary_large_image">
+<!--/og-->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>MAG</h1>
+  <p class="epi">Mike's Adventure Game · “A Dungeon Adventuring Game”: fetch the Sudbury Sapphire from the Imperial Dragons and bring it back to the surface</p>
+  <a class="play" href="../mag/">&gt; Enter the dungeon</a>
+</header>
+<div class="facts"><div><b>Date of birth</b><span>1988</span> DOS release 1988 (1985 counting the original UNIX version); source © 1986–88; this build PC-1.1, Summer 1989</div><div><b>Creator</b><span>Michael J. Teixeira</span> alone</div><div><b>Language</b><span>C</span> ~14,000 lines in 36 files</div><div><b>Platform</b><span>MS-DOS</span> IBM PC text mode, BIOS video and keyboard</div></div>
+<nav class="toc"><a href="#lineage">Lineage</a><a href="#credits">Credits</a><a href="#trivia">Trivia</a><a href="#usp">What's unique</a><a href="#code">Code dive</a><a href="#stats">Stats</a><a href="#manual">Manual</a><a href="#start">Getting started</a><a href="#help">Help</a><a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p><strong>MAG</strong> is new code inspired by Rogue, not a Rogue source variant: RogueBasin names Rogue and Hack as influences and puts it “somewhere between the complexity of the original rogue and that of hack”. Like Hack, its monsters use items and fall into traps; unlike Hack it has no special levels, pets or shops. Like the PC Rogue it draws the dungeon with the IBM extended character set. The DOS Games Archive dates it to 1988, “1985 if you count the original UNIX version”; the source's copyright line says 1986, 87, 88, and the version command says PC-1.1, Summer 1989. That UNIX version is not known to survive.</p>
+<p>Descendants are ports, not variants: a Windows port on SourceForge (<em>mikesadvgame</em>, 2007), Donnie Russell's DirectX <em>MAGHD</em> and Flash <em>FlashMAG</em>, and his JavaScript <a href="https://donnierussellii.github.io/JSMikesAdvGame.html">JSMikesAdvGame</a>.</p>
+<p>See the <a href="../#tree">family tree</a> (under Rogue, as an inspired game). Sources: <a href="https://www.roguebasin.com/index.php/Mike's_Adventure_Game">RogueBasin</a> (1988, influences Rogue and Hack), the <a href="https://www.dosgamesarchive.com/download/mag">DOS Games Archive</a> (1988, UNIX 1985, freeware with source), <a href="http://crpgaddict.blogspot.com/2011/03/game-52-mikes-aventure-game-mag-1988.html">the CRPG Addict</a> (1988), <a href="https://sourceforge.net/projects/mikesadvgame/">SourceForge</a> and the source headers.</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table><tr><td>Teixeira</td><td>Michael J. “Mike” Teixeira: design and all code, 1985–1989</td></tr><tr><td>Ports</td><td>Donnie Russell (MAGHD, FlashMAG, JSMikesAdvGame); the SourceForge Windows port (rrogue_dev)</td></tr><tr><td>This port</td><td>Web port, rebuilt help screens, DawnLike tiles by DragonDePlatino (CC BY 4.0), Dubtrain's Angband sounds</td></tr></table>
+<p class="src">From the source headers, <a href="https://www.roguebasin.com/index.php/Mike's_Adventure_Game">RogueBasin</a> and <a href="https://sourceforge.net/projects/mikesadvgame/">SourceForge</a>.</p>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>MAG cost $10 in 1988; a later release came with a small instruction guide and two e-mail addresses for the author. <span class="src">(<a href="http://crpgaddict.blogspot.com/2011/03/game-52-mikes-aventure-game-mag-1988.html">CRPG Addict, Game 52</a>)</span></li>
+<li>The CRPG Addict won it only with save backups (“That asterisk … means I cheated”): two potions of invisibility, items thrown until the Imperial Dragon left its throne, then the Sapphire stolen. GIMLET: 26, just above Rogue. <span class="src">(<a href="https://crpgaddict.blogspot.com/2011/03/mag-won.html">MAG: Won!*</a>)</span></li>
+<li>The wizard password is stored shifted by <code>'^'</code> so it doesn't show in the program file, next to a decoy string with the comment “to throw off password seekers”. The right word greets you with “You feel as smart as Michael J. Teixeira”. <span class="src">(<a href="https://github.com/memmaker/mag/blob/main/src/WIZARD.C">WIZARD.C</a>)</span></li>
+<li>The monster list is an alphabet: axe beak, babbler, crystalizer … zephyr in lower case, then apparition, banshee … zabloron in upper case. <span class="src">(<a href="https://github.com/memmaker/mag/blob/main/src/MONSTER.H">MONSTER.H</a>)</span></li>
+<li>One of the body armours is a coconut, and the object table spells the goal “The Sudbury Saphire”. <span class="src">(<a href="https://github.com/memmaker/mag/blob/main/src/OBJECT.H">OBJECT.H</a>)</span></li>
+<li>The author’s bug-report command, which appended a line to a file <code>bugs</code>, is compiled out; in its place the game answers “Sorry, this version doesn't have any bugs!” <span class="src">(<a href="https://github.com/memmaker/mag/blob/main/src/COMMAND3.C">COMMAND3.C</a>)</span></li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>Light and dark:</strong> rooms stay dark until you light their wall torches with a tinderbox; carry oil flasks and your own torch.</li>
+<li><strong>Doors and keys:</strong> doors can be stuck or locked; copper, silver, golden and skeleton keys (<kbd>^K</kbd>) or a chime of opening.</li>
+<li><strong>Two weapons:</strong> a secondary weapon you swap in with <kbd>x</kbd>: a bow at your side for arrows, a sword in hand.</li>
+<li><strong>Monsters play by your rules:</strong> they pick up and use items, fall into traps; fairies and kleptums steal.</li>
+<li><strong>Back up allowed:</strong> levels are saved to disk when you leave, so you can climb back, which Rogue never let you do; 25 levels with the Imperial Dragons at the bottom.</li>
+<li><strong>Keyboard macros</strong> (<kbd>{</kbd> … <kbd>}</kbd>, <kbd>^E</kbd>) and function-key shortcuts, built into a 1988 game.</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li><strong>Language:</strong> K&amp;R-era C for MS-DOS, 36 files (<code>*.C</code>, <code>*.H</code>), 14,004 lines. The screen goes through BIOS <code>int 10h</code> on two text pages (a shadow copy of each is kept), keys through <code>int 16h</code> scan codes.</li>
+<li><strong>Data tables:</strong> monsters, objects, traps and titles are C arrays (<code>MONSTER.H</code>, <code>OBJECT.H</code>, <code>VARS.H</code>); weights look like grams (a food ration weighs 454).</li>
+<li><strong>Saves:</strong> every level you leave is written to <code>maglevel.N</code>, the game to <code>savefile.mag</code>, as raw structs with pointers.</li>
+<li><strong>This port:</strong> Emscripten WebAssembly with the DOS layer replaced at the BIOS level (<code>port/pcvideo.c</code>), saves in IndexedDB, DawnLike tiles or the original VGA screen, windows, an Enter command menu, <kbd>Z</kbd> explore and <kbd>&lt;</kbd>/<kbd>&gt;</kbd> walking to stairs. The game's help and picture files were missing from the source drop and are rebuilt from its tables. Source: <a href="https://github.com/memmaker/mag">memmaker/mag</a> (<a href="https://github.com/memmaker/mag/compare/cc36a63...main">our changes</a>).</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<table><tr><th>Thing</th><th>Count</th><th>Notable ones</th></tr><tr><td>Levels</td><td>25</td><td>the Sapphire lies on level 25 with the Imperial Dragon</td></tr><tr><td>Monsters</td><td>55</td><td>Imperial Dragon (17 hit dice, 17,128 experience), lich, volcano demon, invisixplode, xuthus, zabloron, kleptum, umbathri, polymorpher</td></tr><tr><td>Object kinds</td><td>151</td><td>in 12 classes</td></tr><tr><td>Potions</td><td>20</td><td>self-polymorph, thirst quenching, delusion, levitation</td></tr><tr><td>Scrolls</td><td>21</td><td>genocide, galvanization, the labyrinth, object attraction</td></tr><tr><td>Wands</td><td>21</td><td>wonder, drain life, digging, teleport to</td></tr><tr><td>Rings</td><td>25</td><td>resurrection, randomness, sustinance, magic absorption, adornment</td></tr><tr><td>Weapons</td><td>15</td><td>long bow, crossbow, sling, boulder (3d10)</td></tr><tr><td>Armour, shields</td><td>10 + 4</td><td>coconut, mithril shield</td></tr><tr><td>Misc items</td><td>8</td><td>compass of translocation, vial of ethereal oil, chime of opening, tinderbox</td></tr><tr><td>Traps</td><td>9</td><td>strangle weed, swinging pendulum, bear, flying spear</td></tr><tr><td>Titles</td><td>20</td><td>Novice to Lord Noble (Myrmidon, Swashbuckler, Chevalier)</td></tr></table>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>The author's source drop has no manual and none of its help screens. The DOS release's short instruction guide, which the CRPG Addict mentions, is not copied here. What we have: the <a href="mag/manual.html">in-game help</a> (<kbd>F1</kbd>), rebuilt from the game's own command and monster tables for this port, and the <a href="mag/license.txt">licence</a> (free to copy or modify, not for profit, keeping the copyright notice). No change log or version history exists; the only version named is PC-1.1 (Summer 1989).</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol><li><a href="../mag/">Open the game</a> and type your name.</li>
+<li>Move with the arrow keys or <kbd>hjklyubn</kbd>; <kbd>Z</kbd> explores, <kbd>&gt;</kbd> walks to stairs you have seen and goes down.</li>
+<li>Light dark rooms: ignite (<kbd>I</kbd>) a torch; walk into monsters to fight; <kbd>x</kbd> swaps in your secondary weapon.</li>
+<li>Eat (<kbd>e</kbd>) before you faint, <kbd>F</kbd> tells you how hungry you are; <kbd>c</kbd> names unknown potions and scrolls.</li>
+<li>Enter lists every command; <kbd>F1</kbd> shows the help; the game's <a href="../mag/help.html">help page</a> has keys and saving.</li></ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>We found no walkthrough or strategy guide. The CRPG Addict's <a href="http://crpgaddict.blogspot.com/2011/03/game-52-mikes-aventure-game-mag-1988.html">first post</a> and <a href="https://crpgaddict.blogspot.com/2011/03/mag-won.html">win</a> are the fullest play reports. Rules of thumb:</p><ul>
+<li>Carry a tinderbox and oil: a dark room hides what is in it.</li>
+<li>Keep a bow as secondary weapon and shoot what comes down a corridor.</li>
+<li>Monsters use the potions and wands they pick up; kill thieves (fairies, kleptums) before they reach you.</li>
+<li>Levels are kept: go back up to rest or fetch what you left.</li>
+<li>Invisibility got the Addict past the Imperial Dragon. More: <a href="https://www.roguebasin.com/index.php/Mike's_Adventure_Game">RogueBasin</a>.</li></ul>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<p><strong>Wizard mode</strong> is in every build, this one too: <kbd>^W</kbd> asks for the password (<code>frakola</code>, printed in the CRPG Addict's comments). It adds detect, genocide, identify, map, teleport, make monster/object and level-up commands (<a href="mag/manual.html#wizard">list</a>); a game that used it never enters the Hall of Heroes.</p>
+<ul><li><strong>Save scumming:</strong> <em>Export save</em> / <em>Import save</em> on the game page, as the Addict did with file backups.</li></ul>
+</section>
+</div></body>
+</html>

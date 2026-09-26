@@ -1,0 +1,11 @@
+MAG - A Dungeon Adventuring Game
+Copyright (C) 1986,87,88 by Michael J. Teixeira
+
+General permission to copy or modify, but not for profit, is hereby
+granted, provided that the above copyright notice is included.
+
+(The notice at the head of every file of the author's C source, MAG PC-1.1,
+Summer 1989. The source drop has no separate licence file. The SourceForge
+Windows port "mikesadvgame" (2007) is filed under the Historical Permission
+Notice and Disclaimer; the DOS Games Archive lists the game and its source as
+freeware.)

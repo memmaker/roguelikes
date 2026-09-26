@@ -1,0 +1,119 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>MAG · Manual</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shrine.css">
+<style>pre { white-space:pre-wrap; overflow-wrap:anywhere; font-size:13px; background:var(--stone); border:1px solid var(--line); border-radius:6px; padding:12px 14px; overflow-x:auto; }</style></head><body><div class="wrap">
+<nav><a href="../mag.html">← MAG shrine</a> · <a href="../../mag/">Play</a></nav>
+<h1>MAG PC-1.1 · in-game help</h1>
+<p>The author's source drop has no manual and none of the game's own <code>help\help.N</code> screens, which <kbd>F1</kbd> shows. For the web port they were <strong>rebuilt</strong> from the game's tables (<code>COMMAND.H</code> key table, <code>MONSTER.H</code>, <code>VARS.H</code>) by <a href="https://github.com/memmaker/mag/blob/main/data/mkhelp.py">data/mkhelp.py</a>: the commands are the game's, the wording is ours, and lines marked “web port” describe our additions. The symbol screen (drawn by the game in PC graphics characters) is left out here. © 1986, 87, 88 Michael J. Teixeira, <a href="license.txt">licence</a>.</p>
+<nav class="toc"><a href="#moving">Commands 1: moving</a><a href="#carry">Commands 2: things you carry</a><a href="#info">Commands 3: information and the game</a><a href="#macros">Commands 4: macros and hints</a><a href="#wizard">Wizard commands</a><a href="#monsters">The monsters of MAG</a></nav>
+<section id="moving"><h2>Commands 1: moving</h2><pre> MAG commands (1 of 4): moving           (help screens rebuilt for the port)
+
+   y  k  u      Walk one step. Arrow keys, Home, End, PgUp and PgDn
+    \ | /       (and the numeric keypad) walk too.
+   h -@- l
+    / | \       Shift + direction (Y K U H L B J N) runs until something
+   b  j  n      interesting happens.
+
+   f &lt;dir&gt;      Find: move in a direction until you reach something.
+   .            Rest one turn.                 :  Rest several turns (F8).
+   s            Search for secret doors and traps once.
+   ;            Search several turns (F7).
+   &gt; or +       Go down a staircase.
+   &lt; or -       Go up a staircase.
+   Z            Explore (web port): walk to what you haven&#x27;t seen yet, one
+                step a turn; stops for monsters, messages and any key.
+   &lt; &gt;          Not on stairs (web port): walk to the nearest known ones.
+
+   A number before a command repeats it:  9s  searches nine times.
+   Walking into a monster attacks it. Locked doors need a key: ^K (Ctrl-K).</pre></section>
+<section id="carry"><h2>Commands 2: things you carry</h2><pre> MAG commands (2 of 4): things you carry
+
+   i  (F3)  Inventory: everything you carry.
+   g        Get what is lying here.        d   Drop something.
+   e        Eat.                           q   Quaff (drink) a potion.
+   r        Read a scroll.                 z   Zap a wand, staff or rod.
+   w        Wield a weapon.                t   Throw (fire arrows with a bow).
+   W        Wear or take off armor.        S   Strap on or unstrap a shield.
+   p        Put on or remove a ring.       x   Swap in the secondary weapon.
+   X        Choose the secondary weapon.
+   ^U       Use a miscellaneous item.      I   Ignite a torch.
+   E        Extinguish a torch.            ^K  Unlock a door with a key.
+   c        Call (name) a kind of object.  a   Objects you know (F5).
+   C or P   How full your pack is.
+
+   Symbols list just one kind:  % food  ! potions  ? scrolls  / wands
+   = rings  ) weapons  ] armor  [ shields  , keys  &quot; misc  * gems  $ money
+
+   At a &quot;What do you want to ...&quot; question press SPACE for a list of what
+   fits, a symbol for one kind, the item&#x27;s letter to choose it, ESC to stop.</pre></section>
+<section id="info"><h2>Commands 3: information and the game</h2><pre> MAG commands (3 of 4): information and the game
+
+   v  (F6)  View: describe what you can see here.
+   ^H (F2)  What is which symbol on the screen (RETURN for all of them).
+   F        How your stomach feels.         T   Your title (rank).
+   A        How long you have been down here.
+   ^R       Show the previous messages again (repeat for older ones).
+   ^L       Redraw the screen.
+   o  (F4)  Options: follow corridors, bell, auto-get, special messages,
+            coloured inventories, save directory, your name.
+   V        MAG&#x27;s version.
+   R        Remember (save) the game and leave. The next start continues it.
+   Q  ^C    Quit the game.
+   ESC      Stop what you are doing.
+   F1  DEL  This help.
+
+   =-More-= waits for SPACE or RETURN; ESC stops a repeated command and
+   P skips the rest of the Mores of this turn.</pre></section>
+<section id="macros"><h2>Commands 4: macros and hints</h2><pre> MAG commands (4 of 4): macros and hints
+
+   {        Start recording a macro (up to 20 keys).
+   }        End the macro.
+   ^E (F9)  Play the macro back.
+
+   Hints
+   - Your goal: the Sudbury Sapphire, deep below, guarded by the Imperial
+     Dragons. Bring it back up to the surface.
+   - Rooms are dark until a torch burns: light wall torches with your
+     tinderbox (I), carry oil flasks.
+   - Eat before you faint: F tells you how hungry you are.
+   - Unknown potions, scrolls, wands and rings get random names; use c to
+     call them something you remember.
+   - Levels you left are remembered: you can go back up.
+
+   The web port adds: Z explore, Enter for a menu of every command, and
+   &lt; / &gt; walk to the nearest known staircase when you are not on one.</pre></section>
+<section id="wizard"><h2>Wizard commands</h2><pre> MAG wizard commands (wizard mode only)
+
+   ^W     Enter or leave wizard mode (asks for the password).
+   ^D  D  Detect objects or monsters.     ^G  Genocide a monster.
+   G      Genocided monsters.             ^I  Identify an item.
+   ^M     Monster statistics.             ^T  Light the room.
+   ^X     Raise experience level.         m   Advance to experience level 18.
+   #      Map the level.                  &amp;   Experience statistics.
+   @      Teleport.                       ^   Detect traps.
+   M      Make a monster.                 O   Make an object.
+   |      Make a wall.
+
+   A game that used wizard mode never enters the Hall of Heroes.</pre></section>
+<section id="monsters"><h2>The monsters of MAG</h2><pre> The monsters of MAG
+
+  axe beak                  babbler                   crystalizer
+  fire drake                dark elf                  fairy
+  gorgon                    harpy                     invisixplode
+  jackal                    kobold                    lizard man
+  minotaur                  norker                    ogre
+  panther                   quasit                    giant rat
+  shrieker                  troglodyte                unicorn
+  vine crawler              wyvern                    xuthus
+  yeth hound                zephyr                    apparition
+  banshee                   coatyl                    red dragon
+  white dragon              blue dragon               Imperial Dragon
+  efreeti                   frost fiend               golem
+  hill giant                inflicter                 jaculus
+  kleptum                   lich                      mystic
+  naga                      opinicus                  polymorpher
+  queen snake               reaper                    sulfuric cloud
+  transmigrant              umbathri                  volcano demon
+  will-o-wisp               xorn                      yeti
+  zabloron</pre></section>
+</div></body></html>
