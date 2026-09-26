@@ -41,6 +41,8 @@ h1 .more.log { font-size:.45em; vertical-align:middle; } /* header game messages
 #minirogue b { font-weight:normal; } .mr-at { color:var(--gold); } .mr-k { color:#6fd36f; } .mr-it { color:#6fc7d3; } .mr-st { color:var(--text); }
 .mr-tomb { color:var(--dim); }
 #minirogue i { font-style:normal; }
+.mr-ghost { color:#fff; } .mr-fadein { animation:mr-in 1.2s ease-in both; } .mr-fadeout { animation:mr-in 1.2s ease-out reverse both; }
+@keyframes mr-in { from { opacity:0; } to { opacity:1; } }
 /* Epyx PC Rogue look: CGA palette */
 #minirogue[data-theme=epyx] { color:#aa5500; }
 #minirogue[data-theme=epyx] .mr-w { color:#aa5500; } #minirogue[data-theme=epyx] .mr-f { color:#00aa00; }

@@ -9,7 +9,8 @@
 //
 // To add a level, append an entry to LEVELS. Stairs down lead to the next entry;
 // on the last level they say "Under construction.", so a new level is reachable
-// as soon as it exists. Monsters and items work the same way: add an entry, and give
+// as soon as it exists. Stairs up lead back. A level you leave is remembered as it
+// was, and every level change says "Level N". Monsters and items work the same way: add an entry, and give
 // it hooks (act, onPickup, attack, defend) for anything unusual it does.
 (() => {
   const el = document.getElementById('minirogue');
@@ -35,7 +36,7 @@
         if (m.turns % 3 === 0) return g.wander(m);
         return g.adjacent(m) ? g.hurt(m, this.dmg) : g.chase(m);
       } },
-    kobold: { hp: 20, dmg: 9, glyph: { unix: 'K', epyx: 'K' } },  // 4 sword; kills in 5, in 9 vs armour
+    snake: { hp: 20, dmg: 9, glyph: { unix: 's', epyx: 's' } },  // 4 sword; kills in 5, in 9 vs armour
   };
 
   // Items are picked up by walking over them. Optional hooks:
@@ -47,54 +48,104 @@
       glyph: { unix: ']', epyx: '◘' } },
   };
 
-  // Each level: setup(g, arrival) fills the fresh map; optional onMove(g, pos) runs after
-  // every player step and may return a message. `g.lv` is scratch state for this level only.
+  // Each level: start (first level only), setup(g, arrival) fills the fresh map on the
+  // first visit. Optional hooks, each may return a message:
+  //   onTurn(g)          after every player action (move, attack, search), before monsters
+  //   onSearch(g)        when the player searches (s key, or tapping yourself)
+  //   overlay(g, pos, T) extra glyph drawn at pos (HTML), under the player and monsters
+  // `g.lv` is this level's own scratch state; it is kept while you are away.
   const LEVELS = [
     { // 1: a sword and a bat; stairs down in the bat's room
       start: [2, 3],
       setup(g) {
         g.spawn('bat', [2, 25]);
         g.drop('sword', [3, 4]);
-        g.stairsAt([3, 26]);
+        g.stairsDown([3, 26]);
       },
     },
-    { // 2: arrive where the stairs were, no way up; kobold and armour anywhere.
-      // Halfway along the corridor westwards a wall seals the way back.
-      setup(g) {
-        g.stairsAt([1, 3]);
+    { // 2: you arrive where the stairs were, with no way up; a snake and leather armour
+      // lie anywhere. Halfway along the corridor westwards a wall seals the way back, and
+      // a pale double of you appears beyond it. It heads for a hidden switch in the east
+      // room (unless you found it first: search next to it), which opens stairs up where
+      // you came in, and leaves by them. The stairs down in the west room are unfinished.
+      setup(g, arrival) {
+        g.lv.upAt = arrival;
+        g.stairsDown([1, 3]);
         g.drop('armour', g.randomFloor());
-        g.spawn('kobold', g.randomFloor());
+        g.spawn('snake', g.randomFloor());
+        // the switch hides in a wall of the east room, next to its floor
+        const walls = g.tiles((ch, p) => '-|'.includes(ch) && p[1] >= 22 && !!g.floorNextTo(p));
+        g.lv.switchAt = walls[Math.floor(Math.random() * walls.length)];
       },
-      onMove(g, [r, c]) {
-        const half = (CORRIDOR.from + CORRIDOR.to) >> 1;
-        if (g.lv.sealed || r !== CORRIDOR.row || c < CORRIDOR.from || c > half) return;
-        for (let wc = half + 1; wc <= CORRIDOR.to; wc++) {  // first free tile behind you
-          if (g.occupied([r, wc])) continue;
-          g.setTile([r, wc], '|');
-          g.lv.sealed = true;
-          return 'A stone wall grinds shut behind you.';
+      click(g) {  // the switch opens the stairs up
+        if (g.lv.clicked) return '';
+        g.lv.clicked = true;
+        g.stairsUp(g.lv.upAt);
+        return '*click*';
+      },
+      onSearch(g) {
+        if (g.touching(g.lv.switchAt)) return this.click(g);
+      },
+      onTurn(g) {
+        const lv = g.lv, [r, c] = g.player, half = (CORRIDOR.from + CORRIDOR.to) >> 1;
+        if (!lv.sealed && r === CORRIDOR.row && c >= CORRIDOR.from && c <= half) {
+          for (let wc = half + 1; wc < CORRIDOR.to; wc++) {  // first free tile behind you
+            if (g.occupied([r, wc])) continue;
+            g.setTile([r, wc], '|');
+            lv.sealed = true;
+            lv.double = { pos: [r, wc + 1], phase: 'appear' };
+            return 'A stone wall grinds shut behind you.';
+          }
         }
+        const d = lv.double;
+        if (!d || d.phase === 'gone') return;
+        if (d.phase === 'appear') { d.phase = 'walk'; return 'So it begins..'; }  // after the fade-in
+        if (d.phase === 'leave') { d.phase = 'gone'; return; }
+        const goal = lv.clicked ? lv.upAt : g.floorNextTo(lv.switchAt);
+        if (!same(d.pos, goal)) {
+          const step = g.stepTowards(d.pos, goal, { throughMonsters: true });
+          if (!same(step, g.player)) d.pos = step;
+          return;
+        }
+        if (!lv.clicked) return this.click(g);
+        d.phase = 'leave';  // on the stairs: fade out
+      },
+      overlay(g, pos, T) {
+        const d = g.lv.double;
+        if (!d || d.phase === 'gone' || !same(d.pos, pos)) return;
+        const fade = { appear: ' mr-fadein', leave: ' mr-fadeout' }[d.phase] || '';
+        return `<b class="mr-ghost${fade}">${T.at}</b>`;
       },
     },
   ];
 
   // ---------------------------------------------------------------- engine
-  let s;  // run state: { depth, map, p, hp, has, mons, items, stairs, lv, dead, killer, msg }
+  let s;  // run: { depth, p, hp, has, dead, killer, msg, saved } + the level: { map, mons, items, down, up, lv }
+  const LEVEL_KEYS = ['map', 'mons', 'items', 'down', 'up', 'lv'];
+  const DIRS = [[0,1],[0,-1],[1,0],[-1,0],[1,1],[1,-1],[-1,1],[-1,-1]];
   const same = (a, b) => !!a && !!b && a[0] === b[0] && a[1] === b[1];
   const at = (r, c) => (s.map[r] || '')[c] || ' ';
   const walkable = (r, c) => '.+#'.includes(at(r, c));
   const monAt = (p) => s.mons.find((m) => same(m.pos, p));
   const itemAt = (p) => s.items.find((i) => same(i.pos, p));
 
-  // what a level's setup/onMove may use
+  // what levels, monsters and items may use
   const g = {
     get lv() { return s.lv; },
     get player() { return s.p; },
     has: (kind) => !!s.has[kind],
     adjacent: (m) => adjacent(m.pos, s.p),
-    chase(m) { m.pos = stepTowardsPlayer(m.pos); },
+    chase(m) { m.pos = stepTowards(m.pos, s.p); },
+    stepTowards: (from, to, opts) => stepTowards(from, to, opts),
+    touching: (p) => Math.max(Math.abs(p[0] - s.p[0]), Math.abs(p[1] - s.p[1])) === 1,
+    floorNextTo: (p) => DIRS.slice(0, 4).map(([dr, dc]) => [p[0] + dr, p[1] + dc]).find((n) => at(...n) === '.'),
+    tiles(pred) {  // every [r, c] whose map character passes pred(ch, pos)
+      const out = [];
+      s.map.forEach((row, r) => [...row].forEach((ch, c) => { if (pred(ch, [r, c])) out.push([r, c]); }));
+      return out;
+    },
     wander(m) {  // one step to a random free neighbouring tile
-      const opts = [[0,1],[0,-1],[1,0],[-1,0],[1,1],[1,-1],[-1,1],[-1,-1]]
+      const opts = DIRS
         .map(([dr, dc]) => [m.pos[0] + dr, m.pos[1] + dc])
         .filter((n) => walkable(...n) && adjacent(m.pos, n) && !same(n, s.p) && !monAt(n));
       if (opts.length) m.pos = opts[Math.floor(Math.random() * opts.length)];
@@ -107,45 +158,50 @@
     },
     spawn(kind, pos) { s.mons.push({ kind, pos, hp: MONSTERS[kind].hp }); },
     drop(kind, pos) { s.items.push({ kind, pos }); },
-    stairsAt(pos) { s.stairs = pos; },
-    occupied: (p) => same(p, s.p) || same(p, s.stairs) || !!monAt(p) || !!itemAt(p),
+    stairsDown(pos) { s.down = pos; },
+    stairsUp(pos) { s.up = pos; },
+    occupied: (p) => same(p, s.p) || same(p, s.down) || same(p, s.up) || !!monAt(p) || !!itemAt(p),
     setTile([r, c], ch) { s.map[r] = s.map[r].slice(0, c) + ch + s.map[r].slice(c + 1); },
     randomFloor() {  // any free floor or corridor tile
-      const free = [];
-      s.map.forEach((row, r) => [...row].forEach((ch, c) => {
-        if ('.#'.includes(ch) && !g.occupied([r, c])) free.push([r, c]);
-      }));
+      const free = g.tiles((ch, p) => '.#'.includes(ch) && !g.occupied(p));
       return free[Math.floor(Math.random() * free.length)];
     },
   };
 
   function enter(depth, arrival) {
-    Object.assign(s, { depth, map: [...MAP], hp: PLAYER_HP, mons: [], items: [], stairs: null, lv: {} });
+    if (s.depth) s.saved[s.depth] = Object.fromEntries(LEVEL_KEYS.map((k) => [k, s[k]]));
+    s.depth = depth; s.hp = PLAYER_HP;
     s.p = arrival || LEVELS[depth - 1].start;
-    LEVELS[depth - 1].setup(g, s.p);
+    if (s.saved[depth]) Object.assign(s, s.saved[depth]);
+    else {
+      Object.assign(s, { map: [...MAP], mons: [], items: [], down: null, up: null, lv: {} });
+      LEVELS[depth - 1].setup(g, s.p);
+    }
+    return `Level ${depth}`;
   }
 
   function reset() {
-    s = { has: {}, dead: false, msg: '' };
+    s = { has: {}, dead: false, msg: '', saved: {} };
     enter(1);
     draw();
   }
 
-  function stepTowardsPlayer(from) {
-    // BFS over walkable tiles; monsters block each other
+  function stepTowards(from, to, { throughMonsters = false } = {}) {
+    // BFS over walkable tiles; monsters block the way unless throughMonsters
     const key = ([r, c]) => r * 100 + c, prev = new Map([[key(from), null]]), q = [from];
     while (q.length) {
       const cur = q.shift();
-      if (same(cur, s.p)) break;
-      for (const [dr, dc] of [[0,1],[0,-1],[1,0],[-1,0],[1,1],[1,-1],[-1,1],[-1,-1]]) {
+      if (same(cur, to)) break;
+      for (const [dr, dc] of DIRS) {
         const n = [cur[0] + dr, cur[1] + dc];
-        if (!walkable(...n) || prev.has(key(n)) || (monAt(n) && !same(n, s.p))) continue;
+        if (!walkable(...n) || prev.has(key(n))) continue;
+        if (!throughMonsters && monAt(n) && !same(n, to)) continue;
         if (dr && dc && (at(...cur) === '+' || at(...n) === '+')) continue;  // Rogue: no diagonal doors
         prev.set(key(n), cur); q.push(n);
       }
     }
-    if (!prev.has(key(s.p))) return from;  // no way through: stay put
-    let step = s.p;
+    if (!prev.has(key(to))) return from;  // no way through: stay put
+    let step = to;
     while (!same(prev.get(key(step)), from)) step = prev.get(key(step));
     return step;
   }
@@ -155,12 +211,16 @@
       !((a[0] !== b[0] && a[1] !== b[1]) && (at(...a) === '+' || at(...b) === '+'));
   }
 
-  function turn(dr, dc) {
+  // one player action: a step/attack in direction (dr, dc), or a search
+  function turn(dr, dc, search = false) {
     if (s.dead) { reset(); return; }
+    const L = LEVELS[s.depth - 1];
     const n = [s.p[0] + dr, s.p[1] + dc];
-    if (dr && dc && (at(...s.p) === '+' || at(...n) === '+')) { draw(); return; }
-    const log = [], target = monAt(n);
-    if (target) {
+    if (!search && dr && dc && (at(...s.p) === '+' || at(...n) === '+')) { draw(); return; }
+    const log = [], target = !search && monAt(n);
+    if (search) {
+      if (L.onSearch) log.push(L.onSearch(g));
+    } else if (target) {
       target.hp -= Math.max(FISTS, ...Object.keys(s.has).map((k) => ITEMS[k].attack || 0));
       if (target.hp > 0) log.push('You hit.');
       else { log.push(`The ${target.kind} dies!`); s.mons = s.mons.filter((m) => m !== target); }
@@ -173,13 +233,13 @@
         s.has[item.kind] = true;
         log.push(def.onPickup ? def.onPickup(g) : def.msg);
       }
-      if (same(n, s.stairs)) {
-        if (s.depth < LEVELS.length) { enter(s.depth + 1, n); s.msg = `Level ${s.depth}`; draw(); return; }
+      if (same(n, s.down)) {
+        if (s.depth < LEVELS.length) { s.msg = enter(s.depth + 1, n); draw(); return; }
         log.push('Under construction.');
       }
-      const onMove = LEVELS[s.depth - 1].onMove;
-      if (onMove) log.push(onMove(g, n));
+      if (same(n, s.up)) { s.msg = enter(s.depth - 1, s.saved[s.depth - 1].down); draw(); return; }
     } else { draw(); return; }  // bumping a wall costs no turn
+    if (L.onTurn) log.push(L.onTurn(g));
     for (const m of [...s.mons]) {
       const def = MONSTERS[m.kind];
       log.push(def.act ? def.act(g, m) : g.adjacent(m) ? g.hurt(m, def.dmg) : g.chase(m));
@@ -240,13 +300,15 @@
       el.innerHTML = `<span class="mr-tomb">${esc(tomb())}</span>`;
       return;
     }
-    const T = THEMES[theme];
+    const T = THEMES[theme], L = LEVELS[s.depth - 1];
     const rows = s.map.map((row, r) => [...row].map((ch, c) => {
       const p = [r, c], m = monAt(p), item = itemAt(p);
       if (same(p, s.p)) return `<b class="mr-at">${T.at}</b>`;
       if (m) return `<b class="mr-k">${MONSTERS[m.kind].glyph[theme]}</b>`;
+      const extra = L.overlay && L.overlay(g, p, T);
+      if (extra) return extra;
       if (item) return `<b class="mr-it">${ITEMS[item.kind].glyph[theme]}</b>`;
-      if (same(p, s.stairs)) return `<b class="mr-st">${T.stairs}</b>`;
+      if (same(p, s.down) || same(p, s.up)) return `<b class="mr-st">${T.stairs}</b>`;
       return T.tile(r, c, ch);
     }).join(''));
     say(s.msg);
@@ -265,18 +327,20 @@
     }
     const d = KEYS[e.key];
     if (s.dead) { if (e.key.length === 1 || d) { e.preventDefault(); reset(); } return; }
+    if (e.key === 's') { e.preventDefault(); turn(0, 0, true); return; }  // search, as in Rogue
     if (!d) return;
     e.preventDefault();
     turn(...d);
   });
-  // tap/click: one step towards the clicked cell
+  // tap/click: one step towards the clicked cell; on yourself: search
   el.addEventListener('click', (e) => {
     if (s.dead) { reset(); return; }
     const r = el.getBoundingClientRect();
     const row = Math.floor((e.clientY - r.top) / (r.height / MAP.length));
     const col = Math.floor((e.clientX - r.left) / (r.width / MAP[0].length));
     if (row < 0 || row >= MAP.length) return;
-    turn(Math.sign(row - s.p[0]), Math.sign(col - s.p[1]));
+    const dr = Math.sign(row - s.p[0]), dc = Math.sign(col - s.p[1]);
+    turn(dr, dc, !dr && !dc);
   });
   reset();
 })();
