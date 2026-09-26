@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>uLarn · Shrine</title>
+<!--og-->
+<meta name="description" content="Larn made harder: pick one of eight classes, from Ogre to Rambo, and fetch the cure for your daughter from the bottom of the volcano, past demon lords and the God of Hellfire, before time runs out.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Roguelikes">
+<meta property="og:title" content="uLarn · Shrine">
+<meta property="og:description" content="Larn made harder: pick one of eight classes, from Ogre to Rambo, and fetch the cure for your daughter from the bottom of the volcano, past demon lords and the God of Hellfire, before time runs out.">
+<meta property="og:url" content="https://ruzzoli.de/roguelikes/shrine/ularn.html">
+<meta property="og:image" content="https://ruzzoli.de/roguelikes/ularn.png">
+<meta name="twitter:card" content="summary_large_image">
+<!--/og-->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>uLarn</h1>
+  <p class="epi">The Addiction of Ularn · Ultra-Larn, with classes, demon lords and a deeper volcano</p>
+  <a class="play" href="../ularn/">&gt; Enter the dungeon</a>
+</header>
+<div class="facts"><div><b>Date of birth</b><span>1987</span> Phil Cordier; this build 1.7.0 (git, 2006–2018)</div><div><b>Creator</b><span>Phil Cordier</span> UC Santa Cruz</div><div><b>Language</b><span>C</span> ~16,300 lines</div><div><b>Platform</b><span>Unix + termcap</span> later Linux, BSD, Cygwin</div></div>
+<nav class="toc"><a href="#lineage">Lineage</a><a href="#credits">Credits</a><a href="#trivia">Trivia</a><a href="#usp">What's unique</a><a href="#code">Code dive</a><a href="#stats">Stats</a><a href="#manual">Manual</a><a href="#start">Getting started</a><a href="#help">Help</a><a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p>uLarn is a direct descendant of <a href="larn.html">Larn</a>, Noah Morgan’s 1986 game. In 1987 Phil Cordier, at UC Santa Cruz, modified the Larn 12 source into <em>Ultra-Larn</em>, “Ularn” for short, and posted it to the Usenet group comp.sources.games; his README of 12 June 1992 calls that version “much improved over the version that was posted”. It is a sibling of Kevin Routley’s Larn 12.1–12.4 line, not a child of it.</p>
+<p>Josh Brandt picked the code up in 2001 (“Ularn 1.5ish, patchlevel 4”), made it compile on modern Unixes and fixed many bugs; Josh Bressers moved it to git in 2006 and tagged it 1.7.0. This port builds <a href="https://github.com/ularn/ularn">ularn/ularn</a> at <code>ef42184</code>. See the <a href="../#tree">family tree</a>, under Larn. Sources: <a href="https://en.wikipedia.org/wiki/Larn_(video_game)">Wikipedia</a>, <a href="https://www.roguebasin.com/index.php/Ularn">RogueBasin</a>, the upstream <code>README</code> and <code>data/Uhelp</code>.</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table><tr><td>Noah Morgan</td><td>Larn, the game it is built on (1986)</td></tr><tr><td>Phil Cordier</td><td>Author of Ularn (1987–1992)</td></tr><tr><td>Josh Brandt</td><td>Maintainer, 1.5 patchlevels 1–4 (2001)</td></tr><tr><td>David Richerby</td><td>Updates, named in the copyright notice</td></tr><tr><td>Josh Bressers</td><td>Git maintainer, 1.7.0 (2006–2011)</td></tr><tr><td>Ethan Dicks, Scott Neugroschl, Thomas Huth</td><td>Later fixes (2008–2018)</td></tr><tr><td>Amiga Larn artists</td><td>The tiles used in this port</td></tr></table>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>The game calls itself “The Addiction of Ularn”. <span class="src">(<a href="https://libregamewiki.org/Ularn">Libregamewiki</a>; source: <code>main.c</code>)</span></li>
+<li>Instead of bats, the upper levels are infested with lemmings, which multiply. <span class="src">(<a href="http://larn-game.blogspot.com/2012/08/revisiting-ularn.html">The Larn Blog</a>)</span></li>
+<li>Prices exploded: one book sells for over 100,000 gold and a chest from the first volcano level for 300,000; in Larn a book fetches about 9,000. <span class="src">(<a href="http://larn-game.blogspot.com/2012/08/revisiting-ularn.html">The Larn Blog</a>)</span></li>
+<li>The Rambo class starts with every stat at 3, one hit point and a lance of death. <span class="src">(<a href="http://larn-game.blogspot.com/2012/08/revisiting-ularn.html">The Larn Blog</a>)</span></li>
+<li>A PalmOS port called iLarn exists. <span class="src">(<a href="https://www.roguebasin.com/index.php/Ularn">RogueBasin</a>)</span></li>
+<li>larn.org plays Ularn in the browser too, with DOS or Amiga graphics. <span class="src">(<a href="https://larn.org/">larn.org</a>)</span></li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>Character classes:</strong> eight of them, where Larn has none.</li>
+<li><strong>A deeper world:</strong> 15 dungeon levels and 5 volcano levels, against Larn’s 10 and 3, with demon lords from level 11 down.</li>
+<li><strong>The lance is no longer enough:</strong> it still kills anything, except demons, which it merely tickles; you need Slayer.</li>
+<li><strong>Dealer McDope’s pad</strong> sells drugs with odd effects, and the Vorpal Blade may behead.</li>
+<li><strong>Two scoreboards,</strong> one for winners, one for the dead, and your inventory is kept with your death.</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li><strong>Language:</strong> ANSI C, about 16,300 lines in 32 files under <code>src/</code>. Monsters, objects and spells are tables in <code>data.c</code>; the shops, school and class choice live in <code>store.c</code>.</li>
+<li><strong>Environment:</strong> late-1980s Unix terminals via termcap, with its own output buffer (<code>io.c</code>); the 2001 version builds with autoconf on Linux, the BSDs, HP-UX, Tru64 and Cygwin.</li>
+<li><strong>Data files:</strong> hand-drawn maze levels (<code>Umaps</code>), fortune cookies (<code>Ufortune</code>), the help pages (<code>Uhelp</code>) and the scoreboard (<code>Uscore</code>).</li>
+<li><strong>This port:</strong> a terminal shim with side panes drawing Amiga Larn tiles, compiled to WebAssembly. Source: <a href="https://github.com/memmaker/ularn">memmaker/ularn</a>, upstream <a href="https://github.com/ularn/ularn">ularn/ularn</a>.</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<table><tr><th>Thing</th><th>Count</th><th>Notable ones</th></tr><tr><td>Classes</td><td>8</td><td>Ogre, Wizard, Klingon, Elf, Rogue, Geek, Dwarf and Rambo.</td></tr><tr><td>Monsters</td><td>65</td><td>From the lemming and the gnome to the <em>lama nobe</em>, the <em>ziller</em>, the water lord, seven types of demon lord, the demon prince and the <em>God of Hellfire</em>.</td></tr><tr><td>Spells</td><td>39</td><td>Three-letter codes: <code>mle</code> magic missile, <code>vpr</code> vaporize rock, <code>sph</code> sphere of annihilation, <code>gen</code> genocide, <code>per</code> permanence.</td></tr><tr><td>Object kinds</td><td>93</td><td>Slayer, the Vorpal Blade, the Hand of Fear, the Talisman of the Sphere, a wand of wonder, a staff of power, elven chain — and speed, LSD, hashish, magic mushrooms, cocaine.</td></tr><tr><td>Levels</td><td>1 + 15 + 5</td><td>Town, fifteen dungeon levels, five volcano levels.</td></tr></table>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>uLarn has no separate manual. Its in-game help (<kbd>?</kbd>, from <code>data/Uhelp</code>) and the upstream README are here: <a href="ularn/manual.html">manual</a>. Also: Phil Cordier’s <a href="ularn/spoilers.html">spoiler guide</a> (<code>README.spoilers</code>), the <a href="ularn/changelog.txt">changelog</a> (2001 patchlevels plus the TODO list) and the <a href="ularn/license.txt">licence</a> (GNU GPL 2).</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol><li><a href="../ularn/">Open the game</a>, type a name and pick a class; the Elf or the Dwarf make an easier start than the Rambo.</li>
+<li>You start in town. Step onto a building and answer <kbd>g</kbd> to go inside: the school raises stats, the DND store sells gear, the bank keeps your gold. <kbd>Escape</kbd> leaves.</li>
+<li>Step onto the dungeon entrance and press <kbd>g</kbd> to go down. Move with <kbd>h</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd><kbd>y</kbd><kbd>u</kbd><kbd>b</kbd><kbd>n</kbd>, or let <kbd>~</kbd> explore for you.</li>
+<li><kbd>c</kbd> casts (<kbd>D</kbd> lists your spells), <kbd>i</kbd> shows the inventory, the Enter menu lists every command.</li>
+<li>Read the game’s <a href="../ularn/help.html">help page</a> for the rest.</li></ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>We found no walkthrough for uLarn. The goal: bring the potion of cure dianthroritis home from the bottom of the volcano before the time runs out. Rules of thumb, from Cordier’s spoilers:</p><ul>
+<li>The lance of death does not kill demons, and there are many more of them than in Larn: find or buy Slayer before going deep.</li>
+<li>Levels 11 to 15 hold one to five demon lords each; the volcano is worse still.</li>
+<li>Sell books and chests from deep levels: they are worth a fortune here.</li>
+<li>More: the <a href="ularn/spoilers.html">spoiler guide</a>, the <a href="https://github.com/primeau/Larn/blob/master/ULARN_SPOILERS.md">Ularn Spoilers 2020</a> of larn.org, the <a href="https://larn.fandom.com/wiki/Strategies">Larn Wiki strategies</a> and <a href="https://www.roguebasin.com/index.php/Ularn">RogueBasin</a>.</li></ul>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<ul><li><strong>Wizard mode:</strong> <kbd>=</kbd> asks for a password that is compiled in (<code>data.c</code>), then unlocks item creation, teleport to any level and more. <strong>Not in this build:</strong> the password is read straight from standard input, which the web page has no way to feed.</li>
+<li><strong>Save scumming:</strong> <em>Export save</em> / <em>Import save</em> on the game page.</li></ul>
+</section>
+</div></body>
+</html>
