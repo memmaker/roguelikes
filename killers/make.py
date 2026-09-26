@@ -313,4 +313,15 @@ def forays():                                         # text only: Actor.cs Defi
         sq.save(os.path.join(d, slug(name) + '.png'), optimize=True)
     print('forays', len(os.listdir(d)))
 
-rogue(); hack(); umoria(); urogue(); larn(); ularn(); rogue36(); srogue(); roguepc(); tome2(); tinyangband(); quickband(); arogue58(); arogue77(); xrogue(); boss(); omega(); prime(); dynahack(); silq(); tactical(); crawl(); zapm(); alphaman(); decker(); nethack13d(); nethack50(); slashem(); zangband(); frogcomposband(); forays()
+def lambdarogue():                                    # own sheet the port shows (tileset-2-small-m-soldier.png, 20x40, cell = ord(Letter) - 32), centred on 40x40
+    l = G + '/lambdarogue'
+    mons = re.findall(r'^NewMonster:\r?\n(.+?)\r?\n.*?^Letter:\r?\n(.)', open(l + '/data/monsters.txt', encoding='latin-1').read(), re.M | re.S)
+    img, d = Image.open(l + '/graphics/tiles/tileset-2-small-m-soldier.png').convert('RGBA'), os.path.join(HERE, 'lambdarogue')
+    os.makedirs(d, exist_ok=True)
+    for name, ch in mons:
+        t = (ord(ch) - 32) * 20
+        sq = Image.new('RGBA', (40, 40)); sq.paste(img.crop((t, 0, t + 20, 40)), (10, 0))
+        sq.resize((32, 32), Image.LANCZOS).save(os.path.join(d, slug(name.strip()) + '.png'), optimize=True)
+    print('lambdarogue', len(os.listdir(d)))
+
+rogue(); hack(); umoria(); urogue(); larn(); ularn(); rogue36(); srogue(); roguepc(); tome2(); tinyangband(); quickband(); arogue58(); arogue77(); xrogue(); boss(); omega(); prime(); dynahack(); silq(); tactical(); crawl(); zapm(); alphaman(); decker(); nethack13d(); nethack50(); slashem(); zangband(); frogcomposband(); forays(); lambdarogue()
