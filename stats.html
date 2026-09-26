@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Visitors · Roguelikes</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="pages.css">
+</head>
+<body>
+<header><h1>Visitors</h1><p class="sub">Unique adventurers who passed through.</p></header>
+<main><div class="box"><table><thead><tr><th>Area</th><th class="n">7 days</th><th class="n">30 days</th><th class="n">All time</th></tr></thead>
+<tbody id="rows"><tr><td colspan="4" class="dim">Loading…</td></tr></tbody></table></div></main>
+<script>
+fetch('data/visitors.json').then(r=>r.json()).then(d=>{
+  const a=d.areas||{}, n=v=>(v??0).toLocaleString('en');
+  rows.innerHTML=[['index','The index'],['shrines','Shrines'],['games','Games']].map(([k,t])=>
+    `<tr><td class="gold">${t}</td><td class="n">${n(a[k]?.d7)}</td><td class="n">${n(a[k]?.d30)}</td><td class="n">${n(a[k]?.all)}</td></tr>`).join('');
+  upd.textContent='updated '+new Date(d.updated).toLocaleString();
+}).catch(()=>rows.innerHTML='<tr><td colspan="4" class="dim">No data yet. The torches are still being lit.</td></tr>');
+</script>
+<footer>ruzzoli.de · <span id="upd"></span></footer>
+<script src="nav.js" defer></script>
+</body>
+</html>

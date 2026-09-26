@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Graveyard · Roguelikes</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="pages.css">
+</head>
+<body>
+<header><h1>Graveyard</h1><p class="sub">Here lie the fallen. Mind what killed them.</p></header>
+<main><h2>Deadliest killers</h2><div class="box"><table><thead><tr><th>#</th><th></th><th>Killer</th><th>Game</th><th class="n">Kills</th></tr></thead><tbody id="kill"></tbody></table></div>
+<h2>Recent deaths</h2><div class="box"><table><thead><tr><th>Name</th><th>Game</th><th>Killed by</th><th class="n">Depth</th><th class="n">Lvl</th><th class="n">Turns</th><th>Date</th></tr></thead><tbody id="dead"></tbody></table></div></main>
+<script>
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>'&#'+c.charCodeAt(0)+';'), none=n=>`<tr><td colspan="${n}" class="dim">No data yet. Nobody has died… yet.</td></tr>`;
+addEventListener('DOMContentLoaded',()=>Promise.all([fetch('data/runs.json').then(r=>r.json()),window.gameNames]).then(([d,N])=>{ const nm=g=>N[g]||g;
+  const deaths=(d.runs||[]).filter(r=>r.ev==='death'), k={};
+  for(const r of deaths) if(r.killer){ const id=r.g+'\0'+r.killer; (k[id]??={g:r.g,killer:r.killer,n:0}).n++; }
+  const top=Object.values(k).sort((a,b)=>b.n-a.n).slice(0,10);
+  kill.innerHTML=top.map((x,i)=>{ const slug=x.killer.toLowerCase().replace(/[^a-z0-9]/g,'-');
+    return `<tr><td class="dim">${i+1}</td><td><img src="killers/${esc(x.g)}/${slug}.png" alt="" width="32" height="32" style="image-rendering:pixelated;vertical-align:middle" onerror="this.remove()"></td><td class="ember">${esc(x.killer)}</td><td>${esc(nm(x.g))}</td><td class="n gold">${x.n}</td></tr>`}).join('')||none(5);
+  dead.innerHTML=deaths.sort((a,b)=>b.t<a.t?-1:1).slice(0,50).map(r=>`<tr><td class="gold">${esc(r.name)}</td><td>${esc(nm(r.g))}</td><td class="ember">${esc(r.killer)}</td><td class="n">${esc(r.depth)}</td><td class="n">${esc(r.lvl)}</td><td class="n">${esc(r.turns)}</td><td class="dim">${esc(r.t?.slice(0,10))}</td></tr>`).join('')||none(7);
+  upd.textContent='updated '+new Date(d.updated).toLocaleString();
+}).catch(()=>{ kill.innerHTML=none(5); dead.innerHTML=none(7); }));
+</script>
+<footer>ruzzoli.de · <span id="upd"></span></footer>
+<script src="nav.js" defer></script>
+</body>
+</html>

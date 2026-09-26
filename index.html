@@ -15,6 +15,7 @@ body { margin:0; min-height:100vh; color:var(--text); font:15px/1.55 "IBM Plex M
     repeating-linear-gradient(90deg, transparent 0 63px, rgba(255,255,255,.02) 63px 64px),
     var(--bg); }
 header { text-align:center; padding:56px 16px 24px; }
+@media (max-width:600px){ header { padding-top:72px; } }
 h1 { font:800 clamp(34px,7vw,64px)/1 Cinzel,serif; margin:0; letter-spacing:.08em; color:var(--gold);
   text-shadow:0 0 18px rgba(255,150,40,.45), 0 2px 0 #000; }
 .sub { color:var(--dim); margin:12px 0 0; }
@@ -291,5 +292,6 @@ function show(){ const t=location.hash==='#tree'; document.body.classList.toggle
 views.forEach(b=>b.onclick=()=>{ history.replaceState(null,'',b.dataset.v?'#tree':location.pathname); show(); });
 addEventListener('hashchange',show); show();
 </script>
+<script src="nav.js" defer></script>
 </body>
 </html>

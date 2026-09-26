@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leaderboards · Roguelikes</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="pages.css">
+</head>
+<body>
+<header><h1>Leaderboards</h1><p class="sub">The bravest, the deepest, the quickest.</p>
+<p><label>Game <select id="game"></select></label></p></header>
+<main id="out"><p class="dim" style="text-align:center">Loading…</p></main>
+<script>
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>'&#'+c.charCodeAt(0)+';');
+function table(title,rows,col,key){ return `<h2>${title}</h2><div class="box"><table><thead><tr><th>#</th><th>Name</th><th class="n">${col}</th><th>Fate</th><th class="n">Lvl</th><th>Date</th></tr></thead><tbody>`+
+  (rows.map((r,i)=>`<tr><td class="dim">${i+1}</td><td class="gold">${esc(r.name)}</td><td class="n gold">${esc(r[key])}</td><td>${r.ev==='win'?'<span class="gold">won</span>':r.ev==='quit'?'quit':'killed by <span class="ember">'+esc(r.killer)+'</span>'}</td><td class="n">${esc(r.lvl)}</td><td class="dim">${esc(r.t?.slice(0,10))}</td></tr>`).join('')
+   ||'<tr><td colspan="6" class="dim">Nobody yet.</td></tr>')+'</tbody></table></div>'; }
+addEventListener('DOMContentLoaded',()=>Promise.all([fetch('data/runs.json').then(r=>r.json()),window.gameNames]).then(([d,N])=>{ const nm=g=>N[g]||g;
+  const runs=d.runs||[], games=[...new Set(runs.map(r=>r.g))].sort();
+  if(!games.length) throw 0;
+  game.innerHTML=games.map(g=>`<option value="${esc(g)}">${esc(nm(g))}</option>`).join('');
+  const want=location.hash.slice(1); if(games.includes(want)) game.value=want;
+  const draw=()=>{ const g=game.value, rs=runs.filter(r=>r.g===g), top=(f,s)=>rs.filter(f).sort(s).slice(0,10);
+    history.replaceState(null,'','#'+g);
+    out.innerHTML=(rs.some(r=>r.score!=null)?table('Top scores',top(r=>r.score!=null,(a,b)=>b.score-a.score),'Score','score'):'')+
+      table('Deepest dive',top(r=>r.depth!=null,(a,b)=>b.depth-a.depth),'Depth','depth')+
+      table('Quickest wins',top(r=>r.ev==='win'&&r.turns!=null,(a,b)=>a.turns-b.turns),'Turns','turns'); };
+  game.onchange=draw; draw();
+  upd.textContent='updated '+new Date(d.updated).toLocaleString();
+}).catch(()=>out.innerHTML='<p class="dim" style="text-align:center">No data yet. The first heroes are still on their way down.</p>'));
+</script>
+<footer>ruzzoli.de · <span id="upd"></span></footer>
+<script src="nav.js" defer></script>
+</body>
+</html>

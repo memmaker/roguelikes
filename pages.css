@@ -1,0 +1,19 @@
+/* shared by stats/graveyard/leaderboard; theme copied from index.html */
+:root { --bg:#0b0a0d; --stone:#17151a; --line:#2e2a33; --text:#d9d4c7; --dim:#8d8676; --gold:#e0b24f; --ember:#ff7a2a; }
+* { box-sizing:border-box; }
+body { margin:0; min-height:100vh; color:var(--text); font:15px/1.55 "IBM Plex Mono",monospace;
+  background:radial-gradient(ellipse at 50% -10%, rgba(255,140,50,.18), transparent 60%),
+    repeating-linear-gradient(0deg, transparent 0 31px, rgba(255,255,255,.025) 31px 32px), var(--bg); }
+header { text-align:center; padding:56px 16px 16px; }
+h1 { font:800 clamp(30px,6vw,52px)/1 Cinzel,serif; margin:0; letter-spacing:.08em; color:var(--gold);
+  text-shadow:0 0 18px rgba(255,150,40,.45), 0 2px 0 #000; }
+h2 { font:600 22px Cinzel,serif; margin:28px 0 10px; color:var(--gold); }
+.sub, .dim { color:var(--dim); } .sub { margin:12px 0 0; }
+main { max-width:1000px; margin:0 auto; padding:16px 16px 64px; }
+.box { background:linear-gradient(#1c1a20,#121015); border:1px solid var(--line); border-radius:8px; padding:4px 0; overflow-x:auto; }
+table { width:100%; border-collapse:collapse; font-size:14px; }
+th, td { text-align:left; padding:7px 12px; border-bottom:1px solid var(--line); white-space:nowrap; }
+th { color:var(--dim); font-weight:600; font-size:12px; } tr:last-child td { border:0; }
+td.n, th.n { text-align:right; } .gold { color:var(--gold); } .ember { color:var(--ember); }
+select { font:inherit; color:var(--text); background:var(--stone); border:1px solid var(--line); border-radius:4px; padding:6px 10px; }
+footer { text-align:center; color:var(--dim); font-size:12px; padding:0 16px 32px; }
