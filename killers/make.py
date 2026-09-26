@@ -357,4 +357,27 @@ def mag():                                            # DawnLike 16px (port/tile
     names = re.findall(r'^"([^"]+)",\s*\'.\'', open(m + '/src/MONSTER.H', encoding='latin-1').read().replace('\r', ''), re.M)
     cut('mag', m + '/port/tiles-dawn.png', 16, zip(names, ints(re.sub(r'mon_tile\[\d+\]', 'mon_tile[]', open(m + '/port/tiles.h').read()), 'mon_tile')))
 
-rogue(); hack(); umoria(); urogue(); larn(); ularn(); rogue36(); srogue(); roguepc(); tome2(); tinyangband(); quickband(); arogue58(); arogue77(); xrogue(); boss(); omega(); prime(); dynahack(); silq(); tactical(); crawl(); zapm(); alphaman(); decker(); nethack13d(); nethack50(); slashem(); zangband(); frogcomposband(); forays(); lambdarogue(); hengband(); easyband(); mag(); tactical('faangband'); nppangband()
+def prospector():                                     # graphics/critters.bmp (tile 1000 + n, 20 per row, 24px, magenta = transparent); names/tiles from monster.bas makemonster blocks
+    p = G + '/prospector'
+    src = open(p + '/monster.bas', encoding='latin-1').read().replace('\r', '')
+    sp = dict((int(a), b) for a, b in re.findall(r'species\((\d+)\)="([^"]+)"', open(p + '/globals.bas', encoding='latin-1').read()))
+    tiles = {}
+    for g, n in sp.items(): tiles[n] = tiles['vicious ' + n] = 1001 + g      # species critters: ti_no=g+1001, prefix "vicious "
+    for block in re.split(r'\n    [Ii]f a=', src):
+        ti = [(m.start(), int(m.group(1))) for m in re.finditer(r'ti_no=(\d+)', block)]
+        for m in re.finditer(r"""sdesc="([^"]+)"[ \t]*(?:'.*)?$""", block, re.M):
+            before = [t for i, t in ti if i < m.start()]
+            t = before[-1] if before else next((t for i, t in ti if i > m.start()), -1)
+            n = m.group(1).strip(' .')
+            if 1000 <= t < 1100 and re.search('[a-z]', n.lower()): tiles.setdefault(n, t)
+    img, d = Image.open(p + '/graphics/critters.bmp').convert('RGB'), os.path.join(HERE, 'prospector')
+    os.makedirs(d, exist_ok=True)
+    for name, t in tiles.items():
+        x, y = (t - 1000) % 20 * 24, (t - 1000) // 20 * 24
+        c = img.crop((x, y, x + 24, y + 24)); px = c.load()
+        for i in range(24 * 24):
+            if px[i % 24, i // 24] == (255, 0, 255): px[i % 24, i // 24] = (0, 0, 0)
+        c.resize((32, 32), Image.NEAREST).save(os.path.join(d, slug(name) + '.png'), optimize=True)
+    print('prospector', len(os.listdir(d)))
+
+rogue(); hack(); umoria(); urogue(); larn(); ularn(); rogue36(); srogue(); roguepc(); tome2(); tinyangband(); quickband(); arogue58(); arogue77(); xrogue(); boss(); omega(); prime(); dynahack(); silq(); tactical(); crawl(); zapm(); alphaman(); decker(); nethack13d(); nethack50(); slashem(); zangband(); frogcomposband(); forays(); lambdarogue(); hengband(); easyband(); mag(); tactical('faangband'); nppangband(); prospector()
