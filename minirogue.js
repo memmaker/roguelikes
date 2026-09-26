@@ -87,10 +87,20 @@
     ].join('\n');
   }
 
+  // messages replace the page title (--more--) for 5 seconds
+  const title = document.querySelector('h1 .more'), TITLE = title && title.textContent;
+  let titleTimer;
+  function say(msg) {
+    if (!title || !msg) return;
+    title.textContent = msg; title.classList.add('log');
+    clearTimeout(titleTimer);
+    titleTimer = setTimeout(() => { title.textContent = TITLE; title.classList.remove('log'); }, 5000);
+  }
+
   function draw() {
     if (s.dead) {
-      el.innerHTML = `<span class="mr-msg">You die...  [again?]</span>\n` +
-        `<span class="mr-tomb">${esc(tomb())}</span>`;
+      say('You die...');
+      el.innerHTML = `<span class="mr-tomb">${esc(tomb())}</span>`;
       return;
     }
     const rows = MAP.map((row, r) => [...row].map((ch, c) => {
@@ -100,8 +110,8 @@
       if (s.swordAt && same(p, s.swordAt)) return '<b class="mr-it">)</b>';
       return esc(ch);
     }).join(''));
-    const msg = s.msg + (s.won ? ' [again?]' : '');
-    el.innerHTML = `<span class="mr-msg">${esc(msg) || ' '}</span>\n` + rows.join('\n');
+    say(s.msg);
+    el.innerHTML = rows.join('\n');
   }
 
   const KEYS = { ArrowUp:[-1,0], ArrowDown:[1,0], ArrowLeft:[0,-1], ArrowRight:[0,1],
@@ -119,7 +129,7 @@
   el.addEventListener('click', (e) => {
     if (s.dead || s.won) { reset(); return; }
     const r = el.getBoundingClientRect();
-    const row = Math.floor((e.clientY - r.top) / (r.height / (MAP.length + 1))) - 1;  // +1: message line
+    const row = Math.floor((e.clientY - r.top) / (r.height / MAP.length));
     const col = Math.floor((e.clientX - r.left) / (r.width / MAP[0].length));
     if (row < 0 || row >= MAP.length) return;
     turn(Math.sign(row - s.p[0]), Math.sign(col - s.p[1]));

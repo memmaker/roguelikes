@@ -31,6 +31,7 @@ header { text-align:center; padding:56px 16px 24px; }
 h1 { font:800 clamp(34px,7vw,64px)/1 Cinzel,serif; margin:0; letter-spacing:.08em; color:var(--gold);
   text-shadow:0 0 18px rgba(255,150,40,.45), 0 2px 0 #000; }
 h1 .more { font:600 .8em/1 "IBM Plex Mono",monospace; letter-spacing:0; }
+h1 .more.log { font-size:.45em; vertical-align:middle; } /* header game messages */
 .sub { color:var(--dim); margin:12px 0 0; }
 /* header mini-roguelike (minirogue.js); font: Web437 IBM CGA, Oldschool PC Font Pack by VileR, CC BY-SA 4.0 */
 @font-face { font-family:"IBM CGA"; src:url(fonts/Web437_IBM_CGA.woff) format("woff"); font-display:swap; }
@@ -38,7 +39,7 @@ h1 .more { font:600 .8em/1 "IBM Plex Mono",monospace; letter-spacing:0; }
   white-space:pre; color:#6b6474; cursor:pointer; outline:none; user-select:none; text-align:left; }
 #minirogue:focus-visible, #minirogue:focus { color:#8f8898; }
 #minirogue b { font-weight:normal; } .mr-at { color:var(--gold); } .mr-k { color:#6fd36f; } .mr-it { color:#6fc7d3; }
-.mr-msg { color:var(--text); } .mr-tomb { color:var(--dim); }
+.mr-tomb { color:var(--dim); }
 @media (max-width:520px){ #minirogue { font-size:min(12px,3.1vw); } }
 .torch { display:inline-block; color:var(--ember); animation:flick .35s infinite alternate; }
 @keyframes flick { from{opacity:.65; transform:scale(.92)} to{opacity:1; transform:scale(1.06)} }
