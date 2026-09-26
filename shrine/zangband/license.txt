@@ -1,0 +1,27 @@
+Zangband licence
+================
+
+Zangband has no separate licence file. Every source file carries the
+Angband/Moria notice, for example src/main.c:
+
+    Copyright (c) 1997 Ben Harrison, and others
+
+    This software may be copied and distributed for educational, research,
+    and not for profit purposes provided that this copyright and statement
+    are included in all such copies.
+
+Zangband's own files carry the same statement under their authors' names,
+for example src/fields.c:
+
+    Copyright (c) 2000 Steven Fuerst
+
+    This software may be copied and distributed for educational, research, and
+    not for profit purposes provided that this copyright and statement are
+    included in all such copies.
+
+The embedded Lua interpreter (src/lua/) is
+"Copyright (C) 1994-2000 TeCGraf, PUC-Rio", under its own permissive
+licence (see the end of src/lua/lua.h).
+
+Vanilla Angband was relicensed under the GNU GPL 2 in 2009; this Zangband
+tree (2.7.6) still carries only the notice above.

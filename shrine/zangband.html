@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zangband · Shrine</title>
+<!--og-->
+<meta name="description" content="Angband in the shadow of Zelazny's Amber: a huge wilderness with many towns and dungeons, Amberite princes among the monsters, chaos patrons, pets and Lua-scripted magic realms.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="--More--">
+<meta property="og:title" content="Zangband · Shrine">
+<meta property="og:description" content="Angband in the shadow of Zelazny's Amber: a huge wilderness with many towns and dungeons, Amberite princes among the monsters, chaos patrons, pets and Lua-scripted magic realms.">
+<meta property="og:url" content="https://ruzzoli.de/roguelikes/shrine/zangband.html">
+<meta property="og:image" content="https://ruzzoli.de/roguelikes/zangband.png">
+<meta name="twitter:card" content="summary_large_image">
+<!--/og-->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>Zangband</h1>
+  <p class="epi">Zelazny Angband · the Courts of Chaos, the princes of Amber and a whole wilderness around the dungeon</p>
+  <a class="play" href="../zangband/">&gt; Enter the dungeon</a>
+</header>
+<div class="facts"><div><b>Date of birth</b><span>1994</span> Topi Ylinen; this build 2.7.6 (JJ Mifsud, 2012–2013)</div><div><b>Creator</b><span>Topi Ylinen</span> then Robert Rühlmann, Steven Fuerst and the DevTeam</div><div><b>Language</b><span>C + Lua</span> ~286,000 lines of C</div><div><b>Platform</b><span>DOS, then everything</span> Unix/X11/curses, Windows, Mac, Amiga, Acorn</div></div>
+<nav class="toc"><a href="#lineage">Lineage</a><a href="#credits">Credits</a><a href="#trivia">Trivia</a><a href="#usp">What's unique</a><a href="#code">Code dive</a><a href="#stats">Stats</a><a href="#manual">Manual</a><a href="#start">Getting started</a><a href="#help">Help</a><a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p>Moria → <a href="umoria.html">Umoria</a> → <a href="https://en.wikipedia.org/wiki/Angband_(video_game)">Angband</a> → <strong>Zangband</strong>. Topi Ylinen started with <em>Angband--</em>, a DOS variant of PC Angband 1.31 with monsters from Roger Zelazny’s Amber books, then wrote the DOS-only PC Zangband 1.0 (1994). Zangband 2.x is a new start on Ben Harrison’s portable Angband 2.8.1 sources, with a new magic system.</p>
+<p>After 2.1.0c Topi handed over to Robert Rühlmann (2.1.0d); later versions came from the Zangband DevTeam led by Steven Fuerst, up to 2.7.5pre1 (June 2005), after which development stopped. JJ Mifsud’s 2.7.6 (2012–2013, on <a href="https://github.com/jjnoo/Zangband">GitHub</a>) fixes it for modern compilers; that is what plays here. Children: XAngband and <a href="tinyangband.html">TinyAngband</a>, Hengband and its descendants, and PernAngband, which became <a href="tome2.html">ToME</a>. See the <a href="../#tree">family tree</a>. Sources: the <a href="zangband/history.txt">history file</a> (<code>lib/help/version.txt</code>), <a href="https://www.roguebasin.com/index.php/ZAngband">RogueBasin</a>, <a href="https://en.wikipedia.org/wiki/Angband_(video_game)">Wikipedia</a>.</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table><tr><td>Topi Ylinen</td><td>Author: Angband--, PC Zangband 1.0, Zangband 2.0–2.1.0c</td></tr><tr><td>Robert Rühlmann</td><td>Maintainer from 2.1.0d: quests, wilderness, towns; also the graphical DOS Angband</td></tr><tr><td>Steven Fuerst</td><td>DevTeam lead, the fields code, the wilderness rewrite, the official FAQ</td></tr><tr><td>Chris Kern, Eric Bock, Mitsuhiro Itakura, Ross Morgan-Linial</td><td>Zangband DevTeam</td></tr><tr><td>JJ Mifsud</td><td>2.7.6 (2012–2013)</td></tr><tr><td>Tim Baker, Adam Bolt, Chris Weisiger, Ken Wigle and many more</td><td>ZAngbandTk, the original tiles, vaults, town and quest code (see the <a href="zangband/history.txt">history file</a>)</td></tr><tr><td>Shockbolt</td><td>The tiles used in this port (from Angband 4.2)</td></tr></table>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>The name is short for “Zelazny Angband”. <span class="src">(<a href="https://www.roguebasin.com/index.php/ZAngband">RogueBasin</a>)</span></li>
+<li>Its ancestor Angband-- was written by a Moria winner “bored with the standard monsters”, on the PC Angband 1.31 sources. <span class="src">(<a href="zangband/history.txt">history file</a>, by Topi Ylinen)</span></li>
+<li>The magic system came from Topi’s addiction to the strategy game <em>Master of Magic</em>. <span class="src">(<a href="zangband/history.txt">history file</a>)</span></li>
+<li>Topi found the standard monsters too easy, hence Death swords, Cyberdemons and Great Wyrms of Power. <span class="src">(<a href="zangband/history.txt">history file</a>)</span></li>
+<li>PC Zangband 1.0 was the first PC Angband with (font-based) graphics, later reused by PC Angband 1.40. <span class="src">(<a href="zangband/history.txt">history file</a>)</span></li>
+<li>Topi stopped after 2.1.0c because “he has got a job”, as Robert Rühlmann put it. <span class="src">(<a href="zangband/history.txt">history file</a>)</span></li>
+<li>The official site went defunct in 2022; an <a href="https://web.archive.org/web/2003/http://www.zangband.org/">archived copy</a> remains. <span class="src">(<a href="https://www.roguebasin.com/index.php/ZAngband">RogueBasin</a>)</span></li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>A wilderness:</strong> a large random overland map that scrolls seamlessly, with towns of different sizes and many dungeons, not just one town and one pit.</li>
+<li><strong>Amber and Chaos:</strong> the princes of Amber (Oberon, Brand, Gerard …) as uniques, the Serpent of Chaos as the final foe, and Chaos Warriors who serve one of 16 chaos patrons for gifts or punishment.</li>
+<li><strong>Seven magic realms:</strong> Life, Sorcery, Nature, Chaos, Death, Trump and Arcane; spellcasters pick one or two.</li>
+<li><strong>Mutations</strong> (96 of them), pets, talking uniques, rumours, warrants, over 100 kinds of shops and buildings.</li>
+<li><strong>Lua scripting</strong> for spells, objects and fields, and an Oangband-style combat system from 2.3.5 on.</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li><strong>Language:</strong> C, about 286,000 lines in 142 files under <code>src/</code> (34,000 of them the “borg”, an AI that plays the game), plus Lua 4 embedded for scripts in <code>lib/script/</code>.</li>
+<li><strong>Data:</strong> text files in <code>lib/edit/</code>: monsters (<code>r_info</code>), objects (<code>k_info</code>), artifacts, ego items, vaults, fields, town types and wilderness (<code>t_info</code>, <code>w_info</code>).</li>
+<li><strong>Frontends:</strong> z-term with <code>main-*.c</code> ports for X11, curses, Windows, Mac, DOS, Amiga and more; Tim Baker’s ZAngbandTk was a separate Tk interface.</li>
+<li><strong>This port:</strong> a WebAssembly build with a canvas z-term frontend, Shockbolt tiles, sub-windows, sound, auto-explore (<kbd>H</kbd>), an Enter command menu and item menus. Source: <a href="https://github.com/memmaker/zangband">memmaker/zangband</a>, upstream <a href="https://github.com/jjnoo/Zangband">jjnoo/Zangband</a>.</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<table><tr><th>Thing</th><th>Count</th><th>Notable ones</th></tr><tr><td>Races</td><td>31</td><td>Amberite, Klackon, Mindflayer, Golem, Imp, Sprite, Draconian, Half-Titan, Cyclops, and the undead Skeleton, Zombie, Vampire, Spectre and Ghoul</td></tr><tr><td>Classes</td><td>11</td><td>Chaos-Warrior, Mindcrafter, Monk, Warrior-Mage, High-Mage</td></tr><tr><td>Magic realms</td><td>7</td><td>Life, Sorcery, Nature, Chaos, Death, Trump, Arcane</td></tr><tr><td>Chaos patrons</td><td>16</td><td>Arioch, Xiombarg, Mabelode (Moorcock), Khorne, Slaanesh, Nurgle, Tzeentch (Warhammer)</td></tr><tr><td>Mutations</td><td>96</td><td>Three sets of 32: activatable, random, passive</td></tr><tr><td>Monsters</td><td>892</td><td>Oberon, King of Amber; the Jabberwock; Oremorj the Cyberdemon Lord; the Great Wyrms of Chaos, Law and Balance; the Serpent of Chaos</td></tr><tr><td>Object kinds</td><td>553</td><td>plus 131 artifacts and 109 ego types</td></tr><tr><td>Vaults</td><td>125</td><td>plus 147 town/building layouts and 232 wilderness entries</td></tr></table>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>The full in-game help (<kbd>?</kbd>, all of <code>lib/help/*.txt</code>) is here: <a href="zangband/manual.html">manual</a>. Also: the <a href="zangband/history.txt">history</a> (<code>version.txt</code>, including Topi Ylinen’s own account), the <a href="zangband/changelog.txt">changelog</a> against Angband 2.8.1 (<code>z_update.txt</code>, down to 2.7.5pre1), Steven Fuerst’s <a href="zangband/faq.txt">official FAQ</a> (2000) and the <a href="zangband/license.txt">licence</a> (the Angband/Moria “not for profit” notice). The tree ships no spoiler files; debug mode writes them (see Cheats).</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol><li><a href="../zangband/">Open the game</a> and make a character: a Half-Troll or Dwarf Warrior is the easiest start; a High-Elf Mage with Sorcery is the classic caster.</li>
+<li>Wear and wield your gear (<kbd>w</kbd>), then visit the shops in town: buy Cure Light Wounds potions, Phase Door scrolls, flasks of oil to throw and a Word of Recall scroll.</li>
+<li>Find the dungeon entrance (<kbd>&gt;</kbd> walks to known stairs) or step out into the wilderness; <kbd>H</kbd> explores for you.</li>
+<li>The Enter key lists every command; <kbd>i</kbd> and <kbd>e</kbd> open item menus; <kbd>m</kbd> casts, <kbd>C</kbd> shows your character.</li>
+<li>Read the game’s <a href="../zangband/help.html">help page</a> for keys and saving.</li></ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>We found no walkthrough for Zangband: the world and dungeons are random. The goal is to kill Oberon on level 99 and the Serpent of Chaos on level 100. Rules of thumb:</p><ul>
+<li>Get Free Action, See Invisible and resistance to poison and confusion before going deep: the deep monsters paralyse, confuse and breathe hard.</li>
+<li>Always carry an escape (Phase Door, Teleport) and Word of Recall; flee what you do not know.</li>
+<li>Clear the easy wilderness dungeons and town quests first: they pay well.</li>
+<li>More: Steven Fuerst’s <a href="zangband/faq.txt">official FAQ</a>, <a href="https://www.roguebasin.com/index.php/ZAngband">RogueBasin</a>, the <a href="https://web.archive.org/web/2003/http://www.zangband.org/">archived zangband.org</a> and the <a href="https://forum.angband.live/">Angband forums</a>.</li></ul>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<p>Both modes are built into this port (<code>USE_DEBUG</code> in <code>src/z-config.h</code>) and mark the savefile: no high score.</p>
+<ul><li><strong>Wizard mode</strong> <kbd>Ctrl</kbd>+<kbd>W</kbd>: keeps you alive and shows the damage you deal.</li>
+<li><strong>Debug mode</strong> <kbd>Ctrl</kbd>+<kbd>A</kbd>, then a key: <kbd>c</kbd> create object, <kbd>j</kbd> jump to level, <kbd>e</kbd> edit stats, <kbd>a</kbd> cure all, <kbd>m</kbd> map, <kbd>q</kbd> complete quests, <kbd>r</kbd> patron gift, <kbd>"</kbd> write spoiler files. Full list: <a href="zangband/manual.html#wizard">Wizard and Debugging Modes</a>.</li>
+<li><strong>The borg</strong> <kbd>Ctrl</kbd>+<kbd>Z</kbd>: the built-in automatic player is compiled in, but untested in the browser.</li>
+<li><strong>Save scumming:</strong> <em>Export save</em> / <em>Import save</em> on the game page.</li></ul>
+</section>
+</div></body>
+</html>
