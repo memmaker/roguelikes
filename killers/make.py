@@ -298,6 +298,20 @@ def frogcomposband():                                 # Shockbolt 64px (web/tile
     for f in os.listdir(d):
         if f.startswith('the-'): os.replace(os.path.join(d, f), os.path.join(d, f[4:]))
 
+def hengband():                                       # Adam Bolt 16x16 (web/tiles.webp); ids from MonraceDefinitions.jsonc, R: in graf-new.prf + graf-ab.prf (stand-ins)
+    h = G + '/hengband/lib'
+    names = {int(i): n for i, n in re.findall(r'"id": (\d+),\s*"name": \{[^}]*?"en": "([^"]+)"', open(h + '/edit/MonraceDefinitions.jsonc', encoding='utf-8').read())}
+    img, d = Image.open(G + '/hengband/web/tiles.webp').convert('RGBA'), os.path.join(HERE, 'hengband')
+    os.makedirs(d, exist_ok=True)
+    prf = open(h + '/pref/graf-new.prf').read() + open(h + '/pref/graf-ab.prf').read()
+    for i, a, c in re.findall(r'^R:(\d+):0x(\w\w)/0x(\w\w)', prf, re.M):
+        n = names.get(int(i))
+        if not n or i == '0': continue
+        n = re.sub(r'^(the|The) ', '', n)             # main-web.cpp web_run_end() strips a/an/the
+        x, y = (int(c, 16) & 0x7F) * 16, (int(a, 16) & 0x7F) * 16
+        img.crop((x, y, x + 16, y + 16)).resize((32, 32), Image.NEAREST).save(os.path.join(d, slug(n) + '.png'), optimize=True)
+    print('hengband', len(os.listdir(d)))
+
 def forays():                                         # text only: Actor.cs Define() glyph from ForaysImages/font8x16.png (as the card), GL palette (Color.cs ConvertColor), 2x
     f = G + '/forays/Forays'
     pal = {'Blue': (35, 35, 255), 'Cyan': (0, 255, 255), 'DarkBlue': (15, 15, 149), 'DarkCyan': (0, 139, 139), 'DarkGray': (105, 105, 105),
@@ -324,4 +338,4 @@ def lambdarogue():                                    # own sheet the port shows
         sq.resize((32, 32), Image.LANCZOS).save(os.path.join(d, slug(name.strip()) + '.png'), optimize=True)
     print('lambdarogue', len(os.listdir(d)))
 
-rogue(); hack(); umoria(); urogue(); larn(); ularn(); rogue36(); srogue(); roguepc(); tome2(); tinyangband(); quickband(); arogue58(); arogue77(); xrogue(); boss(); omega(); prime(); dynahack(); silq(); tactical(); crawl(); zapm(); alphaman(); decker(); nethack13d(); nethack50(); slashem(); zangband(); frogcomposband(); forays(); lambdarogue()
+rogue(); hack(); umoria(); urogue(); larn(); ularn(); rogue36(); srogue(); roguepc(); tome2(); tinyangband(); quickband(); arogue58(); arogue77(); xrogue(); boss(); omega(); prime(); dynahack(); silq(); tactical(); crawl(); zapm(); alphaman(); decker(); nethack13d(); nethack50(); slashem(); zangband(); frogcomposband(); forays(); lambdarogue(); hengband()
