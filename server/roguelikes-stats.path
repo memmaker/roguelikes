@@ -1,0 +1,11 @@
+# A beacon appended to beacon.log starts the stats service, so the graveyard and leaderboard
+# update within seconds. Triggers during a run coalesce into one more run after it.
+[Unit]
+Description=roguelikes stats trigger (beacon.log)
+
+[Path]
+PathModified=/var/lib/roguelikes-stats/beacon.log
+Unit=roguelikes-stats.service
+
+[Install]
+WantedBy=multi-user.target

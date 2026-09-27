@@ -1,0 +1,8 @@
+# Rebuild data/runs.json + visitors.json (server/INSTALL.md). Started by roguelikes-stats.path
+# on every beacon and by cron every 10 min; flock keeps overlapping runs from racing on state.json.
+[Unit]
+Description=roguelikes stats (beacon → runs.json)
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/flock -w 120 /run/lock/roguelikes-stats.lock /usr/local/bin/roguelikes-stats.py
