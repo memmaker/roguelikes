@@ -32,6 +32,12 @@ def area(path):
     return "games"
 
 
+def num(v): return re.fullmatch(r"-?[0-9]{1,15}", str(v)) is not None  # ASCII only: "²".isdigit() is True, int("²") raises
+
+
+def clean(v): return re.sub(r"[\x00-\x1f\x7f-\x9f\u200b-\u200f\u202a-\u202e\u2066-\u2069\ufeff]", "", v)[:80]  # no control/bidi spoofing
+
+
 def slug(v, n): return re.sub(r"[^A-Za-z0-9-]", "-", v)[:n] or "x"
 
 
@@ -54,7 +60,7 @@ def save_wins(wins, beacon_log, salt):
             iso = t.strftime("%Y-%m-%dT%H:%M:%SZ")
             if re.fullmatch(r"[a-z0-9]{6,40}", q.get("id", "")):
                 wid = q["id"]
-                at = q["at"] if q.get("at", "").isdigit() else str(int(t.timestamp() * 1000))
+                at = q["at"] if re.fullmatch(r"[0-9]{1,15}", q.get("at", "")) else str(int(t.timestamp() * 1000))
             else:
                 h = hashlib.sha256(ln.encode()).hexdigest()[:16]
                 occ[h] = occ.get(h, 0) + 1
@@ -84,9 +90,9 @@ def load_wins(wins):
         run = {"t": w["t"], "ev": "win"}
         q = w.get("fields", {})
         for k in ("g", "name", "killer"):
-            if k in q: run[k] = q[k][:80]
+            if k in q: run[k] = clean(q[k])
         for k in INTS:
-            if str(q.get(k, "")).lstrip("-").isdigit(): run[k] = int(q[k])
+            if num(q.get(k, "")): run[k] = int(q[k])
         out.append(run)
     return out
 
@@ -118,9 +124,9 @@ def update(state, pattern, wins=WINS, games=None):
             run = {"t": iso, "k": k}
             if "id" in q and any(r["k"] == k for r in runs): continue  # outbox resend of a run we already have
             for f in ("g", "ev", "name", "killer"):
-                if f in q: run[f] = q[f][:80]
+                if f in q: run[f] = clean(q[f])
             for f in INTS:
-                if q.get(f, "").lstrip("-").isdigit(): run[f] = int(q[f])
+                if num(q.get(f, "")): run[f] = int(q[f])
             runs.append(run); seen.add((k, iso)); times.setdefault(k, []).append(t)
             continue
         a = area(u.path)
@@ -196,6 +202,7 @@ def test():
         L("2.2.2.2", ts(minutes=3), bob), L("2.2.2.2", ts(minutes=1), bob),  # outbox resend: same id, one win
         L("2.2.2.2", ts(minutes=2), bob.replace("bob000run1", "bob000run2")),  # same data, other run: its own win
         L("3.3.3.4", ts(minutes=2), "/roguelikes/beacon?g=hack&ev=win&name=Bot&id=bot000run1&at=1", ua="Claude/1.0"),  # on disk, not on board
+        L("2.2.2.2", ts(minutes=1), "/roguelikes/beacon?g=hack&ev=win&name=Eve%E2%80%AE%3Cb%3E&score=%C2%B2&id=eve000run1&at=%C2%B2"),  # hostile: must not crash
         "garbage line\n"])
     st, out = f"{d}/state.json", f"{d}/data"
     for g in ("rogue54", "hack"): os.makedirs(f"{d}/{g}")  # game folders next to data/, like the web root
@@ -208,17 +215,19 @@ def test():
     assert a["shrines"] == {"d7": 0, "d30": 1, "all": 1}, a
     deaths = [r for r in runs["runs"] if r["ev"] == "death"]
     wins = [r for r in runs["runs"] if r["ev"] == "win"]
-    assert len(deaths) == 2 and len(wins) == 4, runs
+    assert len(deaths) == 2 and len(wins) == 5, runs
+    eve = [w for w in wins if w["name"].startswith("Eve")][0]
+    assert eve["name"] == "Eve<b>" and "score" not in eve, eve  # bidi stripped; <b> is the page's job (esc)
     r = deaths[0]
     assert r["g"] == "rogue54" and r["killer"] == "bat" and r["depth"] == 3 and "k" not in r, r
-    assert sorted(w["name"] for w in wins) == ["Ann", "Ann", "Bob", "Bob"], wins
+    assert sorted(w["name"] for w in wins) == ["Ann", "Ann", "Bob", "Bob", "Eve<b>"], wins
     # rotation: old gz gone, rerun keeps uniques + runs from state, no double counting
     os.remove(f"{d}/access.log.2.gz")
     vis2, runs2 = main(f"{d}/access.log*", out, st, W, BL)
     assert vis2["areas"] == a and runs2["runs"] == runs["runs"], (vis2, runs2)
     # golden rule: wins live in write-once files; the board survives losing state and logs
     wf = sorted(glob.glob(f"{W}/hack/*.json"))
-    assert len(wf) == 5 and all(os.stat(f).st_mode & 0o222 == 0 for f in wf), wf
+    assert len(wf) == 6 and all(os.stat(f).st_mode & 0o222 == 0 for f in wf), wf
     assert any(os.path.basename(f) == "1790000000000-Bob-bob000run1.json" for f in wf), wf
     before = [open(f).read() for f in wf]
     os.remove(st); os.remove(f"{d}/access.log"); os.remove(BL)

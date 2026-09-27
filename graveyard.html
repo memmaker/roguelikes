@@ -24,7 +24,7 @@
 <main><h2>Deadliest killers</h2><div class="box"><table><thead><tr><th>#</th><th></th><th>Killer</th><th>Game</th><th class="n">Kills</th></tr></thead><tbody id="kill"></tbody></table></div>
 <h2>Recent deaths</h2><div class="box"><table><thead><tr><th>Name</th><th>Game</th><th>Killed by</th><th class="n">Depth</th><th class="n">Lvl</th><th class="n">Turns</th><th>Date</th></tr></thead><tbody id="dead"></tbody></table></div></main>
 <script>
-const esc=s=>String(s??'').replace(/[&<>"]/g,c=>'&#'+c.charCodeAt(0)+';'), none=n=>`<tr><td colspan="${n}" class="dim">No data yet. Nobody has died… yet.</td></tr>`;
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>'&#'+c.charCodeAt(0)+';'), none=n=>`<tr><td colspan="${n}" class="dim">No data yet. Nobody has died… yet.</td></tr>`;
 addEventListener('DOMContentLoaded',()=>Promise.all([fetch('data/runs.json',{cache:'no-cache'}).then(r=>r.json()),window.gameNames]).then(([d,N])=>{ const nm=g=>N[g]||g;
   const deaths=(d.runs||[]).filter(r=>r.ev==='death'), k={};
   for(const r of deaths) if(r.killer){ const id=r.g+'\0'+r.killer; (k[id]??={g:r.g,killer:r.killer,n:0}).n++; }

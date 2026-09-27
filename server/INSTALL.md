@@ -3,10 +3,11 @@
 Logs are root/adm-only (0640 www-data:adm), so cron runs as root.
 
 ```sh
-scp server/stats.py server/nginx-beacon.conf server/roguelikes-stats.service server/roguelikes-stats.path ruzzoli.de:/tmp/
+scp server/stats.py server/nginx-beacon.conf server/nginx-beacon-zone.conf server/roguelikes-stats.service server/roguelikes-stats.path ruzzoli.de:/tmp/
 ssh ruzzoli.de
 sudo install -m 755 /tmp/stats.py /usr/local/bin/roguelikes-stats.py
 sudo install -m 644 /tmp/nginx-beacon.conf /etc/nginx/snippets/roguelikes-beacon.conf
+sudo install -m 644 /tmp/nginx-beacon-zone.conf /etc/nginx/conf.d/roguelikes-beacon-zone.conf
 sudo install -d -m 700 /var/lib/roguelikes-stats
 sudo /usr/local/bin/roguelikes-stats.py --test
 # add inside the `listen 443` server{} block, e.g. right above `location ^~ /roguelikes/ {`:

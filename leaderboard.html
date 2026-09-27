@@ -24,7 +24,7 @@
 <p><label>Game <select id="game"></select></label></p></header>
 <main id="out"><p class="dim" style="text-align:center">Loading…</p></main>
 <script>
-const esc=s=>String(s??'').replace(/[&<>"]/g,c=>'&#'+c.charCodeAt(0)+';');
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>'&#'+c.charCodeAt(0)+';');
 function table(title,rows,col,key){ return `<h2>${title}</h2><div class="box"><table><thead><tr><th>#</th><th>Name</th><th class="n">${col}</th><th>Fate</th><th class="n">Lvl</th><th>Date</th></tr></thead><tbody>`+
   (rows.map((r,i)=>`<tr><td class="dim">${i+1}</td><td class="gold">${esc(r.name)}</td><td class="n gold">${esc(r[key])}</td><td>${r.ev==='win'?'<span class="gold">won</span>':r.ev==='quit'?'quit':'killed by <span class="ember">'+esc(r.killer)+'</span>'}</td><td class="n">${esc(r.lvl)}</td><td class="dim">${esc(r.t?.slice(0,10))}</td></tr>`).join('')
    ||'<tr><td colspan="6" class="dim">Nobody yet.</td></tr>')+'</tbody></table></div>'; }
