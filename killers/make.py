@@ -352,6 +352,23 @@ def easyband():                                       # Shockbolt 64px (web/tile
         img.crop((x, y, x + 64, y + 64)).resize((32, 32), Image.LANCZOS).save(os.path.join(d, slug(n) + '.png'), optimize=True)
     print('easyband', len(os.listdir(d)))
 
+def sangband():                                       # own Gervais 32x32 (web/tiles.png from lib/xtra/graf/32x32.bmp + mask, web/mkgraf.py); graf32-g.prf R:<idx>:+row:+col (decimal, + = |0x80)
+    e = G + '/sangband'
+    src = open(e + '/lib/edit/monster.txt', encoding='latin-1').read()
+    names = {int(i): n.strip() for i, n in re.findall(r'^N:(\d+):(.+)$', src, re.M)}
+    img, d = Image.open(e + '/web/tiles.png').convert('RGBA'), os.path.join(HERE, 'sangband')
+    os.makedirs(d, exist_ok=True)
+    done = set()
+    for i, a, c in re.findall(r'^R:(\d+):\+(\d+)[/:]\+(\d+)', open(e + '/lib/pref/graf32-g.prf').read(), re.M):
+        n = names.get(int(i))
+        if not n or i == '0': continue
+        n = re.sub(r'^(the|The|an?|An?) ', '', n)          # main-web.c web_run_end() strips a/an/the ("The Queen Ant")
+        if slug(n) in done: continue                      # same name twice (Novice mage ...): first entry wins
+        done.add(slug(n))
+        x, y = int(c) * 32, int(a) * 32
+        img.crop((x, y, x + 32, y + 32)).save(os.path.join(d, slug(n) + '.png'), optimize=True)
+    print('sangband', len(os.listdir(d)))
+
 def mag():                                            # DawnLike 16px (port/tiles-dawn.png, port/mkdawn.py): MONSTER.H pmon order -> mon_tile
     m = G + '/mag'
     names = re.findall(r'^"([^"]+)",\s*\'.\'', open(m + '/src/MONSTER.H', encoding='latin-1').read().replace('\r', ''), re.M)
@@ -380,4 +397,4 @@ def prospector():                                     # graphics/critters.bmp (t
         c.resize((32, 32), Image.NEAREST).save(os.path.join(d, slug(name) + '.png'), optimize=True)
     print('prospector', len(os.listdir(d)))
 
-rogue(); hack(); umoria(); urogue(); larn(); ularn(); rogue36(); srogue(); roguepc(); tome2(); tinyangband(); quickband(); arogue58(); arogue77(); xrogue(); boss(); omega(); prime(); dynahack(); silq(); tactical(); crawl(); zapm(); alphaman(); decker(); nethack13d(); nethack50(); slashem(); zangband(); frogcomposband(); forays(); lambdarogue(); hengband(); easyband(); mag(); tactical('faangband'); nppangband(); prospector()
+rogue(); hack(); umoria(); urogue(); larn(); ularn(); rogue36(); srogue(); roguepc(); tome2(); tinyangband(); quickband(); arogue58(); arogue77(); xrogue(); boss(); omega(); prime(); dynahack(); silq(); tactical(); crawl(); zapm(); alphaman(); decker(); nethack13d(); nethack50(); slashem(); zangband(); frogcomposband(); forays(); lambdarogue(); hengband(); easyband(); mag(); tactical('faangband'); nppangband(); prospector(); sangband()
