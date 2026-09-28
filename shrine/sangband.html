@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sangband · Shrine</title>
+<!--og-->
+<meta name="description" content="Skills Angband: no classes and no character levels. Experience buys the skills you choose and use, from swords and stealth to four realms of magic, forging, burglary and shapechanging, and an Oath binds you to one path for good. Its own Gervais tiles, sounds and music.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="--More--">
+<meta property="og:title" content="Sangband · Shrine">
+<meta property="og:description" content="Skills Angband: no classes and no character levels. Experience buys the skills you choose and use, from swords and stealth to four realms of magic, forging, burglary and shapechanging, and an Oath binds you to one path for good. Its own Gervais tiles, sounds and music.">
+<meta property="og:url" content="https://ruzzoli.de/roguelikes/shrine/sangband.html">
+<meta property="og:image" content="https://ruzzoli.de/roguelikes/img/sangband.png">
+<meta name="twitter:card" content="summary_large_image">
+<!--/og-->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>Sangband</h1>
+  <p class="epi">Skills Angband · no classes, no levels: you are the skills you buy</p>
+  <a class="play" href="../sangband/">&gt; Enter the dungeon</a>
+</header>
+<div class="facts"><div><b>Date of birth</b><span>1994</span> first release 3 March 1994 (the manual; other sources differ, see Lineage); this build 1.0.2 (31 March 2011)</div><div><b>Creators</b><span>Chris Petit, Leon Marrick</span> Petit 1994; Gorse, Lighton, then Marrick 2001–2007; a Google Code team 2010–11</div><div><b>Language</b><span>C</span> ~225,000 lines in 83 files</div><div><b>Platform</b><span>Windows, Unix, DOS, Mac</span> Win32, SDL, curses, X11/GTK, DOS, Carbon</div></div>
+<nav class="toc"><a href="#lineage">Lineage</a><a href="#credits">Credits</a><a href="#shots">Screenshots</a><a href="#trivia">Trivia</a><a href="#usp">What's unique</a><a href="#code">Code dive</a><a href="#stats">Stats</a><a href="#manual">Manual</a><a href="#start">Getting started</a><a href="#help">Help</a><a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p>Moria → <a href="umoria.html">Umoria</a> → Angband 2.5 → Chris Petit’s Bangband → <strong>Sangband</strong>. Petit wanted an Angband with a skills system instead of character classes and built it on the Angband 2.5.x code as modified in Bangband, another of his variants. Development stopped for about a year at 0.8.5 when he graduated; Michael Gorse re-released 0.8.5 and took it to 0.9.3 (1995–1997). Julian Lighton, helped by Greg Wooledge, made 0.9.4 (1997) and 0.9.5 (1998) and updated the code to Angband 2.8.3. In 2001 he handed it to Leon Marrick (Oangband), who had played it since its early days; after years of betas Marrick released 1.0.0 on 26 May 2007. A Google Code team (Joshua Middendorf, Christer Nyfält, Scott Yost and others) made 1.0.1 and 1.0.2 (2010–2011). This build is the svn trunk at r313, a few months after 1.0.2.</p>
+<p><strong>The sources disagree on two points:</strong></p>
+<ul>
+<li><strong>First release:</strong> the manual’s history says 3 March 1994 (and 0.8.5 on 29 April 1994); the copyright list in the same file says “Sangband 0.1 – 0.8.5: Jun 28, 1994”; RogueBasin (seen here only as a search-engine summary, the site is blocked from this build machine) gives 2 September 1994. All agree on 1994.</li>
+<li><strong>What it is built on:</strong> the manual names Angband 2.5.x via Bangband and later Angband 2.8.3; <code>src/changes.txt</code> (April 2007) says 1.0.0’s base is “Angband 2.9.3, with many of the changes made through Angband 3.0.6” plus “most of the basic Oangband 0.7.0 code”; the source readme calls it “based on Angband and also on Oangband”. The family tree puts it under Angband and names the Oangband code in the entry.</li>
+</ul>
+<p>Sangband’s AI and ideas went on elsewhere: <a href="nppangband.html">NPPAngband</a> took in Marrick’s Sangband/Demoband “4GAI” monster AI. See the <a href="../#tree">family tree</a>. Sources: <code>docs/manual.txt</code> and <code>lib/help/angdesc.txt</code> (history and copyrights), <code>s-readme.txt</code>, <code>src/changes.txt</code>, <code>docs/readme.txt</code>, the <a href="https://code.google.com/archive/p/skills-angband/downloads">Google Code downloads</a> (1.0.2 on 31 March 2011).</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table><tr><td>Petit</td><td>Chris Petit, author, 0.1–0.8.5 (1994)</td></tr><tr><td>Gorse</td><td>Michael Gorse, 0.8.5–0.9.3 (1995–1997)</td></tr><tr><td>Lighton</td><td>Julian Lighton, 0.9.4–0.9.5 (1997–1998), with fixes by Greg Wooledge and Jens Gislev</td></tr><tr><td>Marrick</td><td>Leon Marrick (-LM-), maintainer from 2001, 1.0.0 (2007), author of the manual</td></tr><tr><td>DevTeam</td><td>1.0.x developers Joshua Middendorf, Christer Nyfält, Scott Yost (beta 15 was Yost’s); the 1.0.2 title screen (<code>news.txt</code>) lists Petit, Gorse, Lighton, Marrick and Middendorf; the 1.0.1 splash only the first four</td></tr><tr><td>Contributors</td><td>Werner Baer, Charlie Ball, Eric Bock, Andrew Doull, Steven Fuerst, Diego González, Jeff Greene, Bahman Rabii, Robert Rühlmann, Eytan Zweig and many more (<code>docs/readme.txt</code>)</td></tr><tr><td>Art</td><td>David Gervais (32×32 tiles, used in this port), Adam Bolt (16×16 tiles)</td></tr><tr><td>Music</td><td>Reenen Laurie and Cosmic Gerbil (from ToME), Dirk Laurie, Jaakko Peltonen (Falcon’s Eye), tunes from Angband</td></tr><tr><td>Angband</td><td>Alex Cutler, Andy Astrand, Sean Marsh, Geoff Hill, Charles Teague, Charles Swiger, Ben Harrison, Robert Rühlmann</td></tr><tr><td>Moria</td><td>Robert Alan Koeneke, Jimmey Wayne Todd Jr. (1985); Umoria: James E. Wilson (1989)</td></tr></table>
+<p class="src">From <code>lib/file/news.txt</code> (title screen), <code>lib/help/angdesc.txt</code>, <code>docs/readme.txt</code>, the <a href="sangband/changelog.txt">change logs</a> and <code>lib/xtra/music/jukebox.cfg</code>.</p>
+</section>
+
+<section id="shots"><h2>Screenshots</h2>
+<div class="shots">
+<figure><img src="../img/sangband.png" alt="Sangband's title screen in ASCII art: the logo over a red dragon and the credits"><figcaption>The 1.0.1 title screen (<code>news.png</code>, the Google Code project’s splash), ASCII art like the game’s own <code>news.txt</code>.</figcaption></figure>
+<figure><img src="sangband/town.png" alt="The town with David Gervais tiles, sidebar, inventory and visible-monster windows"><figcaption>The town in this port, with Sangband’s own David Gervais tiles. No class on the sidebar: just EXP to spend.</figcaption></figure>
+<figure><img src="sangband/skills.png" alt="The skills screen: 27 skills from Swordsmanship to Shapechange"><figcaption>The skills screen (<kbd>$</kbd>): 27 skills, each bought with experience. This is character creation, all game long.</figcaption></figure>
+<figure><img src="sangband/dungeon.png" alt="A dungeon level with corridors, a brown yeek in view"><figcaption>Dungeon level 3 after a few presses of <kbd>H</kbd> (auto-explore).</figcaption></figure>
+</div>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>Its own project page calls it “the oldest variant of Angband still active” and among “the first roguelikes anywhere to introduce skills, shapechanges, fully-fledged natural and necromantic realms, and special character talents”. <span class="src">(<a href="https://code.google.com/archive/p/skills-angband">Google Code project</a>, <a href="https://storage.googleapis.com/google-code-archive/v2/code.google.com/skills-angband/project.json">data</a>)</span></li>
+<li>0.9.5 (1998) removed “the concept of ‘level’” from the game completely: there are no character levels, only the <em>power</em> your skills add up to. <span class="src">(<a href="sangband/changelog.txt">changelog</a>)</span></li>
+<li>After 1.0.2 shipped, two room builders by Eric Bock (the maze and the pillared room) turned out not to be GPL. They were replaced in June 2011 (r299); the maze code now says “Rewritten by Joshua Middendorf for full GPL compatibility”. This build (r313) has the rewrite. <span class="src">(<a href="https://code.google.com/archive/p/skills-angband/issues/181">issue 181</a>, <code>src/generate.c</code>)</span></li>
+<li>Priests used to lose skill with “pointy” weapons. The team purged the “pointy priestly penalty” in November 2010 (r202): it made sense in Vanilla (and D&amp;D), where priests fight better than mages, but not in Sangband. <span class="src">(<a href="https://code.google.com/archive/p/skills-angband/issues/97">issue 97</a>)</span></li>
+<li>A team member proposed making the game harder again; one player asked for a difficulty mode instead, having not yet “made it past the 3rd dungeon level”. Sauron got tougher in r225 all the same. <span class="src">(<a href="https://code.google.com/archive/p/skills-angband/issues/103">issue 103</a>, <a href="sangband/changelog.txt">changelog</a> 1.0.2: “Sauron tougher.”)</span></li>
+<li>1.0.2 added three races: the Beorning, the Drúedain (Woses) and the Ent, who can also be a shapechange form. <span class="src">(<a href="sangband/changelog.txt">changelog</a>)</span></li>
+<li>The manual’s title is ASCII art because “ASCII art is cooler”, says a comment in its HTML, next to one about hiding the e-mail address: “I loathe spam.” <span class="src">(<a href="sangband/manual.html">manual.html</a> source)</span></li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>No classes, no levels:</strong> experience is a currency. You spend it on 27 skills at <kbd>$</kbd>; costs rise with level, related skills make each other cheaper, and unpractised skills cost extra.</li>
+<li><strong>Oaths:</strong> commit for good to the Oath of Iron, the Oath of Sorcery, the Covenant of Faith, Yavanna’s Fellowship, the Black Mystery or the Burglars’ Guild, and give up the other paths.</li>
+<li><strong>Four realms</strong> (wizard, priest, druid, necromancer), seven books each; necromancers want the dark, druids change the weather.</li>
+<li><strong>Shapechanges:</strong> 18 forms from goat, mouse and bear to dragon, Ent, angel, vampire and lich, through spells, talents and the Shapechange skill.</li>
+<li><strong>Making things:</strong> forge weapons and armour, brew potions and scrolls, and infuse items with magical essences gathered in the dungeon; burglars steal, pick locks and build traps loaded with your own launcher and ammo.</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li><strong>Language:</strong> C, 225,224 lines in 83 <code>.c</code>/<code>.h</code> files in <code>src/</code> (74 in the main folder, the rest in <code>mac/</code>, <code>win/</code>, <code>unix/</code>); biggest files <code>generate.c</code> (8,419), <code>cmd4.c</code>, <code>spells1.c</code>, <code>cmd6.c</code>, <code>files.c</code>. Files for its own systems: <code>skills.c</code>, <code>talents.c</code>, <code>obj_make.c</code> (forging), <code>traps.c</code>, <code>quest.c</code>, <code>history.c</code>, <code>monattk.c</code>.</li>
+<li><strong>Guided tour:</strong> <code>src/s_guide.txt</code> is Marrick’s map of every source file (“Most everything that’s in UPPERCASE is defined here.”).</li>
+<li><strong>Data:</strong> <code>lib/edit/*.txt</code> (monsters, objects, artifacts, ego items, vaults, terrain, quests, stores, limits) parsed at start; high scores live in <code>lib/apex/</code>; the savefile is named after the character, with a list of characters in <code>user.0.svg</code>.</li>
+<li><strong>Frontends:</strong> Windows (optionally with SDL sound and music), SDL, curses, DOS (<code>main-ibm.c</code>), X11 and GTK, old Mac Carbon. There is a “mindless borg” (<code>borgdumb.c</code>) for profiling, off by default.</li>
+<li><strong>History:</strong> Google Code svn (<code>skills-angband</code>), 191 issues on its tracker (2010–2011). Change logs from 0.8.0 to 1.0.2 in <code>docs/</code>.</li>
+<li><strong>This port:</strong> WebAssembly build with a canvas z-term frontend, the Gervais tiles, sub-windows, the game’s own sounds and music, auto-explore (<kbd>H</kbd>), an Enter command menu and item menus with a cursor. Source: <a href="https://github.com/memmaker/sangband">memmaker/sangband</a> (<a href="https://github.com/memmaker/sangband/compare/230e028...main">our changes</a>).</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<table><tr><th>Thing</th><th>Count</th><th>Notable ones</th></tr><tr><td>Races</td><td>14</td><td>Ent, Beorning, Drúedain, Giant, Dark-Elf beside the Angband ones</td></tr><tr><td>Classes</td><td>0</td><td>you are what your skills say</td></tr><tr><td>Skills</td><td>27</td><td>Jousting, Karate and Wrestling, Blood Dominion, Burglary, Magical Infusion, Shapechange</td></tr><tr><td>Oaths</td><td>6</td><td>Black Mystery (necromancy), Burglars’ Guild</td></tr><tr><td>Realms</td><td>4</td><td>28 books; Necronomicon, Raal’s Tome of Destruction</td></tr><tr><td>Spells</td><td>207</td><td>Wizard 50, Priest 54, Druid 51, Necromancer 52: Feed off Light, Thaumacurse, Winter’s Grip, Call on Varda</td></tr><tr><td>Talents</td><td>50</td><td>Circle Kick, Predict weather, Detect &amp; nab objects, Poison ammo, Dragon-breathing</td></tr><tr><td>Shapes</td><td>18</td><td>goat, mouse, cheetah, vortex, golem, werewolf, lich</td></tr><tr><td>Monsters</td><td>607</td><td>88 uniques (Gyrus, Necromancer-King; the Tarrasque; Tevildo, Prince of Cats) and 11 player-ghost templates</td></tr><tr><td>Object kinds</td><td>535</td><td>essences, the essence pouch, Sprig of Athelas, empty bottles for alchemy</td></tr><tr><td>Artifacts</td><td>136</td><td>plus random artifacts</td></tr><tr><td>Ego types</td><td>132</td><td></td></tr><tr><td>Terrain</td><td>53</td><td>up and down shafts, lava, water, trees</td></tr><tr><td>Vaults</td><td>118</td><td></td></tr><tr><td>Levels</td><td>127</td><td>Sauron on 99, Morgoth on 100; the only 2 fixed quests</td></tr><tr><td>Stores</td><td>7 + home + Inn</td><td>the Inn hands out quests</td></tr></table>
+<p class="src">Counted in <code>lib/edit/*.txt</code> (without index-0 entries), <code>src/tables.c</code> (spells, talents, races), <code>src/defines.h</code> (<code>MAX_DEPTH</code> 128, skills, oaths, shapes).</p>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>Sangband comes with a full manual by Leon Marrick (revision 22, October 2010: birth, skills, magic, combat, burglary, forging, monsters, commands, options, history): the original <a href="sangband/manual.html">manual.html</a>, unchanged. Also the in-game help (<kbd>?</kbd>, all 34 files of <code>lib/help/</code>): <a href="sangband/help.html">in-game help</a>; the one-page <a href="sangband/commands.pdf">command card</a> (PDF, 2007); the <a href="sangband/changelog.txt">change logs</a> (0.8.0 to 1.0.2) and the <a href="sangband/license.txt">licence</a> (GPL 2; parts also under the Moria licence). The manual may be freely copied and converted as long as its copyright is kept.</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol><li><a href="../sangband/">Open the game</a>, choose New Character, a sex and a race (a Dwarf or Half-Troll is forgiving), and press <kbd>Enter</kbd> through the stats.</li>
+<li>Press <kbd>?</kbd> right after you arrive for the game’s tutorial, then <kbd>$</kbd>: a point or two in Wrestling or Karate and in Throwing or Slings.</li>
+<li>Wield your torch (<kbd>w</kbd>), buy flasks of oil or a sling, light armour, Cure Light Wounds potions and Phase Door scrolls.</li>
+<li>Go down: <kbd>&gt;</kbd> walks to the stairs, <kbd>H</kbd> explores for you, Enter lists every command, <kbd>i</kbd> opens item menus. Spend new experience at <kbd>$</kbd> on the skills you use.</li>
+<li>Read the game’s <a href="../sangband/help.html">help page</a> for keys, the skills system and saving.</li></ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>We found no walkthrough: the dungeon is random. The goal is to kill Sauron on level 99 and Morgoth on level 100. Rules of thumb:</p><ul>
+<li>Raise a few skills high rather than many a little; pick an Oath only when you know which path you want.</li>
+<li>Always carry an escape (Phase Door, Teleportation) and Word of Recall; look (<kbd>l</kbd>) at monsters before fighting them.</li>
+<li>The manual’s sections on <a href="sangband/manual.html">skills, Oaths and talents</a> and the <a href="sangband/help.html#tutorial-txt">tutorial</a> are the best start.</li>
+<li>More: the <a href="https://angband.live/forums/forum/angband/variants/50-skills-angband-sangband">Sangband forum</a> on angband.live and RogueBasin’s <a href="https://www.roguebasin.com/index.php/Skills_Angband">Skills Angband</a> page.</li></ul>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<p>All in this build; each marks the character as a cheater, and marked characters get no high score.</p>
+<ul><li><strong>Debug mode</strong> <kbd>Ctrl</kbd>+<kbd>A</kbd>, then a key: create objects, summon monsters, jump levels, map the level (tested: it asks once, then shows “Debug Command:”).</li>
+<li><strong>Wizard mode</strong> <kbd>Ctrl</kbd>+<kbd>W</kbd>: browsers keep that key for closing the tab, so type <kbd>^</kbd> then <kbd>w</kbd> (the game’s “Control:” prefix; tested).</li>
+<li><strong>Cheat options</strong> (<kbd>=</kbd>): know complete monster info, allow multiple lives, allow skill increase past power 100.</li>
+<li><strong>Save scumming:</strong> <em>Export save</em> / <em>Import save</em> on the game page.</li></ul>
+</section>
+</div></body>
+</html>
