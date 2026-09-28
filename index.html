@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>--more-- · classic roguelikes in your browser</title>
 <!--og-->
-<meta name="description" content="38 classic roguelikes, from Rogue and Hack to NetHack, Angband and Crawl, playable in your browser with tiles, sound and auto-explore. Plus a family tree of the genre.">
+<meta name="description" content="39 classic roguelikes, from Rogue and Hack to NetHack, Angband and Crawl, playable in your browser with tiles, sound and auto-explore. Plus a family tree of the genre.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="--More--">
 <meta property="og:title" content="--More-- · classic roguelikes in your browser">
-<meta property="og:description" content="38 classic roguelikes, from Rogue and Hack to NetHack, Angband and Crawl, playable in your browser with tiles, sound and auto-explore. Plus a family tree of the genre.">
+<meta property="og:description" content="39 classic roguelikes, from Rogue and Hack to NetHack, Angband and Crawl, playable in your browser with tiles, sound and auto-explore. Plus a family tree of the genre.">
 <meta property="og:url" content="https://ruzzoli.de/roguelikes/">
 <meta property="og:image" content="https://ruzzoli.de/roguelikes/og/index.png">
 <meta property="og:image:width" content="1200">
@@ -95,6 +95,7 @@ a.yr { color:inherit; text-decoration:none; position:relative; z-index:1; } /* y
   box-shadow:0 14px 40px rgba(0,0,0,.7), 0 0 24px rgba(224,178,79,.25); outline:none; }
 .card img { width:100%; aspect-ratio:12/5; object-fit:cover; image-rendering:pixelated; background:#0c0a0e;
   border-bottom:1px solid var(--line); }
+.card img.splash { object-fit:cover; object-position:50% 0; background:#000; } /* Sangband title screen (403x376): its top = logo + dragon */
 .body { padding:16px 18px 18px; display:flex; flex-direction:column; flex:1; }
 h2 { font:600 22px Cinzel,serif; margin:0 0 4px; color:var(--gold); }
 .tag { color:var(--dim); font-size:12px; margin-bottom:10px; }
@@ -283,6 +284,11 @@ body.tree main { display:none; } body:not(.tree) #tree { display:none; }
     <div class="body"><h2>NPPAngband</h2><div class="tag">Angband variant · <a class="yr" href="https://angband.live/ladder-browse.php?o=3&v=NPPAngband">2011</a></div><div class="ver">Based on NPPAngband 0.5.1 · nppangband/NPPAngband @ b1d1d85</div>
       <p>No Pet Peeves Angband: terrain that changes every fight (lava, deep water, ice, forests and monsters native to them), quests from the Adventurer's Guild, themed levels, monster traps and stealing, on the classic dive to Morgoth.</p>
       <span class="btns"><a class="play" href="nppangband/">&gt; Enter the dungeon</a><a class="play info" href="shrine/nppangband.html">Info</a></span></div></div>
+  <div class="card" data-year="2011">
+    <img src="img/sangband.png" class="splash" alt="Sangband's title screen: the logo over a red dragon and the credits, in ASCII art">
+    <div class="body"><h2>Sangband</h2><div class="tag">Angband variant · <a class="yr" href="https://code.google.com/archive/p/skills-angband/downloads">2011</a></div><div class="ver">Based on Sangband 1.0.2 · skills-angband svn r313 @ 230e028</div>
+      <p>Skills Angband: no classes and no character levels. Experience buys the skills you choose and use, from swords and stealth to four realms of magic, forging, burglary and shapechanging, and an Oath binds you to one path for good. Its own Gervais tiles, sounds and music.</p>
+      <span class="btns"><a class="play" href="sangband/">&gt; Enter the dungeon</a></span></div></div>
   <div class="card" data-year="2012">
     <img src="img/lambdarogue.png" alt="Monster sprites from LambdaRogue's own hand-drawn tiles on a stone floor">
     <div class="body"><h2>LambdaRogue</h2><div class="tag">Graphical roguelike RPG · <a class="yr" href="https://sourceforge.net/projects/mac-lambdarogue/files/LambdaRogue%201.6.4/">2012</a></div><div class="ver">Based on LambdaRogue 1.6.4 · source from the Google Code archive (2012-11-17)</div>
@@ -369,6 +375,8 @@ body.tree main { display:none; } body:not(.tree) #tree { display:none; }
                 <li data-year="2017"><span class="n">ComPosband</span> <span class="y">2017 · Gwilim Owen</span><ul>
                   <li data-year="2020"><a class="n" href="frogcomposband/">FrogComposband</a><a class="shrine" href="shrine/frogcomposband.html" title="Shrine: history, stats, manual">✦</a> <span class="y"><a class="yr" href="https://angband.live/forums/forum/angband/variants/9634-announce-frogcomposband-7-1-salmiak-released">2020</a> · Antero Sulka (sulkasormi) et al.</span></li></ul></li></ul></li></ul></li></ul></li>
           <li data-year="2005"><a class="n" href="zangband/">Zangband 2.7.5</a><a class="shrine" href="shrine/zangband.html" title="Shrine: history, stats, manual">✦</a> <span class="y"><a class="yr" href="https://www.roguebasin.com/index.php/Angband_version_history">2005</a> · last DevTeam release; 2.7.6 by JJ Mifsud</span></li></ul></li>
+        <li data-year="1994"><span class="n">Sangband</span> <span class="y">1994 · Chris Petit, from Angband 2.5 via his Bangband; Michael Gorse, Julian Lighton</span><ul>
+          <li data-year="2011"><a class="n" href="sangband/">Sangband 1.0.2</a> <span class="y"><a class="yr" href="https://code.google.com/archive/p/skills-angband/downloads">2011</a> · Leon Marrick's 1.0 (2007, with Oangband code), Joshua Middendorf</span></li></ul></li>
         <li data-year="2000"><span class="n">GSN2Band</span> <span class="y">2000 · Gwidon S. Naskrent, from Angband 2.9.1</span><ul>
           <li data-year="2001"><a class="n" href="easyband/">Easyband</a><a class="shrine" href="shrine/easyband.html" title="Shrine: history, stats, manual">✦</a> <span class="y"><a class="yr" href="https://www.roguebasin.com/index.php/List_of_Angband_variants">2001</a> · Andres Zanzani, from GSN2Band 1.0</span></li></ul></li>
         <li data-year="2000"><span class="n">Angband 3.0</span><ul>

@@ -17,7 +17,7 @@ pages = {  # file: (title, description[, image]); no image = screenshot of the l
     'leaderboard.html': ('Leaderboards · --More--', 'Top ten per game: highest scores, deepest dives and quickest wins.'),
 }
 # Shrines: title from <title>, description from the game's card text on the index page.
-for card in re.findall(r'<div class="card">.*?</div></div>', index, re.S):
+for card in re.findall(r'<div class="card"[^>]*>.*?</div></div>', index, re.S):
     m = re.search(r'href="shrine/([^"]+)"', card)
     if not m: continue
     t = re.search(r'<title>(.*?)</title>', (here / 'shrine' / m[1]).read_text())[1]
@@ -51,7 +51,7 @@ for f, (title, desc, *card) in pages.items():
 # Gameplay pages live in each game's repo (web/index.html); they reuse the card image.
 repo = {re.search(r'roguelikes/([\w-]+)', d.read_text())[1]: d.parent / 'index.html'
         for d in here.parent.glob('*/web/deploy.sh') if re.search(r'roguelikes/([\w-]+)', d.read_text())}
-for card in re.findall(r'<div class="card">.*?</div></div>', index, re.S):
+for card in re.findall(r'<div class="card"[^>]*>.*?</div></div>', index, re.S):
     g = re.search(r'class="play" href="([^"/]+)/"', card)
     if not g or g[1] not in repo or not repo[g[1]].exists(): print('skip', g and g[1]); continue
     name = html.unescape(re.search(r'<h2>(.*?)</h2>', card)[1])

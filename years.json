@@ -26,6 +26,7 @@
     "tome2": {"year": 2008, "src": "https://github.com/tome2/tome2"},
     "zapm": {"year": 2010, "src": "https://www.roguebasin.com/index.php/ZapM"},
     "nppangband": {"year": 2011, "src": "https://angband.live/ladder-browse.php?o=3&v=NPPAngband"},
+    "sangband": {"year": 2011, "src": "https://code.google.com/archive/p/skills-angband/downloads"},
     "faangband": {"year": 2021, "src": "https://www.roguebasin.com/index.php/List_of_Angband_variants"},
     "quickband": {"year": 2013, "src": "https://angband.live/ladder/ladder-show.php?id=15084"},
     "lambdarogue": {"year": 2012, "src": "https://sourceforge.net/projects/mac-lambdarogue/files/LambdaRogue%201.6.4/"},
@@ -66,6 +67,7 @@
     "DoomRL": {"year": 2002},
     "Dungeon Crawl Stone Soup": {"year": 2006},
     "Brogue": {"year": 2009},
-    "Zangband": {"year": 1994}
+    "Zangband": {"year": 1994},
+    "Sangband": {"year": 1994}
   }
 }
