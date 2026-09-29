@@ -19,6 +19,7 @@ s.textContent=`
 #nav a{display:block;font:600 18px Cinzel,serif;color:var(--gold);text-decoration:none;padding:10px 4px;border-bottom:1px solid var(--line)}
 #nav a:hover,#nav a[aria-current]{color:var(--ember)}
 #nav .slot{display:block;font:600 18px Cinzel,serif;color:var(--dim);padding:10px 4px;border-bottom:1px solid var(--line)}
+#nav hr{border:0;height:2px;margin:14px 0;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.6}
 #nav .depth{position:absolute;left:20px;bottom:20px;color:var(--dim);font:12px "IBM Plex Mono",monospace}
 #navshade{position:fixed;inset:0;z-index:35;background:rgba(0,0,0,.5)} #navshade[hidden]{display:none}`;
 document.head.append(s);
@@ -31,7 +32,7 @@ function menu(){  // family filters (./?f=Name) come first, then the other pages
   const link=(h,t,cur)=>`<a href="${h}"${cur?' aria-current="page"':''}>${t}</a>`;
   n.innerHTML=link('./','All games',here==='index.html'&&!f)
     +progress.families.map(x=>(p.families||[]).includes(x)?link('./?f='+encodeURIComponent(x),x,f===x):'<span class="slot">?</span>').join('')
-    +[['stats.html','Visitors'],['graveyard.html','Graveyard'],['leaderboard.html','Leaderboards']].map(([h,t])=>link(h,t,h===here)).join('')
+    +'<hr>'+[['stats.html','Visitors'],['graveyard.html','Graveyard'],['leaderboard.html','Leaderboards']].map(([h,t])=>link(h,t,h===here)).join('')
     +`<div class="depth">Reached depth ${p.deepest||1} of ${p.max||5}</div>`;
 }
 menu(); document.addEventListener('progress',menu);

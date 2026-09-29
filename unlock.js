@@ -148,6 +148,8 @@ body.ask-name > :not(#ask-name) { display:none !important; }
     } finally {
       for (const ev of ['keydown', 'wheel', 'touchmove']) removeEventListener(ev, block, { capture: true });
       shield.remove();
+      window.scrollTo({ top: 0, behavior: 'smooth' });  // back to the game, ready to play on
+      document.getElementById('minirogue')?.focus({ preventScroll: true });
     }
   }
 
