@@ -143,8 +143,8 @@ body.ask-name > :not(#ask-name) { display:none !important; }
     try {
       if (tree || !fresh.length) await announce(names);  // the tree: first the news, then the light
       if (!fresh.length) return;
-      await scrollTo(fresh);
-      await (tree ? torch(fresh) : deal(fresh, () => announce(names)));  // the cards: between dealing and turning
+      if (tree) { await scrollTo(fresh); await torch(fresh); }
+      else await deal(fresh, () => announce(names));  // the cards: between dealing and turning
     } finally {
       for (const ev of ['keydown', 'wheel', 'touchmove']) removeEventListener(ev, block, { capture: true });
       shield.remove();
@@ -175,41 +175,51 @@ body.ask-name > :not(#ask-name) { display:none !important; }
     });
   }
 
-  async function deal(cards, between) {  // thrown face-down from the bottom edge, between(), then turned over left to right
-    const backs = cards.map((c) => {
+  async function deal(cards, between) {  // row by row, left to right, the view following: thrown face-down
+    // from the bottom edge, between(), then turned over in the same order
+    const top = (c) => Math.round(c.getBoundingClientRect().top + scrollY);
+    const rows = [];
+    for (const c of [...cards].sort((a, b) => top(a) - top(b) || a.getBoundingClientRect().left - b.getBoundingClientRect().left)) {
+      if (rows.length && top(rows.at(-1)[0]) === top(c)) rows.at(-1).push(c); else rows.push([c]);
+    }
+    const backs = new Map(cards.map((c) => {
       const b = document.createElement('div');
       b.className = 'back';
       b.textContent = '?';
       c.append(b);
-      return b;
-    });
-    const throws = cards.map((c, i) => {
-      const r = c.getBoundingClientRect();
-      const dx = innerWidth / 2 - (r.left + r.width / 2) + (Math.random() - 0.5) * 120, dy = innerHeight + 40 - r.top;
-      const spin = (Math.random() - 0.5) * 60;
-      const a = c.animate([
-        { transform: `translate(${dx}px,${dy}px) rotate(${spin}deg) scale(.7)` },
-        { transform: `rotate(${-spin / 12}deg)`, offset: 0.85 },
-        { transform: 'none' },
-      ], { duration: 520, delay: i * 140, easing: 'cubic-bezier(.2,.7,.3,1)', fill: 'backwards' });
-      c.classList.remove('pending');
-      return a.finished;
-    });
-    await Promise.all(throws);
-    await between();
-    const order = cards.map((c, i) => [c, backs[i], c.getBoundingClientRect()])
-      .sort((a, b) => a[2].left - b[2].left || a[2].top - b[2].top);
-    await Promise.all(order.map(async ([c, back], i) => {
-      await wait(i * 160);
-      await c.animate([{ transform: 'perspective(900px) rotateY(0)' }, { transform: 'perspective(900px) rotateY(90deg)' }],
-        { duration: 180, easing: 'ease-in' }).finished;
-      back.remove();
-      await c.animate([{ transform: 'perspective(900px) rotateY(-90deg)' }, { transform: 'perspective(900px) rotateY(0)' }],
-        { duration: 220, easing: 'ease-out' }).finished;
+      return [c, b];
     }));
+    for (const row of rows) {
+      await scrollTo(row);
+      await Promise.all(row.map((c, i) => {
+        const r = c.getBoundingClientRect();
+        const dx = innerWidth / 2 - (r.left + r.width / 2) + (Math.random() - 0.5) * 120, dy = innerHeight + 40 - r.top;
+        const spin = (Math.random() - 0.5) * 60;
+        const a = c.animate([
+          { transform: `translate(${dx}px,${dy}px) rotate(${spin}deg) scale(.7)` },
+          { transform: `rotate(${-spin / 12}deg)`, offset: 0.85 },
+          { transform: 'none' },
+        ], { duration: 520, delay: i * 140, easing: 'cubic-bezier(.2,.7,.3,1)', fill: 'backwards' });
+        c.classList.remove('pending');
+        return a.finished;
+      }));
+    }
+    await between();
+    for (const row of rows) {
+      await scrollTo(row);
+      await Promise.all(row.map(async (c, i) => {
+        await wait(i * 160);
+        await c.animate([{ transform: 'perspective(900px) rotateY(0)' }, { transform: 'perspective(900px) rotateY(90deg)' }],
+          { duration: 180, easing: 'ease-in' }).finished;
+        backs.get(c).remove();
+        await c.animate([{ transform: 'perspective(900px) rotateY(-90deg)' }, { transform: 'perspective(900px) rotateY(0)' }],
+          { duration: 220, easing: 'ease-out' }).finished;
+      }));
+    }
   }
 
-  async function torch(lis) {  // a light sweeps down the tree, lighting the new entries it passes
+
+  async function torch(lis) {  // a light sweeps down the tree, lighting the new entries it passes, the view following
     const tree = document.getElementById('tree'), t0 = tree.getBoundingClientRect().top;
     const y = (li) => li.getBoundingClientRect().top - t0 + 12;
     const from = Math.min(...lis.map(y)) - 60, to = Math.max(...lis.map(y)) + 60, speed = 0.5;  // px per ms
@@ -222,6 +232,13 @@ body.ask-name > :not(#ask-name) { display:none !important; }
     for (const li of lis) {
       setTimeout(() => { li.classList.remove('dark'); li.classList.add('lit'); }, (y(li) - from) / (to - from) * duration);
     }
+    const follow = () => {  // the view keeps the light a little above the middle, only ever scrolling down
+      if (sweep.playState !== 'running') return;
+      const want = light.getBoundingClientRect().top + 70 + scrollY - innerHeight * 0.45;
+      if (want > scrollY) window.scrollTo({ top: want, behavior: 'instant' });
+      requestAnimationFrame(follow);
+    };
+    requestAnimationFrame(follow);
     await sweep.finished;
     light.remove();
     await wait(1600);  // the last glow fades
