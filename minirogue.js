@@ -113,7 +113,8 @@
       name: 'a Short Sword', inv: { sym: '|', color: '#ffffff' } },
     armour: { msg: 'You put on leather armour.', defend: (dmg) => dmg - 4,
       glyph: { unix: ']', epyx: '◘' }, name: 'Soft Leather Armour', inv: { sym: '(', color: '#8f5a2b' } },
-    sandal: { msg: 'You put on the sandal.', cls: 'mr-sandal', defend: (dmg) => dmg,  // worn; takes nothing off glyph: { unix: '[', epyx: '∩' },
+    sandal: { msg: 'You put on the sandal.', cls: 'mr-sandal', defend: (dmg) => dmg,  // worn; takes nothing off
+      glyph: { unix: '[', epyx: '∩' },
       name: 'a Sandal', inv: { sym: ']', color: '#c7a36b' } },
   };
 
