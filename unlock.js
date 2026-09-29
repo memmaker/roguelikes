@@ -33,6 +33,12 @@ body.ask-name > :not(#ask-name) { display:none !important; }
 .card .back { position:absolute; inset:0; z-index:2; display:flex; align-items:center; justify-content:center;
   background:repeating-linear-gradient(45deg,#15121a 0 10px,#1b1720 10px 20px); border:2px solid var(--gold); border-radius:inherit;
   font:800 96px Cinzel,serif; color:var(--gold); text-shadow:0 0 24px rgba(224,178,79,.6); }
+#announce { position:fixed; inset:0; z-index:101; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:8px; padding:16px; text-align:center; pointer-events:none; background:radial-gradient(ellipse at center,rgba(0,0,0,.75),transparent 70%);
+  font:800 clamp(22px,5vw,48px) Cinzel,serif; color:var(--gold); }
+#announce span { display:inline-block; animation:letter .5s cubic-bezier(.2,1.6,.4,1) backwards; }
+@keyframes letter { from { opacity:0; transform:translateY(.6em) scale(1.8); color:#fff; text-shadow:0 0 24px #ffb45a,0 0 48px #ff7a2a; } }
+#announce div { text-shadow:0 0 18px rgba(224,178,79,.55),0 2px 0 #000; }
 #tree { position:relative; }
 #torch { position:absolute; left:-10%; right:-10%; height:140px; margin-top:-70px; pointer-events:none; z-index:3;
   background:radial-gradient(ellipse at center,rgba(255,170,70,.28),rgba(255,122,42,.1) 45%,transparent 70%); }
@@ -101,13 +107,14 @@ body.ask-name > :not(#ask-name) { display:none !important; }
     }
     if (p.families.length === had) progress.save(p); else unlock(p);
   });
-  function unlock(p) {  // save p, animating the games it newly shows
+  function unlock(p) {  // save p, announcing its new families and animating the games they show
+    const names = p.families.filter((x) => !(progress.get().families || []).includes(x));
     const hidden = new Set(document.querySelectorAll('.card.locked, #tree li.locked'));
     progress.save(p);  // apply() runs now: the newly shown cards and entries wait hidden for their animation
     const tree = document.body.classList.contains('tree');
     const fresh = [...document.querySelectorAll(tree ? '#tree li' : 'main .card')].filter((x) => hidden.has(x) && !x.classList.contains('locked'));
     fresh.forEach((x) => x.classList.add(tree ? 'dark' : 'pending'));
-    if (fresh.length) reveal(fresh, tree);
+    reveal(names, fresh, tree);
   }
 
   // debug keys: F5 unlocks every family, F10 forgets everything this page stored
@@ -128,18 +135,32 @@ body.ask-name > :not(#ask-name) { display:none !important; }
   // cards, or sweep a torch down the tree
   const wait = (ms) => new Promise((ok) => setTimeout(ok, ms));
   const block = (e) => { e.preventDefault(); e.stopImmediatePropagation(); };
-  async function reveal(fresh, tree) {
+  async function reveal(names, fresh, tree) {
     const shield = document.createElement('div');
     shield.id = 'unlocking';
     document.body.append(shield);
     for (const ev of ['keydown', 'wheel', 'touchmove']) addEventListener(ev, block, { capture: true, passive: false });
     try {
+      if (tree || !fresh.length) await announce(names);  // the tree: first the news, then the light
+      if (!fresh.length) return;
       await scrollTo(fresh);
-      await (tree ? torch(fresh) : deal(fresh));
+      await (tree ? torch(fresh) : deal(fresh, () => announce(names)));  // the cards: between dealing and turning
     } finally {
       for (const ev of ['keydown', 'wheel', 'touchmove']) removeEventListener(ev, block, { capture: true });
       shield.remove();
     }
+  }
+
+  async function announce(names) {  // "Rogue family unlocked!" mid screen, letter by letter
+    const box = document.createElement('div');
+    box.id = 'announce';
+    let n = 0;
+    box.innerHTML = names.map((f) => '<div>' + [...`${f} family unlocked!`]
+      .map((ch) => `<span style="animation-delay:${n++ * 45}ms">${ch === ' ' ? '&nbsp;' : ch}</span>`).join('') + '</div>').join('');
+    document.body.append(box);
+    await wait(n * 45 + 1400);
+    await box.animate([{ opacity: 1 }, { opacity: 0, transform: 'scale(1.08)' }], { duration: 400, easing: 'ease-in' }).finished;
+    box.remove();
   }
 
   function scrollTo(els) {  // smoothly bring all of els into view (their top, if they don't fit)
@@ -154,7 +175,7 @@ body.ask-name > :not(#ask-name) { display:none !important; }
     });
   }
 
-  async function deal(cards) {  // thrown face-down from the bottom edge, then turned over left to right
+  async function deal(cards, between) {  // thrown face-down from the bottom edge, between(), then turned over left to right
     const backs = cards.map((c) => {
       const b = document.createElement('div');
       b.className = 'back';
@@ -175,7 +196,7 @@ body.ask-name > :not(#ask-name) { display:none !important; }
       return a.finished;
     });
     await Promise.all(throws);
-    await wait(250);
+    await between();
     const order = cards.map((c, i) => [c, backs[i], c.getBoundingClientRect()])
       .sort((a, b) => a[2].left - b[2].left || a[2].top - b[2].top);
     await Promise.all(order.map(async ([c, back], i) => {
