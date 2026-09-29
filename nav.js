@@ -22,6 +22,7 @@ s.textContent=`
 #nav a:has(+hr),#nav .slot:has(+hr){border-bottom:0}
 #nav hr{border:0;height:2px;margin:14px 0;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.6}
 #nav .depth{position:absolute;left:20px;bottom:20px;color:var(--dim);font:12px "IBM Plex Mono",monospace}
+#nav .pname{color:var(--gold);font:600 14px Cinzel,serif;margin-bottom:4px}
 #navshade{position:fixed;inset:0;z-index:35;background:rgba(0,0,0,.5)} #navshade[hidden]{display:none}`;
 document.head.append(s);
 const here=location.pathname.split('/').pop()||'index.html';
@@ -34,7 +35,7 @@ function menu(){  // family filters (./?f=Name) come first, then the other pages
   n.innerHTML=link('./','All games',here==='index.html'&&!f)
     +progress.families.map(x=>(p.families||[]).includes(x)?link('./?f='+encodeURIComponent(x),x,f===x):'<span class="slot">?</span>').join('')
     +'<hr>'+[['stats.html','Visitors'],['graveyard.html','Graveyard'],['leaderboard.html','Leaderboards']].map(([h,t])=>link(h,t,h===here)).join('')
-    +`<div class="depth">Reached depth ${p.deepest||1} of ${p.max||5}</div>`;
+    +`<div class="depth">${p.name?`<div class="pname">${p.name.replace(/[&<>"]/g,c=>`&#${c.charCodeAt(0)};`)}</div>`:''}Reached depth ${p.deepest||1} of ${p.max||5}</div>`;
 }
 menu(); document.addEventListener('progress',menu);
 const set=o=>{n.classList.toggle('open',o);sh.hidden=!o;b.setAttribute('aria-expanded',o);if(o)n.querySelector('a').focus();};

@@ -17,7 +17,10 @@
 <meta name="twitter:card" content="summary_large_image">
 <!--/og-->
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script>  // hidden until the deferred scripts (unlock.js) have hidden the locked games; they run before DOMContentLoaded
+{ const h=document.documentElement; h.classList.add('boot'); addEventListener('DOMContentLoaded',()=>h.classList.remove('boot')); }</script>
 <style>
+.boot body { visibility:hidden; }
 :root { --bg:#0b0a0d; --stone:#17151a; --line:#2e2a33; --text:#d9d4c7; --dim:#8d8676; --gold:#e0b24f; --ember:#ff7a2a; }
 * { box-sizing:border-box; }
 body { margin:0; min-height:100vh; color:var(--text); font:15px/1.55 "IBM Plex Mono",monospace;
