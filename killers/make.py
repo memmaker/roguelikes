@@ -407,7 +407,21 @@ def grog():                                           # text only, black on whit
         img.save(os.path.join(d, slug(cn + ' the ' + ty if cn else ty) + '.png'), optimize=True)
     print('grog', len(os.listdir(d)))
 
+def nlarn():                                          # Amiga 8x16 sheet (web/tiles.png), port/tilemap.h mon_tile[] by MONSTER_TYPE_ENUM order; name = monster_data .name
+    n = G + '/nlarn'
+    hdr = open(n + '/inc/monsters.h').read().split('#define MONSTER_TYPE_ENUM')[1].split('DECLARE_ENUM')[0]
+    ids = [i for i in re.findall(r'MT\((MT_\w+),', hdr) if i != 'MT_MAX']
+    names = dict(re.findall(r'/\* (MT_\w+) \*/\s*\.name = N_\("([^"]+)"\)', open(n + '/src/monsters.c').read()))
+    tiles = list(map(int, re.search(r'mon_tile\[\d+\] = \{([^}]*)', open(n + '/port/tilemap.h').read()).group(1).split(',')))
+    img, d = Image.open(n + '/web/tiles.png').convert('RGBA'), os.path.join(HERE, 'nlarn')
+    os.makedirs(d, exist_ok=True)
+    for i, t in zip(ids, tiles):
+        if i not in names or t < 0: continue
+        sq = Image.new('RGBA', (16, 16)); sq.paste(img.crop((t % 32 * 8, t // 32 * 16, t % 32 * 8 + 8, t // 32 * 16 + 16)), (4, 0))
+        sq.resize((32, 32), Image.NEAREST).save(os.path.join(d, slug(names[i]) + '.png'), optimize=True)
+    print('nlarn', len(os.listdir(d)))
+
 if sys.argv[1:]:
     for a in sys.argv[1:]: globals()[a]()
 else:
-    rogue(); hack(); umoria(); urogue(); larn(); ularn(); rogue36(); srogue(); roguepc(); tome2(); tinyangband(); quickband(); arogue58(); arogue77(); xrogue(); boss(); omega(); prime(); dynahack(); silq(); tactical(); crawl(); zapm(); alphaman(); decker(); nethack13d(); nethack50(); slashem(); zangband(); frogcomposband(); forays(); lambdarogue(); hengband(); easyband(); mag(); tactical('faangband'); nppangband(); prospector(); sangband()
+    rogue(); hack(); umoria(); urogue(); larn(); ularn(); rogue36(); srogue(); roguepc(); tome2(); tinyangband(); quickband(); arogue58(); arogue77(); xrogue(); boss(); omega(); prime(); dynahack(); silq(); tactical(); crawl(); zapm(); alphaman(); decker(); nethack13d(); nethack50(); slashem(); zangband(); frogcomposband(); forays(); lambdarogue(); hengband(); easyband(); mag(); tactical('faangband'); nppangband(); prospector(); sangband(); nlarn()
