@@ -179,7 +179,6 @@
     { // 1: a sword and a bat; stairs down in the bat's room
       start: [2, 3],
       setup(g) {
-        walledCorridor(g);
         g.spawn('bat', [2, 25]);
         g.drop('sword', [3, 4]);
         g.stairsDown([3, 26]);
@@ -191,7 +190,6 @@
       // room (unless you found it first: search next to it), which opens stairs up where
       // you came in, and leaves by them. The stairs down in the west room are unfinished.
       setup(g, arrival) {
-        walledCorridor(g);
         g.lv.upAt = arrival;
         // the lever hides in a wall of the east room, next to its floor
         g.lv.lever = g.lever(g.randomWall(([, c]) => c >= 22), 'openStairsUp', { hidden: true, once: true, at: arrival });
@@ -241,7 +239,7 @@
         g.stairsDown([2, 26]);
         g.lever(g.randomWall(([, c]) => c < CORRIDOR.from), 'knightIntoGorge', { hidden: true, once: true });
       },
-      overlay: (g, p, T) => bridge(g, p, T),
+      overlay: (g, p, T) => gorge(g, p, T),
     },
     { // 4: the retracted bridge. You arrive in the east room; the corridor is gorge, and a
       // lever stands in the west room across it. Anything that hits the lever (throw
@@ -252,18 +250,15 @@
         g.lever([CORRIDOR.row, 2], 'toggleBridge');
         for (let c = CORRIDOR.from; c <= CORRIDOR.to; c++) g.setTile([CORRIDOR.row, c], ' ');
       },
-      overlay: (g, p, T) => bridge(g, p, T),
+      overlay: (g, p, T) => gorge(g, p, T),
     },
   ];
-  // walls along the corridor (levels without a gorge), so an open corridor reads as one
-  function walledCorridor(g) {
-    for (let c = CORRIDOR.from; c <= CORRIDOR.to; c++) {
-      g.setTile([CORRIDOR.row - 1, c], '-'); g.setTile([CORRIDOR.row + 1, c], '-');
-    }
-  }
-  // the brown wooden bridge (levels 3 and 4): corridor tiles without an item on them
-  function bridge(g, [r, c], T) {
-    if (g.tileAt([r, c]) === '#' && !g.itemAt([r, c])) return `<i class="mr-bridge">${T.tile(r, c, '#')}</i>`;
+  // the gorge between the rooms (levels 3 and 4): open space along the corridor is drawn
+  // as the gorge (T.gorge), corridor tiles without an item on them as a brown wooden bridge
+  function gorge(g, [r, c], T) {
+    const ch = g.tileAt([r, c]);
+    if (ch === '#' && !g.itemAt([r, c])) return `<i class="mr-bridge">${T.tile(r, c, '#')}</i>`;
+    if (ch === ' ' && Math.abs(r - CORRIDOR.row) <= 1 && c >= CORRIDOR.from && c <= CORRIDOR.to) return `<i class="mr-gorge">${T.gorge}</i>`;
   }
 
   // ---------------------------------------------------------------- engine
@@ -546,18 +541,15 @@
   // Themes: Unix Rogue (plain ASCII) and IBM PC Epyx Rogue (CP437 glyphs, CGA colours).
   // Picked at random per page load; hidden hotkey: t (while the map has focus).
   const THEMES = {
-    unix: { at: '@', stairs: '%', tile: (r, c, ch) => esc(ch) },
-    epyx: { at: '☺', stairs: '≡', tile: (r, c, ch) => {
+    unix: { at: '@', stairs: '%', gorge: ':', tile: (r, c, ch) => esc(ch) },
+    epyx: { at: '☺', stairs: '≡', gorge: '░', tile: (r, c, ch) => {
       if (ch === '-') {  // corners: a wall below or above makes this a corner
         const down = at(r + 1, c) === '|', up = at(r - 1, c) === '|';
         const left = at(r, c + 1) === '-';  // wall continues right → left-hand corner
         ch = down ? (left ? '╔' : '╗') : up ? (left ? '╚' : '╝') : '═';
         return `<i class="mr-w">${ch}</i>`;
       }
-      if (ch === '|') {  // a room wall a corridor wall joins: a T
-        const right = at(r, c + 1) === '-', left = at(r, c - 1) === '-';
-        return `<i class="mr-w">${right && !left ? '╠' : left && !right ? '╣' : '║'}</i>`;
-      }
+      if (ch === '|') return '<i class="mr-w">║</i>';
       if (ch === '+') return '<i class="mr-w">╬</i>';
       if (ch === '#') return '<i class="mr-c">▒</i>';
       if (ch === '.') return '<i class="mr-f">·</i>';
