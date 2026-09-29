@@ -2,7 +2,7 @@
 """Killer art (server/CONTRACT.md): crop each monster's tile from the sheet
 the web port shows by default into killers/<g>/<slug>.png."""
 import os, re, sys
-from PIL import Image
+from PIL import Image, ImageChops
 
 G = os.path.expanduser('~/Games')
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -443,7 +443,24 @@ def nlarn():                                          # Amiga 8x16 sheet (web/ti
         sq.resize((32, 32), Image.NEAREST).save(os.path.join(d, slug(names[i]) + '.png'), optimize=True)
     print('nlarn', len(os.listdir(d)))
 
+def ia():                                             # own 20x20 tiles (one PNG per TileId, white on black), tinted by monsters.xml <color> like the game's colour mod
+    a = G + '/ia'
+    src = open(a + '/src/gfx.cpp').read()
+    ids = dict(re.findall(r'\{"(TILE_\w+)", gfx::TileId::(\w+)\}', src))
+    files = dict(re.findall(r'\{gfx::TileId::(\w+), "([^"]+)"\}', src))
+    cols = dict(re.findall(r'name="(\w+)" rgb_hex="(\w+)"', open(a + '/installed_files/data/colors/colors.xml').read()))
+    d = os.path.join(HERE, 'ia'); os.makedirs(d, exist_ok=True)
+    for m in re.findall(r'<monster id=.*?</monster>', open(a + '/installed_files/data/monsters.xml').read(), re.S):
+        name = re.sub(r'^(an?|the) ', '', re.search(r'<name_a>(.*?)</name_a>', m).group(1), flags=re.I)
+        tile, col = re.search(r'<tile>(\w+)</tile>', m), re.search(r'<color>(\w+)</color>', m)
+        if not name or not tile: continue
+        im = Image.open('%s/installed_files/gfx/tiles/20x20/%s' % (a, files[ids[tile.group(1)]])).convert('RGB')
+        out = ImageChops.multiply(im, Image.new('RGB', im.size, '#' + cols[col.group(1)])).convert('RGBA')
+        out.putalpha(im.convert('L').point(lambda v: 255 if v else 0))   # black = the game's colour key
+        out.resize((32, 32), Image.NEAREST).save(os.path.join(d, slug(name) + '.png'), optimize=True)
+    print('ia', len(os.listdir(d)))
+
 if sys.argv[1:]:
     for a in sys.argv[1:]: globals()[a]()
 else:
-    rogue(); hack(); umoria(); urogue(); larn(); ularn(); rogue36(); srogue(); roguepc(); tome2(); tinyangband(); quickband(); arogue58(); arogue77(); xrogue(); boss(); omega(); prime(); dynahack(); silq(); tactical(); crawl(); zapm(); alphaman(); decker(); nethack13d(); nethack50(); zeldhack(); slashem(); zangband(); frogcomposband(); forays(); lambdarogue(); hengband(); easyband(); mag(); tactical('faangband'); nppangband(); prospector(); sangband(); nlarn(); evilhack()
+    rogue(); hack(); umoria(); urogue(); larn(); ularn(); rogue36(); srogue(); roguepc(); tome2(); tinyangband(); quickband(); arogue58(); arogue77(); xrogue(); boss(); omega(); prime(); dynahack(); silq(); tactical(); crawl(); zapm(); alphaman(); decker(); nethack13d(); nethack50(); zeldhack(); slashem(); zangband(); frogcomposband(); forays(); lambdarogue(); hengband(); easyband(); mag(); tactical('faangband'); nppangband(); prospector(); sangband(); nlarn(); evilhack(); ia()
