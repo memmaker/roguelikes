@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Ground Gives Way · Shrine</title>
+<!--og-->
+<meta name="description" content="A two-hour roguelike with no classes or experience: you grow through items, enchantments and paid training, on the way down to an ancient artifact and back up to the surface.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="--More--">
+<meta property="og:title" content="The Ground Gives Way · Shrine">
+<meta property="og:description" content="A two-hour roguelike with no classes or experience: you grow through items, enchantments and paid training, on the way down to an ancient artifact and back up to the surface.">
+<meta property="og:url" content="https://ruzzoli.de/roguelikes/shrine/tggw.html">
+<meta property="og:image" content="https://ruzzoli.de/roguelikes/img/tggw.png">
+<meta name="twitter:card" content="summary_large_image">
+<!--/og-->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>The Ground Gives Way</h1>
+  <p class="epi">A coffee-break roguelike with a lot of stuff</p>
+  <a class="play" href="../tggw/">&gt; Enter the dungeon</a>
+</header>
+<div class="facts">
+  <div><b>Date of birth</b><span>2014</span> · v2.6 in 2022</div>
+  <div><b>Creator</b><span>BtS</span> (one developer)</div>
+  <div><b>Language</b><span>C++</span> MSVC, PDCurses</div>
+  <div><b>Platform</b><span>Windows console</span> 32-bit x86</div>
+</div>
+<nav class="toc"><a href="#lineage">Lineage</a><a href="#credits">Credits</a><a href="#trivia">Trivia</a><a href="#usp">What's unique</a><a href="#code">Code dive</a><a href="#stats">Stats</a><a href="#manual">Manual</a><a href="#start">Getting started</a><a href="#help">Help</a><a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p>The developer's site names no ancestor, so the tree lists it as its own root. It follows the Rogue tradition (a turn-based dungeon crawl in a curses console) but replaces classes, races and experience with items, enchantments and paid training. Releases: v2.4.2 (Windows XP), v2.5.2, v2.6 (2022-01-22, the version played here).</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table>
+<tr><td>BtS</td><td>Design, code and content, 2014–2022 (readme.txt)</td></tr>
+<tr><td>PDCurses</td><td>The console library the game is linked with (the shipped <code>pdcurses.dll</code>, 2008 build)</td></tr>
+<tr><td>v86</td><td>The x86 emulator in this web version (Fabian Hemmer, BSD-2-Clause)</td></tr>
+<tr><td>memmaker</td><td>Web port: Windows and curses compatibility layer, windows, saves</td></tr>
+</table>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>The game is free to play, and its developer has said the source code will stay closed. <span class="src">(<a href="https://www.thegroundgivesway.com/">thegroundgivesway.com</a>)</span></li>
+<li>Its win screen thanks you for bringing "the ancient trombone-like thing" to the surface, and hopes you can get home "without the ground giving way again". <span class="src">(the game's own text)</span></li>
+<li>If the game is not shut down properly it offers to recover from the last autosave, and calls that <em>cheating</em> unless the game crashed. <span class="src">(the game's own text)</span></li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>No classes, races or experience.</strong> Strength comes from items and their enchantments and from paid training.</li>
+<li><strong>Effects with durations by source</strong> (Permanent, Equipment, Temporary, Context, Instant), shown in the Attributes table. <span class="src">(reference.html shipped with the game)</span></li>
+<li><strong>Thievery, noise and vision</strong> decide stealth: <code>5 + vision − noise</code> drives traps, stealing and thief weapons. <span class="src">(reference.html)</span></li>
+<li><strong>A coffee-break game:</strong> about two hours from start to the artifact and back.</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li><strong>Binary:</strong> one 32-bit PE executable of 2,997,760 bytes (.text 2.4 MB) plus <code>pdcurses.dll</code> (112 KB). MSVC C++ with the static runtime; no packer. The source is closed, so nothing here comes from source.</li>
+<li><strong>Interface:</strong> it imports only 40 PDCurses functions and 128 kernel32 functions. It builds one curses window per pane (Map, Attributes, Seen, Target, Item, Messages, Status, backpack, equipment).</li>
+<li><strong>Background thread:</strong> a 200 ms ticker thread; saving works only when it runs.</li>
+<li><strong>This port:</strong> the unmodified exe runs inside the v86 emulator; a host layer implements the kernel32 subset and the 40 curses functions and hands each window to the page as its own text pane. Source of the layer: <a href="https://github.com/memmaker/tggw-cloud">memmaker/tggw-cloud</a> (private; it holds no part of the game).</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<p>Counts from the developer's site, not from code (the source is closed): about 700 items and more than 180 monsters. <span class="src">(<a href="https://www.thegroundgivesway.com/">thegroundgivesway.com</a>)</span></p>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>The manual and FAQ are on the developer's site: <a href="https://www.thegroundgivesway.com/manual/">manual</a>, <a href="https://www.thegroundgivesway.com/faq/">FAQ</a>. They are not copied here: the licence does not allow redistribution.</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol>
+<li><a href="../tggw/">Open the game</a> and choose <em>Start Game</em>, then a slot marked <em>New game</em> (Space selects).</li>
+<li>Move with the arrow keys or the vi keys. Walk into monsters to attack.</li>
+<li>Esc opens the main menu (inventory, maps, messages, discovered lists, save &amp; quit). <kbd>c</kbd> is the inventory, <kbd>x</kbd> target mode, <kbd>a</kbd> activates stairs and items.</li>
+<li>Use <em>Save &amp; quit</em> to leave; the slot keeps your character in this browser.</li>
+<li>The full key list is in the <a href="../tggw/help.html">in-game guide</a>.</li>
+</ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>No walkthrough was found for this port. The game's own tutorial is on its start menu, and the developer's <a href="https://www.thegroundgivesway.com/faq/">FAQ</a> answers common questions. The tips in the game's reference: keep your <em>thievery</em> between 0 and 10 for reliable trap disarming, and remember that magic attacks always hit.</p>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<ul>
+<li>No wizard or debug mode is known.</li>
+<li><strong>Save scumming</strong> works: <em>Export save</em> before something risky, <em>Import save</em> if it goes wrong. The game itself calls recovering from the autosave after a crash "cheating".</li>
+</ul>
+</section>
+</div></body>
+</html>
