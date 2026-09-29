@@ -11,7 +11,8 @@ restoration or fork of it) and a source URL. `./order.py --fix` writes those yea
 and re-sorts; `./order.py` checks (also that no tree entry predates its parent),
 and deploy refuses otherwise. Tree entries
 without a game of their own take their year (and optional label such as
-"1990s") from the `tree` section of years.json.
+"1990s") from the `tree` section of years.json, keyed by the `data-id` of
+their tree `<li>` (e.g. `<li data-id="adom">`).
 
 Header mini-roguelike: `minirogue.js` (deploy ships it minified with terser via npx,
 so comments and names do not spoil it). Font `fonts/Web437_IBM_CGA.woff` is from

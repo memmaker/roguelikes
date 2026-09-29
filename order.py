@@ -87,7 +87,7 @@ def fix_ul(text, start, what, parent_year=None):
     return text2, tok.search(text2, spans[-1][1] if spans else start).start()
 
 _DATA = json.load(open(os.path.join(os.path.dirname(PATH), 'years.json'), encoding='utf-8'))
-YEARS, TREE = _DATA['games'], _DATA['tree']  # games: slug -> {year, src}; tree: name -> {year, label?}
+YEARS, TREE = _DATA['games'], _DATA['tree']  # games: slug -> {year, src}; tree: data-id of a tree <li> without a game -> {year, label?}
 
 def yr_link(y, src):
     return f'<a class="yr" href="{src}">{y}</a>'
@@ -102,15 +102,15 @@ def sync_card(c):
                   lambda t: t.group(1) + yr_link(y, src), c, count=1)
 
 def sync_li(m):
-    li, slug, name = m.group(0), m.group(1), m.group(2)
+    li, tid, slug = m.group(0), m.group(1), m.group(2)
     if slug:
         if slug not in YEARS:
             errors.append(f'years.json: no games entry for tree {slug}'); return li
         y = YEARS[slug]['year']; shown = yr_link(y, YEARS[slug]['src'])
     else:
-        if name not in TREE:
-            errors.append(f'years.json: no tree entry for {name}'); return li
-        y = TREE[name]['year']; shown = str(TREE[name].get('label', y))
+        if tid not in TREE:
+            errors.append(f'years.json: no tree entry for data-id {tid!r}'); return li
+        y = TREE[tid]['year']; shown = str(TREE[tid].get('label', y))
     li = YEAR.sub(f'data-year="{y}"', li, count=1) if YEAR.search(li.split('>', 1)[0]) \
         else re.sub(r'^<li([^>]*)>', lambda t: f'<li{t.group(1)} data-year="{y}">', li)
     return re.sub(r'(<span class="y">)(?:<a class="yr"[^>]*>)?\d{4}(?:s|–\d\d)?(?:</a>)?',
@@ -123,7 +123,7 @@ def sync(text):
         out += [text[pos:s_], sync_card(text[s_:e])]; pos = e
     text = ''.join(out) + text[pos:]
     ts = text.index('<section id="tree"')
-    return text[:ts] + re.sub(r'<li[^>]*>(?:<a class="n" href="([^"/]+)/"|<span class="n">([^<]*)</span>)[^\n]*',
+    return text[:ts] + re.sub(r'<li[^>]*?(?: data-id="([^"]*)")?>(?:<a class="n" href="([^"/]+)/"|<span class="n">)[^\n]*',
                                      sync_li, text[ts:])
 
 def main():
