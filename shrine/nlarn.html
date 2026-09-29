@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NLarn · Shrine</title>
+<!--og-->
+<meta name="description" content="Larn 12.3 rewritten from scratch: the same race against time for your daughter's cure, through the caverns of Larn and down into the volcano's dragons and demons, with smarter monsters, colour and a friendlier interface.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="--More--">
+<meta property="og:title" content="NLarn · Shrine">
+<meta property="og:description" content="Larn 12.3 rewritten from scratch: the same race against time for your daughter's cure, through the caverns of Larn and down into the volcano's dragons and demons, with smarter monsters, colour and a friendlier interface.">
+<meta property="og:url" content="https://ruzzoli.de/roguelikes/shrine/nlarn.html">
+<meta property="og:image" content="https://ruzzoli.de/roguelikes/img/nlarn.png">
+<meta name="twitter:card" content="summary_large_image">
+<!--/og-->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>NLarn</h1>
+  <p class="epi">Larn, rewritten · the same cure, the same clock, a friendlier dungeon</p>
+  <a class="play" href="../nlarn/">&gt; Enter the dungeon</a>
+</header>
+<div class="facts"><div><b>Date of birth</b><span>2009</span> 0.3.0, 13 July 2009; this build 0.8.1 (2026)</div><div><b>Creator</b><span>Joachim de Groot</span> with Johanna Ploog</div><div><b>Language</b><span>C</span> ~41,600 lines, on GLib</div><div><b>Platform</b><span>curses</span> Linux, BSD, macOS, Windows</div></div>
+<nav class="toc"><a href="#lineage">Lineage</a><a href="#credits">Credits</a><a href="#trivia">Trivia</a><a href="#usp">What's unique</a><a href="#code">Code dive</a><a href="#stats">Stats</a><a href="#manual">Manual</a><a href="#start">Getting started</a><a href="#help">Help</a><a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p>NLarn is modelled on <a href="larn.html">Larn</a>, Noah Morgan’s 1986 game, and keeps the atmosphere and story of its last version, Kevin Routley’s Larn 12.3; only a few additions of Phil Cordier’s <a href="ularn.html">uLarn</a> made it in. It shares no code with either: every source file is new, written by Joachim de Groot from 2009 on and released under the GNU GPL 3. So it hangs in the <a href="../#tree">family tree</a> under Larn as an inspired rewrite, not a descendant.</p>
+<p>The first public version, 0.3.0, came out on 13 July 2009 on SourceForge; the project moved to GitHub in 2018. This port builds <a href="https://github.com/nlarn/nlarn">nlarn/nlarn</a> at <code>8851b1f</code> (0.8.1, unreleased). Sources: the upstream <a href="https://github.com/nlarn/nlarn/blob/8851b1f6420c17afc122a47e0b1b9e2b7b251878/README.md#heritage">README</a> (“Heritage”) and <a href="https://github.com/nlarn/nlarn/blob/8851b1f6420c17afc122a47e0b1b9e2b7b251878/Changelog.md#release-030-2009-07-13">change log</a>.</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table><tr><td>Joachim de Groot</td><td>Author and maintainer since 2009 (1,685 commits)</td></tr><tr><td>Johanna Ploog</td><td>Co-developer (235 commits)</td></tr><tr><td>Contributors</td><td>Frank Uhlig, Aaron Friesen, Daniel Köster and others</td></tr><tr><td>Noah Morgan</td><td>Larn, the game it is modelled on (1986)</td></tr><tr><td>Kevin Routley</td><td>Larn 12.3, the version it follows</td></tr><tr><td>Amiga Larn artists</td><td>The tiles used in this port</td></tr></table>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>De Groot started NLarn because he “just couldn’t stand the user interface” of Larn; the original code turned out “unmaintainable”, so he rewrote it. He admits he never really played Larn and knows parts of it only from reading its code. <span class="src">(<a href="https://nlarn.github.io/about/">NLarn: About</a>)</span></li>
+<li>The first release, 0.3, could not save games, and its notes said: “The combat system sucks.” <span class="src">(<a href="https://nlarn.github.io/news/2009/07/14/release-0-3/">Release 0.3</a>)</span></li>
+<li>Version 0.6, made for the 2010 Annual Roguelike Release Party, dropped the charisma stat, replaced fortune cookies with talkative townspeople and added a Lua interpreter for the monster data; the unfinished Lua part was removed again in 0.7.3. <span class="src">(<a href="https://nlarn.github.io/news/2010/09/19/arrp-release-0-6/">ARRP Release 0.6</a>, <a href="https://github.com/nlarn/nlarn/blob/8851b1f6420c17afc122a47e0b1b9e2b7b251878/Changelog.md#release-073-2018-09-08">Changelog</a>)</span></li>
+<li>Between 0.7.2 (July 2012) and 0.7.3 (September 2018) six years passed. When he picked it up again, de Groot noted a lesson: “precise dates and release announcements should not appear in the same sentence”. <span class="src">(<a href="https://github.com/nlarn/nlarn/blob/8851b1f6420c17afc122a47e0b1b9e2b7b251878/Changelog.md#release-073-2018-09-08">Changelog</a>, <a href="https://nlarn.github.io/news/2018/05/18/moved-to-github/">Project moved to GitHub</a>)</span></li>
+<li>Each of the 256 terminal colours has its own name, collected from X11, RAL, Crayola and traditional Japanese colour lists; the forvalaka is <code>IRIDIUM</code>, the type I demon lord <code>WOOL_VIOLET</code>. <span class="src">(<a href="https://nlarn.github.io/news/2025/02/15/256-colours/">Switching to 256 colours</a>; <a href="https://github.com/nlarn/nlarn/blob/8851b1f6420c17afc122a47e0b1b9e2b7b251878/inc/colours.h">colours.h</a>)</span></li>
+<li>The 0.8 notes grade their fixes: finger of death was “utterly” unbalanced, cold resistance “extremely”, polymorph “thoroughly”, dehydration “very”, magic fire “quite”, magic missile “slightly”. <span class="src">(<a href="https://nlarn.github.io/news/2026/09/05/release-0-8/">NLarn 0.8 – A Living World</a>)</span></li>
+<li>The College of Larn offers <em>Contemporary Dance</em> (“You feel like dancing!”) next to Applied Wizardry. <span class="src">(source: <a href="https://github.com/nlarn/nlarn/blob/8851b1f6420c17afc122a47e0b1b9e2b7b251878/src/buildings.c#L722-L730"><code>buildings.c</code></a>)</span></li>
+<li>Your obituary counts your “acts of vandalism”: destroyed walls and statues, looted thrones. <span class="src">(<a href="https://nlarn.github.io/news/2010/09/19/arrp-release-0-6/">ARRP Release 0.6</a>; <code>memorial.c</code>)</span></li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>A living town:</strong> townspeople talk, fight monsters you drag into town, and borrow the weapons you drop, giving them back when the danger is over. The Monastery of Larn joins Larn’s bank, store, college and tax office.</li>
+<li><strong>Stat packages instead of classes:</strong> Strong, Agile, Tough or Smart, or random; no charisma.</li>
+<li><strong>Blessed and cursed items,</strong> holy water, altars that remember your goodwill, and a <em>permanence</em> spell that binds a known spell to a piece of armour.</li>
+<li><strong>Modern comforts:</strong> pop-up windows, auto-travel, full mouse play, 256 colours and five languages.</li>
+<li><strong>Mixed maps:</strong> after the first caverns level each new level has a 25% chance of being one of 24 hand-drawn mazes, and the bottom levels always are.</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li><strong>Language:</strong> C99 on GLib, about 41,600 lines in 69 files (<code>src/</code> 36,006, <code>inc/</code> 5,568), plus the bundled cJSON library. The largest files: <code>player.c</code> (5,273), <code>display.c</code> (4,671), <code>monsters.c</code> (4,324).</li>
+<li><strong>Data tables:</strong> every kind of thing is an X-macro enum in <code>inc/*.h</code> (<code>MONSTER_TYPE_ENUM</code>, <code>SPELL_TYPE_ENUM</code>…) that also generates its name strings, and a plain C table in the matching <code>.c</code> file. Maps come from <code>lib/maze</code>, help from <code>lib/nlarn.hlp</code>, gossip from <code>lib/fortune</code>.</li>
+<li><strong>Save format:</strong> one gzip-compressed JSON document (<code>nlarn.sav</code>, format version 30) holding all 14 maps, the random generator state, the shuffled potion and scroll names, the shops, your home and the whole message log; enums are saved by name, so item changes don’t break saves.</li>
+<li><strong>Environment:</strong> ncurses with panels on Unix; PDCurses on SDL for the Windows and macOS builds.</li>
+<li><strong>This port:</strong> a curses shim with side panes and Amiga Larn tiles, a small GLib subset, compiled to WebAssembly. Source: <a href="https://github.com/memmaker/nlarn">memmaker/nlarn</a>, upstream <a href="https://github.com/nlarn/nlarn">nlarn/nlarn</a>.</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<table><tr><th>Thing</th><th>Count</th><th>Notable ones</th></tr><tr><td>Presets</td><td>4 + 2</td><td>Strong, Agile, Tough, Smart; a random preset or all stats random.</td></tr><tr><td>Monsters</td><td>65</td><td>The jaculus, the forvalaka, the <em>lama nobe</em>, the osquip, the xvart, the ziller, the disenchantress, seven types of demon lord, the demon prince, and the town person.</td></tr><tr><td>Weapons</td><td>25</td><td>Lance of death, Vorpal Blade, Slayer, Sunsword and Bessman’s flailing hammer; plus 5 kinds of ammo.</td></tr><tr><td>Armour</td><td>18</td><td>From a cloak to elven chain and stainless plate mail.</td></tr><tr><td>Potions</td><td>26</td><td>Holy water, amnesia, and cure dianthroritis, the one you came for.</td></tr><tr><td>Scrolls</td><td>25</td><td>Pulverization, gem perfection, spell extension, genocide.</td></tr><tr><td>Other items</td><td>9 · 8 · 4 · 4</td><td>Amulets (the Eye of Larn, negate spirit), rings, gems, containers.</td></tr><tr><td>Spells</td><td>37</td><td>Three-letter codes as in Larn: <code>vpr</code> vaporize rock, <code>dry</code> dehydration, <code>sum</code> summon demon, <code>alt</code> alter reality, <code>per</code> permanence.</td></tr><tr><td>Levels</td><td>1 + 10 + 3</td><td>Town, ten caverns levels, three volcano levels; 67×17 cells each.</td></tr><tr><td>Town</td><td>7</td><td>Home, DND store, trading post, LRS office, College of Larn, bank, monastery; a bank branch on caverns level 5.</td></tr><tr><td>Traps</td><td>8</td><td>Arrow, dart, teleport, pit, spiked pit, sleeping gas, mana drain, trapdoor.</td></tr><tr><td>Deaths</td><td>18</td><td>Causes of death, including drowned, melted, stuck in a wall, “genocided themselves” and killed by your own ricochet.</td></tr><tr><td>Time limit</td><td>30,000</td><td>Turns, or 300 mobuls of 100 turns.</td></tr></table>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>NLarn’s manual is its in-game help (<kbd>?</kbd>, <code>lib/nlarn.hlp</code>): <a href="nlarn/manual.html">read it here</a>, as shipped upstream. Also: the full <a href="nlarn/changelog.txt">change log</a> (0.3.0 to 0.8.1) and the <a href="nlarn/license.txt">licence</a> (GNU GPL 3). The project site has a <a href="https://nlarn.github.io/spoilers/">spoilers guide</a> too.</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol><li><a href="../nlarn/">Open the game</a>, press a key, choose <em>New Game</em>, then a name, a gender and a stat package.</li>
+<li>You start in town. Walk onto a building and press <kbd>&gt;</kbd> to go in: the DND store sells gear, the college raises stats, the bank buys gems.</li>
+<li>Press <kbd>&gt;</kbd> away from the stairs and you walk to the caverns entrance <code>O</code>; press it again there to go down.</li>
+<li>Move with <kbd>h</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd><kbd>y</kbd><kbd>u</kbd><kbd>b</kbd><kbd>n</kbd> or the number pad, or let <kbd>X</kbd> explore; <kbd>c</kbd> casts, <kbd>i</kbd> shows the inventory, <kbd>Enter</kbd> lists every command.</li>
+<li>Read the game’s <a href="../nlarn/help.html">help page</a> for the rest.</li></ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>We found no walkthrough for NLarn. The goal: find the potion of cure dianthroritis in the volcano and bring it home before the time runs out. Rules of thumb, from the NLarn spoilers guide:</p><ul>
+<li>Explore slowly, and leave a fight that feels uncertain: most deaths come from staying one turn too long.</li>
+<li>Don’t carry too much: burdened, you are slower and trigger more traps. Store spare items at home.</li>
+<li>Use the town as your base: heal, sell gems at the bank, identify items at the trading post.</li>
+<li>Fight in doorways and corridors so monsters can’t surround you.</li>
+<li>More: the <a href="https://nlarn.github.io/spoilers/">spoilers guide</a>, the <a href="https://github.com/nlarn/nlarn/wiki/Monsters">monster list</a> on the NLarn wiki and <a href="https://www.roguebasin.com/index.php/NLarn">RogueBasin</a>.</li></ul>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<ul><li><strong>Wizard mode works here:</strong> choose “activate wizard mode” in the <kbd>Enter</kbd> command menu (<kbd>Ctrl</kbd>+<kbd>W</kbd> would close the browser tab) and confirm. You cannot die, the score is not counted and there is no way back. Then <kbd>-</kbd> goes one level down and <kbd>+</kbd> one up (the help file has them the other way round), <kbd>Ctrl</kbd>+<kbd>T</kbd> teleports, <kbd>Ctrl</kbd>+<kbd>X</kbd> gains a level, <kbd>&amp;</kbd> heals, <kbd>*</kbd> adds 1,000 gold to the bank, <kbd>Ctrl</kbd>+<kbd>F</kbd> shows the whole map.</li>
+<li><strong>Save scumming:</strong> <em>Export save</em> / <em>Import save</em> on the game page.</li></ul>
+</section>
+</div></body>
+</html>
