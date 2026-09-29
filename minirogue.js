@@ -179,6 +179,7 @@
     { // 1: a sword and a bat; stairs down in the bat's room
       start: [2, 3],
       setup(g) {
+        walledCorridor(g);
         g.spawn('bat', [2, 25]);
         g.drop('sword', [3, 4]);
         g.stairsDown([3, 26]);
@@ -190,6 +191,7 @@
       // room (unless you found it first: search next to it), which opens stairs up where
       // you came in, and leaves by them. The stairs down in the west room are unfinished.
       setup(g, arrival) {
+        walledCorridor(g);
         g.lv.upAt = arrival;
         // the lever hides in a wall of the east room, next to its floor
         g.lv.lever = g.lever(g.randomWall(([, c]) => c >= 22), 'openStairsUp', { hidden: true, once: true, at: arrival });
@@ -253,6 +255,12 @@
       overlay: (g, p, T) => bridge(g, p, T),
     },
   ];
+  // walls along the corridor (levels without a gorge), so an open corridor reads as one
+  function walledCorridor(g) {
+    for (let c = CORRIDOR.from; c <= CORRIDOR.to; c++) {
+      g.setTile([CORRIDOR.row - 1, c], '-'); g.setTile([CORRIDOR.row + 1, c], '-');
+    }
+  }
   // the brown wooden bridge (levels 3 and 4): corridor tiles without an item on them
   function bridge(g, [r, c], T) {
     if (g.tileAt([r, c]) === '#' && !g.itemAt([r, c])) return `<i class="mr-bridge">${T.tile(r, c, '#')}</i>`;
@@ -546,7 +554,10 @@
         ch = down ? (left ? '╔' : '╗') : up ? (left ? '╚' : '╝') : '═';
         return `<i class="mr-w">${ch}</i>`;
       }
-      if (ch === '|') return '<i class="mr-w">║</i>';
+      if (ch === '|') {  // a room wall a corridor wall joins: a T
+        const right = at(r, c + 1) === '-', left = at(r, c - 1) === '-';
+        return `<i class="mr-w">${right && !left ? '╠' : left && !right ? '╣' : '║'}</i>`;
+      }
       if (ch === '+') return '<i class="mr-w">╬</i>';
       if (ch === '#') return '<i class="mr-c">▒</i>';
       if (ch === '.') return '<i class="mr-f">·</i>';
