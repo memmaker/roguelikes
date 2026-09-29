@@ -133,21 +133,9 @@ I have created MAG with absolutely no intention of selling it for profit,
 and the source code should be included in this package.  
 
 I encourage modifications and enhancements of MAG and have completely
-commented the code to make it a little easier.  If you have enjoyed playing
-MAG so much that you want to send me $10 or you have any questions, or 
-suggestions send them to:
+commented the code to make it a little easier.
 
-        Mike Teixeira
-        6116 Savoy Circle
-        Lutz, FL  33549
-
-If you didn't get the source code and want a copy send me e-mail at:
-
-        m.teixeira@worldnet.att.net
-or
-        mjteixeira@aol.com
-
-You should probably send the message to both just to be sure!
+[Contact details (postal address and e-mail) removed for this copy.]
 
 Lastly, I'd like to thank my two testers, Lyman Sheats and Paul
 Pennell, for finding bug after bug after bug.
