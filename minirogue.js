@@ -134,6 +134,9 @@
     // You fell into a chasm (after g.fall's animation). For now: death.
     fallIntoChasm(g) { g.die('fall'); },
 
+    // A thrown item came down on a chasm tile (source: {kind, pos}). For now: it is gone.
+    itemIntoChasm(g, source) { return `The ${source.kind} is gone.`; },
+
     // The knight, wherever he stands, is thrown into the gorge and leaves a sandal.
     knightIntoGorge(g) {
       const knight = g.monsters('knight')[0];
@@ -450,6 +453,7 @@
     const log = [], target = !search && monAt(n), lever = !search && leverAt(n);
     let bumped;
     if (search) {
+      log.push('Searching..');
       for (const l of s.levers) if (l.hidden && g.touching(l.pos)) log.push(pull(l));
       if (L.onSearch) log.push(L.onSearch(g));
     } else if (target && (bumped = bump(target)) != null) {
@@ -526,7 +530,8 @@
   // It flies (animated, a tile every 40ms) until a wall, over the gorge too; hits the first
   // monster (weapons for their attack, anything else for 1) or lever in its way; and lands
   // on the last free tile it passed (under a monster it hit), or is lost over the gorge.
-  function throwItem(dr, dc) {
+  // With a target (a clicked tile) it steps towards it and comes down there.
+  function throwItem(dr, dc, target) {
     const kind = aiming;
     aiming = null;
     if (!dr && !dc) { s.msg = 'Never mind.'; draw(); return; }
@@ -534,6 +539,8 @@
     const path = [];
     let p = s.p, lever = null, mon = null;
     for (let i = 0; i < MAP[0].length; i++) {
+      if (target && same(p, target)) break;
+      if (target) { dr = Math.sign(target[0] - p[0]); dc = Math.sign(target[1] - p[1]); }
       const n = [p[0] + dr, p[1] + dc];
       if ((lever = leverAt(n))) break;  // lands in front
       if (!(walkable(...n) || ' :'.includes(at(...n))) || !adjacent(p, n)) break;
@@ -551,7 +558,19 @@
       const log = lever ? ['Thunk!', pull(lever)] : [`You throw the ${kind}.`];  // short: the event speaks
       if (mon) hit(mon, ITEMS[kind].attack || 1, `The ${kind} hits the ${mon.kind}.`, log);
       const land = [...path].reverse().find((q) => !itemAt(q)) || [...s.p];
-      if (' :'.includes(at(...land))) log.push(`The ${kind} is lost.`);
+      if (at(...land) === ':') {  // it tumbles down like a falling actor, then the event
+        s.flying = { kind, pos: land, fx: 'mr-fall' };
+        g.lock();
+        g.later(1000, () => {
+          s.flying = null;
+          g.unlock();
+          log.push(EVENTS.itemIntoChasm(g, { kind, pos: land }));
+          endTurn(log);
+        });
+        draw();
+        return;
+      }
+      if (at(...land) === ' ') log.push(`The ${kind} is lost.`);
       else g.drop(kind, land);
       endTurn(log);
     });
@@ -845,7 +864,7 @@
       if (same(p, s.p) && !s.hidden) return `<b class="mr-at ${s.playerFx || ''}">${T.at}</b>`;
       if (s.flying && same(p, s.flying.pos)) {  // a thrown item in the air
         const def = ITEMS[s.flying.kind];
-        return `<b class="mr-it ${def.cls || ''}">${def.glyph[theme]}</b>`;
+        return `<b class="mr-it ${def.cls || ''} ${s.flying.fx || ''}">${def.glyph[theme]}</b>`;
       }
       if (m) return `<b class="mr-k ${MONSTERS[m.kind].cls || ''} ${m.fx || ''}">${MONSTERS[m.kind].glyph[theme]}</b>`;
       const lever = leverAt(p);
@@ -933,7 +952,7 @@
     const col = Math.floor((e.clientX - r.left) / (r.width / MAP[0].length));
     if (row < 0 || row >= MAP.length) return;
     const dr = Math.sign(row - s.p[0]), dc = Math.sign(col - s.p[1]);
-    if (aiming) { throwItem(dr, dc); return; }  // clicking yourself puts it away
+    if (aiming) { throwItem(dr, dc, [row, col]); return; }  // aimed at that tile; yourself: put away
     turn(dr, dc, !dr && !dc);
   });
   emit('init');
