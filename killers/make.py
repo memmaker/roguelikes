@@ -303,6 +303,19 @@ def zhsheet(g, txt, png):                             # same as nhsheet(), sheet
 def zeldhack(): zhsheet('zeldhack', G + '/zeldhack/win/share/monsters.txt', G + '/zeldhack/web/dist/tiles.png')
 def slashem(): nhsheet('slashem', G + '/slashem/win/share/monsters.txt', G + '/slashem/web/dist/tiles.png')
 
+def evilhack():                                       # web/gen (build.sh): glyph2tile[PM] in src/tile.c, name at that tile in win/share/monsters.txt; tiles.png 16px, 40/row
+    h = G + '/evilhack'
+    n = int(re.search(r'#define\s+NUMMONS\s+(\d+)', open(h + '/web/gen/include/pm.h').read()).group(1))
+    g2t = [int(v) for v in open(h + '/web/gen/src/tile.c').read().split('glyph2tile[MAX_GLYPH] = {')[1].split('}')[0].split(',') if v.strip()]
+    names = {int(t): m for t, m in re.findall(r'^# tile (\d+) \(([^)]+)\)', open(h + '/win/share/monsters.txt').read(), re.M)}
+    img, d, seen = Image.open(h + '/web/dist/tiles.png').convert('RGB'), os.path.join(HERE, 'evilhack'), set()
+    os.makedirs(d, exist_ok=True)
+    for t in g2t[:n]:
+        if slug(names[t]) in seen: continue          # werejackal etc.: both forms share the name
+        seen.add(slug(names[t])); x, y = t % 40 * 16, t // 40 * 16
+        img.crop((x, y, x + 16, y + 16)).resize((32, 32), Image.NEAREST).save(os.path.join(d, slug(names[t]) + '.png'), optimize=True)
+    print('evilhack', len(os.listdir(d)))
+
 def frogcomposband():                                 # Shockbolt 64px (web/tiles.webp, web/mkgraf-shb.py); main-web.c web_run_end() strips "The "
     angband('frogcomposband', 'frogcomposband', 'r_info.txt', 'N', 'graf-shb.prf', 'web/tiles.webp', 64)
     d = os.path.join(HERE, 'frogcomposband')
@@ -433,4 +446,4 @@ def nlarn():                                          # Amiga 8x16 sheet (web/ti
 if sys.argv[1:]:
     for a in sys.argv[1:]: globals()[a]()
 else:
-    rogue(); hack(); umoria(); urogue(); larn(); ularn(); rogue36(); srogue(); roguepc(); tome2(); tinyangband(); quickband(); arogue58(); arogue77(); xrogue(); boss(); omega(); prime(); dynahack(); silq(); tactical(); crawl(); zapm(); alphaman(); decker(); nethack13d(); nethack50(); zeldhack(); slashem(); zangband(); frogcomposband(); forays(); lambdarogue(); hengband(); easyband(); mag(); tactical('faangband'); nppangband(); prospector(); sangband(); nlarn()
+    rogue(); hack(); umoria(); urogue(); larn(); ularn(); rogue36(); srogue(); roguepc(); tome2(); tinyangband(); quickband(); arogue58(); arogue77(); xrogue(); boss(); omega(); prime(); dynahack(); silq(); tactical(); crawl(); zapm(); alphaman(); decker(); nethack13d(); nethack50(); zeldhack(); slashem(); zangband(); frogcomposband(); forays(); lambdarogue(); hengband(); easyband(); mag(); tactical('faangband'); nppangband(); prospector(); sangband(); nlarn(); evilhack()
