@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Killer art (server/CONTRACT.md): crop each monster's tile from the sheet
 the web port shows by default into killers/<g>/<slug>.png."""
-import os, re
+import os, re, sys
 from PIL import Image
 
 G = os.path.expanduser('~/Games')
@@ -397,4 +397,17 @@ def prospector():                                     # graphics/critters.bmp (t
         c.resize((32, 32), Image.NEAREST).save(os.path.join(d, slug(name) + '.png'), optimize=True)
     print('prospector', len(os.listdir(d)))
 
-rogue(); hack(); umoria(); urogue(); larn(); ularn(); rogue36(); srogue(); roguepc(); tome2(); tinyangband(); quickband(); arogue58(); arogue77(); xrogue(); boss(); omega(); prime(); dynahack(); silq(); tactical(); crawl(); zapm(); alphaman(); decker(); nethack13d(); nethack50(); slashem(); zangband(); frogcomposband(); forays(); lambdarogue(); hengband(); easyband(); mag(); tactical('faangband'); nppangband(); prospector(); sangband()
+def grog():                                           # text only, black on white (default ScreenColor.BlackOnWhite): MonsterPool.cs glyph, Menlo like the card; killer = "<christened> the <type>" or type
+    from PIL import ImageDraw, ImageFont
+    font, d = ImageFont.truetype('/System/Library/Fonts/Menlo.ttc', 28), os.path.join(HERE, 'grog')
+    os.makedirs(d, exist_ok=True)
+    src = open(G + '/grog/src/Grog.Dungeons.Generators.Monsters/MonsterPool.cs').read()
+    for cn, ty, ch in re.findall(r'new Being\(MonsterType\.\w+, Race\.\w+, "([^"]*)", "([^"]+)", RevengeMonsterProgression\.\w+, \'(.)\'', src):
+        img = Image.new('RGBA', (32, 32), '#fff'); ImageDraw.Draw(img).text((16, 16), ch, '#000', font, 'mm')
+        img.save(os.path.join(d, slug(cn + ' the ' + ty if cn else ty) + '.png'), optimize=True)
+    print('grog', len(os.listdir(d)))
+
+if sys.argv[1:]:
+    for a in sys.argv[1:]: globals()[a]()
+else:
+    rogue(); hack(); umoria(); urogue(); larn(); ularn(); rogue36(); srogue(); roguepc(); tome2(); tinyangband(); quickband(); arogue58(); arogue77(); xrogue(); boss(); omega(); prime(); dynahack(); silq(); tactical(); crawl(); zapm(); alphaman(); decker(); nethack13d(); nethack50(); slashem(); zangband(); frogcomposband(); forays(); lambdarogue(); hengband(); easyband(); mag(); tactical('faangband'); nppangband(); prospector(); sangband()
