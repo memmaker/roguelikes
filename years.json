@@ -34,6 +34,7 @@
     "prospector": {"year": 2014, "src": "https://roguebasin.com/index.php/Old_news/2014"},
     "prime": {"year": 2012, "src": "http://peske.retrogames.com/prime.html"},
     "forays": {"year": 2015, "src": "https://www.roguebasin.com/index.php/Forays_into_Norrendrin"},
+    "grog": {"year": 2023, "src": "https://www.roguelike.games/grog/"},
     "dynahack": {"year": 2016, "src": "https://tung.github.io/DynaHack/"},
     "frogcomposband": {"year": 2020, "src": "https://angband.live/forums/forum/angband/variants/9634-announce-frogcomposband-7-1-salmiak-released"},
     "sil-q": {"year": 2022, "src": "https://github.com/sil-quirk/sil-q/blob/master/lib/docs/CHANGELOG.md"},
