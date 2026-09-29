@@ -1,0 +1,120 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Grog · Manual</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shrine.css">
+<style>pre { white-space:pre-wrap; overflow-wrap:anywhere; font-size:13px; background:var(--stone); border:1px solid var(--line); border-radius:6px; padding:12px 14px; overflow-x:auto; }</style></head><body><div class="wrap">
+<nav><a href="../grog.html">← Grog shrine</a> · <a href="../../grog/">Play</a></nav>
+<h1>Grog 1.0.2 · in-game help</h1>
+<p>Grog ships no manual: this is its online help (<kbd>h</kbd> / <kbd>?</kbd>), as in the original <code>grog.exe</code> 1.0.2 (the <code>HelpText</code> table in <code>Constants.cs</code> of the decompiled source), before our port added <kbd>g</kbd> explore, stairs walking and the Enter menu. © 2018–2023 Dr.-Ing. Thomas Biskup, all rights reserved; quoted here as the game’s own reference.</p>
+<nav class="toc"><a href="#online-help">Online Help</a><a href="#more">More</a><a href="#character-generation">Character Generation</a><a href="#rules">Rules</a><a href="#enemy-monster-list">Enemy (monster) list</a><a href="#hints">Hints</a><a href="#credits">Credits</a></nav>
+<section id="online-help"><h2>Online Help</h2><pre> Grog is controlled by case-sensitive key presses:
+
+ &lt;Ctrl&gt; + q ................ Quit the game
+ Q ......................... Save &amp; quit
+ o ......................... Configure options
+
+ w or Cursor-Up (*) ........ Move north
+ a or Cursor-Left (*) ...... Move west
+ s or Cursor-Down (*) ...... Move south
+ d or Cursor-Right (*) ..... Move east
+ &lt;Shift&gt; + &lt;Movement-Key&gt; .. Move quickly
+
+ &lt;SPACE&gt; ................... Wait for one turn
+ . ......................... Wait until fully healed
+
+ &lt;ENTER&gt; or r............... Interact (e.g. use stairs)
+ e or i .................... Manage your inventory
+
+ c or , .................... Pick up items
+ f or u .................... Use item
+ z ......................... Zap wand
+ x or t .................... Throw an item
+ p ......................... Pray for help
+
+ m ......................... Enemy (monster) list
+
+ &lt;Ctrl&gt; + r ................ Redraw the screen
+ h or ? or &lt;ESC&gt; or &lt;HELP&gt; . Show the help menu
+ v ......................... Display game version
+
+ (*) Cursor keys behave weirdly on some terminals.</pre></section>
+<section id="more"><h2>More</h2><pre> At various places in the game &#x27;---more---&#x27; prompts
+ show up. They are inserted to give you the time needed
+ to consume the information presented. Passing these
+ prompts in the message line at the top of the game
+ screen can be sped up by pressing ENTER which skips
+ all further prompts.</pre></section>
+<section id="character-generation"><h2>Character Generation</h2><pre> Your name, gender and type deterministically generate
+ your initial attributes and starting equipment. Feel
+ free to experiment to find an adventurer that suits
+ your particular needs.</pre></section>
+<section id="rules"><h2>Rules</h2><pre> Your character is described by a number of statistics
+ shown in the status bar at the bottom of the screen.
+ These are:
+ * Armor Class (AC): How hard it is for monsters to hit
+   your character. Higher is better.
+ * Hit Points (H): Your life energy. When they drop to
+   zero your character dies and is gone forever.
+ * Strength (St): Raw physical might. Affects the
+   number of items you can carry as well as hit
+   probabilities and damage in melee combat.
+ * Dexterity (Dx): Affects Armor Class (AC) and how
+   fast you move in comparison to monsters.
+ * Constitution (Cn): Health and toughness. Affects
+   your Hit Points (H).
+
+ Additionally the game shows your current dungeon level
+ (D), the amount of gold carried ($), the number of
+ moves executed so far (M) and your experience (XP).
+ Experience shows your current level, followed by a
+ slash followed by the number of experience points
+ needed to advance to next level. Experience is gained
+ from killing monsters.
+
+ Finally &#x27;Piety&#x27; is shown - which basically is an
+ indicator on whether the player character can safely
+ utter more prayers (via the &#x27;p&#x27; command) or not.</pre></section>
+<section id="enemy-monster-list"><h2>Enemy (monster) list</h2><pre> The enemy list shows data for all enemies in sight.
+ Depending on your experiences with the monster in question
+ the following data might be available:
+ * Name
+ * AC (Armor Class, how hard it is to hit the monster)
+ * HD (Hit Dice, the number of dice thrown to determine
+   the hit points of the monster
+ * H: the actual and maximum hit points
+ * #A: the number of melee attacks made by the monster
+   during a single turn
+ * D: the amount of damage caused by the available
+   melee attacks</pre></section>
+<section id="hints"><h2>Hints</h2><pre> * Run if you can&#x27;t win.
+ * Think smart. There are surprisingly many strategies
+   available to get out of tight situations.
+ * Pray in times of need. But pray sparingly because
+   your god might get annoyed when pestered too often.
+ * Carrying items for prolonged periods of time will
+   identify them.
+ * Remember that you also can throw stuff at monsters.</pre></section>
+<section id="credits"><h2>Credits</h2><pre> * Thanks to the organizers of Roguelike Celebration
+   for allowing me to experience the original Rogue
+   on an original PDP-11 (during Roguelike Celebration
+   2018). It was a marvelous experience and the
+   morning afterwards Grog was born as a nod to this
+   amazing game.
+ * Slashie (Santiago Zapata) for being the torchbearer
+   of the roguelike world, many great discussions about
+   game design and friendship across continents.
+ * Ignacio Bergkamp for his lightning talk at Roguelike
+   Celebration 2018 (there you go again ;-) ) providing
+   the idea of allowing players to add custom flavor
+   texts to highscore entries - Grog probably was the
+   game to deliver on this idea.
+ * Andrew Clifton for his talk at Roguelike Celebration
+   called &#x27;Don&#x27;t generate, hash!&#x27; from which I took
+   inspiration and code in order to create grog player
+   characters in a stable and platform-independent
+   manner.
+ * Krzysztof Dycha for relentless play testing, bug
+   squashing and invaluable design discussions.
+
+--- Axes High!
+    Thomas Biskup, { [Ultimate] ADOM | Grog } Maintainer</pre></section>
+</div></body></html>

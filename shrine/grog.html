@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grog · Shrine</title>
+<!--og-->
+<meta name="description" content="Thomas Biskup's nod to the original Rogue: a barbarian instead of a rogue, 25 levels to the Throne of Immortality, characters hashed from their name, ghosts and revenge monsters of fallen players.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="--More--">
+<meta property="og:title" content="Grog · Shrine">
+<meta property="og:description" content="Thomas Biskup's nod to the original Rogue: a barbarian instead of a rogue, 25 levels to the Throne of Immortality, characters hashed from their name, ghosts and revenge monsters of fallen players.">
+<meta property="og:url" content="https://ruzzoli.de/roguelikes/shrine/grog.html">
+<meta property="og:image" content="https://ruzzoli.de/roguelikes/img/grog.png">
+<meta name="twitter:card" content="summary_large_image">
+<!--/og-->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>Grog</h1>
+  <p class="epi">Rogue for barbarians · 25 levels, the Throne of Immortality, and back out · “Axes High!”</p>
+  <a class="play" href="../grog/">&gt; Enter the dungeon</a>
+</header>
+<div class="facts"><div><b>Date of birth</b><span>2018</span> begun the morning after Roguelike Celebration 2018; 1.0.0 released 24 May 2022; this build 1.0.2, 19 August 2023</div><div><b>Creator</b><span>Thomas Biskup</span> the author of ADOM</div><div><b>Language</b><span>C#</span> .NET Framework 4.8 (Mono on Mac and Linux)</div><div><b>Platform</b><span>Windows, Mac, Linux</span> an 80×26 text console</div></div>
+<nav class="toc"><a href="#lineage">Lineage</a><a href="#credits">Credits</a><a href="#trivia">Trivia</a><a href="#usp">What's unique</a><a href="#code">Code dive</a><a href="#stats">Stats</a><a href="#manual">Manual</a><a href="#start">Getting started</a><a href="#help">Help</a><a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p><strong>Grog</strong> is new C# code, not a port or variant: it is inspired by the original <strong>Rogue</strong>, which Biskup played on a PDP-11 at Roguelike Celebration 2018. It keeps Rogue’s shape (one 80-column screen, rooms and tunnels, 26+26 lettered monsters, an amulet-style goal at the bottom) and adds its author’s ideas from ADOM and later. Work began in 2018; 1.0.0 followed in May 2022 and 1.0.2, the last version, in August 2023. No descendants are known.</p>
+<p>See the <a href="../#tree">family tree</a> (under Rogue, as inspired). Sources: <a href="https://www.roguebasin.com/index.php/Grog">RogueBasin</a>, <a href="https://www.roguelike.games/grog/">roguelike.games</a>, the game’s <a href="grog/manual.html#credits">credits</a>.</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table><tr><td>Thomas Biskup</td><td>Design and programming, 2018–2023</td></tr><tr><td>Krzysztof Dycha</td><td>Play testing, bug squashing, design discussions</td></tr><tr><td>Andrew Clifton</td><td>His talk “Don’t generate, hash!” gave the idea and code for stable, platform-independent character generation</td></tr><tr><td>Ignacio Bergkamp</td><td>The idea of player-written flavour texts on high-score entries</td></tr><tr><td>Thanks</td><td>Slashie (Santiago Zapata); the organisers of Roguelike Celebration</td></tr><tr><td>Web port</td><td>Decompiled with ilspycmd, run on .NET WebAssembly (<a href="https://github.com/memmaker/grog">memmaker/grog</a>)</td></tr></table>
+<p class="src">From the game’s <a href="grog/manual.html#credits">credits screen</a>.</p>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>Grog was “born” the morning after Biskup played the original Rogue on a real PDP-11 at Roguelike Celebration 2018. <span class="src">(<a href="grog/manual.html#credits">in-game credits</a>, <a href="https://www.roguebasin.com/index.php/Grog">RogueBasin</a>)</span></li>
+<li>The question behind the name: why a rogue, when fantasy fiction is usually led by “fighters or barbarians”? <span class="src">(<a href="https://www.roguelike.games/grog/">roguelike.games</a>)</span></li>
+<li>Your name, gender and type are hashed into your stats and starting kit: the same three words always give the same hero, on any machine. <span class="src">(<a href="grog/manual.html#character-generation">in-game help</a>, <a href="grog/manual.html#credits">credits</a>)</span></li>
+<li>High-score entries can carry a personal note written by the player, an idea from a Roguelike Celebration lightning talk. <span class="src">(<a href="https://www.roguelike.games/grog/">roguelike.games</a>, <a href="grog/manual.html#credits">credits</a>)</span></li>
+<li>The monster list is two alphabets, like Rogue’s: giant ant to zombie, then Alp and Balor to Zombie Lord, plus Doppelganger, Ghost and Grog himself. <span class="src">(<a href="https://github.com/memmaker/grog/blob/main/src/Grog.Dungeons.Generators.Monsters/MonsterPool.cs">MonsterPool.cs</a>)</span></li>
+<li>A cheater is told they “are barred from entering the holy halls of Hi’Skorr” and gets no high-score entry. <span class="src">(<a href="https://github.com/memmaker/grog/blob/main/src/Grog/Grog.cs">Grog.cs</a>)</span></li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>Hashed heroes:</strong> no class menu; type any name, gender and type (“barbarian”, “accountant” …) and the hash decides the rest.</li>
+<li><strong>Your deaths come back:</strong> dead characters return as ghosts, and revenge monsters come back with extra powers, so the dungeon grows harder the more you lose.</li>
+<li><strong>Short and focused:</strong> 25 levels, a small inventory, four monster kinds on level 1 and two new ones per level, special rooms from level 3.</li>
+<li><strong>Time identifies:</strong> items you carry long enough identify themselves.</li>
+<li><strong>Piety:</strong> pray (<kbd>p</kbd>) for help, but not too often.</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li><strong>Language:</strong> C# for .NET Framework 4.8. Biskup never published the source; our repo is the release <code>grog.exe</code> decompiled by ilspycmd (19,882 lines in 197 files; roguelike.games counts 18,564 lines in 199 files for the original). Names of classes and methods survive decompiling, comments do not.</li>
+<li><strong>Structure:</strong> namespaces <code>Grog.Dressings</code> (beings, items, features), <code>Grog.Dungeons</code> (level, room and monster generators, decorators), <code>Grog.Systems</code> (ghosts, prayers, revenge, special rooms, traps) and <code>Grog.Kernel</code>, which has its own double-buffered curses layer on <code>System.Console</code>.</li>
+<li><strong>Files:</strong> saves, options, high scores, ghosts and revenge monsters are BinaryFormatter object graphs, gzipped (<code>grog_v1.gst</code>, <code>grog_v1.rmf</code> …). A crash autosave slot is offered at the next start.</li>
+<li><strong>This port:</strong> retargeted to .NET 10, built for <code>browser-wasm</code> and run in a Web Worker (keys through <code>Atomics.wait</code>); saves in IndexedDB, extra windows, an Enter command menu, item cursor, <kbd>g</kbd> explore and <kbd>&lt;</kbd>/<kbd>&gt;</kbd> stairs walking. Source: <a href="https://github.com/memmaker/grog">memmaker/grog</a> (first commit = untouched decompiler output).</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<table><tr><th>Thing</th><th>Count</th><th>Notable ones</th></tr><tr><td>Levels</td><td>25</td><td>the Throne of Immortality at the bottom; then escape</td></tr><tr><td>Monsters</td><td>52</td><td>+ Doppelganger, Ghost, Grog; Jackalwere, Quinotaur, Fomorian, Exterminator, Burrow Wight, Ur-Vile, Yeth Hound</td></tr><tr><td>Monster races</td><td>10</td><td>undead, humanoid, giant animal, fairy, demon, giant, mythical beast, devil, animal, dragon</td></tr><tr><td>Item kinds</td><td>9</td><td>armour, food, melee weapons, potions, rings, scrolls, shields, wands (+ aliases); RogueBasin: 138 base types, 36 modifiers</td></tr><tr><td>Traps</td><td>11</td><td>acid, arrow, blindness gas, confusion gas, explosion, falling rock, paralysis gas, pit, spear, squeaky board, teleport</td></tr><tr><td>Room modifiers</td><td>11</td><td>dark, mud, water, webbed, tomb, monster pit, teleport, damage; RogueBasin: 60 special room types</td></tr></table>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>Grog ships no manual file, and the game is freeware with all rights reserved, so nothing else is copied here. Its online help is the manual: <a href="grog/manual.html">the help screens</a> (keys, <em>more</em> prompts, character generation, rules, monster list, hints, credits). Our port’s <a href="../grog/help.html">help page</a> adds the browser keys.</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol><li><a href="../grog/">Open the game</a> and start a new game.</li>
+<li>Type a name, gender and type; try a few until the stats suit you.</li>
+<li>Move with <kbd>w</kbd><kbd>a</kbd><kbd>s</kbd><kbd>d</kbd> or the arrows (four directions only); <kbd>g</kbd> explores, <kbd>&gt;</kbd> walks to known stairs down and takes them.</li>
+<li><kbd>i</kbd> for the inventory, <kbd>c</kbd> to pick up, <kbd>f</kbd> to use, <kbd>x</kbd> to throw, <kbd>z</kbd> to zap, <kbd>p</kbd> to pray, <kbd>.</kbd> to rest until healed.</li>
+<li>Enter lists every command; the game’s <a href="../grog/help.html">help page</a> has keys and saving.</li></ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>We found no walkthrough or strategy guide. Rules of thumb from the game’s own <a href="grog/manual.html#hints">hints</a>:</p><ul>
+<li>Run if you can’t win; there are many ways out of tight spots.</li>
+<li>Pray in times of need, but sparingly: watch <em>Piety</em> in the status line.</li>
+<li>Carry unknown items for a while: they identify themselves.</li>
+<li>Throw things at monsters; check <kbd>m</kbd> for their AC, hit dice and damage.</li>
+<li>More: <a href="https://www.roguebasin.com/index.php/Grog">RogueBasin</a>, <a href="https://www.roguelike.games/grog/">roguelike.games</a>.</li></ul>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<p>There is a hidden cheat menu (<code>CheatMode.cs</code>, <kbd>Ctrl</kbd>+<kbd>x</kbd>): wish for an item, map the level, teleport, go to any level, strength +10, 10,000 gold, create altars, traps, ghosts or every item. It opens only for a male character named Brannalbin whose type is “wizard” (<code>Player.HasAccessToCheatMode</code>). This build keeps it. Using it marks the run as cheated: no high-score entry.</p>
+<ul><li><strong>Save scumming:</strong> <em>Export</em> / <em>Import</em> on the game page (a loaded save is deleted, as in the original).</li><li>Re-rolling a hero is free: the same name, gender and type always give the same start.</li></ul>
+</section>
+</div></body></html>
