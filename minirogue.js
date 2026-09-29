@@ -47,6 +47,23 @@
       } },
     snake: { hp: 20, dmg: 9, glyph: { unix: 's', epyx: 's' } },  // 4 sword; kills in 5, in 9 vs armour
 
+    // Scurries about at random; bites only if you happen to be next to it.
+    rat: { hp: 6, dmg: 4, glyph: { unix: 'r', epyx: 'r' },
+      act(g, m) { return g.adjacent(m) && Math.random() < 0.5 ? g.hurt(m, this.dmg) : g.wander(m); } },
+
+    // One hit kills it.
+    slime: { hp: 1, dmg: 3, glyph: { unix: 'j', epyx: 'j' }, cls: 'mr-slime' },
+
+    // Never moves; every third turn a slime oozes out next to it. Too hot to touch:
+    // only something thrown at it breaks it.
+    machine: { hp: 1, glyph: { unix: '&', epyx: '☼' }, cls: 'mr-machine', death: 'The machine breaks!',
+      bump: () => 'Too hot!',
+      act(g, m) {
+        m.turns = (m.turns || 0) + 1;
+        const at = g.freeNextTo(m.pos);
+        if (m.turns % 3 === 0 && at) { g.spawn('slime', at); return 'Blorp.'; }
+      } },
+
     // Guards the bridge. Walking into him starts his three questions (answers go to
     // MEMORY); a walk-away (Esc, or clicking the map) ends them. The third bump is an
     // attack, and from then on he fights: 100 hp, 10 per hit. Answer all three and he
@@ -241,8 +258,9 @@
       // right outside the door. The corridor is drawn brown: it is a bridge over a gorge.
       // A lever hides in a wall of the west room: searching next to it throws the knight
       // into the gorge, and he leaves a sandal behind.
-      setup(g) {
+      setup(g, arrival) {
         digGorge(g);
+        g.stairsUp(arrival);
         g.spawn('knight', [CORRIDOR.row, CORRIDOR.from]);
         g.stairsDown([2, 26]);
         g.lever(g.randomWall(([, c]) => c < CORRIDOR.from), 'knightIntoGorge', { hidden: true, once: true });
@@ -257,8 +275,17 @@
         g.stairsDown([3, 3]);
         g.lever([CORRIDOR.row, 2], 'toggleBridge');
         digGorge(g, { bridge: false });
+        g.spawn('rat', g.randomFloor(([, c]) => c < CORRIDOR.from));  // waits in the west room
       },
       overlay: (g, p, T) => bridge(g, p, T),
+    },
+    { // 5: the slime machine, in the room opposite your arrival. It spawns a slime every
+      // third turn until something thrown at it breaks it.
+      setup(g, arrival) {
+        g.stairsUp(arrival);
+        const east = arrival[1] < CORRIDOR.from;
+        g.spawn('machine', g.randomFloor(([, c]) => (east ? c > CORRIDOR.to : c < CORRIDOR.from)));
+      },
     },
   ];
   // the gorge between the rooms (levels 3 and 4): chasm tiles (':') along the corridor,
@@ -369,8 +396,13 @@
     stairsUp(pos) { s.up = pos; },
     occupied: (p) => same(p, s.p) || same(p, s.down) || same(p, s.up) || !!monAt(p) || !!itemAt(p) || !!leverAt(p),
     setTile([r, c], ch) { s.map[r] = s.map[r].slice(0, c) + ch + s.map[r].slice(c + 1); },
-    randomFloor() {  // any free floor or corridor tile
-      const free = g.tiles((ch, p) => '.#'.includes(ch) && !g.occupied(p));
+    freeNextTo(p) {  // a random free walkable neighbour of p (or nothing)
+      const opts = DIRS.map(([dr, dc]) => [p[0] + dr, p[1] + dc])
+        .filter((n) => walkable(...n) && adjacent(p, n) && !g.occupied(n));
+      return opts[Math.floor(Math.random() * opts.length)];
+    },
+    randomFloor(inside = () => true) {  // any free floor or corridor tile, with inside(pos) true
+      const free = g.tiles((ch, p) => '.#'.includes(ch) && !g.occupied(p) && inside(p));
       return free[Math.floor(Math.random() * free.length)];
     },
   };
@@ -487,7 +519,7 @@
   function hit(m, dmg, msg, log) {  // you (or something you threw) hit a monster
     m.hp -= dmg;
     if (m.hp > 0) log.push(msg);
-    else { log.push(`The ${m.kind} dies!`); s.mons = s.mons.filter((x) => x !== m); }
+    else { log.push(MONSTERS[m.kind].death || `The ${m.kind} dies!`); s.mons = s.mons.filter((x) => x !== m); }
   }
 
   function pull(lever) {
