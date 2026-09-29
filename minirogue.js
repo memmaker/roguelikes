@@ -1,5 +1,8 @@
 // Header mini-roguelike.
 //
+// GOLDEN RULE: no log message longer than roughly 5 words. Messages share one line
+// in the title; say it short ("Thunk! Bridge extends."), never narrate.
+//
 // Layout of this file:
 //   MAP       the two rooms and corridor every level shares
 //   MONSTERS  one self-contained entry per monster type: stats, glyphs, optional behaviour
@@ -155,7 +158,7 @@
         }
         if (i === cols.length - 1) g.unlock();
       }));
-      return out ? 'A bridge extends.' : 'The bridge retracts.';
+      return out ? 'Bridge extends.' : 'Bridge retracts.';
     },
   };
 
@@ -421,7 +424,7 @@
     } else if (target) {
       hit(target, Math.max(FISTS, ...worn().map((k) => ITEMS[k].attack || 0)), 'You hit.', log);
     } else if (lever) {
-      log.push('You pull the lever.', pull(lever));
+      log.push('Clunk.', pull(lever));
     } else if (walkable(...n)) {
       s.p = n;
       const item = (dr || dc) && itemAt(n);  // resting on a dropped item leaves it be
@@ -512,7 +515,7 @@
       const log = lever ? ['Thunk!', pull(lever)] : [`You throw the ${kind}.`];  // short: the event speaks
       if (mon) hit(mon, ITEMS[kind].attack || 1, `The ${kind} hits the ${mon.kind}.`, log);
       const land = [...path].reverse().find((q) => !itemAt(q)) || [...s.p];
-      if (at(...land) === ' ') log.push(`The ${kind} falls into the gorge.`);
+      if (at(...land) === ' ') log.push(`The ${kind} is lost.`);
       else g.drop(kind, land);
       endTurn(log);
     });
