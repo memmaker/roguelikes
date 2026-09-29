@@ -858,55 +858,36 @@
     }));
   }
 
-  // ---------------------------------------------------------------- level transitions
-  // Every level change plays one, a small reward for getting there. They are played in a
-  // shuffled order; once all have played, the list is shuffled again. Each one is
-  // async (x) with x = { from, to: tile grids, fromP, toP: player positions, down,
-  // depth, show(grid), wait(ms) }; while it runs, input is locked and draw() leaves the map to it.
+  // ---------------------------------------------------------------- level transition
+  // Every level change, a small reward for getting there: the map collapses to a gold line,
+  // LEVEL N flashes on it, and it opens up on the new level. Input is locked meanwhile,
+  // and draw() leaves the map to it.
   const H = MAP.length, W = MAP[0].length, SPACE = ' ';
-  const blank = () => Array.from({ length: H }, () => Array(W).fill(SPACE));
-  const TRANSITIONS = [
-    async function torch(x) {  // darkness closes in on you, then the new level lights up from you
-      const dist = (p, r, c) => Math.max(Math.abs(r - p[0]) * 2, Math.abs(c - p[1]));  // rows are taller
-      const lit = (grid, p, rad) => grid.map((row, r) => row.map((cell, c) => (dist(p, r, c) <= rad ? cell : SPACE)));
-      for (let rad = W; rad >= 0; rad -= 3) { x.show(lit(x.from, x.fromP, rad)); await x.wait(25); }
-      await x.wait(150);
-      for (let rad = 0; rad <= W; rad += 2) { x.show(lit(x.to, x.toP, rad)); await x.wait(30); }
-    },
-    async function titleCard(x) {  // collapse to a line, flash LEVEL N, open up again
-      const squeeze = (grid, k) => grid.map((row, r) => (Math.abs(r - (H >> 1)) > H / 2 - k ? Array(W).fill(SPACE) : row));
-      const line = (text) => {
-        const g = blank(), pad = (W - text.length) >> 1;
-        g[H >> 1] = [...'═'.repeat(pad) + text + '═'.repeat(W - pad - text.length)].map((ch) => `<i class="mr-card">${ch}</i>`);
-        return g;
-      };
-      for (let k = 1; k <= 2; k++) { x.show(squeeze(x.from, k)); await x.wait(90); }
-      x.show(line('')); await x.wait(120);
-      for (let i = 0; i < 2; i++) {  // flash
-        x.show(line(` LEVEL ${x.depth} `)); await x.wait(260);
-        x.show(line('')); await x.wait(90);
-      }
-      x.show(line(` LEVEL ${x.depth} `)); await x.wait(300);
-      for (let k = 2; k >= 1; k--) { x.show(squeeze(x.to, k)); await x.wait(90); }
-    },
-  ];
-  const shuffle = (a) => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
-  let order = shuffle([...TRANSITIONS]), next = 0, transitioning = false;
-  function nextTransition() {
-    if (next >= order.length) { order = shuffle([...TRANSITIONS]); next = 0; }
-    return order[next++];
+  let transitioning = false;
+  async function titleCard(from, to, depth, show) {
+    const wait = (ms) => new Promise((ok) => setTimeout(ok, ms));
+    const squeeze = (grid, k) => grid.map((row, r) => (Math.abs(r - (H >> 1)) > H / 2 - k ? Array(W).fill(SPACE) : row));
+    const line = (text) => {
+      const grid = Array.from({ length: H }, () => Array(W).fill(SPACE)), pad = (W - text.length) >> 1;
+      grid[H >> 1] = [...'═'.repeat(pad) + text + '═'.repeat(W - pad - text.length)].map((ch) => `<i class="mr-card">${ch}</i>`);
+      return grid;
+    };
+    for (let k = 1; k <= 2; k++) { show(squeeze(from, k)); await wait(90); }
+    show(line('')); await wait(120);
+    for (let i = 0; i < 2; i++) {  // flash
+      show(line(` LEVEL ${depth} `)); await wait(260);
+      show(line('')); await wait(90);
+    }
+    show(line(` LEVEL ${depth} `)); await wait(300);
+    for (let k = 2; k >= 1; k--) { show(squeeze(to, k)); await wait(90); }
   }
 
   function changeLevel(depth, arrival) {
-    const from = cells(), fromP = s.p, down = depth > s.depth, run = s;
+    const from = cells(), run = s;
     s.msg = enter(depth, arrival);
-    const to = cells();
     transitioning = true; g.lock();
     draw();  // the message and status now; the map is the transition's
-    const x = { from, to, fromP, toP: s.p, down, depth,
-      show: (grid) => { if (s === run) el.innerHTML = html(grid); },
-      wait: (ms) => new Promise((ok) => setTimeout(ok, ms)) };
-    nextTransition()(x).finally(() => {
+    titleCard(from, cells(), depth, (grid) => { if (s === run) el.innerHTML = html(grid); }).finally(() => {
       transitioning = false;
       if (s === run) g.unlock();  // else restarted meanwhile
       draw();
