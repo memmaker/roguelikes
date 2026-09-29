@@ -471,10 +471,10 @@
         log.push(def.onPickup ? def.onPickup(g) : def.msg);
       }
       if (same(n, s.down)) {
-        if (s.depth < LEVELS.length) { s.msg = enter(s.depth + 1, n); draw(); return; }
+        if (s.depth < LEVELS.length) { changeLevel(s.depth + 1, n); return; }
         log.push('Under construction.');
       }
-      if (same(n, s.up)) { s.msg = enter(s.depth - 1, s.saved[s.depth - 1].down); draw(); return; }
+      if (same(n, s.up)) { changeLevel(s.depth - 1, s.saved[s.depth - 1].down); return; }
     } else { draw(); return; }  // bumping a wall costs no turn
     endTurn(log);
   }
@@ -832,8 +832,15 @@
       el.innerHTML = `<span class="mr-tomb">${esc(tomb())}</span>`;
       return;
     }
+    say(s.msg);
+    emit('status', stats());
+    s.msg = '';
+    if (!transitioning) el.innerHTML = html(cells());
+  }
+  const html = (grid) => grid.map((row) => row.join('')).join('\n');
+  function cells() {  // the map as rows of tile HTML
     const T = THEMES[theme], L = LEVELS[s.depth - 1];
-    const rows = s.map.map((row, r) => [...row].map((ch, c) => {
+    return s.map.map((row, r) => [...row].map((ch, c) => {
       const p = [r, c], m = monAt(p), item = itemAt(p);
       if (same(p, s.p) && !s.hidden) return `<b class="mr-at ${s.playerFx || ''}">${T.at}</b>`;
       if (s.flying && same(p, s.flying.pos)) {  // a thrown item in the air
@@ -848,11 +855,93 @@
       if (item) return `<b class="mr-it ${ITEMS[item.kind].cls || ''}">${ITEMS[item.kind].glyph[theme]}</b>`;
       if (same(p, s.down) || same(p, s.up)) return `<b class="mr-st">${T.stairs}</b>`;
       return T.tile(r, c, ch);
-    }).join(''));
-    say(s.msg);
-    emit('status', stats());
-    s.msg = '';
-    el.innerHTML = rows.join('\n');
+    }));
+  }
+
+  // ---------------------------------------------------------------- level transitions
+  // Every level change plays one, a small reward for getting there. They are played in a
+  // shuffled order; once all have played, the list is shuffled again. Each one is
+  // async (x) with x = { from, to: tile grids, fromP, toP: player positions, down,
+  // depth, show(grid), wait(ms) }; while it runs, input is locked and draw() leaves the map to it.
+  const H = MAP.length, W = MAP[0].length, SPACE = ' ';
+  const blank = () => Array.from({ length: H }, () => Array(W).fill(SPACE));
+  const TRANSITIONS = [
+    async function wipe(x) {  // the old level scrolls away, the new one follows (down: upwards)
+      const strip = x.down ? [...x.from, ...x.to] : [...x.to, ...x.from];
+      for (let k = 1; k <= H; k++) {
+        x.show(x.down ? strip.slice(k, k + H) : strip.slice(H - k, 2 * H - k));
+        await x.wait(110);
+      }
+    },
+    async function scramble(x) {  // tiles flicker through CP437, then settle left to right
+      const junk = '░▒▓╬≡☺♦♣♠•◘○■▲►◄↕‼¶§'.split(''), N = 12;
+      for (let f = 1; f <= N; f++) {
+        x.show(x.to.map((row, r) => row.map((cell, c) => {
+          if (c < (f / N) * W) return cell;
+          const empty = cell === SPACE && (x.from[r] || [])[c] === SPACE;
+          return empty ? SPACE : `<i class="mr-scr">${junk[Math.floor(Math.random() * junk.length)]}</i>`;
+        })));
+        await x.wait(60);
+      }
+    },
+    async function torch(x) {  // darkness closes in on you, then the new level lights up from you
+      const dist = (p, r, c) => Math.max(Math.abs(r - p[0]) * 2, Math.abs(c - p[1]));  // rows are taller
+      const lit = (grid, p, rad) => grid.map((row, r) => row.map((cell, c) => (dist(p, r, c) <= rad ? cell : SPACE)));
+      for (let rad = W; rad >= 0; rad -= 3) { x.show(lit(x.from, x.fromP, rad)); await x.wait(25); }
+      await x.wait(150);
+      for (let rad = 0; rad <= W; rad += 2) { x.show(lit(x.to, x.toP, rad)); await x.wait(30); }
+    },
+    async function titleCard(x) {  // collapse to a line, flash LEVEL N, open up again
+      const squeeze = (grid, k) => grid.map((row, r) => (Math.abs(r - (H >> 1)) > H / 2 - k ? Array(W).fill(SPACE) : row));
+      const line = (text) => {
+        const g = blank(), pad = (W - text.length) >> 1;
+        g[H >> 1] = [...'═'.repeat(pad) + text + '═'.repeat(W - pad - text.length)].map((ch) => `<i class="mr-card">${ch}</i>`);
+        return g;
+      };
+      for (let k = 1; k <= 2; k++) { x.show(squeeze(x.from, k)); await x.wait(90); }
+      x.show(line('')); await x.wait(120);
+      for (let i = 0; i < 2; i++) {  // flash
+        x.show(line(` LEVEL ${x.depth} `)); await x.wait(260);
+        x.show(line('')); await x.wait(90);
+      }
+      x.show(line(` LEVEL ${x.depth} `)); await x.wait(300);
+      for (let k = 2; k >= 1; k--) { x.show(squeeze(x.to, k)); await x.wait(90); }
+    },
+    async function stairsFall(x) {  // you spin down the stairs, then pop out in a burst of sparks
+      const from = x.from.map((row) => [...row]);
+      from[x.fromP[0]][x.fromP[1]] = `<b class="mr-at mr-stairfall">${THEMES[theme].at}</b>`;
+      x.show(from); await x.wait(600);
+      x.show(blank()); await x.wait(250);
+      for (const [ring, ch] of [[1, '*'], [2, '+'], [3, '·']]) {
+        x.show(x.to.map((row, r) => row.map((cell, c) => {
+          const d = Math.max(Math.abs(r - x.toP[0]), Math.ceil(Math.abs(c - x.toP[1]) / 2));  // a ring around you
+          return d === ring ? `<i class="mr-card">${ch}</i>` : cell;
+        })));
+        await x.wait(100);
+      }
+    },
+  ];
+  const shuffle = (a) => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  let order = shuffle([...TRANSITIONS]), next = 0, transitioning = false;
+  function nextTransition() {
+    if (next >= order.length) { order = shuffle([...TRANSITIONS]); next = 0; }
+    return order[next++];
+  }
+
+  function changeLevel(depth, arrival) {
+    const from = cells(), fromP = s.p, down = depth > s.depth, run = s;
+    s.msg = enter(depth, arrival);
+    const to = cells();
+    transitioning = true; g.lock();
+    draw();  // the message and status now; the map is the transition's
+    const x = { from, to, fromP, toP: s.p, down, depth,
+      show: (grid) => { if (s === run) el.innerHTML = html(grid); },
+      wait: (ms) => new Promise((ok) => setTimeout(ok, ms)) };
+    nextTransition()(x).finally(() => {
+      transitioning = false;
+      if (s === run) g.unlock();  // else restarted meanwhile
+      draw();
+    });
   }
 
   // ---------------------------------------------------------------- input
