@@ -4,12 +4,13 @@
 //   MAP       the two rooms and corridor every level shares
 //   MONSTERS  one self-contained entry per monster type: stats, glyphs, optional behaviour
 //   ITEMS     one self-contained entry per item type: glyphs, optional effects
+//   EVENTS    named changes to the game state, fired by levers (and anything else)
 //   LEVELS    one self-contained entry per level: what is in it, and its own rules
 //   engine    movement, combat, stairs, drawing, input; knows nothing about levels
 //
 // To add a level, append an entry to LEVELS. Stairs down lead to the next entry;
 // on the last level they say "Under construction.", so a new level is reachable
-// as soon as it exists. Stairs up lead back. A level you leave is remembered as it
+// as soon as it exists. Levers are placed by levels (g.lever). Stairs up lead back. A level you leave is remembered as it
 // was, and every level change says "Level N". Monsters and items work the same way: add an entry, and give
 // it hooks (act, onPickup, attack, defend) for anything unusual it does.
 (() => {
@@ -32,8 +33,7 @@
 
   // Monsters: hp, dmg (per hit on you), glyph per theme, optional cls (extra CSS class). Optional act(g, m) replaces the
   // default turn (hit if adjacent, else close in); optional bump(g, m) runs when you walk
-  // into it and returns a message, or null to attack as usual. Optional onHit(g, m, dmg)
-  // replaces taking damage (returns a message); solid: thrown things land in front of it. Numbers give exact hit counts:
+  // into it and returns a message, or null to attack as usual. Numbers give exact hit counts:
   // you have 45 hp, fists do 2, the sword 5, armour takes 4 off every hit.
   const MONSTERS = {
     bat: { hp: 10, dmg: 9, glyph: { unix: 'B', epyx: 'B' },  // 5 fists / 2 sword; kills in 5
@@ -102,14 +102,6 @@
         const step = g.stepTowards(m.pos, m.goal);
         if (!same(step, g.player)) m.pos = step;  // you are in the way: he waits
       } },
-
-    // Level 4's lever: never moves or dies; any hit (thrown or melee) flips it and the bridge.
-    lever: { hp: 1, dmg: 0, glyph: { unix: '/', epyx: '/' }, cls: 'mr-lever', solid: true,
-      act() {},
-      onHit(g, m) {
-        m.glyph = m.glyph === '\\' ? '/' : '\\';
-        return LEVELS[3].toggle(g);
-      } },
   };
 
   // Items are picked up by walking over them. Optional hooks:
@@ -127,12 +119,59 @@
       name: 'a Sandal', inv: { sym: ']', color: '#c7a36b' } },
   };
 
+  // Events: named changes to the game state, fired as EVENTS[name](g, source) → message,
+  // where source is what fired it (a lever). Anything may change: the map, monsters,
+  // items, the player, the level's own state (g.lv). Levels hand out names, so any
+  // lever, anywhere, can fire any event.
+  const EVENTS = {
+    // Stairs up appear at source.at.
+    openStairsUp(g, source) { g.stairsUp(source.at); return '*click*'; },
+
+    // The knight, wherever he stands, is thrown into the gorge and leaves a sandal.
+    knightIntoGorge(g) {
+      const knight = g.monsters('knight')[0];
+      if (knight) {
+        knight.falling = true;
+        g.monsterFx(knight, 'mr-thrown');
+        g.lock();  // a redraw would restart the fall: hold still and watch
+        g.later(1700, () => { g.remove(knight); g.drop('sandal', knight.pos); g.unlock(); });
+      }
+      return '*click*';
+    },
+
+    // The corridor as a bridge (drawn brown by the level's overlay): it extends plank by
+    // plank from the west door, or retracts back towards it. Items on it fall into the
+    // gorge, and so do you if you stand on it.
+    toggleBridge(g) {
+      const lv = g.lv, out = lv.bridgeOut = !lv.bridgeOut, row = CORRIDOR.row, cols = [];
+      for (let c = CORRIDOR.from; c <= CORRIDOR.to; c++) cols.push(c);
+      if (!out) cols.reverse();
+      g.lock();
+      cols.forEach((c, i) => g.later(90 * (i + 1), () => {
+        g.setTile([row, c], out ? '#' : ' ');
+        if (!out) {
+          g.dropInto([row, c]);
+          if (same(g.player, [row, c])) return g.die('fall');
+        }
+        if (i === cols.length - 1) g.unlock();
+      }));
+      return out ? 'Creak... a bridge extends.' : 'Creak... the bridge retracts.';
+    },
+  };
+
   // Each level: start (first level only), setup(g, arrival) fills the fresh map on the
   // first visit. Optional hooks, each may return a message:
   //   onTurn(g)          after every player action (move, attack, search), before monsters
   //   onSearch(g)        when the player searches (s key, or tapping yourself)
   //   overlay(g, pos, T) extra glyph drawn at pos (HTML), under the player and monsters
   // `g.lv` is this level's own scratch state; it is kept while you are away.
+  // Levers: g.lever(pos, event, options) places one and returns it. Pulling it flips it
+  // (/ ↔ \) and fires EVENTS[event] with the lever as source. A visible lever stands on a
+  // floor tile: walking into it pulls it, and so does anything thrown at it. Options:
+  //   hidden  sits unseen in a wall; searching next to it pulls it
+  //   once    fires only the first time
+  //   ...     anything else is data for the event (e.g. at: for openStairsUp)
+  // `lever.on` is its state (off at first), `lever.pulls` how often it was pulled.
   const LEVELS = [
     { // 1: a sword and a bat; stairs down in the bat's room
       start: [2, 3],
@@ -144,25 +183,16 @@
     },
     { // 2: you arrive where the stairs were, with no way up; a snake and leather armour
       // lie anywhere. Halfway along the corridor westwards a wall seals the way back, and
-      // a pale double of you appears beyond it. It heads for a hidden switch in the east
+      // a pale double of you appears beyond it. It heads for a hidden lever in the east
       // room (unless you found it first: search next to it), which opens stairs up where
       // you came in, and leaves by them. The stairs down in the west room are unfinished.
       setup(g, arrival) {
         g.lv.upAt = arrival;
+        // the lever hides in a wall of the east room, next to its floor
+        g.lv.lever = g.lever(g.randomWall(([, c]) => c >= 22), 'openStairsUp', { hidden: true, once: true, at: arrival });
         g.stairsDown([1, 3]);
         g.drop('armour', g.randomFloor());
         g.spawn('snake', g.randomFloor());
-        // the switch hides in a wall of the east room, next to its floor
-        g.lv.switchAt = g.randomWall(([, c]) => c >= 22);
-      },
-      click(g) {  // the switch opens the stairs up
-        if (g.lv.clicked) return '';
-        g.lv.clicked = true;
-        g.stairsUp(g.lv.upAt);
-        return '*click*';
-      },
-      onSearch(g) {
-        if (g.touching(g.lv.switchAt)) return this.click(g);
       },
       onTurn(g) {
         const lv = g.lv, [r, c] = g.player, half = (CORRIDOR.from + CORRIDOR.to) >> 1;
@@ -179,13 +209,14 @@
         if (!d || d.phase === 'gone') return;
         if (d.phase === 'appear') { d.phase = 'walk'; return `${g.playerGlyph}: "So it begins.."`; }  // after the fade-in
         if (d.phase === 'leave') { d.phase = 'gone'; return; }
-        const goal = lv.clicked ? lv.upAt : g.floorNextTo(lv.switchAt);
+        const pulled = lv.lever.pulls > 0;
+        const goal = pulled ? lv.upAt : g.floorNextTo(lv.lever.pos);
         if (!same(d.pos, goal)) {
           const step = g.stepTowards(d.pos, goal, { throughMonsters: true });
           if (!same(step, g.player)) d.pos = step;
           return;
         }
-        if (!lv.clicked) return this.click(g);
+        if (!pulled) return g.pull(lv.lever);
         d.phase = 'leave';  // on the stairs: fade out, then the stairs show again
         g.later(1200, () => { d.phase = 'gone'; });
       },
@@ -203,46 +234,18 @@
       setup(g) {
         g.spawn('knight', [CORRIDOR.row, CORRIDOR.from]);
         g.stairsDown([2, 26]);
-        g.lv.leverAt = g.randomWall(([, c]) => c < CORRIDOR.from);
-      },
-      onSearch(g) {
-        if (g.lv.pulled || !g.touching(g.lv.leverAt)) return;
-        g.lv.pulled = true;
-        const knight = g.monsters('knight')[0];
-        if (knight) {
-          knight.falling = true;
-          g.monsterFx(knight, 'mr-thrown');
-          g.lock();  // a redraw would restart the fall: hold still and watch
-          g.later(1700, () => { g.remove(knight); g.drop('sandal', knight.pos); g.unlock(); });
-        }
-        return '*click*';
+        g.lever(g.randomWall(([, c]) => c < CORRIDOR.from), 'knightIntoGorge', { hidden: true, once: true });
       },
       overlay: (g, p, T) => bridge(g, p, T),
     },
     { // 4: the retracted bridge. You arrive in the east room; the corridor is gorge, and a
       // lever stands in the west room across it. Anything that hits the lever (throw
-      // something over the gorge) flips it: the bridge extends plank by plank from the
-      // lever's side, or retracts back towards it. Stand on it then and you fall.
+      // something over the gorge) flips it and fires toggleBridge.
       setup(g, arrival) {
         g.stairsUp(arrival);
         g.stairsDown([3, 3]);
-        g.spawn('lever', [CORRIDOR.row, 2]);
+        g.lever([CORRIDOR.row, 2], 'toggleBridge');
         for (let c = CORRIDOR.from; c <= CORRIDOR.to; c++) g.setTile([CORRIDOR.row, c], ' ');
-      },
-      toggle(g) {  // from the lever
-        const lv = g.lv, out = lv.out = !lv.out, row = CORRIDOR.row, cols = [];
-        for (let c = CORRIDOR.from; c <= CORRIDOR.to; c++) cols.push(c);
-        if (!out) cols.reverse();
-        g.lock();
-        cols.forEach((c, i) => g.later(90 * (i + 1), () => {
-          g.setTile([row, c], out ? '#' : ' ');
-          if (!out) {
-            g.dropInto([row, c]);
-            if (same(g.player, [row, c])) return g.die('fall');
-          }
-          if (i === cols.length - 1) g.unlock();
-        }));
-        return out ? 'Creak... a bridge extends.' : 'Creak... the bridge retracts.';
       },
       overlay: (g, p, T) => bridge(g, p, T),
     },
@@ -254,11 +257,12 @@
 
   // ---------------------------------------------------------------- engine
   let s;  // run: { depth, p, hp, has, dead, killer, msg, saved } + the level: { map, mons, items, down, up, lv }
-  const LEVEL_KEYS = ['map', 'mons', 'items', 'down', 'up', 'lv'];
+  const LEVEL_KEYS = ['map', 'mons', 'items', 'levers', 'down', 'up', 'lv'];
   const DIRS = [[0,1],[0,-1],[1,0],[-1,0],[1,1],[1,-1],[-1,1],[-1,-1]];
   const same = (a, b) => !!a && !!b && a[0] === b[0] && a[1] === b[1];
   const at = (r, c) => (s.map[r] || '')[c] || ' ';
-  const walkable = (r, c) => '.+#'.includes(at(r, c));
+  const leverAt = (p) => s.levers.find((l) => !l.hidden && same(l.pos, p));  // visible ones
+  const walkable = (r, c) => '.+#'.includes(at(r, c)) && !leverAt([r, c]);
   const monAt = (p) => s.mons.find((m) => same(m.pos, p));
   const itemAt = (p) => s.items.find((i) => same(i.pos, p));
 
@@ -311,6 +315,12 @@
     },
     spawn(kind, pos) { s.mons.push({ kind, pos, hp: MONSTERS[kind].hp }); },
     drop(kind, pos) { s.items.push({ kind, pos }); },
+    lever(pos, event, options) {
+      const lever = { ...options, pos, event, on: false, pulls: 0 };
+      s.levers.push(lever);
+      return lever;
+    },
+    pull: (lever) => pull(lever),
     dropInto(pos) { s.items = s.items.filter((i) => !same(i.pos, pos)); },  // items there fall into the gorge
     later(ms, fn) {  // run fn after ms and redraw, unless the game restarted meanwhile
       const run = s;
@@ -318,7 +328,7 @@
     },
     stairsDown(pos) { s.down = pos; },
     stairsUp(pos) { s.up = pos; },
-    occupied: (p) => same(p, s.p) || same(p, s.down) || same(p, s.up) || !!monAt(p) || !!itemAt(p),
+    occupied: (p) => same(p, s.p) || same(p, s.down) || same(p, s.up) || !!monAt(p) || !!itemAt(p) || !!leverAt(p),
     setTile([r, c], ch) { s.map[r] = s.map[r].slice(0, c) + ch + s.map[r].slice(c + 1); },
     randomFloor() {  // any free floor or corridor tile
       const free = g.tiles((ch, p) => '.#'.includes(ch) && !g.occupied(p));
@@ -332,7 +342,7 @@
     s.p = arrival || LEVELS[depth - 1].start;
     if (s.saved[depth]) Object.assign(s, s.saved[depth]);
     else {
-      Object.assign(s, { map: [...MAP], mons: [], items: [], down: null, up: null, lv: {} });
+      Object.assign(s, { map: [...MAP], mons: [], items: [], levers: [], down: null, up: null, lv: {} });
       LEVELS[depth - 1].setup(g, s.p);
     }
     return `Level ${depth}`;
@@ -401,14 +411,17 @@
     const L = LEVELS[s.depth - 1];
     const n = [s.p[0] + dr, s.p[1] + dc];
     if (!search && dr && dc && (at(...s.p) === '+' || at(...n) === '+')) { draw(); return; }
-    const log = [], target = !search && monAt(n);
+    const log = [], target = !search && monAt(n), lever = !search && leverAt(n);
     let bumped;
     if (search) {
+      for (const l of s.levers) if (l.hidden && g.touching(l.pos)) log.push(pull(l));
       if (L.onSearch) log.push(L.onSearch(g));
     } else if (target && (bumped = bump(target)) != null) {
       log.push(bumped);  // the monster handled being walked into
     } else if (target) {
       hit(target, Math.max(FISTS, ...worn().map((k) => ITEMS[k].attack || 0)), 'You hit.', log);
+    } else if (lever) {
+      log.push('You pull the lever.', pull(lever));
     } else if (walkable(...n)) {
       s.p = n;
       const item = (dr || dc) && itemAt(n);  // resting on a dropped item leaves it be
@@ -429,11 +442,15 @@
 
   const worn = () => Object.keys(s.has).filter((k) => s.has[k]);
   function hit(m, dmg, msg, log) {  // you (or something you threw) hit a monster
-    const def = MONSTERS[m.kind];
-    if (def.onHit) { log.push(msg, def.onHit(g, m, dmg)); return; }
     m.hp -= dmg;
     if (m.hp > 0) log.push(msg);
     else { log.push(`The ${m.kind} dies!`); s.mons = s.mons.filter((x) => x !== m); }
+  }
+
+  function pull(lever) {
+    if (lever.once && lever.pulls) return '';
+    lever.pulls++; lever.on = !lever.on;
+    return EVENTS[lever.event](g, lever);
   }
 
   // after the player's action: the level's turn, then the monsters', then the redraw
@@ -467,31 +484,40 @@
     }
     if (action === 'throw') { aiming = kind; s.msg = 'Which direction?'; draw(); }
   }
-  // it flies until a wall (over the gorge too), hits the first monster in its way (weapons
-  // for their attack, anything else for 1), and lands on a free tile; over the gorge it is lost
+  // It flies (animated, a tile every 40ms) until a wall, over the gorge too; hits the first
+  // monster (weapons for their attack, anything else for 1) or lever in its way; and lands
+  // on the last free tile it passed (under a monster it hit), or is lost over the gorge.
   function throwItem(dr, dc) {
     const kind = aiming;
     aiming = null;
     if (!dr && !dc) { s.msg = 'Never mind.'; draw(); return; }
     delete s.has[kind];
-    const log = [`You throw the ${kind}.`];
-    let p = s.p, land = null;
+    const path = [];
+    let p = s.p, lever = null, mon = null;
     for (let i = 0; i < MAP[0].length; i++) {
       const n = [p[0] + dr, p[1] + dc];
+      if ((lever = leverAt(n))) break;  // lands in front
       if (!(walkable(...n) || at(...n) === ' ') || !adjacent(p, n)) break;
-      const m = monAt(n);
-      if (m) {
-        hit(m, ITEMS[kind].attack || 1, `The ${kind} hits the ${m.kind}.`, log);
-        if (!MONSTERS[m.kind].solid && !itemAt(n)) land = n;
-        break;
-      }
+      path.push(n);
+      if ((mon = monAt(n))) break;
       p = n;
-      if (!itemAt(p)) land = p;
     }
-    land = land || [...s.p];
-    if (at(...land) === ' ') log.push(`The ${kind} falls into the gorge.`);
-    else g.drop(kind, land);
-    endTurn(log);
+    const STEP = 40;
+    g.lock();
+    s.flying = { kind, pos: s.p };
+    path.forEach((q, i) => g.later(STEP * (i + 1), () => { s.flying.pos = q; }));
+    g.later(STEP * (path.length + 1), () => {
+      s.flying = null;
+      g.unlock();
+      const log = [`You throw the ${kind}.`];
+      if (lever) log.push(`The ${kind} hits the lever.`, pull(lever));
+      if (mon) hit(mon, ITEMS[kind].attack || 1, `The ${kind} hits the ${mon.kind}.`, log);
+      const land = [...path].reverse().find((q) => !itemAt(q)) || [...s.p];
+      if (at(...land) === ' ') log.push(`The ${kind} falls into the gorge.`);
+      else g.drop(kind, land);
+      endTurn(log);
+    });
+    draw();
   }
 
   // ---------------------------------------------------------------- drawing
@@ -760,7 +786,13 @@
     const rows = s.map.map((row, r) => [...row].map((ch, c) => {
       const p = [r, c], m = monAt(p), item = itemAt(p);
       if (same(p, s.p) && !s.hidden) return `<b class="mr-at ${s.playerFx || ''}">${T.at}</b>`;
-      if (m) return `<b class="mr-k ${MONSTERS[m.kind].cls || ''} ${m.fx || ''}">${esc(m.glyph || MONSTERS[m.kind].glyph[theme])}</b>`;
+      if (s.flying && same(p, s.flying.pos)) {  // a thrown item in the air
+        const def = ITEMS[s.flying.kind];
+        return `<b class="mr-it ${def.cls || ''}">${def.glyph[theme]}</b>`;
+      }
+      if (m) return `<b class="mr-k ${MONSTERS[m.kind].cls || ''} ${m.fx || ''}">${MONSTERS[m.kind].glyph[theme]}</b>`;
+      const lever = leverAt(p);
+      if (lever) return `<b class="mr-lever">${lever.on ? '\\' : '/'}</b>`;
       const extra = L.overlay && L.overlay(g, p, T);
       if (extra) return extra;
       if (item) return `<b class="mr-it ${ITEMS[item.kind].cls || ''}">${ITEMS[item.kind].glyph[theme]}</b>`;
