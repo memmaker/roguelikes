@@ -15,7 +15,7 @@
 // on the last level they say "Under construction.", so a new level is reachable
 // as soon as it exists. Levers are placed by levels (g.lever). Stairs up lead back. A level you leave is remembered as it
 // was, and every level change says "Level N". Monsters and items work the same way: add an entry, and give
-// it hooks (act, onPickup, attack, defend) for anything unusual it does.
+// it hooks (act, attack, defend) for anything unusual it does.
 (() => {
   const el = document.getElementById('minirogue');
   if (!el) return;
@@ -28,7 +28,13 @@
     ' ------               ------- ',
   ];
   const CORRIDOR = { row: 2, from: 7, to: 21 };  // row 2, doors at cols 6 and 22
-  const PLAYER_HP = 45, FISTS = 2;  // hp is restored on each new level
+  const PLAYER_HP = 10, FISTS = [1, 2];  // hp is restored on each new level
+
+  // Damage is a number or a [min, max] range, rolled evenly on every hit.
+  const roll = (d) => (Array.isArray(d) ? d[0] + Math.floor(Math.random() * (d[1] - d[0] + 1)) : d);
+  const dmgText = (d) => (Array.isArray(d) ? d.join('-') : String(d));
+  const pick = (a) => a[Math.floor(Math.random() * a.length)];  // a random entry (undefined if none)
+  const best = (ds) => ds.reduce((a, d) => ([].concat(d).at(-1) > [].concat(a).at(-1) ? d : a));  // highest max
 
   // Game memory: what the game has learned about the player, kept for the page's
   // lifetime (across deaths). Levels, monsters and items reach it as g.memory.
@@ -36,40 +42,41 @@
 
   // Monsters: hp, dmg (per hit on you), glyph per theme, optional cls (extra CSS class). Optional act(g, m) replaces the
   // default turn (hit if adjacent, else close in); optional bump(g, m) runs when you walk
-  // into it and returns a message, or null to attack as usual. Numbers give exact hit counts:
-  // you have 45 hp, fists do 2, the sword 5, armour takes 4 off every hit.
+  // into it and returns a message, or null to attack as usual. dmg may be a [min, max] range.
+  // You have 10 hp, fists do 1-2, the sword 2-4, armour takes 1 off every hit.
   const MONSTERS = {
-    bat: { hp: 10, dmg: 9, glyph: { unix: 'B', epyx: 'B' },  // 5 fists / 2 sword; kills in 5
+    bat: { hp: 4, dmg: [1, 2], glyph: { unix: 'B', epyx: 'B' },
       act(g, m) {  // flies erratically, as in Rogue: every third turn a random flap
         m.turns = (m.turns || 0) + 1;
         if (m.turns % 3 === 0) return g.wander(m);
         return g.adjacent(m) ? g.hurt(m, this.dmg) : g.chase(m);
       } },
-    snake: { hp: 20, dmg: 9, glyph: { unix: 's', epyx: 's' } },  // 4 sword; kills in 5, in 9 vs armour
+    snake: { hp: 7, dmg: [1, 3], glyph: { unix: 's', epyx: 's' } },
 
     // Scurries about at random; bites only if you happen to be next to it.
-    rat: { hp: 6, dmg: 4, glyph: { unix: 'r', epyx: 'r' },
+    rat: { hp: 3, dmg: [1, 2], glyph: { unix: 'r', epyx: 'r' },
       act(g, m) { return g.adjacent(m) && Math.random() < 0.5 ? g.hurt(m, this.dmg) : g.wander(m); } },
 
-    // One hit kills it.
-    slime: { hp: 1, dmg: 3, glyph: { unix: 'j', epyx: 'j' }, cls: 'mr-slime' },
+    // 2 hp. Its 1 damage gets through any armour.
+    slime: { hp: 2, dmg: 1, glyph: { unix: 'j', epyx: 'j' }, cls: 'mr-slime',
+      act(g, m) { return g.adjacent(m) ? g.hurt(m, this.dmg, { pierce: true }) : g.chase(m); } },
 
-    // Never moves; every third turn a slime oozes out next to it. Too hot to touch:
-    // only something thrown at it breaks it.
-    machine: { hp: 1, glyph: { unix: '&', epyx: '☼' }, cls: 'mr-machine', death: 'The machine breaks!',
-      bump: () => 'Too hot!',
+    // Never moves; every third turn a slime oozes out next to it or next to any slime,
+    // until no such tile is free. 4 sword hits (or
+    // throws) break it.
+    machine: { hp: 10, glyph: { unix: '&', epyx: '☼' }, cls: 'mr-machine', death: 'The machine breaks!',
       act(g, m) {
         m.turns = (m.turns || 0) + 1;
-        const at = g.freeNextTo(m.pos);
+        const at = pick([m, ...g.monsters('slime')].map((x) => g.freeNextTo(x.pos)).filter(Boolean));
         if (m.turns % 3 === 0 && at) { g.spawn('slime', at); return 'Blorp.'; }
       } },
 
     // Guards the bridge. Walking into him starts his three questions (answers go to
     // MEMORY); a walk-away (Esc, or clicking the map) ends them. The third bump is an
-    // attack, and from then on he fights: 100 hp, 10 per hit. Answer all three and he
+    // attack, and from then on he fights: 16 hp, 2-6 per hit (~10% for sword and armour). Answer all three and he
     // walks into the west room to wait by a wall, as soon as you let him past. The
     // colour must be HTML hex (#fcba03); a second wrong colour sends you into the gorge.
-    knight: { hp: 100, dmg: 10, glyph: { unix: '@', epyx: '☻' }, cls: 'mr-knight',
+    knight: { hp: 16, dmg: [2, 6], glyph: { unix: '@', epyx: '☻' }, cls: 'mr-knight',
       questions: [['name', 'What is your name?'], ['quest', 'What is your quest?'],
         ['color', 'What is your favorite color?']],
       wrong: [  // short: one line in the title (the question stays in the prompt)
@@ -96,7 +103,7 @@
             m.wrong = (m.wrong || 0) + 1;
             if (m.wrong >= 2) return this.throwOff(g);  // one second try only
             this.ask(g, m, i);
-            return this.say(g, this.wrong[Math.floor(Math.random() * this.wrong.length)]);
+            return this.say(g, pick(this.wrong));
           }
           g.memory[key] = answer;
           if (i + 1 < this.questions.length) return this.ask(g, m, i + 1);
@@ -118,7 +125,7 @@
         if (!m.passed) return;  // stands his ground
         if (!m.goal) {  // a spot by a wall of the west room, away from the door row
           const spots = g.tiles((ch, [r, c]) => ch === '.' && c < CORRIDOR.from && r !== CORRIDOR.row);
-          m.goal = spots[Math.floor(Math.random() * spots.length)];
+          m.goal = pick(spots);
         }
         const step = g.stepTowards(m.pos, m.goal);
         if (!same(step, g.player)) m.pos = step;  // you are in the way: he waits
@@ -126,14 +133,14 @@
   };
 
   // Items are picked up by walking over them. Optional hooks:
-  //   onPickup(g) → message (default: msg)   attack → your damage per hit (best one counts)
-  //   defend(dmg, monster) → damage you actually take   cls → extra CSS class
+  //   msg → the pickup message   attack → your damage per hit (best one counts)
+  //   defend(dmg) → damage you actually take   cls → extra CSS class
   // In the inventory (i) each item shows as `name`, with Angband's symbol and colour, and
   // its real numbers: (attack) for weapons, [damage taken off a hit] for anything with defend.
   const ITEMS = {
-    sword: { msg: 'You wield the sword.', attack: 5, glyph: { unix: ')', epyx: '↑' },
+    sword: { msg: 'You wield the sword.', attack: [2, 4], glyph: { unix: ')', epyx: '↑' },
       name: 'a Short Sword', inv: { sym: '|', color: '#ffffff' } },
-    armour: { msg: 'You put on leather armour.', defend: (dmg) => dmg - 4,
+    armour: { msg: 'You put on leather armour.', defend: (dmg) => dmg - 1,
       glyph: { unix: ']', epyx: '◘' }, name: 'Soft Leather Armour', inv: { sym: '(', color: '#8f5a2b' } },
     sandal: { msg: 'You put on the sandal.', cls: 'mr-sandal', defend: (dmg) => dmg,  // worn; takes nothing off
       glyph: { unix: '[', epyx: '∩' },
@@ -189,7 +196,6 @@
   // Each level: start (first level only), setup(g, arrival) fills the fresh map on the
   // first visit. Optional hooks, each may return a message:
   //   onTurn(g)          after every player action (move, attack, search), before monsters
-  //   onSearch(g)        when the player searches (s key, or tapping yourself)
   //   overlay(g, pos, T) extra glyph drawn at pos (HTML), under the player and monsters
   // `g.lv` is this level's own scratch state; it is kept while you are away.
   // Levers: g.lever(pos, event, options) places one and returns it. Pulling it flips it
@@ -323,7 +329,7 @@
     speak: (glyph, cls, text) => ({ text: `${glyph}: "${text}"`, cls }),
     memory: MEMORY,
     tileAt: ([r, c]) => at(r, c),
-    itemAt: (p) => itemAt(p),
+    itemAt,
     ask(question, onAnswer, onCancel) {  // a question in the prompt widget; handlers return a message
       asking = { onAnswer, onCancel };
       emit('ask', question);
@@ -351,15 +357,14 @@
     monsterFx(m, cls) { m.fx = cls; },            // extra CSS class on a monster's glyph
     randomWall(inside) {  // a random wall tile next to floor, with inside(pos) true (hidden things)
       const walls = g.tiles((ch, p) => '-|'.includes(ch) && inside(p) && !!g.floorNextTo(p));
-      return walls[Math.floor(Math.random() * walls.length)];
-    },                   // the player loses control
+      return pick(walls);
+    },
     playerFx(cls) { s.playerFx = cls; },           // extra CSS class on the player glyph
     hidePlayer() { s.hidden = true; },
     die(killer) { s.dead = true; s.killer = killer; },
-    has: (kind) => kind in s.has,  // carried (s.has[kind] is true while equipped)
     adjacent: (m) => adjacent(m.pos, s.p),
     chase(m) { m.pos = stepTowards(m.pos, s.p); },
-    stepTowards: (from, to, opts) => stepTowards(from, to, opts),
+    stepTowards,
     touching: (p) => Math.max(Math.abs(p[0] - s.p[0]), Math.abs(p[1] - s.p[1])) === 1,
     floorNextTo: (p) => DIRS.slice(0, 4).map(([dr, dc]) => [p[0] + dr, p[1] + dc]).find((n) => at(...n) === '.'),
     tiles(pred) {  // every [r, c] whose map character passes pred(ch, pos)
@@ -371,11 +376,13 @@
       const opts = DIRS
         .map(([dr, dc]) => [m.pos[0] + dr, m.pos[1] + dc])
         .filter((n) => walkable(...n) && adjacent(m.pos, n) && !same(n, s.p) && !monAt(n));
-      if (opts.length) m.pos = opts[Math.floor(Math.random() * opts.length)];
+      if (opts.length) m.pos = pick(opts);
     },
-    hurt(m, dmg) {  // a monster hits the player; worn items may soften it
-      for (const k of worn()) if (ITEMS[k].defend) dmg = ITEMS[k].defend(dmg, m);
-      s.hp -= Math.max(0, dmg);
+    hurt(m, dmg, { pierce = false } = {}) {  // a monster hits the player; worn items may soften it
+      dmg = roll(dmg);
+      if (!pierce) for (const k of worn()) if (ITEMS[k].defend) dmg = ITEMS[k].defend(dmg);
+      if (dmg <= 0) return `Armour stops the ${m.kind}.`;
+      s.hp -= dmg;
       if (s.hp <= 0) { s.dead = true; s.killer = m.kind; }
       return `The ${m.kind} hits you.`;
     },
@@ -386,11 +393,11 @@
       s.levers.push(lever);
       return lever;
     },
-    pull: (lever) => pull(lever),
+    pull,
     dropInto(pos) { s.items = s.items.filter((i) => !same(i.pos, pos)); },  // items there fall into the gorge
-    later(ms, fn) {  // run fn after ms and redraw, unless the game restarted meanwhile
-      const run = s;
-      setTimeout(() => { if (s === run && !s.dead) { fn(); draw(); } }, ms);
+    later(ms, fn) {  // run fn after ms and redraw, unless the game restarted or the level changed
+      const run = s, depth = s.depth;
+      setTimeout(() => { if (s === run && s.depth === depth && !s.dead) { fn(); draw(); } }, ms);
     },
     stairsDown(pos) { s.down = pos; },
     stairsUp(pos) { s.up = pos; },
@@ -399,17 +406,18 @@
     freeNextTo(p) {  // a random free walkable neighbour of p (or nothing)
       const opts = DIRS.map(([dr, dc]) => [p[0] + dr, p[1] + dc])
         .filter((n) => walkable(...n) && adjacent(p, n) && !g.occupied(n));
-      return opts[Math.floor(Math.random() * opts.length)];
+      return pick(opts);
     },
     randomFloor(inside = () => true) {  // any free floor or corridor tile, with inside(pos) true
       const free = g.tiles((ch, p) => '.#'.includes(ch) && !g.occupied(p) && inside(p));
-      return free[Math.floor(Math.random() * free.length)];
+      return pick(free);
     },
   };
 
   function enter(depth, arrival) {
     if (s.depth) s.saved[s.depth] = Object.fromEntries(LEVEL_KEYS.map((k) => [k, s[k]]));
-    s.depth = depth; s.hp = PLAYER_HP;
+    if (depth > (s.deepest || 0)) { s.deepest = depth; s.hp = PLAYER_HP; }  // heals once per new depth
+    s.depth = depth;
     s.p = arrival || LEVELS[depth - 1].start;
     if (s.saved[depth]) Object.assign(s, s.saved[depth]);
     else {
@@ -466,20 +474,17 @@
   function stats() {  // for the status widget
     const held = worn().map((k) => ITEMS[k]);
     return {
-      level: s.depth, hp: Math.max(0, s.hp), maxHp: PLAYER_HP, str: 16,
+      level: s.depth, hp: Math.max(0, s.hp), maxHp: PLAYER_HP,
       arm: held.reduce((a, i) => a + (i.defend ? 10 - i.defend(10) : 0), 0),  // damage armour takes off a hit
-      dmg: Math.max(FISTS, ...held.map((i) => i.attack || 0)),
+      dmg: dmgText(best([FISTS, ...held.map((i) => i.attack || 0)])),
       items: Object.keys(s.has).map((kind) => ({ kind, worn: s.has[kind] })),
     };
   }
-
-  const bump = (m) => (MONSTERS[m.kind].bump ? MONSTERS[m.kind].bump(g, m) : null);
 
   // one player action: a step/attack in direction (dr, dc), or a search
   function turn(dr, dc, search = false) {
     emit('played');
     if (s.dead) { reset(); return; }
-    const L = LEVELS[s.depth - 1];
     const n = [s.p[0] + dr, s.p[1] + dc];
     if (!search && dr && dc && (at(...s.p) === '+' || at(...n) === '+')) { draw(); return; }
     const log = [], target = !search && monAt(n), lever = !search && leverAt(n);
@@ -487,11 +492,10 @@
     if (search) {
       log.push('Searching..');
       for (const l of s.levers) if (l.hidden && g.touching(l.pos)) log.push(pull(l));
-      if (L.onSearch) log.push(L.onSearch(g));
-    } else if (target && (bumped = bump(target)) != null) {
+    } else if (target && (bumped = MONSTERS[target.kind].bump?.(g, target)) != null) {
       log.push(bumped);  // the monster handled being walked into
     } else if (target) {
-      hit(target, Math.max(FISTS, ...worn().map((k) => ITEMS[k].attack || 0)), 'You hit.', log);
+      hit(target, roll(best([FISTS, ...worn().map((k) => ITEMS[k].attack || 0)])), 'You hit.', log);
     } else if (lever) {
       log.push('Clunk.', pull(lever));
     } else if (at(...n) === ':') {  // the edge of a chasm: ask first (costs no turn)
@@ -501,16 +505,15 @@
       s.p = n;
       const item = (dr || dc) && itemAt(n);  // resting on a dropped item leaves it be
       if (item) {
-        const def = ITEMS[item.kind];
         s.items = s.items.filter((i) => i !== item);
         s.has[item.kind] = true;
-        log.push(def.onPickup ? def.onPickup(g) : def.msg);
+        log.push(ITEMS[item.kind].msg);
       }
-      if (same(n, s.down)) {
+      if ((dr || dc) && same(n, s.down)) {  // resting on stairs stays put
         if (s.depth < LEVELS.length) { changeLevel(s.depth + 1, n); return; }
         log.push('Under construction.');
       }
-      if (same(n, s.up)) { changeLevel(s.depth - 1, s.saved[s.depth - 1].down); return; }
+      if ((dr || dc) && same(n, s.up)) { changeLevel(s.depth - 1, s.saved[s.depth - 1].down); return; }
     } else { draw(); return; }  // bumping a wall costs no turn
     endTurn(log);
   }
@@ -519,7 +522,7 @@
   function hit(m, dmg, msg, log) {  // you (or something you threw) hit a monster
     m.hp -= dmg;
     if (m.hp > 0) log.push(msg);
-    else { log.push(MONSTERS[m.kind].death || `The ${m.kind} dies!`); s.mons = s.mons.filter((x) => x !== m); }
+    else { log.push(MONSTERS[m.kind].death || `The ${m.kind} dies!`); g.remove(m); }
   }
 
   function pull(lever) {
@@ -588,7 +591,7 @@
       s.flying = null;
       g.unlock();
       const log = lever ? ['Thunk!', pull(lever)] : [`You throw the ${kind}.`];  // short: the event speaks
-      if (mon) hit(mon, ITEMS[kind].attack || 1, `The ${kind} hits the ${mon.kind}.`, log);
+      if (mon) hit(mon, roll(ITEMS[kind].attack || 1), `The ${kind} hits the ${mon.kind}.`, log);
       const land = [...path].reverse().find((q) => !itemAt(q)) || [...s.p];
       if (at(...land) === ':') {  // it tumbles down like a falling actor, then the event
         s.flying = { kind, pos: land, fx: 'mr-fall' };
@@ -641,7 +644,7 @@
       return esc(ch);
     } },
   };
-  let theme = Math.random() < 0.5 ? 'unix' : 'epyx';
+  let theme = pick(['unix', 'epyx']);
   function setTheme(t) { theme = t; el.dataset.theme = t; emit('theme', t); }
 
   // ---------------------------------------------------------------- UI widgets
@@ -651,8 +654,7 @@
   //   message(ui, parts) every message the game emits: [{ text, cls }], cls the speaker's colour
   //   played(ui)        once, on the player's first action
   //   theme(ui, name)   when the theme changes
-  //   status(ui, stats) after every redraw: { level, hp, maxHp, str, arm, dmg }
-  //   status(ui, stats) also carries `items`: the item kinds you carry, in pickup order
+  //   status(ui, stats) after every redraw: { level, hp, maxHp, arm, dmg, items } (items in pickup order)
   // `ui.widget(name)` reaches another widget; `ui.map` is the map element.
   const WIDGETS = {
     // Once you have played, the subtitle quietly becomes clickable (same look) and
@@ -667,7 +669,7 @@
       show() {
         const t = this.stats;
         this.el.textContent = this.on && t
-          ? `Level: ${t.level}  Hp: ${t.hp}(${t.maxHp})  Str: ${t.str}(${t.str})  Arm: ${t.arm}  Dmg: ${t.dmg}`
+          ? `Level: ${t.level}  Hp: ${t.hp}(${t.maxHp})  Arm: ${t.arm}  Dmg: ${t.dmg}`
           : this.text;
       },
     },
@@ -801,7 +803,7 @@
           const def = ITEMS[it.kind], row = div(n === this.cursor ? 'mr-inv-cur' : '');
           const sym = document.createElement('b'), name = document.createElement('span');
           sym.textContent = def.inv.sym; sym.style.color = def.inv.color;
-          name.textContent = def.name + (def.attack ? ` (${def.attack})` : '') + (def.defend ? ` [${10 - def.defend(10)}]` : '') +
+          name.textContent = def.name + (def.attack ? ` (${dmgText(def.attack)})` : '') + (def.defend ? ` [${10 - def.defend(10)}]` : '') +
             (it.worn ? (def.attack ? ' (wielded)' : ' (worn)') : '');
           name.style.color = def.inv.color;
           row.append(`${String.fromCharCode(97 + n)}) `, sym, ' ', name);
@@ -865,8 +867,7 @@
     },
   };
   const ui = { map: el, get theme() { return theme; }, widget: (name) => WIDGETS[name],
-    answer: (text) => answer(text), cancel: () => answer('', true),
-    itemAction: (kind, action) => itemAction(kind, action) };
+    answer, cancel: () => answer('', true), itemAction };
   let played = false;
   function emit(hook, ...args) {
     if (hook === 'played') { if (played) return; played = true; }
@@ -957,7 +958,7 @@
     }
     const inv = WIDGETS.inventory;
     if (inv.box) { inv.key(ui, e); return; }
-    if (played && !asking && !aiming && !s.dead && e.key === 'i') { e.preventDefault(); inv.toggle(ui); return; }  // costs no turn
+    if (played && !asking && !aiming && !s.dead && !s.locked && e.key === 'i') { e.preventDefault(); inv.toggle(ui); return; }  // costs no turn
     const d = KEYS[e.key];
     if (s.dead) { if (e.key.length === 1 || d) { e.preventDefault(); reset(); } return; }
     if (s.locked) { e.preventDefault(); return; }
