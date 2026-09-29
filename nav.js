@@ -1,4 +1,10 @@
 // Shared sidebar: <script src="nav.js" defer></script> on every root page.
+// Player progress (localStorage 'progress'): { name, deepest, max, beaten, families: [unlocked, in unlock order] }.
+// unlock.js writes it on the index page and fires 'progress' on document; the menu redraws.
+window.progress = {
+  get() { try { return JSON.parse(localStorage.getItem('progress')) || {}; } catch { return {}; } },
+  save(p) { try { localStorage.setItem('progress', JSON.stringify(p)); } catch {} document.dispatchEvent(new Event('progress')); },
+};
 (()=>{
 const s=document.createElement('style');
 s.textContent=`
@@ -11,13 +17,22 @@ s.textContent=`
 #nav.open{transform:none;visibility:visible}
 #nav a{display:block;font:600 18px Cinzel,serif;color:var(--gold);text-decoration:none;padding:10px 4px;border-bottom:1px solid var(--line)}
 #nav a:hover,#nav a[aria-current]{color:var(--ember)}
+#nav .depth{position:absolute;left:20px;bottom:20px;color:var(--dim);font:12px "IBM Plex Mono",monospace}
 #navshade{position:fixed;inset:0;z-index:35;background:rgba(0,0,0,.5)} #navshade[hidden]{display:none}`;
 document.head.append(s);
 const here=location.pathname.split('/').pop()||'index.html';
 document.body.insertAdjacentHTML('afterbegin',`<button id="navbtn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav">☰</button>
-<div id="navshade" hidden></div><nav id="nav" aria-label="Site">${[['index.html','Index'],['stats.html','Visitors'],['graveyard.html','Graveyard'],['leaderboard.html','Leaderboards']]
- .map(([h,t])=>`<a href="${h==='index.html'?'./':h}"${h===here?' aria-current="page"':''}>${t}</a>`).join('')}</nav>`);
+<div id="navshade" hidden></div><nav id="nav" aria-label="Site"></nav>`);
 const b=document.getElementById('navbtn'),n=document.getElementById('nav'),sh=document.getElementById('navshade');
+function menu(){  // family filters (./?f=Name) come first, then the other pages
+  const p=progress.get(), f=here==='index.html'&&new URLSearchParams(location.search).get('f');
+  const link=(h,t,cur)=>`<a href="${h}"${cur?' aria-current="page"':''}>${t}</a>`;
+  n.innerHTML=link('./','All games',here==='index.html'&&!f)
+    +(p.families||[]).map(x=>link('./?f='+encodeURIComponent(x),x,f===x)).join('')
+    +[['stats.html','Visitors'],['graveyard.html','Graveyard'],['leaderboard.html','Leaderboards']].map(([h,t])=>link(h,t,h===here)).join('')
+    +`<div class="depth">Reached depth ${p.deepest||0} of ${p.max||5}</div>`;
+}
+menu(); document.addEventListener('progress',menu);
 const set=o=>{n.classList.toggle('open',o);sh.hidden=!o;b.setAttribute('aria-expanded',o);if(o)n.querySelector('a').focus();};
 b.onclick=()=>set(!n.classList.contains('open')); sh.onclick=()=>set(false);
 addEventListener('keydown',e=>{if(e.key==='Escape'&&n.classList.contains('open')){set(false);b.focus();}});

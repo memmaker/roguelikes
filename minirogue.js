@@ -40,7 +40,7 @@
   // lifetime (across deaths). Levels, monsters and items reach it as g.memory.
   const MEMORY = { name: null, quest: null, color: null };
 
-  // Monsters: hp, dmg (per hit on you), glyph per theme, optional cls (extra CSS class). Optional act(g, m) replaces the
+  // Monsters: hp, dmg (per hit on you), glyph per theme, optional cls (extra CSS class), death (message), dies(g) (hook). Optional act(g, m) replaces the
   // default turn (hit if adjacent, else close in); optional bump(g, m) runs when you walk
   // into it and returns a message, or null to attack as usual. dmg may be a [min, max] range.
   // You have 10 hp, fists do 1-2, the sword 2-4, armour takes 1 off every hit.
@@ -64,7 +64,9 @@
     // Never moves; every third turn a slime oozes out next to it or next to any slime,
     // until no such tile is free. 4 sword hits (or
     // throws) break it.
+    // Breaking it beats the game.
     machine: { hp: 10, glyph: { unix: '&', epyx: '☼' }, cls: 'mr-machine', death: 'The machine breaks!',
+      dies: (g) => g.report({ won: true }),
       act(g, m) {
         m.turns = (m.turns || 0) + 1;
         const at = pick([m, ...g.monsters('slime')].map((x) => g.freeNextTo(x.pos)).filter(Boolean));
@@ -321,6 +323,8 @@
   // what levels, monsters and items may use
   const g = {
     get lv() { return s.lv; },
+    // progress for the page (unlock.js): a 'minirogue' event with { depth } or { won }, plus max
+    report: (detail) => document.dispatchEvent(new CustomEvent('minirogue', { detail: { ...detail, max: LEVELS.length } })),
     get player() { return s.p; },
     get playerGlyph() { return THEMES[theme].at; },  // @ or ☺, for speech lines
     get theme() { return theme; },
@@ -416,7 +420,7 @@
 
   function enter(depth, arrival) {
     if (s.depth) s.saved[s.depth] = Object.fromEntries(LEVEL_KEYS.map((k) => [k, s[k]]));
-    if (depth > (s.deepest || 0)) { s.deepest = depth; s.hp = PLAYER_HP; }  // heals once per new depth
+    if (depth > (s.deepest || 0)) { s.deepest = depth; s.hp = PLAYER_HP; g.report({ depth }); }  // heals once per new depth
     s.depth = depth;
     s.p = arrival || LEVELS[depth - 1].start;
     if (s.saved[depth]) Object.assign(s, s.saved[depth]);
@@ -522,7 +526,7 @@
   function hit(m, dmg, msg, log) {  // you (or something you threw) hit a monster
     m.hp -= dmg;
     if (m.hp > 0) log.push(msg);
-    else { log.push(MONSTERS[m.kind].death || `The ${m.kind} dies!`); g.remove(m); }
+    else { log.push(MONSTERS[m.kind].death || `The ${m.kind} dies!`); g.remove(m); MONSTERS[m.kind].dies?.(g); }
   }
 
   function pull(lever) {
@@ -669,7 +673,7 @@
       show() {
         const t = this.stats;
         this.el.textContent = this.on && t
-          ? `Level: ${t.level}  Hp: ${t.hp}(${t.maxHp})  Arm: ${t.arm}  Dmg: ${t.dmg}`
+          ? `Level: ${t.level}/${LEVELS.length}  Hp: ${t.hp}(${t.maxHp})  Arm: ${t.arm}  Dmg: ${t.dmg}`
           : this.text;
       },
     },

@@ -478,10 +478,11 @@ body.tree main { display:none; } body:not(.tree) #tree { display:none; }
 const views=document.querySelectorAll('.views button');
 function show(){ const t=location.hash==='#tree'; document.body.classList.toggle('tree',t);
   views.forEach(b=>b.setAttribute('aria-pressed', String((b.dataset.v==='tree')===t))); }
-views.forEach(b=>b.onclick=()=>{ history.replaceState(null,'',b.dataset.v?'#tree':location.pathname); show(); });
+views.forEach(b=>b.onclick=()=>{ history.replaceState(null,'',location.pathname+location.search+(b.dataset.v?'#tree':'')); show(); });
 addEventListener('hashchange',show); show();
 </script>
 <script src="minirogue.js" defer></script>
 <script src="nav.js" defer></script>
+<script src="unlock.js" defer></script>
 </body>
 </html>
