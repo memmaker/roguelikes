@@ -155,7 +155,7 @@
         }
         if (i === cols.length - 1) g.unlock();
       }));
-      return out ? 'Creak... a bridge extends.' : 'Creak... the bridge retracts.';
+      return out ? 'A bridge extends.' : 'The bridge retracts.';
     },
   };
 
@@ -509,8 +509,7 @@
     g.later(STEP * (path.length + 1), () => {
       s.flying = null;
       g.unlock();
-      const log = [`You throw the ${kind}.`];
-      if (lever) log.push(`The ${kind} hits the lever.`, pull(lever));
+      const log = lever ? ['Thunk!', pull(lever)] : [`You throw the ${kind}.`];  // short: the event speaks
       if (mon) hit(mon, ITEMS[kind].attack || 1, `The ${kind} hits the ${mon.kind}.`, log);
       const land = [...path].reverse().find((q) => !itemAt(q)) || [...s.p];
       if (at(...land) === ' ') log.push(`The ${kind} falls into the gorge.`);
