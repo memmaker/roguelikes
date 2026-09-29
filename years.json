@@ -40,7 +40,8 @@
     "frogcomposband": {"year": 2020, "src": "https://angband.live/forums/forum/angband/variants/9634-announce-frogcomposband-7-1-salmiak-released"},
     "sil-q": {"year": 2022, "src": "https://github.com/sil-quirk/sil-q/blob/master/lib/docs/CHANGELOG.md"},
     "tactical-angband": {"year": 2022, "src": "https://angband.live/forums/forum/angband/variants/10543-announce-new-variant-tactical-angband"},
-    "nethack50": {"year": 2026, "src": "https://nethack.org/v500/release.html"}
+    "nethack50": {"year": 2026, "src": "https://nethack.org/v500/release.html"},
+    "zeldhack": {"year": 2023, "src": "https://lspixel.itch.io/zeldhack-for-nethack-ready-to-play"}
   },
   "tree": {
     "rogue": {"year": 1980},
