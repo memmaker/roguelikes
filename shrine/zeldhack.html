@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ZeldHack · Shrine</title>
+<!--og-->
+<meta name="description" content="NetHack 3.6.7 unchanged underneath, dressed as an NES-era console adventure: LSpixel&#x27;s Zelda-style tiles for every monster, item and dungeon feature, chiptune sound effects for hits, doors, stairs and traps, and an ambience loop.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="--More--">
+<meta property="og:title" content="ZeldHack · Shrine">
+<meta property="og:description" content="NetHack 3.6.7 unchanged underneath, dressed as an NES-era console adventure: LSpixel&#x27;s Zelda-style tiles for every monster, item and dungeon feature, chiptune sound effects for hits, doors, stairs and traps, and an ambience loop.">
+<meta property="og:url" content="https://ruzzoli.de/roguelikes/shrine/zeldhack.html">
+<meta property="og:image" content="https://ruzzoli.de/roguelikes/img/zeldhack.png">
+<meta name="twitter:card" content="summary_large_image">
+<!--/og-->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>ZeldHack</h1>
+  <p class="epi">NetHack 3.6.7 in an 8-bit tunic · Zelda-style tiles and chiptune sounds</p>
+  <a class="play" href="../zeldhack/">&gt; Enter the dungeon</a>
+</header>
+<div class="facts">
+  <div><b>Date of birth</b><span>2023</span> LSpixel's asset pack; NetHack 1.3d 1987, 3.6.7 February 2023</div>
+  <div><b>Creators</b><span>LSpixel</span> tiles, sounds, music; the game by the NetHack DevTeam</div>
+  <div><b>Language</b><span>C (C89)</span> ~218,000 lines in 212 <code>.c</code>/<code>.h</code> files</div>
+  <div><b>Platform</b><span>Windows</span> a tile + sound pack for NetHack 3.6; here: the browser</div>
+</div>
+<nav class="toc"><a href="#lineage">Lineage</a> <a href="#credits">Credits</a> <a href="#trivia">Trivia</a> <a href="#usp">What's unique</a> <a href="#code">Code dive</a> <a href="#stats">Stats</a> <a href="#manual">Manual</a> <a href="#start">Getting started</a> <a href="#help">Help</a> <a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p>ZeldHack is not a variant: the rules are those of <a href="nethack50.html">NetHack</a> 3.6.7, the last release of the 3.6 line, which descends from NetHack 3.4.3, <a href="nethack13d.html">NetHack 1.3d</a> (1987), <a href="hack.html">Hack</a> and Rogue. What changed is the costume: LSpixel's pack replaces every monster, object and dungeon feature with a sprite in the style of the NES-era Zelda games, and adds sound effects, an ambience loop and a tuned options file. See the <a href="../#tree">family tree</a>.</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table>
+<tr><td>LSpixel</td><td>The ZeldHack pack: tile sets at 16, 32 and 64 px, sound effects, ambience music and options (<a href="https://lspixel.itch.io/zeldhack-for-nethack-ready-to-play">itch.io page</a>)</td></tr>
+<tr><td>DevTeam</td><td>NetHack 3.6.7, released February 2023 (<a href="https://github.com/NetHack/NetHack/tree/ed600d9f0f3c37677418f0150f59363ca641f3dc">NetHack/NetHack @ ed600d9</a>, tag <code>NetHack-3.6.7_Released</code>)</td></tr>
+<tr><td>First DevTeam</td><td>Mike Stephenson, Izchak Miller and Janet Walz, the original DevTeam that forked Hack and named it NetHack</td></tr>
+<tr><td>Hack</td><td>Jay Fenlason and Andries Brouwer: Hack, the code underneath</td></tr>
+<tr><td>This port</td><td>Browser window port, auto-explore, command menu, sound hooks (<a href="https://github.com/memmaker/zeldhack">memmaker/zeldhack</a>)</td></tr>
+</table>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>The “Net” in NetHack is not for networked play: the DevTeam worked together over the Internet. <span class="src">(<a href="https://en.wikipedia.org/wiki/NetHack">Wikipedia</a>)</span></li>
+<li>There never was a NetHack 3.5: the 3.6 README calls it “a direct descendent of NetHack 3.4 as there was no NetHack 3.5 release”. <span class="src">(<a href="https://github.com/NetHack/NetHack/blob/NetHack-3.6.7_Released/README">README</a>)</span></li>
+<li>3.6.7 was prompted by a security fix and follows 3.6.6. <span class="src">(<a href="https://github.com/NetHack/NetHack/blob/NetHack-3.6.7_Released/README">README</a>)</span></li>
+<li>The pack ships a Windows batch file that starts NetHack with its own options, and a PowerShell script that plays the music alongside. <span class="src">(<a href="https://github.com/memmaker/zeldhack/tree/main/zeldhack">the pack's files</a>)</span></li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>A whole dungeon as a console adventure.</strong> Every one of NetHack's monsters, objects and map features has a hand-drawn Zelda-style sprite, at three sizes.</li>
+<li><strong>Sound.</strong> Hits, misses, doors, stairs, traps, fountains and more play chiptune effects; here they are hooked to the game's own actions rather than to message text.</li>
+<li><strong>Unchanged rules.</strong> Underneath it is vanilla 3.6.7: every NetHack guide and spoiler applies.</li>
+<li><strong>In the browser:</strong> auto-explore (<kbd>~</kbd>), stair walking (<kbd>&lt;</kbd> <kbd>&gt;</kbd>), an Enter command menu, item menus in the inventory and autosave.</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li><strong>Language:</strong> C in the traditional K&amp;R-compatible style of 3.6: about 218,000 lines in 212 files under <code>src/</code> and <code>include/</code>.</li>
+<li><strong>Data tables:</strong> monsters in <code>src/monst.c</code>, objects in <code>include/objects.h</code>, artifacts in <code>include/artilist.h</code>; special levels are compiled by <code>lev_comp</code> from <code>dat/*.des</code>.</li>
+<li><strong>Window port:</strong> the core draws through a <code>window_procs</code> table; ours is <code>win/web/winweb.c</code> (about 1,400 lines). The build tools run as WebAssembly under node, because native 64-bit tools write data files the 32-bit game rejects.</li>
+<li><strong>Tiles:</strong> the pack's sheets follow NetHack's own tile order, so <code>tilemap</code> maps glyphs to them unchanged.</li>
+<li><strong>Source:</strong> <a href="https://github.com/memmaker/zeldhack">memmaker/zeldhack</a>; upstream <a href="https://github.com/NetHack/NetHack/tree/ed600d9f0f3c37677418f0150f59363ca641f3dc">NetHack/NetHack @ ed600d9</a>; <a href="https://github.com/memmaker/zeldhack/compare/d4d2545fcee7d935912b6f2e2fb34556ad58c295...main">our changes</a>.</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<table>
+<tr><th>Thing</th><th>Count</th><th>Notable ones</th></tr>
+<tr><td>Roles</td><td>13</td><td>Archeologist, Barbarian, Caveman, Healer, Knight, Monk, Priest, Rogue, Ranger, Samurai, Tourist, Valkyrie, Wizard.</td></tr>
+<tr><td>Races</td><td>5</td><td>Human, elf, dwarf, gnome, orc.</td></tr>
+<tr><td>Monsters</td><td>~380</td><td><em>Medusa</em>, <em>Croesus</em>, <em>Vlad the Impaler</em>, the <em>Wizard of Yendor</em>, and the Riders <em>Death</em>, <em>Pestilence</em> and <em>Famine</em>, all as 8-bit sprites.</td></tr>
+<tr><td>Artifacts</td><td>33</td><td>Excalibur, Mjollnir, Stormbringer, Grayswandir, the Eyes of the Overworld.</td></tr>
+<tr><td>Sound effects</td><td>~130</td><td>Sample files in the pack, plus one ambience loop.</td></tr>
+<tr><td>Dungeon</td><td>~50 levels</td><td>Dungeons of Doom, Gnomish Mines, Sokoban, the Quest, Fort Ludios, Vlad's Tower, Gehennom, the Elemental Planes and the Astral Plane.</td></tr>
+</table>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>The official <a href="zeldhack/Guidebook.txt">Guidebook (“A Guide to the Mazes of Menace”, NetHack 3.6, text)</a> from the source, under the <a href="zeldhack/license.txt">NetHack General Public License</a>. Online: <a href="https://nethack.org/v367/Guidebook.html">nethack.org Guidebook 3.6.7</a>. The in-game <kbd>?</kbd> help and the <a href="../zeldhack/help.html">port's help page</a> cover the keys. The asset pack has no manual of its own.</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol>
+<li><a href="../zeldhack/">Open the game</a>, type a name and pick a role, race and alignment (Valkyrie is the classic first choice).</li>
+<li>Move with the arrow keys or <kbd>h</kbd> <kbd>j</kbd> <kbd>k</kbd> <kbd>l</kbd> <kbd>y</kbd> <kbd>u</kbd> <kbd>b</kbd> <kbd>n</kbd>; walk into a monster to attack. <kbd>~</kbd> explores, <kbd>&gt;</kbd> walks to the stairs you have seen.</li>
+<li>Press <kbd>Enter</kbd> for a menu of every command, <kbd>i</kbd> for the inventory; letters there use or wear an item.</li>
+<li>Pray (<kbd>#pray</kbd>) when hit points are very low and you have not prayed for a long time; search (<kbd>s</kbd>) in dead ends.</li>
+<li>Eat when “Hungry”, keep your pet close, and expect to die: the full key list is in the <a href="../zeldhack/help.html">help page</a>.</li>
+</ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>There is no ZeldHack walkthrough; everything written for NetHack 3.6 applies. Start with the NetHackWiki's <a href="https://nethackwiki.com/wiki/Standard_strategy">Standard strategy</a>. Rules of thumb:</p>
+<ul>
+<li>Never melee a floating eye. Never eat a cockatrice corpse; never touch one without gloves.</li>
+<li>Engrave <em>Elbereth</em> in the dust (<kbd>E</kbd>, <kbd>-</kbd>) when cornered.</li>
+<li>Drop items on an altar to see which are cursed; price-identify in shops.</li>
+<li>More: <a href="https://nethackwiki.com/wiki/NetHack_3.6.7">NetHackWiki on 3.6.7</a>, <a href="https://www.roguebasin.com/index.php/NetHack">RogueBasin</a>.</li>
+</ul>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<ul>
+<li><strong>Wizard mode</strong> is compiled in, but the page never passes <code>-D</code> and the built-in <code>sysconf</code> only allows the users <code>root</code> and <code>games</code>, so it can't be reached here. <span class="src">(<a href="https://nethackwiki.com/wiki/Wizard_mode">NetHackWiki</a>)</span></li>
+<li><strong>Explore mode</strong> works: <code>#exploremode</code> makes a non-scoring game where death is optional.</li>
+<li><strong>Excalibur</strong>: a lawful character of level 5 or more dips a long sword into a fountain.</li>
+<li><strong>Save scumming</strong> works in the browser: <em>Export save</em> before something risky, <em>Import save</em> if it goes wrong.</li>
+</ul>
+</section>
+</div></body>
+</html>
