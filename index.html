@@ -95,7 +95,7 @@ a.yr { color:inherit; text-decoration:none; position:relative; z-index:1; } /* y
   box-shadow:0 14px 40px rgba(0,0,0,.7), 0 0 24px rgba(224,178,79,.25); outline:none; }
 .card img { width:100%; aspect-ratio:12/5; object-fit:cover; image-rendering:pixelated; background:#0c0a0e;
   border-bottom:1px solid var(--line); }
-.card img.splash { object-fit:cover; object-position:50% 0; background:#000; } /* Sangband title screen (403x376): its top = logo + dragon */
+.card img.splash { object-fit:cover; object-position:50% var(--sy,0); background:#000; } /* Sangband title screen (403x376): its top = logo + dragon */
 .body { padding:16px 18px 18px; display:flex; flex-direction:column; flex:1; }
 h2 { font:600 22px Cinzel,serif; margin:0 0 4px; color:var(--gold); }
 .tag { color:var(--dim); font-size:12px; margin-bottom:10px; }
@@ -180,7 +180,7 @@ body.tree main { display:none; } body:not(.tree) #tree { display:none; }
       <p>The biggest game of the Rogue family: ten classes, about four hundred monsters from dinosaurs to the gods of Greyhawk, and an artifact you must bring up from the depths before the stairs will take you home.</p>
       <span class="btns"><a class="play" href="urogue/">&gt; Enter the dungeon</a><a class="play info" href="shrine/urogue.html">Info</a></span></div></div>
   <div class="card" data-year="1985">
-    <img src="img/roguepc.png" alt="A room in the original IBM PC text mode of Rogue">
+    <img src="img/roguepc.png" class="splash" style="--sy:30%" alt="The title screen of the original Epyx IBM PC Rogue: the logo over a horned monster and a knight with a sword">
     <div class="body"><h2>Rogue PC</h2><div class="tag">The original Rogue · <a class="yr" href="https://britzl.github.io/roguearchive/">1985</a></div><div class="ver">Based on Rogue PC 1.48 (rogue-pc-modern-C)</div>
       <p>The Epyx IBM PC edition of Rogue, in its original colours and CP437 symbols or with tiles: 26 levels down to the Amulet of Yendor, and back up again.</p>
       <span class="btns"><a class="play" href="roguepc/">&gt; Enter the dungeon</a><a class="play info" href="shrine/roguepc.html">Info</a></span></div></div>
