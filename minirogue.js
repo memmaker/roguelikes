@@ -106,11 +106,15 @@
   // Items are picked up by walking over them. Optional hooks:
   //   onPickup(g) → message (default: msg)   attack → your damage per hit (best one counts)
   //   defend(dmg, monster) → damage you actually take   cls → extra CSS class
+  // In the inventory (i) each item shows as `name`, with Angband's symbol and colour, and
+  // its real numbers: (attack) for weapons, [damage taken off a hit] for anything with defend.
   const ITEMS = {
-    sword: { msg: 'You wield the sword.', attack: 5, glyph: { unix: ')', epyx: '↑' } },
+    sword: { msg: 'You wield the sword.', attack: 5, glyph: { unix: ')', epyx: '↑' },
+      name: 'a Short Sword', inv: { sym: '|', color: '#ffffff' } },
     armour: { msg: 'You put on leather armour.', defend: (dmg) => dmg - 4,
-      glyph: { unix: ']', epyx: '◘' } },
-    sandal: { msg: 'You put on the sandal.', cls: 'mr-sandal', glyph: { unix: '[', epyx: '∩' } },
+      glyph: { unix: ']', epyx: '◘' }, name: 'Soft Leather Armour', inv: { sym: '(', color: '#8f5a2b' } },
+    sandal: { msg: 'You put on the sandal.', cls: 'mr-sandal', defend: (dmg) => dmg,  // worn; takes nothing off glyph: { unix: '[', epyx: '∩' },
+      name: 'a Sandal', inv: { sym: ']', color: '#c7a36b' } },
   };
 
   // Each level: start (first level only), setup(g, arrival) fills the fresh map on the
@@ -343,6 +347,7 @@
       level: s.depth, hp: Math.max(0, s.hp), maxHp: PLAYER_HP, str: 16,
       arm: held.reduce((a, i) => a + (i.defend ? 10 - i.defend(10) : 0), 0),  // damage armour takes off a hit
       dmg: Math.max(FISTS, ...held.map((i) => i.attack || 0)),
+      items: Object.keys(s.has),
     };
   }
 
@@ -432,6 +437,7 @@
   //   played(ui)        once, on the player's first action
   //   theme(ui, name)   when the theme changes
   //   status(ui, stats) after every redraw: { level, hp, maxHp, str, arm, dmg }
+  //   status(ui, stats) also carries `items`: the item kinds you carry, in pickup order
   // `ui.widget(name)` reaches another widget; `ui.map` is the map element.
   const WIDGETS = {
     // Once you have played, the subtitle quietly becomes clickable (same look) and
@@ -555,6 +561,42 @@
         this.list.scrollTop = 1e9;
       },
     },
+
+    // Inventory: once you have played, i (on the map) slides a traditional roguelike
+    // inventory in from the right: a) letter, Angband symbol and colour, name. i or Esc closes.
+    inventory: {
+      status(ui, stats) { this.items = stats.items; if (this.box) this.fill(); },
+      fill() {
+        this.list.replaceChildren(...(this.items.length ? this.items.map((k, n) => {
+          const row = document.createElement('div'), sym = document.createElement('b');
+          sym.textContent = ITEMS[k].inv.sym; sym.style.color = ITEMS[k].inv.color;
+          const name = document.createElement('span');
+          const it = ITEMS[k];
+          name.textContent = it.name + (it.attack ? ` (${it.attack})` : '') + (it.defend ? ` [${10 - it.defend(10)}]` : ''); name.style.color = ITEMS[k].inv.color;
+          row.append(`${String.fromCharCode(97 + n)}) `, sym, ' ', name);
+          return row;
+        }) : [Object.assign(document.createElement('div'), { className: 'mr-inv-none', textContent: 'You have nothing.' })]));
+      },
+      toggle(ui) {
+        if (this.box) {  // slide back out
+          const box = this.box;
+          this.box = null;
+          box.classList.remove('mr-open');
+          box.addEventListener('transitionend', () => box.remove(), { once: true });
+          return;
+        }
+        this.box = document.createElement('aside');
+        this.box.id = 'mr-inv'; this.box.setAttribute('aria-label', 'Inventory');
+        const head = document.createElement('div');
+        head.className = 'mr-inv-head'; head.textContent = 'Inventory';
+        this.list = document.createElement('div');
+        this.box.append(head, this.list);
+        this.fill();
+        document.body.append(this.box);
+        this.box.getBoundingClientRect();  // start off-screen, then slide in
+        this.box.classList.add('mr-open');
+      },
+    },
   };
   const ui = { map: el, get theme() { return theme; }, widget: (name) => WIDGETS[name],
     answer: (text) => answer(text), cancel: () => answer('', true) };
@@ -596,6 +638,10 @@
     if (e.ctrlKey || e.metaKey || e.altKey) return;
     if (e.key === 't' || e.key === 'T') {  // hidden: switch theme, costs no turn
       e.preventDefault(); setTheme(theme === 'unix' ? 'epyx' : 'unix'); draw(); return;
+    }
+    const inv = WIDGETS.inventory;
+    if (played && !asking && (e.key === 'i' || (e.key === 'Escape' && inv.box))) {  // costs no turn
+      e.preventDefault(); inv.toggle(ui); return;
     }
     const d = KEYS[e.key];
     if (s.dead) { if (e.key.length === 1 || d) { e.preventDefault(); reset(); } return; }

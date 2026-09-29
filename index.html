@@ -78,6 +78,15 @@ h1 a.more { color:inherit; text-decoration:none; cursor:inherit; }
   50% { width:30ch; height:4px; border-radius:0; }
   85% { width:4px; height:4px; border-radius:50%; }
   100% { width:4px; height:4px; border-radius:50%; opacity:0; } }
+/* inventory sidebar (i while playing) */
+#mr-inv { position:fixed; top:0; right:0; bottom:0; z-index:50; width:min(34ch,86vw); box-sizing:border-box;
+  padding:14px 16px; background:#000; border-left:1px solid #6b6474; color:#b8b2a6; font:16px/1.5 "IBM CGA",monospace;
+  white-space:pre; overflow-y:auto; transform:translateX(100%); transition:transform .35s ease-out; }
+#mr-inv.mr-open { transform:none; box-shadow:-8px 0 24px rgba(0,0,0,.6); }
+#mr-inv b { font-weight:normal; }
+#mr-inv .mr-inv-head { color:var(--gold); margin-bottom:8px; }
+#mr-inv .mr-inv-none { color:var(--dim); }
+@media (max-width:520px){ #mr-inv { font-size:13px; } }
 @keyframes mr-log-text { from { opacity:0; } to { opacity:1; } }
 @media (max-width:520px){ #minirogue, #mr-log { font-size:min(12px,3.1vw); } }
 .torch { display:inline-block; color:var(--ember); animation:flick .35s infinite alternate; }
