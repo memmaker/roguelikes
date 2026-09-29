@@ -41,7 +41,8 @@ h1 .more.log { font-size:.45em; vertical-align:middle; } /* header game messages
 #minirogue b { font-weight:normal; } .mr-at { color:var(--gold); } .mr-k { color:#6fd36f; } .mr-it { color:#6fc7d3; } .mr-st { color:var(--text); }
 .mr-tomb { color:var(--dim); }
 #minirogue i { font-style:normal; }
-#minirogue[data-theme] .mr-k.mr-knight { color:#9a9a9a; }  /* grey in both themes */
+#minirogue[data-theme] .mr-k.mr-knight, #mr-log .mr-knight { color:#6f8fff; }  /* blue; his speech too */
+#minirogue[data-theme=epyx] .mr-k.mr-knight, #mr-log[data-theme=epyx] .mr-knight { color:#5555ff; }
 .mr-bridge, .mr-bridge i { color:#8b5a2b; } .mr-gorge { color:#3a3540; } #minirogue[data-theme=epyx] .mr-gorge { color:#555555; }
 #minirogue[data-theme=epyx] .mr-bridge i { color:#aa5500; }
 #minirogue[data-theme] .mr-it.mr-sandal { color:#b07a45; } .mr-lever { color:#d9d4c7; }

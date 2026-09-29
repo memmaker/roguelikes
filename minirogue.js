@@ -71,6 +71,7 @@
         if (m.bumps >= 3) { m.hostile = true; return null; }
         return this.ask(g, m, 0);
       },
+      say(g, text) { return g.speak(this.glyph[g.theme], 'mr-knight', text); },  // a speech line in his colour
       ask(g, m, i) {  // asks question i; returns its text as the message
         const [key, question] = this.questions[i];
         g.ask(question, (answer) => {
@@ -78,21 +79,21 @@
             m.wrong = (m.wrong || 0) + 1;
             if (m.wrong >= 2) return this.throwOff(g);  // one second try only
             this.ask(g, m, i);
-            return this.wrong[Math.floor(Math.random() * this.wrong.length)];
+            return this.say(g, this.wrong[Math.floor(Math.random() * this.wrong.length)]);
           }
           g.memory[key] = answer;
           if (i + 1 < this.questions.length) return this.ask(g, m, i + 1);
           m.passed = true;
-          return 'Right. Off you go.';
+          return this.say(g, 'Right. Off you go.');
         }, () => 'The knight waits.');
-        return question;
+        return this.say(g, question);
       },
       throwOff(g) {  // up, spinning, then down into the gorge
         g.lock();
         g.playerFx('mr-thrown');
         g.later(1700, () => g.hidePlayer());
         g.later(2300, () => g.die('knight'));
-        return 'Nope';
+        return this.say(g, 'Nope');
       },
       act(g, m) {
         if (m.falling) return;
@@ -213,7 +214,7 @@
         }
         const d = lv.double;
         if (!d || d.phase === 'gone') return;
-        if (d.phase === 'appear') { d.phase = 'walk'; return `${g.playerGlyph}: "So it begins.."`; }  // after the fade-in
+        if (d.phase === 'appear') { d.phase = 'walk'; return g.speak(g.playerGlyph, 'mr-ghost', 'So it begins..'); }  // after the fade-in
         if (d.phase === 'leave') { d.phase = 'gone'; return; }
         const pulled = lv.lever.pulls > 0;
         const goal = pulled ? lv.upAt : g.floorNextTo(lv.lever.pos);
@@ -286,6 +287,10 @@
     get lv() { return s.lv; },
     get player() { return s.p; },
     get playerGlyph() { return THEMES[theme].at; },  // @ or ☺, for speech lines
+    get theme() { return theme; },
+    // a speech line, `glyph: "text"`, shown in the log in the speaker's colour (a CSS class);
+    // anything that returns a message may return one, or an array of messages
+    speak: (glyph, cls, text) => ({ text: `${glyph}: "${text}"`, cls }),
     memory: MEMORY,
     tileAt: ([r, c]) => at(r, c),
     itemAt: (p) => itemAt(p),
@@ -496,7 +501,7 @@
       log.push(def.act ? def.act(g, m) : g.adjacent(m) ? g.hurt(m, def.dmg) : g.chase(m));
       if (s.dead) break;
     }
-    s.msg = log.filter(Boolean).join(' ');
+    s.msg = log;
     draw();
   }
 
@@ -592,7 +597,7 @@
   // Everything around the map lives here, apart from the game. Each widget is a
   // self-contained entry with optional hooks the engine calls through `emit`:
   //   init(ui)          once, at start
-  //   message(ui, text) every message the game emits
+  //   message(ui, parts) every message the game emits: [{ text, cls }], cls the speaker's colour
   //   played(ui)        once, on the player's first action
   //   theme(ui, name)   when the theme changes
   //   status(ui, stats) after every redraw: { level, hp, maxHp, str, arm, dmg }
@@ -668,8 +673,9 @@
         this.h1 = this.el && this.el.closest('h1');
         this.oneLine = this.h1 && this.h1.offsetHeight;  // height of the title on one line
       },
-      message(ui, text) {
+      message(ui, parts) {
         if (!this.el) return;
+        const text = parts.map((p) => p.text).join(' ');
         this.el.textContent = text; this.el.classList.add('log');
         this.fit();
         clearTimeout(this.timer);
@@ -695,13 +701,20 @@
     // terminal: a dot grows into a line as wide as the map, opens downwards, and the
     // text fades in. Its first line is never shown in the title.
     log: {
-      init() { this.lines = ['Nova Rogue V1']; },
-      message(ui, text) {
-        this.lines.push(text);
-        if (this.box) { this.list.append(this.line(text)); this.list.scrollTop = 1e9; }
+      init() { this.lines = [[{ text: 'Nova Rogue V1' }]]; },
+      message(ui, parts) {
+        this.lines.push(parts);
+        if (this.box) { this.list.append(this.line(parts)); this.list.scrollTop = 1e9; }
       },
       theme(ui, name) { if (this.box) this.box.dataset.theme = name; },
-      line(text) { const d = document.createElement('div'); d.textContent = text; return d; },
+      line(parts) {  // each part in its speaker's colour
+        const d = document.createElement('div');
+        parts.forEach((p, i) => {
+          if (i) d.append(' ');
+          d.append(Object.assign(document.createElement('span'), { className: p.cls || '', textContent: p.text }));
+        });
+        return d;
+      },
       toggle(ui) {
         if (this.box) {  // close: the opening animation, backwards
           const box = this.box;
@@ -808,7 +821,10 @@
     if (hook === 'played') { if (played) return; played = true; }
     for (const w of Object.values(WIDGETS)) if (w[hook]) w[hook](ui, ...args);
   }
-  const say = (msg) => { if (msg) emit('message', msg); };
+  const say = (msg) => {  // msg: a string, a speech line, or an array of them
+    const parts = [msg].flat(Infinity).filter(Boolean).map((p) => (typeof p === 'string' ? { text: p } : p));
+    if (parts.length) emit('message', parts);
+  };
 
   function draw() {
     if (s.dead) {
