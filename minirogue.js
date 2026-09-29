@@ -32,7 +32,8 @@
 
   // Monsters: hp, dmg (per hit on you), glyph per theme, optional cls (extra CSS class). Optional act(g, m) replaces the
   // default turn (hit if adjacent, else close in); optional bump(g, m) runs when you walk
-  // into it and returns a message, or null to attack as usual. Numbers give exact hit counts:
+  // into it and returns a message, or null to attack as usual. Optional onHit(g, m, dmg)
+  // replaces taking damage (returns a message); solid: thrown things land in front of it. Numbers give exact hit counts:
   // you have 45 hp, fists do 2, the sword 5, armour takes 4 off every hit.
   const MONSTERS = {
     bat: { hp: 10, dmg: 9, glyph: { unix: 'B', epyx: 'B' },  // 5 fists / 2 sword; kills in 5
@@ -100,6 +101,14 @@
         }
         const step = g.stepTowards(m.pos, m.goal);
         if (!same(step, g.player)) m.pos = step;  // you are in the way: he waits
+      } },
+
+    // Level 4's lever: never moves or dies; any hit (thrown or melee) flips it and the bridge.
+    lever: { hp: 1, dmg: 0, glyph: { unix: '/', epyx: '/' }, cls: 'mr-lever', solid: true,
+      act() {},
+      onHit(g, m) {
+        m.glyph = m.glyph === '\\' ? '/' : '\\';
+        return LEVELS[3].toggle(g);
       } },
   };
 
@@ -208,11 +217,40 @@
         }
         return '*click*';
       },
-      overlay(g, [r, c], T) {
-        if (g.tileAt([r, c]) === '#' && !g.itemAt([r, c])) return `<i class="mr-bridge">${T.tile(r, c, '#')}</i>`;
+      overlay: (g, p, T) => bridge(g, p, T),
+    },
+    { // 4: the retracted bridge. You arrive in the east room; the corridor is gorge, and a
+      // lever stands in the west room across it. Anything that hits the lever (throw
+      // something over the gorge) flips it: the bridge extends plank by plank from the
+      // lever's side, or retracts back towards it. Stand on it then and you fall.
+      setup(g, arrival) {
+        g.stairsUp(arrival);
+        g.stairsDown([3, 3]);
+        g.spawn('lever', [CORRIDOR.row, 2]);
+        for (let c = CORRIDOR.from; c <= CORRIDOR.to; c++) g.setTile([CORRIDOR.row, c], ' ');
       },
+      toggle(g) {  // from the lever
+        const lv = g.lv, out = lv.out = !lv.out, row = CORRIDOR.row, cols = [];
+        for (let c = CORRIDOR.from; c <= CORRIDOR.to; c++) cols.push(c);
+        if (!out) cols.reverse();
+        g.lock();
+        cols.forEach((c, i) => g.later(90 * (i + 1), () => {
+          g.setTile([row, c], out ? '#' : ' ');
+          if (!out) {
+            g.dropInto([row, c]);
+            if (same(g.player, [row, c])) return g.die('fall');
+          }
+          if (i === cols.length - 1) g.unlock();
+        }));
+        return out ? 'Creak... a bridge extends.' : 'Creak... the bridge retracts.';
+      },
+      overlay: (g, p, T) => bridge(g, p, T),
     },
   ];
+  // the brown wooden bridge (levels 3 and 4): corridor tiles without an item on them
+  function bridge(g, [r, c], T) {
+    if (g.tileAt([r, c]) === '#' && !g.itemAt([r, c])) return `<i class="mr-bridge">${T.tile(r, c, '#')}</i>`;
+  }
 
   // ---------------------------------------------------------------- engine
   let s;  // run: { depth, p, hp, has, dead, killer, msg, saved } + the level: { map, mons, items, down, up, lv }
@@ -248,7 +286,7 @@
     playerFx(cls) { s.playerFx = cls; },           // extra CSS class on the player glyph
     hidePlayer() { s.hidden = true; },
     die(killer) { s.dead = true; s.killer = killer; },
-    has: (kind) => !!s.has[kind],
+    has: (kind) => kind in s.has,  // carried (s.has[kind] is true while equipped)
     adjacent: (m) => adjacent(m.pos, s.p),
     chase(m) { m.pos = stepTowards(m.pos, s.p); },
     stepTowards: (from, to, opts) => stepTowards(from, to, opts),
@@ -266,13 +304,14 @@
       if (opts.length) m.pos = opts[Math.floor(Math.random() * opts.length)];
     },
     hurt(m, dmg) {  // a monster hits the player; worn items may soften it
-      for (const k of Object.keys(s.has)) if (ITEMS[k].defend) dmg = ITEMS[k].defend(dmg, m);
+      for (const k of worn()) if (ITEMS[k].defend) dmg = ITEMS[k].defend(dmg, m);
       s.hp -= Math.max(0, dmg);
       if (s.hp <= 0) { s.dead = true; s.killer = m.kind; }
       return `The ${m.kind} hits you.`;
     },
     spawn(kind, pos) { s.mons.push({ kind, pos, hp: MONSTERS[kind].hp }); },
     drop(kind, pos) { s.items.push({ kind, pos }); },
+    dropInto(pos) { s.items = s.items.filter((i) => !same(i.pos, pos)); },  // items there fall into the gorge
     later(ms, fn) {  // run fn after ms and redraw, unless the game restarted meanwhile
       const run = s;
       setTimeout(() => { if (s === run && !s.dead) { fn(); draw(); } }, ms);
@@ -311,6 +350,7 @@
 
   function reset() {
     if (asking) { asking = null; emit('askDone'); }
+    aiming = null;
     s = { has: {}, dead: false, msg: '', saved: {} };
     enter(1);
     draw();
@@ -343,12 +383,12 @@
   }
 
   function stats() {  // for the status widget
-    const held = Object.keys(s.has).map((k) => ITEMS[k]);
+    const held = worn().map((k) => ITEMS[k]);
     return {
       level: s.depth, hp: Math.max(0, s.hp), maxHp: PLAYER_HP, str: 16,
       arm: held.reduce((a, i) => a + (i.defend ? 10 - i.defend(10) : 0), 0),  // damage armour takes off a hit
       dmg: Math.max(FISTS, ...held.map((i) => i.attack || 0)),
-      items: Object.keys(s.has),
+      items: Object.keys(s.has).map((kind) => ({ kind, worn: s.has[kind] })),
     };
   }
 
@@ -368,12 +408,10 @@
     } else if (target && (bumped = bump(target)) != null) {
       log.push(bumped);  // the monster handled being walked into
     } else if (target) {
-      target.hp -= Math.max(FISTS, ...Object.keys(s.has).map((k) => ITEMS[k].attack || 0));
-      if (target.hp > 0) log.push('You hit.');
-      else { log.push(`The ${target.kind} dies!`); s.mons = s.mons.filter((m) => m !== target); }
+      hit(target, Math.max(FISTS, ...worn().map((k) => ITEMS[k].attack || 0)), 'You hit.', log);
     } else if (walkable(...n)) {
       s.p = n;
-      const item = itemAt(n);
+      const item = (dr || dc) && itemAt(n);  // resting on a dropped item leaves it be
       if (item) {
         const def = ITEMS[item.kind];
         s.items = s.items.filter((i) => i !== item);
@@ -386,6 +424,21 @@
       }
       if (same(n, s.up)) { s.msg = enter(s.depth - 1, s.saved[s.depth - 1].down); draw(); return; }
     } else { draw(); return; }  // bumping a wall costs no turn
+    endTurn(log);
+  }
+
+  const worn = () => Object.keys(s.has).filter((k) => s.has[k]);
+  function hit(m, dmg, msg, log) {  // you (or something you threw) hit a monster
+    const def = MONSTERS[m.kind];
+    if (def.onHit) { log.push(msg, def.onHit(g, m, dmg)); return; }
+    m.hp -= dmg;
+    if (m.hp > 0) log.push(msg);
+    else { log.push(`The ${m.kind} dies!`); s.mons = s.mons.filter((x) => x !== m); }
+  }
+
+  // after the player's action: the level's turn, then the monsters', then the redraw
+  function endTurn(log) {
+    const L = LEVELS[s.depth - 1];
     if (L.onTurn) log.push(L.onTurn(g));
     for (const m of [...s.mons]) {
       const def = MONSTERS[m.kind];
@@ -394,6 +447,51 @@
     }
     s.msg = log.filter(Boolean).join(' ');
     draw();
+  }
+
+  // Inventory actions (from the inventory widget); each costs a turn. Throw first asks
+  // for a direction: the next direction key throws, anything else puts it away.
+  let aiming = null;  // the item kind waiting for a throw direction
+  function itemAction(kind, action) {
+    if (s.dead || s.locked || asking || !(kind in s.has)) return;
+    const def = ITEMS[kind];
+    if (action === 'equip') { s.has[kind] = true; endTurn([def.msg]); return; }
+    if (action === 'unequip') {
+      s.has[kind] = false;
+      endTurn([`You ${def.attack ? 'put away' : 'take off'} the ${kind}.`]); return;
+    }
+    if (action === 'drop') {
+      if (itemAt(s.p)) { s.msg = 'There is already something here.'; draw(); return; }
+      delete s.has[kind]; g.drop(kind, [...s.p]);
+      endTurn([`You drop the ${kind}.`]); return;
+    }
+    if (action === 'throw') { aiming = kind; s.msg = 'Which direction?'; draw(); }
+  }
+  // it flies until a wall (over the gorge too), hits the first monster in its way (weapons
+  // for their attack, anything else for 1), and lands on a free tile; over the gorge it is lost
+  function throwItem(dr, dc) {
+    const kind = aiming;
+    aiming = null;
+    if (!dr && !dc) { s.msg = 'Never mind.'; draw(); return; }
+    delete s.has[kind];
+    const log = [`You throw the ${kind}.`];
+    let p = s.p, land = null;
+    for (let i = 0; i < MAP[0].length; i++) {
+      const n = [p[0] + dr, p[1] + dc];
+      if (!(walkable(...n) || at(...n) === ' ') || !adjacent(p, n)) break;
+      const m = monAt(n);
+      if (m) {
+        hit(m, ITEMS[kind].attack || 1, `The ${kind} hits the ${m.kind}.`, log);
+        if (!MONSTERS[m.kind].solid && !itemAt(n)) land = n;
+        break;
+      }
+      p = n;
+      if (!itemAt(p)) land = p;
+    }
+    land = land || [...s.p];
+    if (at(...land) === ' ') log.push(`The ${kind} falls into the gorge.`);
+    else g.drop(kind, land);
+    endTurn(log);
   }
 
   // ---------------------------------------------------------------- drawing
@@ -564,35 +662,78 @@
     },
 
     // Inventory: once you have played, i (on the map) slides a traditional roguelike
-    // inventory in from the right: a) letter, Angband symbol and colour, name. i or Esc closes.
+    // inventory in from the right: a) letter, Angband symbol and colour, name. While open
+    // it takes the keyboard: a letter (or ↑/↓, whose cursor shows from the first press,
+    // then Enter/Space) opens the item's menu; ↑/↓ and Enter/Space pick an entry there.
+    // Esc closes the menu, then the inventory; i closes it too. Picking an entry acts
+    // (a turn) and closes the inventory.
     inventory: {
-      status(ui, stats) { this.items = stats.items; if (this.box) this.fill(); },
-      fill() {
-        this.list.replaceChildren(...(this.items.length ? this.items.map((k, n) => {
-          const row = document.createElement('div'), sym = document.createElement('b');
-          sym.textContent = ITEMS[k].inv.sym; sym.style.color = ITEMS[k].inv.color;
-          const name = document.createElement('span');
-          const it = ITEMS[k];
-          name.textContent = it.name + (it.attack ? ` (${it.attack})` : '') + (it.defend ? ` [${10 - it.defend(10)}]` : ''); name.style.color = ITEMS[k].inv.color;
+      status(ui, stats) { this.items = stats.items; if (this.box) this.fill(ui); },
+      options: (it) => [it.worn ? ['unequip', 'Unequip'] : ['equip', 'Equip'], ['throw', 'Throw'], ['drop', 'Drop']],
+      fill(ui) {
+        const div = (cls, text) => Object.assign(document.createElement('div'), { className: cls, textContent: text || '' });
+        if (!this.items.length) { this.list.replaceChildren(div('mr-inv-none', 'You have nothing.')); return; }
+        this.list.replaceChildren(...this.items.flatMap((it, n) => {
+          const def = ITEMS[it.kind], row = div(n === this.cursor ? 'mr-inv-cur' : '');
+          const sym = document.createElement('b'), name = document.createElement('span');
+          sym.textContent = def.inv.sym; sym.style.color = def.inv.color;
+          name.textContent = def.name + (def.attack ? ` (${def.attack})` : '') + (def.defend ? ` [${10 - def.defend(10)}]` : '') +
+            (it.worn ? (def.attack ? ' (wielded)' : ' (worn)') : '');
+          name.style.color = def.inv.color;
           row.append(`${String.fromCharCode(97 + n)}) `, sym, ' ', name);
-          return row;
-        }) : [Object.assign(document.createElement('div'), { className: 'mr-inv-none', textContent: 'You have nothing.' })]));
+          row.addEventListener('click', () => { this.open(ui, n); ui.map.focus(); });
+          if (this.menu == null || this.menu.item !== n) return [row];
+          const menu = div('mr-inv-menu');
+          menu.append(...this.options(it).map(([action, label], m) => {
+            const e = div(m === this.menu.cursor ? 'mr-inv-cur' : '', label);
+            e.addEventListener('click', () => { this.choose(ui, action); ui.map.focus(); });
+            return e;
+          }));
+          return [row, menu];
+        }));
+      },
+      open(ui, n) { this.cursor = n; this.menu = { item: n, cursor: 0 }; this.fill(ui); },
+      choose(ui, action) {
+        const kind = this.items[this.menu.item].kind;
+        this.toggle(ui);
+        ui.itemAction(kind, action);
+      },
+      key(ui, e) {  // true when the inventory handled the key
+        const k = e.key, down = k === 'ArrowDown', up = k === 'ArrowUp', pick = k === 'Enter' || k === ' ';
+        if (k === 'Tab') return false;
+        e.preventDefault();
+        if (this.menu) {
+          const n = this.options(this.items[this.menu.item]).length;
+          if (k === 'Escape') { this.menu = null; this.fill(ui); }
+          else if (up || down) { this.menu.cursor = (this.menu.cursor + (down ? 1 : n - 1)) % n; this.fill(ui); }
+          else if (pick) this.choose(ui, this.options(this.items[this.menu.item])[this.menu.cursor][0]);
+          return true;
+        }
+        const len = this.items.length, letter = k.length === 1 ? k.charCodeAt(0) - 97 : -1;
+        if (k === 'Escape' || k === 'i') this.toggle(ui);
+        else if (letter >= 0 && letter < len) this.open(ui, letter);
+        else if ((up || down) && len) {
+          this.cursor = this.cursor == null ? 0 : Math.min(len - 1, Math.max(0, this.cursor + (down ? 1 : -1)));
+          this.fill(ui);
+        } else if (pick && this.cursor != null) this.open(ui, this.cursor);
+        return true;
       },
       toggle(ui) {
         if (this.box) {  // slide back out
           const box = this.box;
           this.box = null;
           box.classList.remove('mr-open');
-          box.addEventListener('transitionend', () => box.remove(), { once: true });
+          setTimeout(() => box.remove(), 400);  // after the .35s slide (transitionend is not reliable)
           return;
         }
+        this.cursor = null; this.menu = null;
         this.box = document.createElement('aside');
         this.box.id = 'mr-inv'; this.box.setAttribute('aria-label', 'Inventory');
         const head = document.createElement('div');
         head.className = 'mr-inv-head'; head.textContent = 'Inventory';
         this.list = document.createElement('div');
         this.box.append(head, this.list);
-        this.fill();
+        this.fill(ui);
         document.body.append(this.box);
         this.box.getBoundingClientRect();  // start off-screen, then slide in
         this.box.classList.add('mr-open');
@@ -600,7 +741,8 @@
     },
   };
   const ui = { map: el, get theme() { return theme; }, widget: (name) => WIDGETS[name],
-    answer: (text) => answer(text), cancel: () => answer('', true) };
+    answer: (text) => answer(text), cancel: () => answer('', true),
+    itemAction: (kind, action) => itemAction(kind, action) };
   let played = false;
   function emit(hook, ...args) {
     if (hook === 'played') { if (played) return; played = true; }
@@ -618,7 +760,7 @@
     const rows = s.map.map((row, r) => [...row].map((ch, c) => {
       const p = [r, c], m = monAt(p), item = itemAt(p);
       if (same(p, s.p) && !s.hidden) return `<b class="mr-at ${s.playerFx || ''}">${T.at}</b>`;
-      if (m) return `<b class="mr-k ${MONSTERS[m.kind].cls || ''} ${m.fx || ''}">${MONSTERS[m.kind].glyph[theme]}</b>`;
+      if (m) return `<b class="mr-k ${MONSTERS[m.kind].cls || ''} ${m.fx || ''}">${esc(m.glyph || MONSTERS[m.kind].glyph[theme])}</b>`;
       const extra = L.overlay && L.overlay(g, p, T);
       if (extra) return extra;
       if (item) return `<b class="mr-it ${ITEMS[item.kind].cls || ''}">${ITEMS[item.kind].glyph[theme]}</b>`;
@@ -635,18 +777,25 @@
   const KEYS = { ArrowUp:[-1,0], ArrowDown:[1,0], ArrowLeft:[0,-1], ArrowRight:[0,1],
     h:[0,-1], j:[1,0], k:[-1,0], l:[0,1], y:[-1,-1], u:[-1,1], b:[1,-1], n:[1,1],
     Home:[-1,-1], PageUp:[-1,1], End:[1,-1], PageDown:[1,1], '.':[0,0] };
+  const NUMPAD = { 8:[-1,0], 2:[1,0], 4:[0,-1], 6:[0,1], 7:[-1,-1], 9:[-1,1], 1:[1,-1], 3:[1,1] };
   el.addEventListener('keydown', (e) => {
     if (e.ctrlKey || e.metaKey || e.altKey) return;
     if (e.key === 't' || e.key === 'T') {  // hidden: switch theme, costs no turn
       e.preventDefault(); setTheme(theme === 'unix' ? 'epyx' : 'unix'); draw(); return;
     }
     const inv = WIDGETS.inventory;
-    if (played && !asking && (e.key === 'i' || (e.key === 'Escape' && inv.box))) {  // costs no turn
-      e.preventDefault(); inv.toggle(ui); return;
-    }
+    if (inv.box) { inv.key(ui, e); return; }
+    if (played && !asking && !aiming && !s.dead && e.key === 'i') { e.preventDefault(); inv.toggle(ui); return; }  // costs no turn
     const d = KEYS[e.key];
     if (s.dead) { if (e.key.length === 1 || d) { e.preventDefault(); reset(); } return; }
     if (s.locked) { e.preventDefault(); return; }
+    if (aiming) {  // throw direction: arrows, hjkl/yubn, or the numpad (NumLock on or off)
+      e.preventDefault();
+      const aim = NUMPAD[e.key] || d;
+      if (aim) throwItem(...aim);
+      else if (e.key.length === 1 || e.key === 'Escape') throwItem(0, 0);
+      return;
+    }
     if (asking) { if (d || e.key === 's') { e.preventDefault(); answer('', true); } return; }  // walk away
     if (e.key === 's') { e.preventDefault(); turn(0, 0, true); return; }  // search, as in Rogue
     if (!d) return;
@@ -663,6 +812,7 @@
     const col = Math.floor((e.clientX - r.left) / (r.width / MAP[0].length));
     if (row < 0 || row >= MAP.length) return;
     const dr = Math.sign(row - s.p[0]), dc = Math.sign(col - s.p[1]);
+    if (aiming) { throwItem(dr, dc); return; }  // clicking yourself puts it away
     turn(dr, dc, !dr && !dc);
   });
   emit('init');
