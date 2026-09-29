@@ -19,6 +19,7 @@ s.textContent=`
 #nav a{display:block;font:600 18px Cinzel,serif;color:var(--gold);text-decoration:none;padding:10px 4px;border-bottom:1px solid var(--line)}
 #nav a:hover,#nav a[aria-current]{color:var(--ember)}
 #nav .slot{display:block;font:600 18px Cinzel,serif;color:var(--dim);padding:10px 4px;border-bottom:1px solid var(--line)}
+#nav a:has(+hr),#nav .slot:has(+hr){border-bottom:0}
 #nav hr{border:0;height:2px;margin:14px 0;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.6}
 #nav .depth{position:absolute;left:20px;bottom:20px;color:var(--dim);font:12px "IBM Plex Mono",monospace}
 #navshade{position:fixed;inset:0;z-index:35;background:rgba(0,0,0,.5)} #navshade[hidden]{display:none}`;
