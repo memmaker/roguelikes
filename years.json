@@ -10,6 +10,7 @@
     "arogue77": {"year": 1986, "src": "https://icemonster.rlgallery.org/forge/warden/early-roguelike/src/commit/47df21eb661641aaf4fa055d47d8f6047dfd3cd4/arogue7/vers.c"},
     "larn": {"year": 1986, "src": "https://larn.org/history/history"},
     "ularn": {"year": 1989, "src": "https://larn.org/history/history"},
+    "nlarn": {"year": 2009, "src": "https://github.com/nlarn/nlarn/blob/8851b1f6420c17afc122a47e0b1b9e2b7b251878/Changelog.md#release-030-2009-07-13"},
     "nethack13d": {"year": 1987, "src": "https://nethackwiki.com/wiki/NetHack_1.3d"},
     "omega": {"year": 1994, "src": "https://groups.google.com/g/rec.games.roguelike.misc/c/tGnrPtx20R0"},
     "umoria": {"year": 1987, "src": "https://umoria.org/"},
