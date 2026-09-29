@@ -130,6 +130,9 @@
     // Stairs up appear at source.at.
     openStairsUp(g, source) { g.stairsUp(source.at); return '*click*'; },
 
+    // You fell into a chasm (after g.fall's animation). For now: death.
+    fallIntoChasm(g) { g.die('fall'); },
+
     // The knight, wherever he stands, is thrown into the gorge and leaves a sandal.
     knightIntoGorge(g) {
       const knight = g.monsters('knight')[0];
@@ -144,19 +147,19 @@
 
     // The corridor as a bridge (drawn brown by the level's overlay): it extends plank by
     // plank from the west door, or retracts back towards it. Items on it fall into the
-    // gorge, and so do you if you stand on it.
+    // gorge, and so do you if you stand on it (g.fall).
     toggleBridge(g) {
       const lv = g.lv, out = lv.bridgeOut = !lv.bridgeOut, row = CORRIDOR.row, cols = [];
       for (let c = CORRIDOR.from; c <= CORRIDOR.to; c++) cols.push(c);
       if (!out) cols.reverse();
       g.lock();
       cols.forEach((c, i) => g.later(90 * (i + 1), () => {
-        g.setTile([row, c], out ? '#' : ' ');
+        g.setTile([row, c], out ? '#' : ':');
         if (!out) {
           g.dropInto([row, c]);
-          if (same(g.player, [row, c])) return g.die('fall');
+          if (same(g.player, [row, c])) return g.fall();
         }
-        if (i === cols.length - 1) g.unlock();
+        if (i === cols.length - 1 && !g.falling) g.unlock();
       }));
       return out ? 'Bridge extends.' : 'Bridge retracts.';
     },
@@ -235,11 +238,12 @@
       // A lever hides in a wall of the west room: searching next to it throws the knight
       // into the gorge, and he leaves a sandal behind.
       setup(g) {
+        digGorge(g);
         g.spawn('knight', [CORRIDOR.row, CORRIDOR.from]);
         g.stairsDown([2, 26]);
         g.lever(g.randomWall(([, c]) => c < CORRIDOR.from), 'knightIntoGorge', { hidden: true, once: true });
       },
-      overlay: (g, p, T) => gorge(g, p, T),
+      overlay: (g, p, T) => bridge(g, p, T),
     },
     { // 4: the retracted bridge. You arrive in the east room; the corridor is gorge, and a
       // lever stands in the west room across it. Anything that hits the lever (throw
@@ -248,17 +252,22 @@
         g.stairsUp(arrival);
         g.stairsDown([3, 3]);
         g.lever([CORRIDOR.row, 2], 'toggleBridge');
-        for (let c = CORRIDOR.from; c <= CORRIDOR.to; c++) g.setTile([CORRIDOR.row, c], ' ');
+        digGorge(g, { bridge: false });
       },
-      overlay: (g, p, T) => gorge(g, p, T),
+      overlay: (g, p, T) => bridge(g, p, T),
     },
   ];
-  // the gorge between the rooms (levels 3 and 4): open space along the corridor is drawn
-  // as the gorge (T.gorge), corridor tiles without an item on them as a brown wooden bridge
-  function gorge(g, [r, c], T) {
-    const ch = g.tileAt([r, c]);
-    if (ch === '#' && !g.itemAt([r, c])) return `<i class="mr-bridge">${T.tile(r, c, '#')}</i>`;
-    if (ch === ' ' && Math.abs(r - CORRIDOR.row) <= 1 && c >= CORRIDOR.from && c <= CORRIDOR.to) return `<i class="mr-gorge">${T.gorge}</i>`;
+  // the gorge between the rooms (levels 3 and 4): chasm tiles (':') along the corridor,
+  // which is left as a bridge over it unless bridge: false
+  function digGorge(g, { bridge = true } = {}) {
+    for (let c = CORRIDOR.from; c <= CORRIDOR.to; c++) {
+      for (const r of [CORRIDOR.row - 1, CORRIDOR.row + 1]) g.setTile([r, c], ':');
+      if (!bridge) g.setTile([CORRIDOR.row, c], ':');
+    }
+  }
+  // the brown wooden bridge: corridor tiles without an item on them
+  function bridge(g, [r, c], T) {
+    if (g.tileAt([r, c]) === '#' && !g.itemAt([r, c])) return `<i class="mr-bridge">${T.tile(r, c, '#')}</i>`;
   }
 
   // ---------------------------------------------------------------- engine
@@ -284,6 +293,22 @@
       asking = { onAnswer, onCancel };
       emit('ask', question);
     },
+    // a yes/no question in the prompt: y/yes/n/no in any case; anything else asks again
+    confirm(question, onYes, onNo) {
+      g.ask(question, (a) => {
+        if (/^y(es)?$/i.test(a)) return onYes();
+        if (/^no?$/i.test(a)) return onNo && onNo();
+        return g.confirm(question, onYes, onNo);
+      }, onNo);
+    },
+    // you fall into a chasm: spin and shrink away, then EVENTS.fallIntoChasm decides what
+    // happens. You stay locked; the event unlocks if you live on.
+    fall() {
+      s.falling = true; g.lock(); g.playerFx('mr-fall');
+      g.later(1000, () => { g.hidePlayer(); s.falling = false; EVENTS.fallIntoChasm(g); });
+      return 'Aaaah!';
+    },
+    get falling() { return !!s.falling; },
     lock() { s.locked = true; },
     unlock() { s.locked = false; },
     monsters: (kind) => s.mons.filter((m) => m.kind === kind),
@@ -428,6 +453,9 @@
       hit(target, Math.max(FISTS, ...worn().map((k) => ITEMS[k].attack || 0)), 'You hit.', log);
     } else if (lever) {
       log.push('Clunk.', pull(lever));
+    } else if (at(...n) === ':') {  // the edge of a chasm: ask first (costs no turn)
+      g.confirm('Step into the chasm? (y/n)', () => { s.p = n; return g.fall(); });
+      draw(); return;
     } else if (walkable(...n)) {
       s.p = n;
       const item = (dr || dc) && itemAt(n);  // resting on a dropped item leaves it be
@@ -503,7 +531,7 @@
     for (let i = 0; i < MAP[0].length; i++) {
       const n = [p[0] + dr, p[1] + dc];
       if ((lever = leverAt(n))) break;  // lands in front
-      if (!(walkable(...n) || at(...n) === ' ') || !adjacent(p, n)) break;
+      if (!(walkable(...n) || ' :'.includes(at(...n))) || !adjacent(p, n)) break;
       path.push(n);
       if ((mon = monAt(n))) break;
       p = n;
@@ -518,7 +546,7 @@
       const log = lever ? ['Thunk!', pull(lever)] : [`You throw the ${kind}.`];  // short: the event speaks
       if (mon) hit(mon, ITEMS[kind].attack || 1, `The ${kind} hits the ${mon.kind}.`, log);
       const land = [...path].reverse().find((q) => !itemAt(q)) || [...s.p];
-      if (at(...land) === ' ') log.push(`The ${kind} is lost.`);
+      if (' :'.includes(at(...land))) log.push(`The ${kind} is lost.`);
       else g.drop(kind, land);
       endTurn(log);
     });
@@ -541,8 +569,9 @@
   // Themes: Unix Rogue (plain ASCII) and IBM PC Epyx Rogue (CP437 glyphs, CGA colours).
   // Picked at random per page load; hidden hotkey: t (while the map has focus).
   const THEMES = {
-    unix: { at: '@', stairs: '%', gorge: ':', tile: (r, c, ch) => esc(ch) },
-    epyx: { at: '☺', stairs: '≡', gorge: '░', tile: (r, c, ch) => {
+    unix: { at: '@', stairs: '%', tile: (r, c, ch) => ch === ':' ? '<i class="mr-gorge">:</i>' : esc(ch) },
+    epyx: { at: '☺', stairs: '≡', tile: (r, c, ch) => {
+      if (ch === ':') return '<i class="mr-gorge">░</i>';
       if (ch === '-') {  // corners: a wall below or above makes this a corner
         const down = at(r + 1, c) === '|', up = at(r - 1, c) === '|';
         const left = at(r, c + 1) === '-';  // wall continues right → left-hand corner

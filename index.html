@@ -45,6 +45,8 @@ h1 .more.log { font-size:.45em; vertical-align:middle; } /* header game messages
 .mr-bridge, .mr-bridge i { color:#8b5a2b; } .mr-gorge { color:#3a3540; } #minirogue[data-theme=epyx] .mr-gorge { color:#555555; }
 #minirogue[data-theme=epyx] .mr-bridge i { color:#aa5500; }
 #minirogue[data-theme] .mr-it.mr-sandal { color:#b07a45; } .mr-lever { color:#d9d4c7; }
+.mr-fall { display:inline-block; animation:mr-fall 1s ease-in forwards; }
+@keyframes mr-fall { to { transform:rotate(540deg) scale(.05); opacity:0; } }  /* into a chasm */
 .mr-thrown { display:inline-block; animation:mr-throw 1.7s cubic-bezier(.3,.6,.6,1) forwards; }
 @keyframes mr-throw {  /* up into the air, spinning and growing, then down into the gorge */
   0% { transform:none; }
