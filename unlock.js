@@ -4,7 +4,7 @@
 // unlocks one random family, and beating the game (the last depth) the final one.
 // ?f=Family filters the cards and the tree to one unlocked family.
 (() => {
-  const FAMILIES = {
+  const FAMILIES = {  // the menu order (by age) is progress.families in nav.js
     'Rogue': ['rogue36', 'srogue', 'rogue54', 'arogue58', 'urogue', 'roguepc', 'arogue77', 'xrogue'],
     'Moria': ['umoria', 'boss', 'hengband', 'easyband', 'zangband', 'tome2', 'tinyangband', 'nppangband',
       'sangband', 'quickband', 'frogcomposband', 'faangband', 'sil-q', 'tactical-angband'],
@@ -19,6 +19,7 @@
   const style = document.createElement('style');
   style.textContent = `
 .locked { display:none !important; }
+#tree li.last::after { bottom:auto; height:18px; }  /* the rail stops at the last visible entry */
 #locked-msg { text-align:center; color:var(--dim); margin:32px 16px 64px; }
 body.ask-name > :not(#ask-name) { display:none !important; }
 #ask-name { position:fixed; inset:0; display:flex; align-items:center; justify-content:center; padding:16px;
@@ -26,7 +27,17 @@ body.ask-name > :not(#ask-name) { display:none !important; }
 #ask-name input { position:absolute; opacity:0; pointer-events:none; }
 #ask-name .cur { color:var(--gold); animation:blink 1s steps(1) infinite; }
 @keyframes blink { 50% { opacity:0; } }
-@media (max-width:520px){ #ask-name { font-size:14px; } }`;
+@media (max-width:520px){ #ask-name { font-size:14px; } }
+#unlocking { position:fixed; inset:0; z-index:100; cursor:wait; }
+.card.pending, #tree li.dark { visibility:hidden; } #tree li:not(.dark) { visibility:visible; }
+.card .back { position:absolute; inset:0; z-index:2; display:flex; align-items:center; justify-content:center;
+  background:repeating-linear-gradient(45deg,#15121a 0 10px,#1b1720 10px 20px); border:2px solid var(--gold); border-radius:inherit;
+  font:800 96px Cinzel,serif; color:var(--gold); text-shadow:0 0 24px rgba(224,178,79,.6); }
+#tree { position:relative; }
+#torch { position:absolute; left:-10%; right:-10%; height:140px; margin-top:-70px; pointer-events:none; z-index:3;
+  background:radial-gradient(ellipse at center,rgba(255,170,70,.28),rgba(255,122,42,.1) 45%,transparent 70%); }
+#tree li.lit > :not(ul) { animation:lit 1.6s ease-out; }
+@keyframes lit { from { color:#ffd27a; text-shadow:0 0 12px rgba(255,170,70,.95),0 0 28px rgba(255,122,42,.6); } }`;
   document.head.append(style);
 
   // ---- the name prompt (first visit)
@@ -66,13 +77,17 @@ body.ask-name > :not(#ask-name) { display:none !important; }
     for (const li of document.querySelectorAll('#tree li')) {
       li.classList.toggle('locked', !all && ![...li.querySelectorAll('a.n')].some(visible));
     }
+    for (const ul of document.querySelectorAll('#tree ul')) {
+      const lis = [...ul.children].filter((li) => !li.classList.contains('locked'));
+      for (const li of ul.children) li.classList.toggle('last', li === lis.at(-1));
+    }
     msg.hidden = unlocked.length > 0;
     document.querySelector('#tree .legend').classList.toggle('locked', !unlocked.length);
   }
 
   // ---- unlocking, from the header game
   document.addEventListener('minirogue', ({ detail }) => {
-    const p = progress.get();
+    const p = progress.get(), had = (p.families || []).length;
     p.max = detail.max;
     const before = p.deepest || 0;
     if (detail.depth) p.deepest = Math.max(before, detail.depth);
@@ -84,8 +99,113 @@ body.ask-name > :not(#ask-name) { display:none !important; }
     while (p.families.length < earned && locked.length) {
       p.families.push(locked.splice(Math.floor(Math.random() * locked.length), 1)[0]);
     }
-    progress.save(p);
+    if (p.families.length === had) progress.save(p); else unlock(p);
   });
+  function unlock(p) {  // save p, animating the games it newly shows
+    const hidden = new Set(document.querySelectorAll('.card.locked, #tree li.locked'));
+    progress.save(p);  // apply() runs now: the newly shown cards and entries wait hidden for their animation
+    const tree = document.body.classList.contains('tree');
+    const fresh = [...document.querySelectorAll(tree ? '#tree li' : 'main .card')].filter((x) => hidden.has(x) && !x.classList.contains('locked'));
+    fresh.forEach((x) => x.classList.add(tree ? 'dark' : 'pending'));
+    if (fresh.length) reveal(fresh, tree);
+  }
+
+  // debug keys: F5 unlocks every family, F10 forgets everything this page stored
+  addEventListener('keydown', (e) => {
+    if (e.key === 'F5') {
+      e.preventDefault();
+      const p = progress.get();
+      if ((p.families || []).length < progress.families.length) unlock({ ...p, families: [...progress.families] });
+    } else if (e.key === 'F10') {
+      e.preventDefault();
+      if (!confirm('Reset all progress and stored state?')) return;
+      try { localStorage.clear(); sessionStorage.clear(); } catch {}
+      location.reload();
+    }
+  });
+
+  // ---- the unlock animation: page blocked, scroll the new games into view, then deal + flip the
+  // cards, or sweep a torch down the tree
+  const wait = (ms) => new Promise((ok) => setTimeout(ok, ms));
+  const block = (e) => { e.preventDefault(); e.stopImmediatePropagation(); };
+  async function reveal(fresh, tree) {
+    const shield = document.createElement('div');
+    shield.id = 'unlocking';
+    document.body.append(shield);
+    for (const ev of ['keydown', 'wheel', 'touchmove']) addEventListener(ev, block, { capture: true, passive: false });
+    try {
+      await scrollTo(fresh);
+      await (tree ? torch(fresh) : deal(fresh));
+    } finally {
+      for (const ev of ['keydown', 'wheel', 'touchmove']) removeEventListener(ev, block, { capture: true });
+      shield.remove();
+    }
+  }
+
+  function scrollTo(els) {  // smoothly bring all of els into view (their top, if they don't fit)
+    const rs = els.map((x) => x.getBoundingClientRect());
+    const top = Math.min(...rs.map((r) => r.top)), bottom = Math.max(...rs.map((r) => r.bottom)), m = 24;
+    const dy = bottom - top + 2 * m > innerHeight ? top - m : top < m ? top - m : bottom > innerHeight - m ? bottom - innerHeight + m : 0;
+    if (Math.abs(dy) < 2) return Promise.resolve();
+    return new Promise((ok) => {
+      addEventListener('scrollend', ok, { once: true });
+      setTimeout(ok, 1500);  // no scrollend (older browsers) or it didn't move
+      window.scrollBy({ top: dy, behavior: 'smooth' });
+    });
+  }
+
+  async function deal(cards) {  // thrown face-down from the bottom edge, then turned over left to right
+    const backs = cards.map((c) => {
+      const b = document.createElement('div');
+      b.className = 'back';
+      b.textContent = '?';
+      c.append(b);
+      return b;
+    });
+    const throws = cards.map((c, i) => {
+      const r = c.getBoundingClientRect();
+      const dx = innerWidth / 2 - (r.left + r.width / 2) + (Math.random() - 0.5) * 120, dy = innerHeight + 40 - r.top;
+      const spin = (Math.random() - 0.5) * 60;
+      const a = c.animate([
+        { transform: `translate(${dx}px,${dy}px) rotate(${spin}deg) scale(.7)` },
+        { transform: `rotate(${-spin / 12}deg)`, offset: 0.85 },
+        { transform: 'none' },
+      ], { duration: 520, delay: i * 140, easing: 'cubic-bezier(.2,.7,.3,1)', fill: 'backwards' });
+      c.classList.remove('pending');
+      return a.finished;
+    });
+    await Promise.all(throws);
+    await wait(250);
+    const order = cards.map((c, i) => [c, backs[i], c.getBoundingClientRect()])
+      .sort((a, b) => a[2].left - b[2].left || a[2].top - b[2].top);
+    await Promise.all(order.map(async ([c, back], i) => {
+      await wait(i * 160);
+      await c.animate([{ transform: 'perspective(900px) rotateY(0)' }, { transform: 'perspective(900px) rotateY(90deg)' }],
+        { duration: 180, easing: 'ease-in' }).finished;
+      back.remove();
+      await c.animate([{ transform: 'perspective(900px) rotateY(-90deg)' }, { transform: 'perspective(900px) rotateY(0)' }],
+        { duration: 220, easing: 'ease-out' }).finished;
+    }));
+  }
+
+  async function torch(lis) {  // a light sweeps down the tree, lighting the new entries it passes
+    const tree = document.getElementById('tree'), t0 = tree.getBoundingClientRect().top;
+    const y = (li) => li.getBoundingClientRect().top - t0 + 12;
+    const from = Math.min(...lis.map(y)) - 60, to = Math.max(...lis.map(y)) + 60, speed = 0.5;  // px per ms
+    const light = document.createElement('div');
+    light.id = 'torch';
+    tree.append(light);
+    const duration = Math.max(600, (to - from) / speed);
+    const sweep = light.animate([{ top: from + 'px', opacity: 0 }, { opacity: 1, offset: 0.1 }, { opacity: 1, offset: 0.9 }, { top: to + 'px', opacity: 0 }],
+      { duration, easing: 'linear' });
+    for (const li of lis) {
+      setTimeout(() => { li.classList.remove('dark'); li.classList.add('lit'); }, (y(li) - from) / (to - from) * duration);
+    }
+    await sweep.finished;
+    light.remove();
+    await wait(1600);  // the last glow fades
+    lis.forEach((li) => li.classList.remove('lit'));
+  }
   document.addEventListener('progress', apply);
 
   // family links in the menu filter in place (keeping the cards/tree view)

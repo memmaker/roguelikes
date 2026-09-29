@@ -3,6 +3,7 @@
 // unlock.js writes it on the index page and fires 'progress' on document; the menu redraws.
 window.progress = {
   get() { try { return JSON.parse(localStorage.getItem('progress')) || {}; } catch { return {}; } },
+  families: ['Rogue', 'Hack', 'Moria', '2nd Generation', 'Modern'],  // by age; the menu keeps a ? slot for each locked one
   save(p) { try { localStorage.setItem('progress', JSON.stringify(p)); } catch {} document.dispatchEvent(new Event('progress')); },
 };
 (()=>{
@@ -17,6 +18,7 @@ s.textContent=`
 #nav.open{transform:none;visibility:visible}
 #nav a{display:block;font:600 18px Cinzel,serif;color:var(--gold);text-decoration:none;padding:10px 4px;border-bottom:1px solid var(--line)}
 #nav a:hover,#nav a[aria-current]{color:var(--ember)}
+#nav .slot{display:block;font:600 18px Cinzel,serif;color:var(--dim);padding:10px 4px;border-bottom:1px solid var(--line)}
 #nav .depth{position:absolute;left:20px;bottom:20px;color:var(--dim);font:12px "IBM Plex Mono",monospace}
 #navshade{position:fixed;inset:0;z-index:35;background:rgba(0,0,0,.5)} #navshade[hidden]{display:none}`;
 document.head.append(s);
@@ -28,9 +30,9 @@ function menu(){  // family filters (./?f=Name) come first, then the other pages
   const p=progress.get(), f=here==='index.html'&&new URLSearchParams(location.search).get('f');
   const link=(h,t,cur)=>`<a href="${h}"${cur?' aria-current="page"':''}>${t}</a>`;
   n.innerHTML=link('./','All games',here==='index.html'&&!f)
-    +(p.families||[]).map(x=>link('./?f='+encodeURIComponent(x),x,f===x)).join('')
+    +progress.families.map(x=>(p.families||[]).includes(x)?link('./?f='+encodeURIComponent(x),x,f===x):'<span class="slot">?</span>').join('')
     +[['stats.html','Visitors'],['graveyard.html','Graveyard'],['leaderboard.html','Leaderboards']].map(([h,t])=>link(h,t,h===here)).join('')
-    +`<div class="depth">Reached depth ${p.deepest||0} of ${p.max||5}</div>`;
+    +`<div class="depth">Reached depth ${p.deepest||1} of ${p.max||5}</div>`;
 }
 menu(); document.addEventListener('progress',menu);
 const set=o=>{n.classList.toggle('open',o);sh.hidden=!o;b.setAttribute('aria-expanded',o);if(o)n.querySelector('a').focus();};

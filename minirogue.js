@@ -324,7 +324,10 @@
   const g = {
     get lv() { return s.lv; },
     // progress for the page (unlock.js): a 'minirogue' event with { depth } or { won }, plus max
-    report: (detail) => document.dispatchEvent(new CustomEvent('minirogue', { detail: { ...detail, max: LEVELS.length } })),
+    report(detail) {  // progress for the page (unlock.js); held back until a level transition is over
+      const fire = () => document.dispatchEvent(new CustomEvent('minirogue', { detail: { ...detail, max: LEVELS.length } }));
+      if (transitioning) afterTransition.push(fire); else fire();
+    },
     get player() { return s.p; },
     get playerGlyph() { return THEMES[theme].at; },  // @ or ☺, for speech lines
     get theme() { return theme; },
@@ -919,7 +922,7 @@
   // LEVEL N flashes on it, and it opens up on the new level. Input is locked meanwhile,
   // and draw() leaves the map to it.
   const H = MAP.length, W = MAP[0].length, SPACE = ' ';
-  let transitioning = false;
+  let transitioning = false, afterTransition = [];
   async function titleCard(from, to, depth, show) {
     const wait = (ms) => new Promise((ok) => setTimeout(ok, ms));
     const squeeze = (grid, k) => grid.map((row, r) => (Math.abs(r - (H >> 1)) > H / 2 - k ? Array(W).fill(SPACE) : row));
@@ -940,13 +943,14 @@
 
   function changeLevel(depth, arrival) {
     const from = cells(), run = s;
-    s.msg = enter(depth, arrival);
     transitioning = true; g.lock();
+    s.msg = enter(depth, arrival);
     draw();  // the message and status now; the map is the transition's
     titleCard(from, cells(), depth, (grid) => { if (s === run) el.innerHTML = html(grid); }).finally(() => {
       transitioning = false;
       if (s === run) g.unlock();  // else restarted meanwhile
       draw();
+      for (const fire of afterTransition.splice(0)) fire();
     });
   }
 
