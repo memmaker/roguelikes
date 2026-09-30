@@ -53,6 +53,18 @@ h1 .more.log { font-size:.45em; vertical-align:middle; } /* header game messages
 #minirogue[data-theme] .mr-it.mr-sandal { color:#b07a45; } .mr-lever { color:#d9d4c7; }
 .mr-fall { display:inline-block; animation:mr-fall 1s ease-in forwards; }
 @keyframes mr-fall { to { transform:rotate(540deg) scale(.05); opacity:0; } }  /* into a chasm */
+.mr-burst { display:inline-block; position:relative; z-index:1; animation:mr-shake .08s linear 22, mr-boom .8s 1.8s ease-out forwards; }
+.mr-burst::before { content:''; position:absolute; left:50%; top:50%; width:40ch; height:40ch; margin:-20ch; z-index:-1; pointer-events:none;
+  background:repeating-conic-gradient(rgba(255,230,150,.55) 0 4deg, transparent 4deg 22deg);
+  -webkit-mask:radial-gradient(closest-side,#000,transparent); mask:radial-gradient(closest-side,#000,transparent);
+  animation:mr-rays 1.8s ease-in forwards, mr-flash .8s 1.8s ease-out forwards; }
+@keyframes mr-shake { 25% { transform:translate(-1px,1px); } 75% { transform:translate(1px,-1px); } }
+@keyframes mr-rays { from { transform:scale(0) rotate(0); opacity:0; } to { transform:scale(1) rotate(60deg); opacity:1; } }
+@keyframes mr-flash { 0% { transform:scale(1.4) rotate(60deg); opacity:1; filter:brightness(3); } 100% { transform:scale(2) rotate(80deg); opacity:0; } }
+@keyframes mr-boom {  /* the glyph flares white and bursts into shards (text-shadow copies) flying apart */
+  0% { color:#fff; text-shadow:0 0 0 #ffd27a,0 0 0 #ff7a2a,0 0 0 #ffd27a,0 0 0 #ff7a2a,0 0 0 #fff,0 0 0 #ff7a2a; transform:scale(1.6); }
+  100% { color:transparent; text-shadow:-3ch -2em 2px transparent,3ch -1.5em 2px transparent,-2.5ch 1.8em 2px transparent,2.8ch 2em 2px transparent,0 -2.6em 2px transparent,-4ch .3em 2px transparent; transform:scale(1); } }
+@media (prefers-reduced-motion:reduce){ .mr-burst, .mr-burst::before { animation-duration:.01s; animation-iteration-count:1; } }
 .mr-card { color:var(--gold); }  /* level transitions */
 .mr-thrown { display:inline-block; animation:mr-throw 1.7s cubic-bezier(.3,.6,.6,1) forwards; }
 @keyframes mr-throw {  /* up into the air, spinning and growing, then down into the gorge */

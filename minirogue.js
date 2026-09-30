@@ -66,8 +66,14 @@
     // throws) break it.
     // Breaking it beats the game.
     machine: { hp: 10, glyph: { unix: '&', epyx: '☼' }, cls: 'mr-machine', death: 'The machine breaks!',
-      dies: (g) => g.report({ won: true }),
+      // it bursts: light rays and a rumble, a boom, and only then the win
+      dies(g, m) {
+        const wreck = g.spawn('machine', m.pos);
+        wreck.dying = true; g.monsterFx(wreck, 'mr-burst'); g.lock(); boom();
+        g.later(2600, () => { g.remove(wreck); g.unlock(); g.report({ won: true }); });
+      },
       act(g, m) {
+        if (m.dying) return;
         m.turns = (m.turns || 0) + 1;
         const at = pick([m, ...g.monsters('slime')].map((x) => g.freeNextTo(x.pos)).filter(Boolean));
         if (m.turns % 3 === 0 && at) { g.spawn('slime', at); return 'Blorp.'; }
@@ -393,7 +399,7 @@
       if (s.hp <= 0) { s.dead = true; s.killer = m.kind; }
       return `The ${m.kind} hits you.`;
     },
-    spawn(kind, pos) { s.mons.push({ kind, pos, hp: MONSTERS[kind].hp }); },
+    spawn(kind, pos) { const m = { kind, pos, hp: MONSTERS[kind].hp }; s.mons.push(m); return m; },
     drop(kind, pos) { s.items.push({ kind, pos }); },
     lever(pos, event, options) {
       const lever = { ...options, pos, event, on: false, pulls: 0 };
@@ -525,11 +531,34 @@
     endTurn(log);
   }
 
+  // the machine's end, in WebAudio noise: a rumble swelling for 1.8s, then the boom
+  function boom() {
+    try {
+      const ac = new AudioContext(), t = ac.currentTime, sr = ac.sampleRate;
+      const buf = ac.createBuffer(1, sr * 3, sr), d = buf.getChannelData(0);
+      for (let i = 0, b = 0; i < d.length; i++) d[i] = b = (b + 0.02 * (Math.random() * 2 - 1)) / 1.02;  // brown noise
+      const noise = (start, len, freq, gain) => {  // [[time, level], ...] envelope
+        const src = ac.createBufferSource(), f = ac.createBiquadFilter(), v = ac.createGain();
+        src.buffer = buf; f.type = 'lowpass'; f.frequency.value = freq;
+        v.gain.setValueAtTime(0.0001, t);
+        for (const [at, lv] of gain) v.gain.exponentialRampToValueAtTime(lv, t + at);
+        src.connect(f).connect(v).connect(ac.destination); src.start(t + start, 0, len);
+      };
+      noise(0, 1.85, 160, [[1.7, 3], [1.85, 0.0001]]);
+      noise(1.8, 1.2, 900, [[1.82, 8], [3, 0.0001]]);
+      const o = ac.createOscillator(), v = ac.createGain();  // the thump under it
+      o.frequency.setValueAtTime(90, t + 1.8); o.frequency.exponentialRampToValueAtTime(28, t + 2.6);
+      v.gain.setValueAtTime(0.9, t + 1.8); v.gain.exponentialRampToValueAtTime(0.0001, t + 2.8);
+      o.connect(v).connect(ac.destination); o.start(t + 1.8); o.stop(t + 2.9);
+      setTimeout(() => ac.close(), 3500);
+    } catch {}  // no audio: the light show alone
+  }
+
   const worn = () => Object.keys(s.has).filter((k) => s.has[k]);
   function hit(m, dmg, msg, log) {  // you (or something you threw) hit a monster
     m.hp -= dmg;
     if (m.hp > 0) log.push(msg);
-    else { log.push(MONSTERS[m.kind].death || `The ${m.kind} dies!`); g.remove(m); MONSTERS[m.kind].dies?.(g); }
+    else { log.push(MONSTERS[m.kind].death || `The ${m.kind} dies!`); g.remove(m); MONSTERS[m.kind].dies?.(g, m); }
   }
 
   function pull(lever) {
