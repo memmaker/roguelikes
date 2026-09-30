@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TraumaRL · Shrine</title>
+<!--og-->
+<meta name="description" content="flend's 7DRL of 2014: a survival shooter on a space station gone wrong, with graph-generated levels and quests, a plot told in logs, and ShroomArts tiles. Successor to FlatlineRL.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="--More--">
+<meta property="og:title" content="TraumaRL · Shrine">
+<meta property="og:description" content="flend's 7DRL of 2014: a survival shooter on a space station gone wrong, with graph-generated levels and quests, a plot told in logs, and ShroomArts tiles. Successor to FlatlineRL.">
+<meta property="og:url" content="https://ruzzoli.de/roguelikes/shrine/traumarl.html">
+<meta property="og:image" content="https://ruzzoli.de/roguelikes/img/traumarl.png">
+<meta name="twitter:card" content="summary_large_image">
+<!--/og-->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>TraumaRL</h1>
+  <p class="epi">A 7DRL survival shooter · wake up in the trauma centre of a space station where something has gone terribly wrong</p>
+  <a class="play" href="../traumarl/">&gt; Enter the dungeon</a>
+</header>
+<div class="facts"><div><b>Date of birth</b><span>2014</span> 7DRL 2014, released 16 March 2014 (v1.0 commit 17 March, 7drl-v1.1 on 22 March); this build flend/roguelike <code>traumarl</code> @ d429380</div><div><b>Creator</b><span>flend (Tom Ford)</span> art by ShroomArts</div><div><b>Language</b><span>C#</span> .NET with libtcod</div><div><b>Platform</b><span>Windows</span> tiles in a libtcod window</div></div>
+<nav class="toc"><a href="#lineage">Lineage</a><a href="#credits">Credits</a><a href="#trivia">Trivia</a><a href="#usp">What's unique</a><a href="#code">Code dive</a><a href="#stats">Stats</a><a href="#manual">Manual</a><a href="#start">Getting started</a><a href="#help">Help</a><a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p><strong>TraumaRL</strong> is the third of flend’s 7DRLs in one C# code base (the repository’s first commit, “Minimal skeleton for RogueBase project”, is from 3 January 2009): <strong>DDRogue</strong> (7DRL 2009) → <strong>FlatlineRL</strong> (7DRL 2013, v1.0 on 17 March 2013) → <strong>TraumaRL</strong> (7DRL 2014). <a href="https://www.roguebasin.com/index.php/TraumaRL">RogueBasin</a> calls it “the direct successor to FlatlineRL” that “continues the plot from that game”, and names DoomRL (shooting) and System Shock (adventure structure) as inspirations. Each game is a branch of <a href="https://github.com/flend/roguelike">flend/roguelike</a>; the source tree still carries the fantasy monsters and items of DDRogue and FlatlineRL’s readme.</p>
+<p>See the <a href="../#tree">family tree</a>.</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table><tr><td>flend</td><td>Tom Ford: design and code (<a href="https://github.com/flend/roguelike">flend/roguelike</a>)</td></tr><tr><td>Art</td><td>ShroomArts (<a href="https://shroomarts.blogspot.com/2014/03/trauma-rl.html">ShroomArts blog post</a>)</td></tr><tr><td>Libraries</td><td>libtcod by jice, libtcod-net by Chris et al. (acknowledged in the readme)</td></tr><tr><td>Web port</td><td>This site: .NET WebAssembly, windows, menus, saves (<a href="https://github.com/memmaker/traumaRL">memmaker/traumaRL</a>)</td></tr></table>
+<p class="src">Licence: code GPL v3; “the graphics … are proprietary and may not be used in other projects without my permission” (<a href="https://github.com/flend/roguelike">README</a>).</p>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>The upstream README warns: “These are code-jam games so don't expect the code to be very pretty :)”. <span class="src">(<a href="https://github.com/flend/roguelike">flend/roguelike README</a>)</span></li>
+<li>The same repository also holds PrincessRL on its own branch. <span class="src">(<a href="https://github.com/flend/roguelike">README</a>)</span></li>
+<li>The 7DRLs of 2014 were the topic of <a href="http://www.roguelikeradio.com/2014/03/episode-87-7drls-2014.html">Roguelike Radio episode 87</a>; TraumaRL is in the video <a href="https://www.youtube.com/watch?v=NkEQQgbS86A">“Top 5 Seven-Day Roguelikes 2014”</a>.</li>
+<li>Work continued after the challenge: a pathing-to-items feature branch was merged in May 2014 and the last merge is from February 2015. <span class="src">(<a href="https://github.com/flend/roguelike/commits/traumarl">git history</a>)</span></li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>Graph-generated plot:</strong> levels and quests come from graphs, so objectives and key items move each play but the main quest is guaranteed solvable (<a href="https://www.roguebasin.com/index.php/TraumaRL">RogueBasin</a>).</li>
+<li><strong>A branching station:</strong> 10 interlinked levels in a tree whose shape changes each game; you go back and forth between them with key cards.</li>
+<li><strong>Story in logs:</strong> the plot is read from logs and clues found on the station, continuing FlatlineRL’s story.</li>
+<li><strong>Shooter, not dungeon crawler:</strong> guns, grenades, shields and wetware implants instead of swords and spells.</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li><strong>Language:</strong> C#, about 91,900 lines in 393 <code>.cs</code> files under <code>RogueBasin/</code> (including the shared engine and leftovers of the earlier games).</li>
+<li><strong>Generation:</strong> templated room maps (<code>TemplatedMapBuilder</code>) joined by a level-link graph with locks and clues; GraphViz output behind a config switch (<code>displayGraphs</code>).</li>
+<li><strong>This port:</strong> .NET 10 browser-wasm; a shim renderer hands panes (map, status, messages, inventory) to the page, a command menu on Enter, one save slot with resume. Source: <a href="https://github.com/memmaker/traumaRL">memmaker/traumaRL</a> (<a href="https://github.com/memmaker/traumaRL/compare/d429380...main">our changes</a>).</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<table><tr><th>Thing</th><th>Count</th><th>Notable ones</th></tr><tr><td>Creatures</td><td>74 classes</td><td>station foes: Camera, Alert bot, Patrol Bot, Swarmer, UltraSwarmer, Juggernaut, Warrior Cyborg, Heavy turret, Rolling Bomb, Explosive Barrel, The Captain; plus DDRogue’s fantasy bestiary still in the code (black unicorn, necromancer, pixie, “poor defenceless friend”)</td></tr><tr><td>Items</td><td>73 classes</td><td>Pistol, Shotgun, Heavy Laser, Vibroblade, Frag, Stun and Sound grenades, wetware (Aim, Bio, Boost, Shield, Stealth), Nano Repair, Tactical Overlay; fantasy leftovers like the GodSword and the Knockout Dress</td></tr></table>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>We found no manual: the 7DRL release has none beyond the in-game help (<kbd>?</kbd>) and the intro, and the <a href="https://www.roguebasin.com/index.php/TraumaRL">RogueBasin</a> page describes the game. Our <a href="../traumarl/help.html">help page</a> collects the keys, the intro and tips.</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol><li><a href="../traumarl/">Open the game</a> and read the intro.</li>
+<li>Move with the arrow keys or vi keys; <kbd>f</kbd> fires, <kbd>x</kbd> examines, <kbd>i</kbd> lists the inventory.</li>
+<li>Pick up weapons and wetware; read logs for the plot and for where key cards are.</li>
+<li>Take the elevators between levels; locked doors need their card, found on another level.</li>
+<li>Enter lists every command; <a href="../traumarl/help.html">help.html</a> has keys, saving and credits.</li></ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>We found no written walkthrough. Video: <a href="https://www.youtube.com/watch?v=soI-oI7PFWY">DFuxa Explores – 7DRL 2014 TraumaRL Part 1</a>. Rules of thumb from RogueBasin and the code:</p><ul>
+<li>Alert bots “sound the alert” (their code, <code>AlertBot.cs</code>): shoot them first.</li>
+<li>Objectives move each game; the logs and clues tell you where the next card is.</li>
+<li>Expect to backtrack: an item from one level can be needed on another.</li>
+<li>More: <a href="https://www.roguebasin.com/index.php/TraumaRL">RogueBasin</a>, the <a href="https://www.roguetemple.com/7drl/2014/">Temple of the Roguelike 7DRL 2014 evaluation</a>, the <a href="https://forums.roguetemple.com/index.php?topic=4057.0">forum thread</a>.</li></ul>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<p>Upstream has a debug mode (<code>debug=true</code> in <code>config.txt</code>: debug keys such as <kbd>K</kbd> to open all locks and on-screen debug info). Our build ships <code>debug=false</code>; the page URL <code>?rviplocks</code> enables only the lock-opening key and a Debug menu entry. No wizard mode.</p>
+<ul><li><strong>Save scumming:</strong> <em>Export save</em> / <em>Import save</em> on the game page.</li></ul>
+</section>
+</div></body>
+</html>
