@@ -106,7 +106,7 @@
         if (m.bumps >= 3) { m.hostile = true; return null; }
         return this.ask(g, m, 0);
       },
-      hints: ['Press --more--', 'Subtitles hide secrets', '"i" is for inventory', '"s" is for searching', '"t" is for throwing', '"g" is for graph.. text..'],
+      hints: ['Press --more--', 'Subtitles hide secrets', "'i' is for inventory", "'s' is for searching", "'t' is for throwing", "'g' is for graph.. text.."],
       say(g, text) { return g.speak(this.glyph[g.theme], 'mr-knight', text); },  // a speech line in his colour
       ask(g, m, i) {  // asks question i; returns its text as the message
         const [key, question] = this.questions[i];
