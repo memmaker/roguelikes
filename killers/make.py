@@ -472,7 +472,24 @@ def avanor():                                         # DawnLike 16px (web/tiles
             img.crop((x, y, x + 16, y + 16)).resize((32, 32), Image.NEAREST).save(os.path.join(d, slug(name) + '.png'), optimize=True)
     print('avanor', len(os.listdir(d)))
 
+def alienhack():                                      # text only: draw.cpp alien DrawItem glyph + Console colour (web/Console-web.cpp RVIP_CSS), Menlo bold; names = Alien::getSelectName
+    from PIL import ImageDraw, ImageFont
+    a = G + '/alienhack'
+    enum = ['Black', 'Red', 'Green', 'Blue', 'Yellow', 'Cyan', 'Magenta', 'Grey', 'BrightRed', 'BrightGreen', 'BrightBlue', 'BrightYellow', 'BrightCyan', 'BrightMagenta', 'White']   # RL-Shared Console::Colour
+    css = re.findall(r'"(#[0-9a-f]{6})"', re.search(r'RVIP_CSS\[15\] = \{(.*?)\};', open(a + '/web/Console-web.cpp').read(), re.S).group(1))
+    draw = open(a + '/src/Console/Interface/draw.cpp').read()
+    draw = draw[draw.index('switch( alien.alienType() )'):]
+    look = dict((t, (ch, c)) for t, ch, c in re.findall(r"case (\w+):\s*return DrawItem\('(.)', Console::(\w+)\);", draw[:draw.index('default:')]))
+    names = re.findall(r'case (\w+):\s*type_str = "([^"]+)"', open(a + '/src/Model/Objects/Alien.cpp').read())
+    font = next(ImageFont.truetype(f, 28, index=i) for f, i in [('/System/Library/Fonts/Menlo.ttc', 1), ('/usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf', 0)] if os.path.exists(f))
+    d = os.path.join(HERE, 'alienhack'); os.makedirs(d, exist_ok=True)
+    for t, name in names:
+        ch, c = look[t]
+        img = Image.new('RGBA', (32, 32), '#000'); ImageDraw.Draw(img).text((16, 16), ch, css[enum.index(c)], font, 'mm')
+        img.save(os.path.join(d, slug(name) + '.png'), optimize=True)
+    print('alienhack', len(os.listdir(d)))
+
 if sys.argv[1:]:
     for a in sys.argv[1:]: globals()[a]()
 else:
-    rogue(); hack(); umoria(); urogue(); larn(); ularn(); rogue36(); srogue(); roguepc(); tome2(); tinyangband(); quickband(); arogue58(); arogue77(); xrogue(); boss(); omega(); prime(); dynahack(); silq(); tactical(); crawl(); zapm(); alphaman(); decker(); nethack13d(); nethack50(); zeldhack(); slashem(); zangband(); frogcomposband(); forays(); lambdarogue(); hengband(); easyband(); mag(); tactical('faangband'); nppangband(); prospector(); sangband(); nlarn(); evilhack(); ia(); avanor()
+    rogue(); hack(); umoria(); urogue(); larn(); ularn(); rogue36(); srogue(); roguepc(); tome2(); tinyangband(); quickband(); arogue58(); arogue77(); xrogue(); boss(); omega(); prime(); dynahack(); silq(); tactical(); crawl(); zapm(); alphaman(); decker(); nethack13d(); nethack50(); zeldhack(); slashem(); zangband(); frogcomposband(); forays(); lambdarogue(); hengband(); easyband(); mag(); tactical('faangband'); nppangband(); prospector(); sangband(); nlarn(); evilhack(); ia(); avanor(); alienhack()
