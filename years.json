@@ -23,6 +23,7 @@
     "crawl-linley": {"year": 2003, "src": "https://de.wikipedia.org/wiki/Linley%E2%80%99s_Dungeon_Crawl"},
     "slashem": {"year": 2006, "src": "https://sourceforge.net/projects/slashem/files/slashem-source/0.0.7E7F3/"},
     "hengband": {"year": 2000, "src": "https://www.roguebasin.com/index.php/List_of_Angband_variants"},
+    "avanor": {"year": 2001, "src": "https://www.roguebasin.com/index.php/Avanor"},
     "easyband": {"year": 2001, "src": "https://www.roguebasin.com/index.php/List_of_Angband_variants"},
     "decker": {"year": 2004, "src": "https://sourceforge.net/projects/decker/files/decker/"},
     "tome2": {"year": 2008, "src": "https://github.com/tome2/tome2"},
