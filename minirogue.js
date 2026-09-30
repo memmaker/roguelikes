@@ -996,7 +996,7 @@
   const NUMPAD = { 8:[-1,0], 2:[1,0], 4:[0,-1], 6:[0,1], 7:[-1,-1], 9:[-1,1], 1:[1,-1], 3:[1,1] };
   el.addEventListener('keydown', (e) => {
     if (e.ctrlKey || e.metaKey || e.altKey) return;
-    if (e.key === 'T') {  // hidden: switch theme, costs no turn
+    if (e.key === 'g') {  // hidden: switch theme, costs no turn
       e.preventDefault(); setTheme(theme === 'unix' ? 'epyx' : 'unix'); draw(); return;
     }
     const inv = WIDGETS.inventory;
