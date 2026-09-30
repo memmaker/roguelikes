@@ -39,6 +39,7 @@
     "prime": {"year": 2012, "src": "http://peske.retrogames.com/prime.html"},
     "forays": {"year": 2015, "src": "https://www.roguebasin.com/index.php/Forays_into_Norrendrin"},
     "grog": {"year": 2023, "src": "https://www.roguelike.games/grog/"},
+    "traumarl": {"year": 2014, "src": "https://www.roguebasin.com/index.php/TraumaRL"},
     "dynahack": {"year": 2016, "src": "https://tung.github.io/DynaHack/"},
     "evilhack": {"year": 2019, "src": "https://github.com/k21971/EvilHack/blob/c444f6a3ab1e9f16d0676961dba86f628e91c6ba/dat/history"},
     "frogcomposband": {"year": 2020, "src": "https://angband.live/forums/forum/angband/variants/9634-announce-frogcomposband-7-1-salmiak-released"},
@@ -49,6 +50,8 @@
   },
   "tree": {
     "rogue": {"year": 1980},
+    "ddrogue": {"year": 2009},
+    "flatlinerl": {"year": 2013},
     "rogue52": {"year": 1982, "label": "1982–83"},
     "arogue": {"year": 1984},
     "moria": {"year": 1983},
