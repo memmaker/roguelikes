@@ -98,11 +98,15 @@
       bump(g, m) {
         if (m.falling) return '';
         if (m.hostile) return null;
-        if (m.passed) return 'The knight nods.';
+        if (m.passed) {  // then his hints, shuffled, one per talk; then only nods
+          m.hints = m.hints || [...this.hints].sort(() => Math.random() - 0.5);
+          return m.hints.length ? this.say(g, m.hints.pop()) : 'The knight nods.';
+        }
         m.bumps = (m.bumps || 0) + 1;
         if (m.bumps >= 3) { m.hostile = true; return null; }
         return this.ask(g, m, 0);
       },
+      hints: ['Press --more--', 'Subtitles hide secrets', '"i" is for inventory', '"s" is for searching', '"t" is for throwing'],
       say(g, text) { return g.speak(this.glyph[g.theme], 'mr-knight', text); },  // a speech line in his colour
       ask(g, m, i) {  // asks question i; returns its text as the message
         const [key, question] = this.questions[i];
@@ -827,7 +831,7 @@
     // inventory in from the right: a) letter, Angband symbol and colour, name. While open
     // it takes the keyboard: a letter (or ↑/↓, whose cursor shows from the first press,
     // then Enter/Space) opens the item's menu; ↑/↓ and Enter/Space pick an entry there.
-    // Esc closes the menu, then the inventory; i closes it too. Picking an entry acts
+    // Esc closes the menu, then the inventory; i (or t) closes it too; opened by t it picks the item to throw. Picking an entry acts
     // (a turn) and closes the inventory.
     inventory: {
       status(ui, stats) { this.items = stats.items; if (this.box) this.fill(ui); },
@@ -840,9 +844,9 @@
           const sym = document.createElement('b'), name = document.createElement('span');
           sym.textContent = def.inv.sym; sym.style.color = def.inv.color;
           name.textContent = def.name + (def.attack ? ` (${dmgText(def.attack)})` : '') + (def.defend ? ` [${10 - def.defend(10)}]` : '') +
-            (it.worn ? (def.attack ? ' (wielded)' : ' (worn)') : '');
+'';
           name.style.color = def.inv.color;
-          row.append(`${String.fromCharCode(97 + n)}) `, sym, ' ', name);
+          row.append(`${String.fromCharCode(97 + n)})${it.worn ? '*' : ' '}`, sym, ' ', name);
           row.addEventListener('click', () => { this.open(ui, n); ui.map.focus(); });
           if (this.menu == null || this.menu.item !== n) return [row];
           const menu = div('mr-inv-menu');
@@ -854,7 +858,9 @@
           return [row, menu];
         }));
       },
-      open(ui, n) { this.cursor = n; this.menu = { item: n, cursor: 0 }; this.fill(ui); },
+      open(ui, n) {
+        if (this.throwing) { this.menu = { item: n }; this.choose(ui, 'throw'); return; }  // t: the item is all it asks
+        this.cursor = n; this.menu = { item: n, cursor: 0 }; this.fill(ui); },
       choose(ui, action) {
         const kind = this.items[this.menu.item].kind;
         this.toggle(ui);
@@ -872,7 +878,7 @@
           return true;
         }
         const len = this.items.length, letter = k.length === 1 ? k.charCodeAt(0) - 97 : -1;
-        if (k === 'Escape' || k === 'i') this.toggle(ui);
+        if (k === 'Escape' || k === 'i' || k === 't') this.toggle(ui);
         else if (letter >= 0 && letter < len) this.open(ui, letter);
         else if ((up || down) && len) {
           this.cursor = this.cursor == null ? 0 : Math.min(len - 1, Math.max(0, this.cursor + (down ? 1 : -1)));
@@ -880,7 +886,7 @@
         } else if (pick && this.cursor != null) this.open(ui, this.cursor);
         return true;
       },
-      toggle(ui) {
+      toggle(ui, throwing = false) {
         if (this.box) {  // slide back out
           const box = this.box;
           this.box = null;
@@ -888,11 +894,11 @@
           setTimeout(() => box.remove(), 400);  // after the .35s slide (transitionend is not reliable)
           return;
         }
-        this.cursor = null; this.menu = null;
+        this.cursor = null; this.menu = null; this.throwing = throwing;
         this.box = document.createElement('aside');
         this.box.id = 'mr-inv'; this.box.setAttribute('aria-label', 'Inventory');
         const head = document.createElement('div');
-        head.className = 'mr-inv-head'; head.textContent = 'Inventory';
+        head.className = 'mr-inv-head'; head.textContent = throwing ? 'Throw what?' : 'Inventory';
         this.list = document.createElement('div');
         this.box.append(head, this.list);
         this.fill(ui);
@@ -990,12 +996,14 @@
   const NUMPAD = { 8:[-1,0], 2:[1,0], 4:[0,-1], 6:[0,1], 7:[-1,-1], 9:[-1,1], 1:[1,-1], 3:[1,1] };
   el.addEventListener('keydown', (e) => {
     if (e.ctrlKey || e.metaKey || e.altKey) return;
-    if (e.key === 't' || e.key === 'T') {  // hidden: switch theme, costs no turn
+    if (e.key === 'T') {  // hidden: switch theme, costs no turn
       e.preventDefault(); setTheme(theme === 'unix' ? 'epyx' : 'unix'); draw(); return;
     }
     const inv = WIDGETS.inventory;
     if (inv.box) { inv.key(ui, e); return; }
-    if (played && !asking && !aiming && !s.dead && !s.locked && e.key === 'i') { e.preventDefault(); inv.toggle(ui); return; }  // costs no turn
+    if (played && !asking && !aiming && !s.dead && !s.locked && (e.key === 'i' || e.key === 't')) {  // costs no turn
+      e.preventDefault(); inv.toggle(ui, e.key === 't'); return;  // t: pick an item, then its direction
+    }
     const d = KEYS[e.key];
     if (s.dead) { if (e.key.length === 1 || d) { e.preventDefault(); reset(); } return; }
     if (s.locked) { e.preventDefault(); return; }
