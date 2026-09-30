@@ -39,10 +39,9 @@ addEventListener('DOMContentLoaded',()=>Promise.all([fetch('data/runs.json',{cac
       table('Deepest dive',top(r=>r.depth!=null,(a,b)=>b.depth-a.depth),'Depth','depth')+
       table('Quickest wins',top(r=>r.ev==='win'&&r.turns!=null,(a,b)=>a.turns-b.turns),'Turns','turns'); };
   game.onchange=draw; draw();
-  upd.textContent='updated '+new Date(d.updated).toLocaleString();
+  upd.textContent=' · updated '+new Date(d.updated).toLocaleString();
 }).catch(()=>out.innerHTML='<p class="dim" style="text-align:center">No data yet. The first heroes are still on their way down.</p>'));
 </script>
-<footer>ruzzoli.de · <span id="upd"></span></footer>
-<script src="nav.js" defer></script>
+<script src="nav.js"></script>
 </body>
 </html>

@@ -28,10 +28,9 @@ fetch('data/visitors.json').then(r=>r.json()).then(d=>{
   const a=d.areas||{}, n=v=>(v??0).toLocaleString('en');
   rows.innerHTML=[['index','The index'],['shrines','Shrines'],['games','Games']].map(([k,t])=>
     `<tr><td class="gold">${t}</td><td class="n">${n(a[k]?.d7)}</td><td class="n">${n(a[k]?.d30)}</td><td class="n">${n(a[k]?.all)}</td></tr>`).join('');
-  upd.textContent='updated '+new Date(d.updated).toLocaleString();
+  upd.textContent=' · updated '+new Date(d.updated).toLocaleString();
 }).catch(()=>rows.innerHTML='<tr><td colspan="4" class="dim">No data yet. The torches are still being lit.</td></tr>');
 </script>
-<footer>ruzzoli.de · <span id="upd"></span></footer>
-<script src="nav.js" defer></script>
+<script src="nav.js"></script>
 </body>
 </html>

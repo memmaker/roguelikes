@@ -515,7 +515,6 @@ body.tree main { display:none; } body:not(.tree) #tree { display:none; }
 <li data-year="2014"><a class="n" href="tggw/">The Ground Gives Way</a><a class="shrine" href="shrine/tggw.html" title="Shrine: history, stats, manual">✦</a> <span class="y"><a class="yr" href="https://www.thegroundgivesway.com/">2014</a> · BtS, closed source</span></li>
 </ul>
 </section>
-<footer>ruzzoli.de · play in your browser, no install</footer>
 <script>
 // #tree in the URL = family-tree view (shareable, back button works)
 const views=document.querySelectorAll('.views button');
@@ -561,7 +560,7 @@ addEventListener('hashchange',show); show();
     e.preventDefault(); spot.hidden=false; q.value=e.key; q.focus(); find(); }); }
 </script>
 <script src="minirogue.js" defer></script>
-<script src="nav.js" defer></script>
+<script src="nav.js"></script>
 <script src="unlock.js" defer></script>
 </body>
 </html>

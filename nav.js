@@ -1,4 +1,5 @@
-// Shared sidebar: <script src="nav.js" defer></script> on every root page.
+// Shared sidebar + footer: <script src="nav.js"></script> at the end of <body> on every root page
+// (not deferred: the footer's #upd must exist before the page's fetch fills it).
 // Player progress (localStorage 'progress'): { name, deepest, max, beaten, families: [unlocked, in unlock order] }.
 // unlock.js writes it on the index page and fires 'progress' on document; the menu redraws.
 window.progress = {
@@ -23,11 +24,13 @@ s.textContent=`
 #nav hr{border:0;height:2px;margin:14px 0;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.6}
 #nav .depth{position:absolute;left:20px;bottom:20px;color:var(--dim);font:12px "IBM Plex Mono",monospace}
 #nav .pname{color:var(--gold);font:600 14px Cinzel,serif;margin-bottom:4px}
-#navshade{position:fixed;inset:0;z-index:35;background:rgba(0,0,0,.5)} #navshade[hidden]{display:none}`;
+#navshade{position:fixed;inset:0;z-index:35;background:rgba(0,0,0,.5)} #navshade[hidden]{display:none}
+footer a{color:var(--gold)}`;
 document.head.append(s);
 const here=location.pathname.split('/').pop()||'index.html';
 document.body.insertAdjacentHTML('afterbegin',`<button id="navbtn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav">☰</button>
 <div id="navshade" hidden></div><nav id="nav" aria-label="Site"></nav>`);
+document.body.insertAdjacentHTML('beforeend',`<footer>ruzzoli.de · play in your browser, no install · <a href="https://github.com/memmaker/roguelikes/issues">bugs/contact</a><span id="upd"></span></footer>`);
 const b=document.getElementById('navbtn'),n=document.getElementById('nav'),sh=document.getElementById('navshade');
 function menu(){  // family filters (./?f=Name) come first, then the other pages
   const p=progress.get(), f=here==='index.html'&&new URLSearchParams(location.search).get('f');

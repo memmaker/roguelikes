@@ -32,10 +32,9 @@ addEventListener('DOMContentLoaded',()=>Promise.all([fetch('data/runs.json',{cac
   kill.innerHTML=top.map((x,i)=>{ const slug=x.killer.toLowerCase().replace(/[^a-z0-9]/g,'-');
     return `<tr><td class="dim">${i+1}</td><td><img src="killers/${esc(x.g)}/${slug}.png" alt="" width="32" height="32" style="image-rendering:pixelated;vertical-align:middle" onerror="this.remove()"></td><td class="ember">${esc(x.killer)}</td><td>${esc(nm(x.g))}</td><td class="n gold">${x.n}</td></tr>`}).join('')||none(5);
   dead.innerHTML=deaths.sort((a,b)=>b.t<a.t?-1:1).slice(0,50).map(r=>`<tr><td class="gold">${esc(r.name)}</td><td>${esc(nm(r.g))}</td><td class="ember">${esc(r.killer)}</td><td class="n">${esc(r.depth)}</td><td class="n">${esc(r.lvl)}</td><td class="n">${esc(r.turns)}</td><td class="dim">${esc(r.t?.slice(0,10))}</td></tr>`).join('')||none(7);
-  upd.textContent='updated '+new Date(d.updated).toLocaleString();
+  upd.textContent=' · updated '+new Date(d.updated).toLocaleString();
 }).catch(()=>{ kill.innerHTML=none(5); dead.innerHTML=none(7); }));
 </script>
-<footer>ruzzoli.de · <span id="upd"></span></footer>
-<script src="nav.js" defer></script>
+<script src="nav.js"></script>
 </body>
 </html>
