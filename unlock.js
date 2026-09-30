@@ -54,9 +54,19 @@ body.ask-name > :not(#ask-name) { display:none !important; }
     box.innerHTML = '<label>What is your name? <span class="txt"></span><span class="cur">█</span><input maxlength="24" autocomplete="off" spellcheck="false"></label>';
     const input = box.querySelector('input'), txt = box.querySelector('.txt');
     input.addEventListener('input', () => { txt.textContent = input.value; });
+    let name;
     input.addEventListener('keydown', (e) => {
-      if (e.key !== 'Enter' || !input.value.trim()) return;
-      progress.save({ ...progress.get(), name: input.value.trim() });
+      if (!name) {  // first the name, then: play to unlock, or everything at once
+        if (e.key !== 'Enter' || !input.value.trim()) return;
+        name = input.value.trim();
+        box.querySelector('label').firstChild.textContent = 'Play to unlock? (y/n) ';
+        input.value = txt.textContent = '';
+        e.preventDefault();
+        return;
+      }
+      const k = e.key.toLowerCase();
+      if (k !== 'y' && k !== 'n') return e.preventDefault();
+      progress.save({ ...progress.get(), name, ...(k === 'n' && { families: [...progress.families] }) });
       box.remove();
       document.body.classList.remove('ask-name');
       document.getElementById('minirogue')?.focus();
