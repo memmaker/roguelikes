@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Avanor · Shrine</title>
+<meta name="description" content="Vadim Gaidukevich's ADOM-like fantasy roguelike from 2001, open-sourced in 2003 and revived in 2025: a valley, its dungeons and mines, quests and a world scripted in Lua.">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>Avanor</h1>
+  <p class="epi">The Land of Mystery · a weakened kingdom cut off by impassable mountains, and one of its last heroes</p>
+  <a class="play" href="../avanor/">&gt; Enter the valley</a>
+</header>
+<div class="facts"><div><b>Date of birth</b><span>2001</span> first release 28 November 2001 (RogueBasin); the upstream README says “created in 2000”; this build 0.6.0, 2026</div><div><b>Creators</b><span>Vadim Gaidukevich</span> with Serge Semashko; revived 2025 by Joachim de Groot</div><div><b>Language</b><span>C++ and Lua</span> ~50,500 lines of C++, ~12,500 of Lua</div><div><b>Platform</b><span>DOS, Windows, Linux</span> text terminal, ADOM-like keys</div></div>
+<nav class="toc"><a href="#lineage">Lineage</a> <a href="#credits">Credits</a> <a href="#trivia">Trivia</a> <a href="#usp">What's unique</a> <a href="#code">Code dive</a> <a href="#stats">Stats</a> <a href="#manual">Manual</a> <a href="#start">Getting started</a> <a href="#help">Help</a> <a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p>No parent: <strong>Avanor</strong> is its own C++ code, inspired by <strong>ADOM</strong> (RogueBasin lists ADOM as its influence; the official site calls its interface “ADOM-like”). First release 28 November 2001; open-sourced under the GPL in 2003; 0.5.8 in May 2006 was the last original release. Joachim de Groot revived it in September 2025 (LuaJIT, sol2, cereal); this port is based on his 0.6.0.</p>
+<p>See the <a href="../#tree">family tree</a> (under ADOM, as an inspired game). Sources: <a href="https://www.roguebasin.com/index.php/Avanor">RogueBasin</a>, <a href="https://avanor.sourceforge.net/">avanor.sourceforge.net</a>, the <a href="https://github.com/jaydg/avanor">upstream README</a>.</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table><tr><td>Creator</td><td>Vadim Gaidukevich: the initial program and idea, and making Avanor open source</td></tr><tr><td>Code</td><td>Serge Semashko: numerous features, the game architecture</td></tr><tr><td>Manual</td><td>Kay Dekker: grammar and the user manual</td></tr><tr><td>Writing</td><td>Uriah Otting: creature descriptions, grammar, ideas</td></tr><tr><td>Site</td><td>Michel ‘FireFalcon’ Dubakov (design), Alexander Sabourenkov and Mark Mackey (hosting)</td></tr><tr><td>Revival</td><td>Joachim de Groot (jaydg), 2025 onwards: modernisation, sol2, cereal, LuaJIT</td></tr><tr><td>Tiles</td><td>DawnLike by DragonDePlatino, palette by DawnBringer (CC BY 4.0)</td></tr><tr><td>Web port</td><td>This page’s browser build: <a href="https://github.com/memmaker/avanor">memmaker/avanor</a></td></tr></table>
+<p class="src">From the game’s <a href="avanor/credits.html">credits</a> and README.</p>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>The official site describes Avanor as a “(not so) quick-growing roguelike game”. <span class="src">(<a href="https://avanor.sourceforge.net/">avanor.sourceforge.net</a>)</span></li>
+<li>Avanor went open source in the week of 30 July 2003; 0.5.6 and 0.5.7 followed that August and December. <span class="src">(<a href="https://avanor.sourceforge.net/">avanor.sourceforge.net</a>)</span></li>
+<li>In September 2005, after almost two years’ break, a Win32-only development version appeared in which the world was described by Lua scripts; it was “still not playable”. <span class="src">(<a href="https://avanor.sourceforge.net/">avanor.sourceforge.net</a>)</span></li>
+<li>The site’s last news, June 2006, promised that 0.6.0 “will be available soon”; the 0.6.0 you play here came from the 2025 revival. <span class="src">(<a href="https://avanor.sourceforge.net/">avanor.sourceforge.net</a>, <a href="https://github.com/jaydg/avanor">README</a>)</span></li>
+<li>RogueBasin recommends DOSBox-X over DOSBox for the DOS build: without long file names the help menu is unreachable. <span class="src">(<a href="https://www.roguebasin.com/index.php/Avanor">RogueBasin</a>)</span></li>
+<li>RogueBasin puts a game at 4–6 hours. <span class="src">(<a href="https://www.roguebasin.com/index.php/Avanor">RogueBasin</a>)</span></li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>A valley, not a pit:</strong> an overland valley with towns and NPCs, and many small dungeons off it (caves, a rat cellar, a volcano, a wizard’s dungeon, a dwarven city, three abandoned mines) instead of one deep dungeon.</li>
+<li><strong>Quests:</strong> NPCs with dialogue hand out quests; the demon Beelzevile waits in his dungeon.</li>
+<li><strong>A living world:</strong> creatures go about their business without the hero; the game even has a demo mode that runs the world with no hero in it.</li>
+<li><strong>Two gods:</strong> Tiamat and Marduk, who watch what you kill.</li>
+<li><strong>Everything in Lua:</strong> since the revival every creature, item, location and quest is a Lua file in <code>world/</code>.</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li><strong>Language:</strong> C++17, about 50,500 lines in 182 files, plus about 12,500 lines of Lua in 86 files under <code>world/</code> (counted with <code>wc -l</code> in our tree). Licence GPLv2+.</li>
+<li><strong>Original platform:</strong> DOS, Win32 and Linux text consoles; the original bundled Lua 5.0 and its own save format.</li>
+<li><strong>Revival:</strong> sol2 for the Lua binding, cereal + Zstandard for saves, a MonsterBuilder fluent interface for creatures, enum classes throughout; <code>--demo</code>, <code>--test</code>, <code>--seed</code> and <code>--god</code> on the command line.</li>
+<li><strong>This port:</strong> Emscripten build with DawnLike tiles, separate windows, an Enter command menu, <kbd>H</kbd> explore and <kbd>&gt;</kbd> walk to the stairs, saves in IndexedDB. Source: <a href="https://github.com/memmaker/avanor">memmaker/avanor</a>, upstream <a href="https://github.com/jaydg/avanor">jaydg/avanor</a>.</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<table><tr><th>Thing</th><th>Count</th><th>Notable ones</th></tr><tr><td>Creatures</td><td>114</td><td><code>Monster.new</code> entries; uniques include Beelzevile, Ahkulan, Rotmoth, Gekta, Yohjishiro and the High Priest</td></tr><tr><td>Races</td><td>7</td><td>Human, Half Elf, High Elf, Halfling, Half Orc, Dwarf, Gnome</td></tr><tr><td>Professions</td><td>8</td><td>Warrior, Wizard, Archer, Ranger, Cleric, Paladin, Alchemist, Bard</td></tr><tr><td>Spells</td><td>27</td><td>Burning Hands, Drain Life, Acid Bolt, Summon Monster, Create Item, Self Knowledge</td></tr><tr><td>Locations</td><td>10</td><td>files in <code>world/locations</code>: Dwarven city, Mushroom cave, Rat cellar, Volcano, Wizard dungeon, the mines Forlorn, Forsworn and Forfeit</td></tr><tr><td>Potions</td><td>43</td><td>colours in <code>potion_colours.lua</code></td></tr><tr><td>Gods</td><td>2</td><td>Tiamat, goddess of the living, and Marduk</td></tr></table>
+<p class="src">Counted from <code>world/*.lua</code> at our base 20a0f59.</p>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>The game’s own HTML <a href="avanor/index.html">manual</a> (Kay Dekker’s, updated by the revival), copied from the game’s <code>manual/</code> folder: <a href="avanor/qstart.html">quick start</a>, <a href="avanor/kblayout.html">keys</a>, <a href="avanor/tactics.html">tactics</a>, <a href="avanor/testmode.html">test modes</a>. Licence: GPLv2+, as the game.</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol><li><a href="../avanor/">Open the game</a> and create a hero: race, profession, name.</li>
+<li>Explore with <kbd>H</kbd>; <kbd>&gt;</kbd> walks to the nearest known stairs, a second <kbd>&gt;</kbd> goes down.</li>
+<li>Walk into monsters to fight; <kbd>i</kbd> opens the inventory, pick an item for its actions.</li>
+<li>Talk to the people of the valley to get quests, and buy supplies in the shops.</li>
+<li>The Enter key lists every command; the game’s <a href="../avanor/help.html">help page</a> has the keys and saving.</li></ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>We found no walkthrough. Rules of thumb and more:</p><ul>
+<li>Read the manual’s <a href="avanor/tactics.html">tactics</a> and <a href="avanor/qstart.html">quick start</a> pages.</li>
+<li>The keys are close to ADOM’s, so ADOM habits carry over.</li>
+<li>More: <a href="https://www.roguebasin.com/index.php/Avanor">RogueBasin</a> (and its reviews page), <a href="https://avanor.sourceforge.net/">the original site</a>, <a href="https://github.com/jaydg/avanor">the revival on GitHub</a>.</li></ul>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<p>The revival has a god mode (<code>--god</code>): a thousand extra hit and power points, the choice to carry on after death, and three extra keys (<kbd>^F</kbd> light the level, <kbd>^W</kbd> jump anywhere, <kbd>^I</kbd> go unnoticed); see <a href="avanor/testmode.html">test modes</a>. It is a command-line option, and our browser build starts without options, so it is not available here.</p>
+<ul><li><strong>Save scumming:</strong> <em>Export save</em> / <em>Import save</em> on the game page.</li></ul>
+</section>
+</div></body>
+</html>

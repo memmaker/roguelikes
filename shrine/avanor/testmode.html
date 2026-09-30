@@ -1,0 +1,73 @@
+<html>
+<head><title>Game test modes</title>
+<link rel="stylesheet" type="text/css" href="manual.css">
+</head>
+<body bgcolor=darkblue>
+<div id=readarea>
+<h1>Game test modes</h1>
+<font color=silver>
+Run normally, Avanor plays as a game. A handful of command line options
+put it into other modes instead, and 'avanor --help' lists them all.<br>
+<br>
+
+<font color=yellow class=title>Demo mode</font><br>
+'avanor --demo' runs the world with no hero in it, so you can watch
+Beelzevile, the horned demon, in his dungeon. SPACE pauses the demo; M gives
+you the message history; ESC leaves it.<br>
+<br>
+
+<font color=yellow class=title>Test mode</font><br>
+'avanor --test' runs the world without a hero for as long as you let it,
+which is how bugs are shaken out and how the game is timed. Two keys are
+worth knowing while it runs: L writes every location's map into
+location.txt, and I writes every item in the world into items.txt, both in
+your Avanor directory. ESC ends the run.<br>
+<br>
+
+<font color=yellow class=title>God mode</font><br>
+'avanor --god', or 'avanor -g', is for testing a real game without fear of
+dying in the middle of it. Your hero gets a thousand extra hit points and
+power points, and when something finally does kill you, you are asked
+whether you would rather carry on.<br>
+It also gives you three keys the game does not otherwise have. '^F' lights the
+whole of the level you are standing in, walls, creatures and all, and
+pressing it again puts the dark back. What it shows you is not written down
+- turn it off and the level is as unexplored as it was before you looked.<br>
+'^W' jumps you anywhere on the level. Move the cursor with the direction
+keys and the map scrolls along under it, so you are not limited to the part
+of it you can see; space puts you where the cursor is, and z or ESC changes
+your mind and returns the view to where you were standing.<br>
+'^I' makes you unnoticeable. Nothing in the world can see you while it is on:
+creatures pay you no attention, nothing comes after you, and a monster that
+walks into you simply stops rather than lashing out at something it cannot
+see. It is for watching the world get on with itself - following a goblin
+raiding party about its business, or standing in a guardroom to see what the
+watch does when nobody is provoking them. Press it again to rejoin the world.
+Two things it does not do: you are still solid, so creatures walk around you
+rather than through you, and you can still attack - and a blow struck while
+unnoticed is not answered, because nothing knows where it came from.<br>
+None of the three costs you any time, and a jump does not spring whatever you
+land on.<br>
+<br>
+
+<font color=yellow class=title>Choosing the world</font><br>
+'avanor --seed N' builds the world from the number N instead of from the
+clock, so the same N always gives the same world. It works in every mode,
+including an ordinary game - useful for meeting the same dungeon twice.<br>
+<br>
+
+<font color=yellow class=title>Self-tests</font><br>
+Three further modes check the game against itself and print a PASS or FAIL
+rather than showing anything: '--test-save' builds a world, plays a hundred
+turns and saves it; '--test-load' restores what it wrote; '--test-cereal'
+round-trips a single location through the save format. They are meant for
+the build, not for play. They keep their own save file, avanor-test.svg.zst,
+and never touch the game you are playing.<br>
+<br>
+
+The mode options exclude one another - ask for two and Avanor says so
+instead of guessing. 'avanor --version' prints the version and exits.<br>
+</font>
+</div>
+</body>
+</html>
