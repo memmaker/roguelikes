@@ -1,5 +1,6 @@
 {
   "games": {
+    "slimy": {"year": 2006, "src": "https://backloggd.com/games/the-slimy-lichmummy/"},
     "rogue36": {"year": 1981, "src": "https://britzl.github.io/roguearchive/"},
     "srogue": {"year": 1984, "src": "https://rlgallery.org/about/srogue.html"},
     "hack": {"year": 1985, "src": "https://nethackwiki.com/wiki/Hack_1.0.3"},
