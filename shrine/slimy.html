@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Slimy Lichmummy · Shrine</title>
+<!--og-->
+<meta name="description" content="Super Lotsa Added Stuff Hack - Extended Magic: NetHack with more of everything. Extra roles and races, hundreds of new monsters and items, new spells and dungeon branches, all still on the way to the Amulet of Yendor.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="--More--">
+<meta property="og:title" content="The Slimy Lichmummy · Shrine">
+<meta property="og:description" content="Super Lotsa Added Stuff Hack - Extended Magic: NetHack with more of everything. Extra roles and races, hundreds of new monsters and items, new spells and dungeon branches, all still on the way to the Amulet of Yendor.">
+<meta property="og:url" content="https://ruzzoli.de/roguelikes/shrine/slimy.html">
+<meta property="og:image" content="https://ruzzoli.de/roguelikes/img/slimy.png">
+<meta name="twitter:card" content="summary_large_image">
+<!--/og-->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>The Slimy Lichmummy</h1>
+  <p class="epi">“it's the Lichmummy that's slimy, not the manual” · the game's own README</p>
+  <a class="play" href="../slimy/">&gt; Enter the dungeon</a>
+</header>
+<div class="facts"><div><b>Date of birth</b><span>2006</span> released 31 December 2006 (backloggd); this build 0.40, 26 September 2012</div><div><b>Creator</b><span>Ulf Åström</span> happyponyland.net</div><div><b>Language</b><span>C</span> ~50,500 lines in 165 files</div><div><b>Platform</b><span>Linux, Windows, Mac, BSD</span> curses console or Allegro 5 tiles</div></div>
+<nav class="toc"><a href="#lineage">Lineage</a> <a href="#credits">Credits</a> <a href="#trivia">Trivia</a> <a href="#usp">What's unique</a> <a href="#code">Code dive</a> <a href="#stats">Stats</a> <a href="#manual">Manual</a> <a href="#start">Getting started</a> <a href="#help">Help</a> <a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p>No parent: <strong>TSL</strong> is Ulf Åström's own C code, a “hacklike” (Roguetemple) that borrows no code from other roguelikes; the only third-party code is the Mersenne Twister random generator. Versions 0.1 to 0.40 ran from 2006 to 2012 (CHANGES.TXT: 40 releases). This port is based on 0.40 from the 2025 GitLab upload of the ArchiveRL collection.</p>
+<p>See the <a href="../#tree">family tree</a> (a standalone game). Sources: <a href="https://backloggd.com/games/the-slimy-lichmummy/">backloggd</a>, <a href="https://blog.roguetemple.com/2017/03/14/giant-skeletal-rat-bat-ghoul-lichmummy-made-real/">Roguetemple</a>, <a href="https://gitlab.com/vitaly-zdanevich/the-slimy-lichmummy">upstream</a>.</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table><tr><td>Author</td><td>Ulf Åström (HPL, happyponyland.net): code, tiles, manual</td></tr><tr><td>Random</td><td>mt19937ar.c: Makoto Matsumoto and Takuji Nishimura (BSD licence)</td></tr><tr><td>Font</td><td>a modified Terminus (OFL)</td></tr><tr><td>Upload</td><td>Vitaly Zdanevich: GitLab copy of archive.org ArchiveRL.7z (2025)</td></tr><tr><td>Web port</td><td><a href="https://github.com/memmaker/slimy">memmaker/slimy</a>: browser build (RVIP), tsl-go tile set, music and sound recipes by <a href="https://github.com/c0ze/tsl-go">c0ze</a> with permission</td></tr></table>
+<p class="src">From LICENSE.TXT and README.md.</p>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>The name answers a request to “make a giant slimy skeletal rat bat ghoul lichmummy with a severed hand and floating skull”. <span class="src">(<a href="https://blog.roguetemple.com/2017/03/14/giant-skeletal-rat-bat-ghoul-lichmummy-made-real/">Roguetemple</a>)</span></li>
+<li>The severed hand and the burning (floating) skull are both monsters in the game. <span class="src">(monster.c)</span></li>
+<li>The licence says TSL “is not free software”: the source is there “so you can compile it on any architecture and verify what runs inside your computer”. <span class="src">(LICENSE.TXT)</span></li>
+<li>0.40 rewrote the GUI in Allegro and added animation; 0.39 brought the Underpass, the Laboratory and the Communications Hub. <span class="src">(<a href="slimy/CHANGES.TXT">CHANGES.TXT</a>)</span></li>
+<li>A third-party Go port exists. <span class="src">(<a href="https://github.com/c0ze/tsl-go">c0ze/tsl-go</a>)</span></li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li>Cyberpunk and fantasy mixed: technicians, sentinels, chrome angels and chainsaw ogres next to ghouls, mummies and a dragon.</li>
+<li>No numbered depth: areas (the Dungeon, the Ominous Cave, the Drowned City, the Catacombs, the Dragon's Lair, the Chapel of Fallen Stars …) are joined by stairs in a graph.</li>
+<li>Weapons have damage sequences you learn by using them; completing one identifies the weapon.</li>
+<li>Facets and shapeshifting change the hero's body and abilities instead of experience levels.</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<p>Plain C, ~50,500 lines in 165 <code>.c</code>/<code>.h</code> files, one directory. Two frontends chosen at compile time: curses (<code>console.c</code>) and Allegro 5 (<code>allui.c</code>, tiles and animation). The tile sheet is indexed directly by the <code>gent_t</code> enum (16 per row). The browser port keeps the console logic and draws the game's own <code>tileset.png</code>.</p>
+</section>
+
+<section id="stats"><h2>Stats from the code</h2>
+<table><tr><td>Areas</td><td>15 slots (<code>LEVELS</code>), ten real areas plus a test level</td></tr><tr><td>Monsters</td><td>39 regular kinds plus 12 uniques (Argor, the Necromancer, the King of Worms, Cael'Tzan the Undertaker, Ghrazghaar, the Gaoler, the Lurker, Sulkor the Devourer, Cha'ajd the Mad, Sir Lognac, Ybznek, the Dragon)</td></tr><tr><td>Items</td><td>up to 200 item templates (<code>ITEMS</code>)</td></tr><tr><td>Oddest</td><td>the floating demon genitalia; a mimic that can pose as a stair or a medkit</td></tr></table>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>The game's own manual, unmodified: <a href="slimy/README.md">README.md</a> (introduction, building, quick start, customizing), and the full history <a href="slimy/CHANGES.TXT">CHANGES.TXT</a>. The in-game help (<kbd>?</kbd>) is the real reference; the port's <a href="../slimy/help.html">help page</a> lists every key.</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol>
+<li>Press <kbd>?</kbd> for the in-game help and key reference.</li>
+<li>Move with <kbd>hjkl yubn</kbd> or the numpad; <kbd>x</kbd> explores.</li>
+<li><kbd>Enter</kbd> opens the command menu, <kbd>i</kbd> the inventory.</li>
+<li><kbd>&gt;</kbd> walks to the next stair; press again to take it.</li>
+<li><kbd>S</kbd> saves and quits; see the <a href="../slimy/help.html">help page</a>.</li>
+</ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>No walkthrough or spoiler guide was found. Rules of thumb from the game: learn weapon damage sequences by fighting, keep a light source, and the win is found in the Chapel of Fallen Stars, reached through the Dragon's Lair.</p>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<p>A debug menu exists (<code>debug.c</code>: create item, identify, reveal level, kill all creatures …) but has no default key: only a <code>debug</code> binding in <code>.tsl_conf</code> reaches it, which the web page cannot edit. Saves are deleted when loaded (no save-scumming in the game; the web version autosaves on level changes and removes the save when the run ends); the page's Export/Import could copy a save.</p>
+</section>
+</div></body>
+</html>
