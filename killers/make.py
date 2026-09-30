@@ -511,7 +511,12 @@ def traumarl():                                       # TraumaSprites.png (16px,
         sp.resize((32, 32), Image.NEAREST).save(os.path.join(d, slug(name) + '.png'), optimize=True)
     print('traumarl', len(os.listdir(d)))
 
+def slimy():                                          # own tileset.png gents (20px slots, console.c stand-ins), killer = name_one minus article; script lives with the game
+    import subprocess
+    subprocess.run([sys.executable, G + '/slimy/port/publish/killers.py', os.path.join(HERE, 'slimy')], check=True)
+    print('slimy', len(os.listdir(os.path.join(HERE, 'slimy'))))
+
 if sys.argv[1:]:
     for a in sys.argv[1:]: globals()[a]()
 else:
-    rogue(); hack(); umoria(); urogue(); larn(); ularn(); rogue36(); srogue(); roguepc(); tome2(); tinyangband(); quickband(); arogue58(); arogue77(); xrogue(); boss(); omega(); prime(); dynahack(); silq(); tactical(); crawl(); zapm(); alphaman(); decker(); nethack13d(); nethack50(); zeldhack(); slashem(); zangband(); frogcomposband(); forays(); lambdarogue(); hengband(); easyband(); mag(); tactical('faangband'); nppangband(); prospector(); sangband(); nlarn(); evilhack(); ia(); avanor(); alienhack(); traumarl()
+    rogue(); hack(); umoria(); urogue(); larn(); ularn(); rogue36(); srogue(); roguepc(); tome2(); tinyangband(); quickband(); arogue58(); arogue77(); xrogue(); boss(); omega(); prime(); dynahack(); silq(); tactical(); crawl(); zapm(); alphaman(); decker(); nethack13d(); nethack50(); zeldhack(); slashem(); zangband(); frogcomposband(); forays(); lambdarogue(); hengband(); easyband(); mag(); tactical('faangband'); nppangband(); prospector(); sangband(); nlarn(); evilhack(); ia(); avanor(); alienhack(); traumarl(); slimy()
