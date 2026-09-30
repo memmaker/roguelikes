@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AlienHack · Shrine</title>
+<!--og-->
+<meta name="description" content="A lone marine lands on a silent colony overrun by aliens: a tactical shooter roguelike loosely based on AliensRL. Text only.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="--More--">
+<meta property="og:title" content="AlienHack · Shrine">
+<meta property="og:description" content="A lone marine lands on a silent colony overrun by aliens: a tactical shooter roguelike loosely based on AliensRL. Text only.">
+<meta property="og:url" content="https://ruzzoli.de/roguelikes/shrine/alienhack.html">
+<meta property="og:image" content="https://ruzzoli.de/roguelikes/img/alienhack.png">
+<meta name="twitter:card" content="summary_large_image">
+<!--/og-->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>AlienHack</h1>
+  <p class="epi">game over, man · reach the FTL transmitter of a colony gone silent</p>
+  <a class="play" href="../alienhack/">&gt; Enter the dungeon</a>
+</header>
+<div class="facts"><div><b>Date of birth</b><span>2018</span> v0.9.1 beta</div><div><b>Creator</b><span>Sock Puppet</span></div><div><b>Language</b><span>C++</span> ~26,000 lines</div><div><b>Platform</b><span>Windows console</span></div></div>
+<nav class="toc"><a href="#lineage">Lineage</a><a href="#credits">Credits</a><a href="#trivia">Trivia</a><a href="#usp">What's unique</a><a href="#code">Code dive</a><a href="#stats">Stats</a><a href="#manual">Manual</a><a href="#start">Getting started</a><a href="#help">Help</a><a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p>AlienHack is its own C++ code, “loosely based on AliensRL by Kornel Kisielewicz”, a 2007 seven-day roguelike after the film <em>Aliens</em>. Like that game it casts you as a lone soldier in a labyrinth of predatory aliens. It has no descendants. See the <a href="../#tree">family tree</a>.</p>
+<p>Played here: AlienHack 0.9.1 beta (SockPuppet8/Alienhack @ b843d42), compiled to WebAssembly.</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table><tr><td>Sock Puppet</td><td>Author (SockPuppet8 on GitHub), game and RL-Shared library</td></tr><tr><td>Kornel Kisielewicz</td><td>AliensRL (2007), the inspiration</td></tr></table>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>First announced on the Rogue Temple forum in 2018. <span class="src">(<a href="https://forums.roguetemple.com/index.php?topic=5669.0">Rogue Temple</a>)</span></li>
+<li>The author released it into the public domain (CC0). <span class="src">(<a href="https://github.com/SockPuppet8/Alienhack">GitHub</a>)</span></li>
+<li>The upstream README says the game has no sound; the sounds in this port are synthesized. <span class="src">(<a href="alienhack/manual.txt">README</a>)</span></li>
+<li>Vision is a 90° cone in the direction you face; you can strafe and turn separately. <span class="src">(<code>Zone</code> vision code, <a href="alienhack/manual.txt">README</a> keys)</span></li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>Facing matters:</strong> you see and shoot in a cone; strafe (<kbd>z</kbd>) and turn (<kbd>x</kbd>) are separate moves.</li>
+<li><strong>Ammunition and armour</strong> are the resources, not food or spells; armour gets destroyed by acid.</li>
+<li><strong>Motion tracker</strong> pings aliens you cannot see; aliens crawl through vents.</li>
+<li>A Quick game or a Long game across the colony blocks.</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li>C++ with Boost (Serialization, Filesystem), about 26,000 lines in 154 files, plus the author's RL-Shared library for the Win32 console.</li>
+<li>Model and view kept apart: <code>src/Model</code> (actions, objects) and <code>src/Console</code> (interface).</li>
+<li><strong>This port:</strong> the Win32 console replaced by an 80x40 grid routed to map, status, inventory and message windows; WebAssembly; auto-explore on <kbd>H</kbd>. Source: <a href="https://github.com/memmaker/Alienhack">memmaker/Alienhack</a>.</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<table><tr><th>Thing</th><th>Count</th><th>Notable ones</th></tr><tr><td>Aliens</td><td>15</td><td>Juvenile, Warrior, Gladiator, Elite, Harrier, Hunter, Slayer, Reaper, Facehugger, Fasthugger, Spitter, Death Spitter, Hulk, Queen, Worker.</td></tr><tr><td>Weapons</td><td>11</td><td>Pistol, SMG, pulse rifle, sawn-off and combat shotgun, Colt, flamer, smart gun, laser, canister rifle, machine pistol.</td></tr><tr><td>Armours</td><td>8</td><td>Flak jacket to power armour; chemhazard suits resist acid.</td></tr><tr><td>Pickups</td><td>18</td><td>Medkits, neutraliser, 8 ammo kinds, stun, frag, incendiary and krak grenades, demolition charge, credit chips.</td></tr></table>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>Sock Puppet's README (public domain): <a href="alienhack/manual.txt">read it here (text)</a>. The in-game <a href="../alienhack/help.html">help page</a> has the key table.</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol><li><a href="../alienhack/">Open the game</a>, choose Quick Game.</li>
+<li>Move with the arrows or numpad; you face the way you move.</li>
+<li><kbd>f</kbd> fires, <kbd>o</kbd> reloads; keep aliens at range.</li>
+<li><kbd>H</kbd> explores; <kbd>&gt;</kbd> walks to the stairs.</li>
+<li><kbd>Enter</kbd> opens all commands; <kbd>?</kbd> is help. More in <a href="../alienhack/help.html">Help</a>.</li></ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>No walkthrough exists. Rules of thumb:</p><ul>
+<li>Reload before rounding a corner; aliens are fast.</li>
+<li>Watch the motion tracker and back into corridors to fight.</li>
+<li>Keep a grenade for crowds and a sidearm for when the primary is empty.</li></ul>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<p>No wizard or debug mode in the code. <em>Export save</em> / <em>Import save</em> keeps backups.</p>
+</section>
+</div></body>
+</html>
