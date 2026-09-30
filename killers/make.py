@@ -460,7 +460,19 @@ def ia():                                             # own 20x20 tiles (one PNG
         out.resize((32, 32), Image.NEAREST).save(os.path.join(d, slug(name) + '.png'), optimize=True)
     print('ia', len(os.listdir(d)))
 
+def avanor():                                         # DawnLike 16px (web/tiles-dawn.png, 16/row, web/mkdawn.py): Monster.new("id") :View("name") -> port/dawn_map.inc "c:id"
+    import glob
+    a = G + '/avanor'
+    slots = dict(re.findall(r'\{"c:([^"]+)", (\d+)\}', open(a + '/port/dawn_map.inc').read()))
+    img = Image.open(a + '/web/tiles-dawn.png'); d = os.path.join(HERE, 'avanor'); os.makedirs(d, exist_ok=True)
+    for f in glob.glob(a + '/world/**/*.lua', recursive=True):
+        for cid, name in re.findall(r'^Monster\.new\("([^"]+)".*?\n\s*:View\("([^"]+)"', open(f).read(), re.M):
+            if cid not in slots: continue
+            t = int(slots[cid]); x, y = t % 16 * 16, t // 16 * 16
+            img.crop((x, y, x + 16, y + 16)).resize((32, 32), Image.NEAREST).save(os.path.join(d, slug(name) + '.png'), optimize=True)
+    print('avanor', len(os.listdir(d)))
+
 if sys.argv[1:]:
     for a in sys.argv[1:]: globals()[a]()
 else:
-    rogue(); hack(); umoria(); urogue(); larn(); ularn(); rogue36(); srogue(); roguepc(); tome2(); tinyangband(); quickband(); arogue58(); arogue77(); xrogue(); boss(); omega(); prime(); dynahack(); silq(); tactical(); crawl(); zapm(); alphaman(); decker(); nethack13d(); nethack50(); zeldhack(); slashem(); zangband(); frogcomposband(); forays(); lambdarogue(); hengband(); easyband(); mag(); tactical('faangband'); nppangband(); prospector(); sangband(); nlarn(); evilhack(); ia()
+    rogue(); hack(); umoria(); urogue(); larn(); ularn(); rogue36(); srogue(); roguepc(); tome2(); tinyangband(); quickband(); arogue58(); arogue77(); xrogue(); boss(); omega(); prime(); dynahack(); silq(); tactical(); crawl(); zapm(); alphaman(); decker(); nethack13d(); nethack50(); zeldhack(); slashem(); zangband(); frogcomposband(); forays(); lambdarogue(); hengband(); easyband(); mag(); tactical('faangband'); nppangband(); prospector(); sangband(); nlarn(); evilhack(); ia(); avanor()
