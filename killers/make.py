@@ -460,7 +460,29 @@ def ia():                                             # own 20x20 tiles (one PNG
         out.resize((32, 32), Image.NEAREST).save(os.path.join(d, slug(name) + '.png'), optimize=True)
     print('ia', len(os.listdir(d)))
 
+def traumarl():                                       # TraumaSprites.png (16px, 16 per row, id = GetRepresentation char), white -> RepresentationColor, magenta -> black like the map; robots only (letter glyphs = unused fantasy leftovers)
+    from PIL import ImageColor
+    t = G + '/traumarl/RogueBasin'
+    img, d = Image.open(t + '/TraumaRL/bin/Debug/TraumaSprites.png').convert('RGBA'), os.path.join(HERE, 'traumarl')
+    os.makedirs(d, exist_ok=True)
+    for fn in sorted(os.listdir(t + '/RogueBasin/Creatures')):
+        src = open(t + '/RogueBasin/Creatures/' + fn, encoding='utf-8-sig').read()
+        n = re.search(r'SingleDescription\s*\{\s*get\s*\{\s*return "([^"]+)"', src)
+        r = re.search(r'GetRepresentation\(\)\s*\{\s*return \(char\)(\d+);', src)
+        c = re.search(r'RepresentationColor\(\)\s*\{\s*return System\.Drawing\.Color\.(\w+);', src)
+        if not (n and r and c): continue
+        i, col = int(r.group(1)), ImageColor.getrgb(c.group(1).lower())
+        sp = img.crop((i % 16 * 16, i // 16 * 16, i % 16 * 16 + 16, i // 16 * 16 + 16)); px = sp.load()
+        for y in range(16):
+            for x in range(16):
+                p = px[x, y]
+                if p[:3] == (255, 0, 255): px[x, y] = (0, 0, 0, 255)
+                elif p[:3] == (255, 255, 255): px[x, y] = col + (p[3],)
+        name = re.sub(r'^(an?|the) ', '', n.group(1).strip(), flags=re.I)
+        sp.resize((32, 32), Image.NEAREST).save(os.path.join(d, slug(name) + '.png'), optimize=True)
+    print('traumarl', len(os.listdir(d)))
+
 if sys.argv[1:]:
     for a in sys.argv[1:]: globals()[a]()
 else:
-    rogue(); hack(); umoria(); urogue(); larn(); ularn(); rogue36(); srogue(); roguepc(); tome2(); tinyangband(); quickband(); arogue58(); arogue77(); xrogue(); boss(); omega(); prime(); dynahack(); silq(); tactical(); crawl(); zapm(); alphaman(); decker(); nethack13d(); nethack50(); zeldhack(); slashem(); zangband(); frogcomposband(); forays(); lambdarogue(); hengband(); easyband(); mag(); tactical('faangband'); nppangband(); prospector(); sangband(); nlarn(); evilhack(); ia()
+    rogue(); hack(); umoria(); urogue(); larn(); ularn(); rogue36(); srogue(); roguepc(); tome2(); tinyangband(); quickband(); arogue58(); arogue77(); xrogue(); boss(); omega(); prime(); dynahack(); silq(); tactical(); crawl(); zapm(); alphaman(); decker(); nethack13d(); nethack50(); zeldhack(); slashem(); zangband(); frogcomposband(); forays(); lambdarogue(); hengband(); easyband(); mag(); tactical('faangband'); nppangband(); prospector(); sangband(); nlarn(); evilhack(); ia(); traumarl()
