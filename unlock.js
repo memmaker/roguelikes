@@ -10,7 +10,7 @@
       'sangband', 'quickband', 'frogcomposband', 'faangband', 'sil-q', 'tactical-angband'],
     'Hack': ['hack', 'nethack13d', 'slashem', 'zapm', 'prime', 'dynahack', 'evilhack', 'zeldhack', 'nethack50'],
     '2nd Generation': ['larn', 'mag', 'ularn', 'omega', 'alphaman'],
-    'Modern': ['crawl-linley', 'decker', 'nlarn', 'ia', 'lambdarogue', 'prospector', 'tggw', 'forays', 'grog'],
+    'Modern': ['avanor', 'crawl-linley', 'decker', 'slimy', 'nlarn', 'alienhack', 'ia', 'lambdarogue', 'prospector', 'traumarl', 'tggw', 'forays', 'grog'],
   };
   const familyOf = {};
   for (const [f, games] of Object.entries(FAMILIES)) for (const g of games) familyOf[g] = f;
