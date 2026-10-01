@@ -37,7 +37,7 @@ function menu(){  // family filters (./?f=Name) come first, then the other pages
   const link=(h,t,cur)=>`<a href="${h}"${cur?' aria-current="page"':''}>${t}</a>`;
   n.innerHTML=link('./','All games',here==='index.html'&&!f)
     +progress.families.map(x=>(p.families||[]).includes(x)?link('./?f='+encodeURIComponent(x),x,f===x):'<span class="slot">?</span>').join('')
-    +'<hr>'+[['stats.html','Visitors'],['graveyard.html','Graveyard'],['leaderboard.html','Leaderboards']].map(([h,t])=>link(h,t,h===here)).join('')
+    +'<hr>'+[['stats.html','Visitors'],['graveyard.html','Graveyard'],['leaderboard.html','Leaderboards'],['abilities/','Abilities']].map(([h,t])=>link(h,t,h===here)).join('')
     +`<div class="depth">${p.name?`<div class="pname">${p.name.replace(/[&<>"]/g,c=>`&#${c.charCodeAt(0)};`)}</div>`:''}Reached depth ${p.deepest||1} of ${p.max||5}</div>`;
 }
 menu(); document.addEventListener('progress',menu);
