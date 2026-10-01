@@ -67,7 +67,7 @@ function render(){
   const q=$('q').value.toLowerCase(),L=D.filter(e=>(!cat||e.category===cat)&&(!game||e.game===game)&&(e.title+' '+e.text+' '+e.game).toLowerCase().includes(q));
   document.querySelectorAll('.tab').forEach(b=>b.setAttribute('aria-selected',b.dataset.k===cat));
   $('cnt').textContent=L.length+' entries';
-  $('out').innerHTML=(cat?[CATS.find(c=>c[0]===cat)]:CATS).map(([k,t])=>{const s=L.filter(e=>e.category===k);return s.length?`<section><h2>${t}<span>${s.length}</span></h2><div class="grid">${s.map(e=>`<div class="card"><h3><b>${esc(e.game)}</b>${esc(e.title)}</h3><p>${esc(e.text)}</p><div class="src">${link(e.source)}</div></div>`).join('')}</div></section>`:''}).join('')||'<p class="sub">Nothing found.</p>';
+  $('out').innerHTML=(cat?[CATS.find(c=>c[0]===cat)]:CATS).map(([k,t])=>{const s=L.filter(e=>e.category===k);return s.length?`<section><h2>${t}<span>${s.length}</span></h2><div class="grid">${s.map(e=>`<div class="card"><h3><b>${esc(e.game)}</b>${esc(e.title)}</h3><p>${esc(e.text.replace(/\d+(,\d+){4,}/g,m=>m.replace(/,/g,', ')))}</p><div class="src">${link(e.source)}</div></div>`).join('')}</div></section>`:''}).join('')||'<p class="sub">Nothing found.</p>';
 }
 $('tabs').onclick=e=>{if(e.target.dataset.k!==undefined){cat=e.target.dataset.k;render()}};
 $('q').oninput=render;$('gs').onchange=e=>{game=e.target.value;render()};
