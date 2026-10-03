@@ -19,6 +19,7 @@
     "xrogue": {"year": 1991, "src": "https://britzl.github.io/roguearchive/"},
     "boss": {"year": 1990, "src": "https://www.macintoshrepository.org/41043-boss-beyond-moria-aka-macboss-"},
     "zangband": {"year": 2005, "src": "https://www.roguebasin.com/index.php/Angband_version_history"},
+    "hauberk": {"year": 2012, "src": "https://github.com/munificent/hauberk"},
     "ia": {"year": 2011, "src": "https://www.roguebasin.com/index.php/Infra_Arcana"},
     "alphaman": {"year": 1995, "src": "https://groups.google.com/g/rec.games.roguelike.misc/c/qjiJH2lXrsc/m/okjk2iFCxZUJ"},
     "crawl-linley": {"year": 2003, "src": "https://de.wikipedia.org/wiki/Linley%E2%80%99s_Dungeon_Crawl"},
