@@ -516,6 +516,15 @@ def slimy():                                          # own tileset.png gents (2
     subprocess.run([sys.executable, G + '/slimy/port/publish/killers.py', os.path.join(HERE, 'slimy')], check=True)
     print('slimy', len(os.listdir(os.path.join(HERE, 'slimy'))))
 
+def hauberk():                                        # DawnLike 16px (web/tiles-dawn.png, 16/row, web/mkdawn.py): rvipBreedTile breed name -> slot
+    h = G + '/hauberk'
+    src = open(h + '/lib/src/ui/rvip_tiles_gen.dart').read().split('rvipBreedTile')[1].split('};')[0]
+    img = Image.open(h + '/web/tiles-dawn.png'); d = os.path.join(HERE, 'hauberk'); os.makedirs(d, exist_ok=True)
+    for name, t in re.findall(r'"([^"]+)": (\d+)', src):
+        t = int(t); x, y = t % 16 * 16, t // 16 * 16
+        img.crop((x, y, x + 16, y + 16)).resize((32, 32), Image.NEAREST).save(os.path.join(d, slug(name) + '.png'), optimize=True)
+    print('hauberk', len(os.listdir(d)))
+
 if sys.argv[1:]:
     for a in sys.argv[1:]: globals()[a]()
 else:
