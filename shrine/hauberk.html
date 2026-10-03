@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hauberk · Shrine</title>
+<!--og-->
+<meta name="description" content="Bob Nystrom's hobby roguelike in Dart for the browser: a hero from a small town delves into a hundred-level dungeon, buys skills with experience and fills up at the shops between dives.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="--More--">
+<meta property="og:title" content="Hauberk · Shrine">
+<meta property="og:description" content="Bob Nystrom's hobby roguelike in Dart for the browser: a hero from a small town delves into a hundred-level dungeon, buys skills with experience and fills up at the shops between dives.">
+<meta property="og:url" content="https://ruzzoli.de/roguelikes/shrine/hauberk.html">
+<meta property="og:image" content="https://ruzzoli.de/roguelikes/img/hauberk.png">
+<meta name="twitter:card" content="summary_large_image">
+<!--/og-->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shrine.css">
+</head>
+<body><div class="wrap">
+<nav><a href="../">← All roguelikes</a> · <a href="../#tree">Family tree</a></nav>
+<header>
+  <h1>Hauberk</h1>
+  <p class="epi">A browser roguelike in Dart · from a quiet town down a hundred levels to the Nameless Unmaker</p>
+  <a class="play" href="../hauberk/">&gt; Enter the dungeon</a>
+</header>
+<div class="facts"><div><b>Date of birth</b><span>2012</span> first Dart commit 19 February 2012; this build master @ 6c5c684c (2026)</div><div><b>Creator</b><span>Bob Nystrom</span> (munificent), 2012 to today</div><div><b>Language</b><span>Dart</span> ~37,000 lines in 233 files</div><div><b>Platform</b><span>Web browser</span> Malison canvas terminal</div></div>
+<nav class="toc"><a href="#lineage">Lineage</a> <a href="#credits">Credits</a> <a href="#trivia">Trivia</a> <a href="#usp">What's unique</a> <a href="#code">Code dive</a> <a href="#stats">Stats</a> <a href="#manual">Manual</a> <a href="#start">Getting started</a> <a href="#help">Help</a> <a href="#cheats">Cheats</a></nav>
+
+<section id="lineage"><h2>Lineage</h2>
+<p>No parent: <strong>Hauberk</strong> is an original game in its own code, not a variant. It continues Bob Nystrom's earlier C# roguelike <em>Amaranth</em>, which he later moved to Dart as Hauberk; its loot and dungeon ideas grew out of years of playing <em>Angband</em>. The Dart repository starts on 19 February 2012 and is still developed. No known descendants.</p>
+<p>See the <a href="../#tree">family tree</a> (among the standalone originals). Sources: <a href="https://journal.stuffwithstuff.com/2010/06/11/amaranth-an-open-source-roguelike-in-c/">Amaranth post</a>, <a href="https://journal.stuffwithstuff.com/2014/07/05/dropping-loot/">Dropping Loot</a>, <a href="https://github.com/munificent/hauberk">munificent/hauberk</a>.</p>
+</section>
+
+<section id="credits"><h2>Credits</h2>
+<table><tr><td>Bob Nystrom</td><td>Design and code, 2012 onwards (MIT licence, <a href="hauberk/COPYRIGHT.txt">COPYRIGHT</a>)</td></tr><tr><td>Libraries</td><td>Malison (terminal) and Piecemeal (grid utilities), also by Bob Nystrom</td></tr><tr><td>Tiles</td><td>DawnLike by DragonDePlatino with the DawnBringer palette (CC BY 4.0), added for this port; the original is glyphs only</td></tr><tr><td>Web port</td><td>This page’s build with windows, tiles and sound: <a href="https://github.com/memmaker/hauberk/tree/rvip-port">memmaker/hauberk</a></td></tr></table>
+</section>
+
+<section id="trivia"><h2>Trivia</h2>
+<ul>
+<li>Bob Nystrom says he has worked on it “pretty much forever”, through four implementation languages. <span class="src">(<a href="https://journal.stuffwithstuff.com/2014/12/21/rooms-and-mazes/">Rooms and Mazes</a>)</span></li>
+<li>Hauberk was called Amaranth when it was written in C#; Bramble became Piecemeal, Malison kept its name. <span class="src">(<a href="https://journal.stuffwithstuff.com/2010/06/11/amaranth-an-open-source-roguelike-in-c/">Amaranth post</a>)</span></li>
+<li>Its dungeon generator, rooms first, then mazes in the gaps, then dead ends removed, became a widely read article. <span class="src">(<a href="https://journal.stuffwithstuff.com/2014/12/21/rooms-and-mazes/">Rooms and Mazes</a>)</span></li>
+<li>Drops come from an item hierarchy: a monster that drops “spear” may sometimes walk up the tree and drop any weapon. <span class="src">(<a href="https://journal.stuffwithstuff.com/2014/07/05/dropping-loot/">Dropping Loot</a>)</span></li>
+<li>The game’s own Getting Started page opens with “TODO: This is all horrendously out of date.” <span class="src">(<a href="hauberk/getting-started.html">getting-started</a>)</span></li>
+</ul>
+</section>
+
+<section id="usp"><h2>What's unique</h2>
+<ul>
+<li><strong>Light matters:</strong> dungeon levels are dark; without a torch or candle you see little and explore blind.</li>
+<li><strong>Experience is spent, not levelled:</strong> <kbd>E</kbd> spends experience on stats and on skills (weapon masteries, archery, six elements of arcana), each skill unlocking abilities.</li>
+<li><strong>Town and depth select:</strong> between dives you shop in town and choose any depth up to one below your deepest.</li>
+<li><strong>Races with powers:</strong> fae fly and throw fairy dust, gnomes are single-minded; five classes from Adventurer to Sorceror.</li>
+<li><strong>Browser native:</strong> written for the web from the start, saves in the browser.</li>
+</ul>
+</section>
+
+<section id="code"><h2>Code dive</h2>
+<ul>
+<li><strong>Language:</strong> Dart, about 37,000 lines in 233 files under <code>lib/</code> at upstream <code>6c5c684c</code> (42,000 with web, tool and test code); compiled to JavaScript. MIT licence.</li>
+<li><strong>Data as code:</strong> monsters, items, affixes, shops and spells are Dart builder calls (<code>breed("Nameless Unmaker", 100, …)</code>), not data files.</li>
+<li><strong>Engine/content split:</strong> <code>lib/src/engine</code> knows nothing about specific monsters; <code>lib/src/content</code> fills it in; the UI is a Malison terminal on a canvas.</li>
+<li><strong>Tests:</strong> a <code>dart test</code> suite (about 100 tests).</li>
+<li><strong>This port:</strong> the game’s own Dart code with its panels sent to separate windows, DawnLike tiles, pop-ups as HTML text, IndexedDB saves, an Enter command menu, <kbd>H</kbd> explore and <kbd>q</kbd> walk to the stairs. Source: <a href="https://github.com/memmaker/hauberk/tree/rvip-port">memmaker/hauberk</a>, upstream <a href="https://github.com/munificent/hauberk">munificent/hauberk</a>.</li>
+</ul>
+</section>
+
+<section id="stats"><h2>Stats</h2>
+<table><tr><th>Thing</th><th>Count</th><th>Notable ones</th></tr><tr><td>Depths</td><td>100</td><td><code>Stage.maxDepth</code>; the Nameless Unmaker waits at depth 100</td></tr><tr><td>Monsters</td><td>152</td><td>10 uniques: Fenrir with Skoll and Hati, Erlkonig the Goblin Prince, The Rat King, Harold the Misfortunate, Tink, the Nameless Unmaker</td></tr><tr><td>Item types</td><td>165</td><td>70 affixes</td></tr><tr><td>Races</td><td>5</td><td>Human, Dwarf, Elf, Gnome, Fae</td></tr><tr><td>Classes</td><td>5</td><td>Adventurer, Barbarian, Warrior, Mage, Sorceror</td></tr><tr><td>Skills</td><td>15</td><td>Archery, Battle Hardening, Bloodlust, six weapon masteries, six arcana</td></tr><tr><td>Spells</td><td>20</td><td>Ball Lightning, Tidal Wave, Quicksand, Lava Flow, Wind Ride</td></tr><tr><td>Shops</td><td>6</td><td>Dirk's Death Emporium, Skullduggery and Bamboozelry, Unguence the Alchemist</td></tr></table>
+<p class="src">Counted from <code>lib/src/content</code> and <code>Stage.maxDepth</code> at <code>6c5c684c</code>.</p>
+</section>
+
+<section id="manual"><h2>Manual</h2>
+<p>The game’s own <a href="hauberk/getting-started.html">Getting Started</a> (marked out of date by its author) and <a href="hauberk/quick-reference.html">Quick Reference</a>, MIT licence (<a href="hauberk/COPYRIGHT.txt">COPYRIGHT</a>). Keys for this port are on its <a href="../hauberk/help.html">help page</a>.</p>
+</section>
+
+<section id="start"><h2>Getting started</h2>
+<ol><li><a href="../hauberk/">Open the game</a>, press <kbd>N</kbd> for a new hero, pick a race and class.</li>
+<li>In town, visit the shops; buy a light source before the dungeon.</li>
+<li>Step on the dungeon entrance and choose a depth; <kbd>H</kbd> explores, <kbd>q</kbd> walks to the nearest exit.</li>
+<li>Spend experience with <kbd>E</kbd> on stats and skills; <kbd>A</kbd> shows the hero.</li>
+<li>The Enter key lists every command; read the <a href="../hauberk/help.html">help page</a> (the game saves when you leave a level).</li></ol>
+</section>
+
+<section id="help"><h2>Help</h2>
+<p>We found no walkthrough or strategy guide. Rules of thumb:</p><ul>
+<li>Carry light: dark levels hide monsters and stop auto-explore.</li>
+<li>Leave a level by its exit to save; progress inside a level is not saved.</li>
+<li>Go only one depth deeper than your record; go back to easier depths to farm gold and experience.</li>
+<li>More: the game’s <a href="hauberk/getting-started.html">Getting Started</a>, Bob Nystrom’s <a href="https://journal.stuffwithstuff.com/">journal</a> and the <a href="https://github.com/munificent/hauberk">source</a>.</li></ul>
+</section>
+
+<section id="cheats"><h2>Cheats</h2>
+<p>Upstream ships with <code>Debug.enabled = true</code>, and so does this build: <kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>W</kbd> opens the wizard menu (map or light the level, spawn monsters, drop items, gain experience, kill all, make stairs, show all monsters), and the depth list allows any depth.</p>
+<ul><li><strong>Save scumming:</strong> <em>Export</em> / <em>Import</em> in the game page’s File menu (the game saves when you leave a level).</li></ul>
+</section>
+</div></body>
+</html>
