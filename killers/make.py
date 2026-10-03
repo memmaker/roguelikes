@@ -516,13 +516,22 @@ def slimy():                                          # own tileset.png gents (2
     subprocess.run([sys.executable, G + '/slimy/port/publish/killers.py', os.path.join(HERE, 'slimy')], check=True)
     print('slimy', len(os.listdir(os.path.join(HERE, 'slimy'))))
 
-def hauberk():                                        # DawnLike 16px (web/tiles-dawn.png, 16/row, web/mkdawn.py): rvipBreedTile breed name -> slot
+def hauberk():                                        # text only: breed glyph in its own colour (the game's content via Dart), Menlo bold
+    import subprocess, tempfile
+    from PIL import ImageDraw, ImageFont
     h = G + '/hauberk'
-    src = open(h + '/lib/src/ui/rvip_tiles_gen.dart').read().split('rvipBreedTile')[1].split('};')[0]
-    img = Image.open(h + '/web/tiles-dawn.png'); d = os.path.join(HERE, 'hauberk'); os.makedirs(d, exist_ok=True)
-    for name, t in re.findall(r'"([^"]+)": (\d+)', src):
-        t = int(t); x, y = t % 16 * 16, t // 16 * 16
-        img.crop((x, y, x + 16, y + 16)).resize((32, 32), Image.NEAREST).save(os.path.join(d, slug(name) + '.png'), optimize=True)
+    with tempfile.NamedTemporaryFile('w', suffix='.dart') as f:
+        f.write("import 'package:hauberk/src/content.dart';import 'package:hauberk/src/content/monster/monsters.dart';"
+                "import 'package:malison/malison.dart';void main(){createContent();for(var b in Monsters.breeds.all){"
+                "var g=b.appearance as Glyph;print('${b.name}\\t${String.fromCharCode(g.char)}\\t${g.fore.cssColor}');}}")
+        f.flush()
+        dart = os.environ.get('DART_SDK', os.path.expanduser('~/Games/dart-sdk')) + '/bin/dart'
+        out = subprocess.run([dart, '--packages=' + h + '/.dart_tool/package_config.json', f.name], check=True, capture_output=True, text=True).stdout
+    font, d = ImageFont.truetype('/System/Library/Fonts/Menlo.ttc', 28, index=1), os.path.join(HERE, 'hauberk')
+    os.makedirs(d, exist_ok=True)
+    for name, ch, c in (l.split('\t') for l in out.splitlines()):
+        img = Image.new('RGBA', (32, 32), '#000'); ImageDraw.Draw(img).text((16, 16), ch, c, font, 'mm')
+        img.save(os.path.join(d, slug(name) + '.png'), optimize=True)
     print('hauberk', len(os.listdir(d)))
 
 if sys.argv[1:]:
